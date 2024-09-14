@@ -20,7 +20,5 @@ jobs:
         run: dotnet restore Milvasoft.Templates.csproj
       - name: Build Milvasoft.Templates project
         run: dotnet build Milvasoft.Templates.csproj --no-restore --configuration Release
-      - name: Pack Milvasoft.Templates project
-        run: dotnet pack Milvasoft.Templates.csproj --no-build --configuration Release --include-symbols -p:SymbolPackageFormat=snupkg -o .
       - name: Publish package to NuGet
         run: dotnet nuget push *.nupkg --api-key ${{secrets.NUGET_API_KEY}} --source "https://api.nuget.org/v3/index.json" --skip-duplicate
