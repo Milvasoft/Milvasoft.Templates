@@ -25,5 +25,3 @@
 - Close all Visual Studio instances.
 - Open Visual Studio and click "Create New Project". Search for Milva, select template and click next.
 - After that, steps are same as create project.
-
-<br>
