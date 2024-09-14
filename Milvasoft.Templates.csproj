@@ -1,16 +1,16 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
 		<!-- The package metadata. Fill in the properties marked as TODO below -->
 		<!-- Follow the instructions on https://learn.microsoft.com/en-us/nuget/create-packages/package-authoring-best-practices -->
 		<PackageId>Milvasoft.Templates</PackageId>
-		<PackageVersion>1.0.2</PackageVersion>
+		<PackageVersion>1.0.3</PackageVersion>
 		<Copyright>Milvasoft</Copyright>
 		<Company>Milvasoft</Company>
 		<Title>Milvasoft Templates</Title>
 		<Authors>Milvasoft</Authors>
 		<Description>Templates to use when creating an api.</Description>
-		<Icon>content\.template.config\milvalogo.png</Icon>
+		<PackageIcon>icon.png</PackageIcon>
 		<PackageTags>dotnet-new;templates;contoso</PackageTags>
 		<PackageCopyright>Milvasoft</PackageCopyright>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
@@ -40,18 +40,13 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<None Include="README.md" Pack="true" PackagePath="" />
+		<None Include="resources\icon.png" Pack="true" PackagePath="" />
+	</ItemGroup>
+
+	<ItemGroup>
 		<Content Include="content\**\*" Exclude="content\**\bin\**;content\**\obj\**" />
 		<Compile Remove="**\*" />
-	</ItemGroup>
-
-	<ItemGroup>
-		<None Include="README.md" Pack="true" PackagePath="" />
-	</ItemGroup>
-
-	<ItemGroup>
-		<Content Update="content\Milvonion\.template.config\milvalogo.png">
-			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
-		</Content>
 	</ItemGroup>
 
 </Project>
