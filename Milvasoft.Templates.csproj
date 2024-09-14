@@ -10,7 +10,8 @@
     <Title>Milvasoft Templates</Title>
     <Authors>Milvasoft</Authors>
     <Description>Templates to use when creating an api.</Description>
-    <PackageTags>dotnet-new;templates;contoso</PackageTags>
+	  <icon>content\.template.config\milvalogo.png</icon>
+	  <PackageTags>dotnet-new;templates;contoso</PackageTags>
 	<PackageCopyright>Milvasoft</PackageCopyright>
 	<PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/Milvasoft/Milvasoft.Templates</PackageProjectUrl>
@@ -45,6 +46,12 @@
 
   <ItemGroup>
     <None Include="README.md" Pack="true" PackagePath="" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="content\Milvonion\.template.config\milvalogo.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
 </Project>
