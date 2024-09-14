@@ -9,12 +9,8 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="AWSSDK.Extensions.NETCore.Setup" Version="3.7.301" />
-		<PackageReference Include="AWSSDK.S3" Version="3.7.402.7" />
-		<PackageReference Include="Azure.Storage.Blobs" Version="12.21.2" />
 		<PackageReference Include="Milvasoft.Caching.InMemory" Version="8.1.37" />
 		<PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="8.0.4" />
-		<PackageReference Include="Overby.Extensions.AsyncBinaryReaderWriter" Version="1.0.39" />
 		<PackageReference Include="Serilog.AspNetCore" Version="8.0.1" />
 		<PackageReference Include="Serilog.Expressions" Version="5.0.0" />
 		<PackageReference Include="Serilog.Sinks.Postgresql.Alternative" Version="4.1.1" />
