@@ -1,0 +1,467 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Milvonion.Api</name>
+    </assembly>
+    <members>
+        <member name="T:Milvonion.Api.AppStartup.StartupExtensions">
+            <summary>
+            Application builder and service collection extensions.
+            </summary>
+        </member>
+        <member name="M:Milvonion.Api.AppStartup.StartupExtensions.UseSwagger(Microsoft.AspNetCore.Builder.WebApplication)">
+            <summary>
+            Adds the required middleware to use the localization. Configures the options before add..
+            </summary>
+            <param name="app"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Milvonion.Api.AppStartup.StartupExtensions.UseRequestLocalization(Microsoft.AspNetCore.Builder.WebApplication)">
+            <summary>
+            Adds the required middleware to use the localization. Configures the options before add..
+            </summary>
+            <param name="app"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Milvonion.Api.AppStartup.StartupExtensions.UseHealthCheck(Microsoft.AspNetCore.Builder.WebApplication)">
+            <summary>
+            Adds the required middleware to use the health check. Configures the options before adding.
+            </summary>
+            <param name="app">The <see cref="T:Microsoft.AspNetCore.Builder.IApplicationBuilder"/> instance.</param>
+            <returns>The <see cref="T:Microsoft.AspNetCore.Builder.IApplicationBuilder"/> instance.</returns>
+        </member>
+        <member name="M:Milvonion.Api.AppStartup.StartupExtensions.UseStaticFiles(Microsoft.AspNetCore.Builder.WebApplication)">
+            <summary>
+            Adds the required middleware to serve static files. Configures the options before adding.
+            </summary>
+            <param name="app">The <see cref="T:Microsoft.AspNetCore.Builder.IApplicationBuilder"/> instance.</param>
+            <returns>The <see cref="T:Microsoft.AspNetCore.Builder.IApplicationBuilder"/> instance.</returns>
+        </member>
+        <member name="M:Milvonion.Api.AppStartup.StartupExtensions.CreateDatabaseIfNotExistsAsync(Microsoft.AspNetCore.Builder.WebApplication)">
+            <summary>
+            Creates database if not exists. 
+            </summary>
+            <param name="app">The <see cref="T:Microsoft.AspNetCore.Builder.IApplicationBuilder"/> instance.</param>
+            <returns>The <see cref="T:Microsoft.AspNetCore.Builder.IApplicationBuilder"/> instance.</returns>
+        </member>
+        <member name="M:Milvonion.Api.AppStartup.StartupExtensions.AddAuthorization(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Extensions.Configuration.IConfigurationManager)">
+            <summary>
+            Adds authorization services.
+            </summary>
+            <param name="services"></param>
+            <param name="configuration"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Milvonion.Api.AppStartup.StartupExtensions.AddVersioning(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            Adds api versioning.
+            </summary>
+            <param name="services"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Milvonion.Api.AppStartup.StartupExtensions.AddSwagger(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Reflection.Assembly[])">
+            <summary>
+            Adds swagger services.
+            </summary>
+            <param name="services"></param>
+            <param name="assemblies"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Milvonion.Api.AppStartup.StartupExtensions.AddHealthCheck(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Extensions.Configuration.IConfiguration)">
+            <summary>
+            Adds health check services.
+            </summary>
+            <param name="services">The service collection.</param>
+            <param name="configuration">The configuration.</param>
+        </member>
+        <member name="M:Milvonion.Api.AppStartup.StartupExtensions.AddAndConfigureResponseCompression(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            Adds brotli and gzip response compression.
+            </summary>
+            <param name="services"></param>
+        </member>
+        <member name="M:Milvonion.Api.AppStartup.StartupExtensions.AddMultiLanguageSupport(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Extensions.Configuration.IConfigurationManager)">
+            <summary>
+            Adds milva multi language services.
+            </summary>
+            <param name="services"></param>
+            <param name="configuration"></param>
+        </member>
+        <member name="T:Milvonion.Api.Controllers.AccountController">
+            <summary>
+            Account endpoints.
+            </summary>
+        </member>
+        <member name="M:Milvonion.Api.Controllers.AccountController.#ctor(MediatR.IMediator)">
+            <summary>
+            Account endpoints.
+            </summary>
+        </member>
+        <member name="M:Milvonion.Api.Controllers.AccountController.LoginAsync(Milvonion.Application.Features.Account.Login.LoginCommand)">
+            <summary>
+            User login operation.
+            </summary>
+            <param name="request"></param>
+            <returns>Token information</returns>
+        </member>
+        <member name="M:Milvonion.Api.Controllers.AccountController.RefreshLoginAsync(Milvonion.Application.Features.Account.RefreshLogin.RefreshLoginCommand)">
+            <summary>
+            User refresh login operation.
+            </summary>
+            <param name="request"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Milvonion.Api.Controllers.AccountController.LogoutAsync(Milvonion.Application.Features.Account.Logout.LogoutCommand)">
+            <summary>
+            User logout operation.
+            </summary>
+            <param name="request"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Milvonion.Api.Controllers.AccountController.ChangePasswordAsync(Milvonion.Application.Features.Account.ChangePassword.ChangePasswordCommand)">
+            <summary>
+            User's own password change operation.
+            </summary>
+            <param name="request"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Milvonion.Api.Controllers.AccountController.AccountDetailsAsync(Milvonion.Application.Features.Account.AccountDetail.AccountDetailQuery)">
+            <summary>
+            User can access his/her account information through this endpoint. If the logged in user and the sent id information do not match, the request will fail.
+            </summary>
+            <param name="request"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Milvonion.Api.Controllers.ActivityLogsController">
+            <summary>
+            Activity Log endpoints.
+            </summary>
+        </member>
+        <member name="M:Milvonion.Api.Controllers.ActivityLogsController.#ctor(MediatR.IMediator)">
+            <summary>
+            Activity Log endpoints.
+            </summary>
+        </member>
+        <member name="M:Milvonion.Api.Controllers.ActivityLogsController.GetRolesAsync(Milvonion.Application.Features.ActivityLogs.GetActivityLogList.GetActivityLogListQuery)">
+            <summary>
+            Gets user activities.
+            </summary>
+            <param name="request"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Milvonion.Api.Controllers.DevelopmentController">
+            <summary>
+            Developer endpoints.
+            </summary>
+        </member>
+        <member name="M:Milvonion.Api.Controllers.DevelopmentController.#ctor(Milvonion.Application.Interfaces.IDevelopmentService)">
+            <summary>
+            Developer endpoints.
+            </summary>
+        </member>
+        <member name="M:Milvonion.Api.Controllers.DevelopmentController.MigrateAsync">
+            <summary>
+            Remove, recreates and seed database for development purposes.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Milvonion.Api.Controllers.DevelopmentController.SeedDataAsync">
+            <summary>
+            Seeds data for development purposes.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Milvonion.Api.Controllers.DevelopmentController.InitDatabaseAsync">
+            <summary>
+            Initial migration operation.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Milvonion.Api.Controllers.DevelopmentController.GetApiLogsAsync(Milvasoft.Components.Rest.Request.ListRequest)">
+            <summary>
+            Gets api logs.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Milvonion.Api.Controllers.DevelopmentController.GetMethodLogsAsync(Milvasoft.Components.Rest.Request.ListRequest)">
+            <summary>
+            Gets method logs.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Milvonion.Api.Controllers.HealthCheckController">
+            <summary>
+            Health check endpoints.
+            </summary>
+        </member>
+        <member name="M:Milvonion.Api.Controllers.HealthCheckController.HealthCheck">
+            <summary>
+            If api is healthy return Ok response.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Milvonion.Api.Controllers.HealthCheckController.Alert(Milvonion.Api.Utils.DefaultNotification)">
+            <summary>
+            Alert endpoint for sending notifications.
+            </summary>
+            <param name="defaultNotification"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Milvonion.Api.Controllers.LookupsController">
+            <summary>
+            Endpoints for lookup.
+            </summary>
+            <param name="lookupService"></param>
+        </member>
+        <member name="M:Milvonion.Api.Controllers.LookupsController.#ctor(Milvonion.Application.Interfaces.ILookupService)">
+            <summary>
+            Endpoints for lookup.
+            </summary>
+            <param name="lookupService"></param>
+        </member>
+        <member name="M:Milvonion.Api.Controllers.LookupsController.GetLookupsAsync(Milvasoft.DataAccess.EfCore.Utils.LookupModels.LookupRequest)">
+            <summary>
+            It is a dynamic endpoint that client applications can use to fetch data into comboboxes. Please review the documentation for usage information.
+            </summary>
+            <param name="request"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Milvonion.Api.Controllers.LookupsController.GetEnumLookups(System.String)">
+            <summary>
+            Get enum lookups.
+            </summary>
+            <param name="enumName"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Milvonion.Api.Controllers.RolesController">
+            <summary>
+            Role endpoints.
+            </summary>
+        </member>
+        <member name="M:Milvonion.Api.Controllers.RolesController.#ctor(MediatR.IMediator)">
+            <summary>
+            Role endpoints.
+            </summary>
+        </member>
+        <member name="M:Milvonion.Api.Controllers.RolesController.GetRolesAsync(Milvonion.Application.Features.Roles.GetRoleList.GetRoleListQuery)">
+            <summary>
+            Gets roles.
+            </summary>
+            <param name="request"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Milvonion.Api.Controllers.RolesController.GetRoleAsync(Milvonion.Application.Features.Roles.GetRoleDetail.GetRoleDetailQuery)">
+            <summary>
+            Get role according to role id.
+            </summary>
+            <param name="request"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Milvonion.Api.Controllers.RolesController.AddRoleAsync(Milvonion.Application.Features.Roles.CreateRole.CreateRoleCommand)">
+            <summary>
+            Adds role.
+            </summary>
+            <param name="request"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Milvonion.Api.Controllers.RolesController.UpdateRoleAsync(Milvonion.Application.Features.Roles.UpdateRole.UpdateRoleCommand)">
+            <summary>
+            Updates role. Only the fields that are sent as isUpdated true are updated.
+            </summary>
+            <param name="request"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Milvonion.Api.Controllers.RolesController.RemoveRoleAsync(Milvonion.Application.Features.Roles.DeleteRole.DeleteRoleCommand)">
+            <summary>
+            Removes role.
+            </summary>
+            <param name="request"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Milvonion.Api.Controllers.UIController">
+            <summary>
+            Frontend related endpoints.
+            </summary>
+        </member>
+        <member name="M:Milvonion.Api.Controllers.UIController.#ctor(MediatR.IMediator,Milvonion.Application.Interfaces.IUIService)">
+            <summary>
+            Frontend related endpoints.
+            </summary>
+        </member>
+        <member name="M:Milvonion.Api.Controllers.UIController.GetAccessibleMenuItemsAsync">
+            <summary>
+            Gets accessible menu items.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Milvonion.Api.Controllers.UIController.GetPageAccessibilityForCurrentUserAsync(Milvonion.Application.Features.Pages.GetPageAccessibilityForCurrentUser.GetPageAccessibilityForCurrentUserQuery)">
+            <summary>
+            Gets page information of current user.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Milvonion.Api.Controllers.UIController.GetPageAccessibilityForCurrentUserAsync">
+            <summary>
+            Gets page information of current user.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Milvonion.Api.Controllers.UIController.GetLocalizedContents">
+            <summary>
+            Gets localized contents related with UI.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Milvonion.Api.Controllers.UsersController">
+            <summary>
+            User endpoints.
+            </summary>
+        </member>
+        <member name="M:Milvonion.Api.Controllers.UsersController.#ctor(MediatR.IMediator)">
+            <summary>
+            User endpoints.
+            </summary>
+        </member>
+        <member name="M:Milvonion.Api.Controllers.UsersController.GetUsersAsync(Milvonion.Application.Features.Users.GetUserList.GetUserListQuery)">
+            <summary>
+            Gets users.
+            </summary>
+            <param name="request"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Milvonion.Api.Controllers.UsersController.GetUserAsync(Milvonion.Application.Features.Users.GetUserDetail.GetUserDetailQuery)">
+            <summary>
+            Get user according to user id.
+            </summary>
+            <param name="request"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Milvonion.Api.Controllers.UsersController.AddUserAsync(Milvonion.Application.Features.Users.CreateUser.CreateUserCommand)">
+            <summary>
+            Adds user.
+            </summary>
+            <param name="request"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Milvonion.Api.Controllers.UsersController.UpdateUserAsync(Milvonion.Application.Features.Users.UpdateUser.UpdateUserCommand)">
+            <summary>
+            Updates user. Only the fields that are sent as isUpdated true are updated.
+            </summary>
+            <param name="request"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Milvonion.Api.Controllers.UsersController.RemoveUserAsync(Milvonion.Application.Features.Users.DeleteUser.DeleteUserCommand)">
+            <summary>
+            Removes user.
+            </summary>
+            <param name="request"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Milvonion.Api.SharedResource">
+            <summary>
+            Dummy class for localization
+            </summary>
+        </member>
+        <member name="T:Milvonion.Api.Middlewares.ExceptionMiddleware">
+            <summary>
+            Catches errors occurring elsewhere in the project.
+            </summary>
+            <remarks>
+            Constructor of <see cref="T:Milvonion.Api.Middlewares.ExceptionMiddleware"/> class.
+            </remarks>
+            <param name="next"></param>
+            <param name="loggerFactory"></param>
+        </member>
+        <member name="M:Milvonion.Api.Middlewares.ExceptionMiddleware.#ctor(Microsoft.AspNetCore.Http.RequestDelegate,Microsoft.Extensions.Logging.ILoggerFactory)">
+            <summary>
+            Catches errors occurring elsewhere in the project.
+            </summary>
+            <remarks>
+            Constructor of <see cref="T:Milvonion.Api.Middlewares.ExceptionMiddleware"/> class.
+            </remarks>
+            <param name="next"></param>
+            <param name="loggerFactory"></param>
+        </member>
+        <member name="M:Milvonion.Api.Middlewares.ExceptionMiddleware.Invoke(Microsoft.AspNetCore.Http.HttpContext)">
+            <summary>
+            Invokes the method or constructor reflected by this MethodInfo instance.
+            </summary>
+            <param name="context"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Milvonion.Api.Middlewares.ExceptionMiddleware.RewriteResponseAsync(Microsoft.AspNetCore.Http.HttpContext,System.String,System.Int32,Milvasoft.Components.Rest.Enums.MessageType)">
+            <summary>
+            Rewrites the response.
+            </summary>
+            <param name="context"></param>
+            <param name="messageKey"></param>
+            <param name="statusCode"></param>
+            <param name="messageType"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Milvonion.Api.Middlewares.RequestResponseLoggingMiddleware">
+            <summary>
+            For request response logging.
+            </summary>
+            <param name="next"></param>
+            <param name="loggerFactory"></param>
+        </member>
+        <member name="M:Milvonion.Api.Middlewares.RequestResponseLoggingMiddleware.#ctor(Microsoft.AspNetCore.Http.RequestDelegate,Microsoft.Extensions.Logging.ILoggerFactory)">
+            <summary>
+            For request response logging.
+            </summary>
+            <param name="next"></param>
+            <param name="loggerFactory"></param>
+        </member>
+        <member name="M:Milvonion.Api.Middlewares.RequestResponseLoggingMiddleware.Invoke(Microsoft.AspNetCore.Http.HttpContext)">
+            <summary>
+            Logs request and response.  
+            </summary>
+            <param name="context"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Milvonion.Api.Migrations.InitialCreate">
+            <inheritdoc />
+        </member>
+        <member name="M:Milvonion.Api.Migrations.InitialCreate.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:Milvonion.Api.Migrations.InitialCreate.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:Milvonion.Api.Migrations.InitialCreate.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="T:Milvonion.Api.PresentationAssembly">
+            <summary>
+            Static class for ease of assembly access.
+            </summary>
+        </member>
+        <member name="F:Milvonion.Api.PresentationAssembly.Assembly">
+            <summary>
+            Assembly instance.
+            </summary>
+        </member>
+        <member name="T:Milvonion.Api.Utils.DefaultNotification">
+            <summary>
+            Model for health check alerts.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Api.Utils.DefaultNotification.Message">
+            <summary>
+            Alert message.
+            </summary>
+        </member>
+        <member name="T:Milvonion.Api.Utils.DisableFormValueModelBindingAttribute">
+            <summary>
+            Disables form value model bindings for the current request. For ram optimization.
+            </summary>
+        </member>
+        <member name="M:Milvonion.Api.Utils.DisableFormValueModelBindingAttribute.OnResourceExecuting(Microsoft.AspNetCore.Mvc.Filters.ResourceExecutingContext)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Milvonion.Api.Utils.DisableFormValueModelBindingAttribute.OnResourceExecuted(Microsoft.AspNetCore.Mvc.Filters.ResourceExecutedContext)">
+            <inheritdoc/>
+        </member>
+    </members>
+</doc>

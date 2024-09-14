@@ -1,0 +1,468 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Successful" xml:space="preserve">
+    <value>Operation successful!</value>
+  </data>
+  <data name="Failed" xml:space="preserve">
+    <value>An error occured!</value>
+  </data>
+  <data name="User.ExistWithSameUsername" xml:space="preserve">
+    <value>There is a user with the same username!</value>
+  </data>
+  <data name="Role.NotFound" xml:space="preserve">
+    <value>Role not found!</value>
+  </data>
+  <data name="Global.Email" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="Global.UserName" xml:space="preserve">
+    <value>Username</value>
+  </data>
+  <data name="Global.Name" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="UserDetailDto.RoleIdList" xml:space="preserve">
+    <value>Roles</value>
+  </data>
+  <data name="Global.Surname" xml:space="preserve">
+    <value>Surname</value>
+  </data>
+  <data name="Global.Id" xml:space="preserve">
+    <value>Id</value>
+  </data>
+  <data name="User.NotFound" xml:space="preserve">
+    <value>User not found!</value>
+  </data>
+  <data name="Unkown" xml:space="preserve">
+    <value>Unkown</value>
+  </data>
+  <data name="InvalidParameterException" xml:space="preserve">
+    <value>Please check the parameters you sent!</value>
+  </data>
+  <data name="Forbidden" xml:space="preserve">
+    <value>You are not authorized for this operation!</value>
+  </data>
+  <data name="Unauthorized" xml:space="preserve">
+    <value>Invalid grants!</value>
+  </data>
+  <data name="RoleDetailDto.Permissions" xml:space="preserve">
+    <value>Permissions</value>
+  </data>
+  <data name="RoleDetailDto.Users" xml:space="preserve">
+    <value>Users</value>
+  </data>
+  <data name="WrongPaginationParamsException" xml:space="preserve">
+    <value>The requested page number does not exist among the available pages!</value>
+  </data>
+  <data name="WrongRequestedItemCountException" xml:space="preserve">
+    <value>Please enter a valid value for the number of records to be displayed on the page!</value>
+  </data>
+  <data name="SessionTimeout" xml:space="preserve">
+    <value>Your session has timed out. Please log in again!</value>
+  </data>
+  <data name="PostgreBasedException" xml:space="preserve">
+    <value>An error occurred while processing the operation. Please check your action and try again!</value>
+  </data>
+  <data name="UnhandledException" xml:space="preserve">
+    <value>An unexpected error occurred, please try again later. If the problem is not solved, contact the authorities.</value>
+  </data>
+  <data name="DefaultValueCannotModify" xml:space="preserve">
+    <value>You cannot update or delete the default system data!</value>
+  </data>
+  <data name="CannotBeEmpty" xml:space="preserve">
+    <value>{0} cannot be empty!</value>
+  </data>
+  <data name="Global.DisplayName" xml:space="preserve">
+    <value>Dipslay Name</value>
+  </data>
+  <data name="Global.Password" xml:space="preserve">
+    <value>Password</value>
+  </data>
+  <data name="Global.Role" xml:space="preserve">
+    <value>role</value>
+  </data>
+  <data name="Global.User" xml:space="preserve">
+    <value>user</value>
+  </data>
+  <data name="PleaseSendCorrect" xml:space="preserve">
+    <value>Please send correct {0} information.</value>
+  </data>
+  <data name="PossibleUIError" xml:space="preserve">
+    <value>An error occurred! Please try again. If the problem persists, please contact the authorities.</value>
+  </data>
+  <data name="Page.NotFound" xml:space="preserve">
+    <value>Page not found!</value>
+  </data>
+  <data name="Global.Page" xml:space="preserve">
+    <value>page</value>
+  </data>
+  <data name="Global.UserType" xml:space="preserve">
+    <value>User Type</value>
+  </data>
+  <data name="ActivityLogListDto.Description" xml:space="preserve">
+    <value>Activity</value>
+  </data>
+  <data name="ActivityLogListDto.ActivityDate" xml:space="preserve">
+    <value>Date</value>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>Yes</value>
+  </data>
+  <data name="No" xml:space="preserve">
+    <value>No</value>
+  </data>
+  <data name="Exists" xml:space="preserve">
+    <value>Exists</value>
+  </data>
+  <data name="NotExists" xml:space="preserve">
+    <value>NotExists</value>
+  </data>
+  <data name="UserType.AppUser" xml:space="preserve">
+    <value>App User</value>
+  </data>
+  <data name="UserType.Manager" xml:space="preserve">
+    <value>Manager</value>
+  </data>
+  <data name="UserActivity.CreateUser" xml:space="preserve">
+    <value>User create</value>
+  </data>
+  <data name="UserActivity.UpdateUser" xml:space="preserve">
+    <value>User update</value>
+  </data>
+  <data name="UserActivity.DeleteUser" xml:space="preserve">
+    <value>User delete</value>
+  </data>
+  <data name="UserActivity.CreateRole" xml:space="preserve">
+    <value>Rol create</value>
+  </data>
+  <data name="UserActivity.DeleteRole" xml:space="preserve">
+    <value>Role delete</value>
+  </data>
+  <data name="UserActivity.UpdateRole" xml:space="preserve">
+    <value>Role update</value>
+  </data>
+  <data name="ActivityLogListDto.Activity" xml:space="preserve">
+    <value>Activity</value>
+  </data>
+  <data name="PostgreDuplicateDataException" xml:space="preserve">
+    <value>You cannot add the same record more than once!</value>
+  </data>
+  <data name="Hours" xml:space="preserve">
+    <value>{0} hours</value>
+  </data>
+  <data name="Minutes" xml:space="preserve">
+    <value>{0} minutes</value>
+  </data>
+  <data name="Seconds" xml:space="preserve">
+    <value>{0} seconds</value>
+  </data>
+  <data name="Locked" xml:space="preserve">
+    <value>Your account has been locked due to repeated unsuccessful login attempts. Try again after {0}.</value>
+  </data>
+  <data name="LockWarning" xml:space="preserve">
+    <value>The session will be locked after {0} invalid attempts.</value>
+  </data>
+  <data name="IdentityDefaultError" xml:space="preserve">
+    <value>An unknown failure has occurred.</value>
+  </data>
+  <data name="IdentityDuplicateEmail" xml:space="preserve">
+    <value>There is another user with this email.</value>
+  </data>
+  <data name="IdentityDuplicateUsername" xml:space="preserve">
+    <value>There is another user with this username.</value>
+  </data>
+  <data name="IdentityInvalidEmail" xml:space="preserve">
+    <value>Invalid email.</value>
+  </data>
+  <data name="IdentityInvalidToken" xml:space="preserve">
+    <value>Invalid credentials.</value>
+  </data>
+  <data name="IdentityInvalidUsername" xml:space="preserve">
+    <value>Invalid username.</value>
+  </data>
+  <data name="IdentityPasswordMismatch" xml:space="preserve">
+    <value>Incorrect password.</value>
+  </data>
+  <data name="IdentityPasswordRequiresDigit" xml:space="preserve">
+    <value>Password must have at least one digit.</value>
+  </data>
+  <data name="IdentityPasswordRequiresLower" xml:space="preserve">
+    <value>Password must have at least one lowercase.</value>
+  </data>
+  <data name="IdentityPasswordRequiresNonAlphanumeric" xml:space="preserve">
+    <value>Password must have at least one alphanumeric character.</value>
+  </data>
+  <data name="IdentityPasswordRequiresUniqueChars" xml:space="preserve">
+    <value>Password must have at least one special character.</value>
+  </data>
+  <data name="IdentityPasswordRequiresUpper" xml:space="preserve">
+    <value>Password must have at least one uppercase.</value>
+  </data>
+  <data name="IdentityPasswordTooShort" xml:space="preserve">
+    <value>Password lenght is too short.</value>
+  </data>
+  <data name="IdentityUserLockoutNotEnabled" xml:space="preserve">
+    <value>Lockout is not enabled for this user.</value>
+  </data>
+  <data name="PG.App" xml:space="preserve">
+    <value>Application-wide permissions</value>
+  </data>
+  <data name="PG.UserManagement" xml:space="preserve">
+    <value>User management permissions</value>
+  </data>
+  <data name="PG.RoleManagement" xml:space="preserve">
+    <value>Role management permissions</value>
+  </data>
+  <data name="PG.PermissionManagement" xml:space="preserve">
+    <value>Permission management permissions</value>
+  </data>
+  <data name="PG.ActivityLogManagement" xml:space="preserve">
+    <value>Activity Log management permissions</value>
+  </data>
+  <data name="PG.SuperAdmin" xml:space="preserve">
+    <value>Provides access to the entire system.</value>
+  </data>
+  <data name="PG.List" xml:space="preserve">
+    <value>{0} list permission.</value>
+  </data>
+  <data name="PG.Detail" xml:space="preserve">
+    <value>{0} detail view permission.</value>
+  </data>
+  <data name="PG.Create" xml:space="preserve">
+    <value>{0} create permission.</value>
+  </data>
+  <data name="PG.Update" xml:space="preserve">
+    <value>{0} update permission.</value>
+  </data>
+  <data name="PG.Delete" xml:space="preserve">
+    <value>{0} delete permission.</value>
+  </data>
+  <data name="UserManagement" xml:space="preserve">
+    <value>User</value>
+  </data>
+  <data name="RoleManagement" xml:space="preserve">
+    <value>Role</value>
+  </data>
+  <data name="PermissionManagement" xml:space="preserve">
+    <value>Permission</value>
+  </data>
+  <data name="ActivityLogManagement" xml:space="preserve">
+    <value>Activity Log</value>
+  </data>
+  <data name="UI.UserManagement" xml:space="preserve">
+    <value>User Management</value>
+  </data>
+  <data name="UI.RoleManagement" xml:space="preserve">
+    <value>Role Management</value>
+  </data>
+  <data name="UI.ActivityLogManagement" xml:space="preserve">
+    <value>Activity Logs</value>
+  </data>
+  <data name="UI.Table.Refresh" xml:space="preserve">
+    <value>Refresh</value>
+  </data>
+  <data name="UI.Table.Filter" xml:space="preserve">
+    <value>Filter</value>
+  </data>
+  <data name="UI.Table.Aggregation" xml:space="preserve">
+    <value>Aggregation</value>
+  </data>
+  <data name="UI.Table.Columns" xml:space="preserve">
+    <value>Columns</value>
+  </data>
+  <data name="UI.Table.Density" xml:space="preserve">
+    <value>Density</value>
+  </data>
+  <data name="UI.Table.Export" xml:space="preserve">
+    <value>Export</value>
+  </data>
+  <data name="UI.RoleManagement.Detail" xml:space="preserve">
+    <value>Role Detail</value>
+  </data>
+  <data name="UI.RoleManagement.Create" xml:space="preserve">
+    <value>Create Role</value>
+  </data>
+  <data name="UI.UserManagement.Detail" xml:space="preserve">
+    <value>User Detail</value>
+  </data>
+  <data name="UI.UserManagement.Create" xml:space="preserve">
+    <value>Create User</value>
+  </data>
+  <data name="UI.UserProfile" xml:space="preserve">
+    <value>User Profile</value>
+  </data>
+  <data name="UI.Span.LoginTitle" xml:space="preserve">
+    <value>Login To Your Account</value>
+  </data>
+  <data name="UI.Button.Login" xml:space="preserve">
+    <value>Login</value>
+  </data>
+  <data name="UI.Input.Username" xml:space="preserve">
+    <value>Username</value>
+  </data>
+  <data name="UI.Input.Password" xml:space="preserve">
+    <value>Password</value>
+  </data>
+  <data name="UI.Button.AddNew" xml:space="preserve">
+    <value>Add New</value>
+  </data>
+  <data name="UI.Table.Size" xml:space="preserve">
+    <value>Size</value>
+  </data>
+  <data name="UI.Table.Actions" xml:space="preserve">
+    <value>Actions</value>
+  </data>
+  <data name="UI.Button.Save" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="UI.Table.AddFilter" xml:space="preserve">
+    <value>Add Filter</value>
+  </data>
+  <data name="UI.Table.Reset" xml:space="preserve">
+    <value>Reset</value>
+  </data>
+  <data name="UI.Table.Apply" xml:space="preserve">
+    <value>Apply</value>
+  </data>
+  <data name="UI.Hint.SearchColumns" xml:space="preserve">
+    <value>Search Column</value>
+  </data>
+  <data name="UI.Table.ExportAsCsv" xml:space="preserve">
+    <value>Export as CSV</value>
+  </data>
+  <data name="UI.Table.ExportAsPdf" xml:space="preserve">
+    <value>Export as PDF</value>
+  </data>
+  <data name="UI.Table.Column" xml:space="preserve">
+    <value>Column</value>
+  </data>
+  <data name="UI.Table.Operator" xml:space="preserve">
+    <value>Operator</value>
+  </data>
+  <data name="UI.Table.Value" xml:space="preserve">
+    <value>Value</value>
+  </data>
+  <data name="UI.Table.Type" xml:space="preserve">
+    <value>Type</value>
+  </data>
+  <data name="UI.Hint.EnterRoleName" xml:space="preserve">
+    <value>Please enter role name</value>
+  </data>
+</root>

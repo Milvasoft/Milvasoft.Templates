@@ -1,0 +1,110 @@
+{
+  "$schema": "http://json.schemastore.org/template",
+  "author": "Milvasoft Corporation",
+  "classifications": [
+    "Common",
+    "Web",
+    "Solution",
+    "Service",
+    "Cloud"
+  ],
+  "identity": "Milvonion",
+  "name": "Milvonion Api Template",
+  "shortName": "milvonion",
+  "sourceName": "Milvonion",
+  "tags": {
+    "language": "C#",
+    "type": "solution"
+  },
+  "defaultName": "Milvonion",
+  "description": "Api Template with Onion Architecture and Ef Core with PostgreSql.",
+  "symbols": {
+    "Framework": {
+      "type": "parameter",
+      "description": "The target framework for the project.",
+      "datatype": "choice",
+      "choices": [
+        {
+          "choice": "net6.0",
+          "description": "Target net6.0"
+        },
+        {
+          "choice": "net7.0",
+          "description": "Target net7.0"
+        },
+        {
+          "choice": "net8.0",
+          "description": "Target net8.0"
+        }
+      ],
+      "replaces": "net8.0",
+      "defaultValue": "net8.0"
+    },
+    "RoutePrefix": {
+      "type": "parameter",
+      "description": "The api route prefix. (etc. /yourapi)",
+      "datatype": "text",
+      "replaces": "xrouteprefixx",
+      "defaultValue": "api"
+    },
+    "HttpPort": {
+      "type": "parameter",
+      "description": "The application's http port.",
+      "datatype": "text",
+      "replaces": "xhttpportxx",
+      "defaultValue": "5000"
+    },
+    "HttpsPort": {
+      "type": "parameter",
+      "description": "The application's https port.",
+      "datatype": "text",
+      "replaces": "xhttpsportxx",
+      "defaultValue": "5001"
+    },
+    "PostgreConnectionString": {
+      "type": "parameter",
+      "description": "Your postgresql server connection string with database name. (etc. Username=postgres;Password=yourpass;Server=yourserver;Port=5432;Database=yourdbname)",
+      "datatype": "text",
+      "replaces": "xconnectionstringxx",
+      "defaultValue": "Username=postgres;Password=yourpass;Server=yourserver;Port=5432;Database=yourdbname"
+    },
+    "Nullable": {
+      "type": "parameter",
+      "description": "Set the nullable annotations and warnings context for the C# project. Possible values are enable, disable, warnings and annotations",
+      "datatype": "choice",
+      "choices": [
+        {
+          "choice": "enable"
+        },
+        {
+          "choice": "disable"
+        },
+        {
+          "choice": "warnings"
+        },
+        {
+          "choice": "annotations"
+        }
+      ],
+      "replaces": "xnullablexx",
+      "defaultValue": "disable"
+    }
+  },
+  "primaryOutputs": [
+    {
+      "path": "Milvonion.sln"
+    }
+  ],
+  "sources": [
+    {
+      "source": "./", // Root dizinden kaynakları alır
+      "target": "./", // Root dizine kopyalar
+      "modifiers": [
+        {
+          "exclude": [ "**/.vs/**", ".template_config/**" ] // Gereksiz dosyaları hariç tutar
+        }
+      ],
+      "flatten": true // Klasör yapısını düzleştirir, alt dizinlere kopyalamaz
+    }
+  ]
+}

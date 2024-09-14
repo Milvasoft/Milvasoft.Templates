@@ -1,0 +1,1858 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Milvonion.Application</name>
+    </assembly>
+    <members>
+        <member name="T:Milvonion.Application.ApplicationAssembly">
+            <summary>
+            Static class for ease of assembly access.
+            </summary>
+        </member>
+        <member name="F:Milvonion.Application.ApplicationAssembly.Assembly">
+            <summary>
+            Assembly instance.
+            </summary>
+        </member>
+        <member name="T:Milvonion.Application.ApplicationServiceCollectionExtensions">
+            <summary>
+            Infrastructure service collection extensions.
+            </summary>
+        </member>
+        <member name="M:Milvonion.Application.ApplicationServiceCollectionExtensions.AddApplicationServices(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Reflection.Assembly[])">
+            <summary>
+            Adds infrastructure services.
+            </summary>
+            <param name="services"></param>
+            <param name="assemblies"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Milvonion.Application.ApplicationServiceCollectionExtensions.AddMediator(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Reflection.Assembly[])">
+            <summary>
+            Adds mediatR services.
+            </summary>
+            <param name="services"></param>
+            <param name="assemblies"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Milvonion.Application.Behaviours.ValidationBehaviorForResponse`2">
+            <summary>
+            Validation behavior for return value is <see cref="T:Milvasoft.Components.Rest.MilvaResponse.Response"/> typed requests.
+            </summary>
+            <typeparam name="TRequest"></typeparam>
+            <typeparam name="TResponse"></typeparam>
+            <param name="validators"></param>
+            <param name="serviceProvider"></param>
+        </member>
+        <member name="M:Milvonion.Application.Behaviours.ValidationBehaviorForResponse`2.#ctor(System.Collections.Generic.IEnumerable{FluentValidation.IValidator{`0}},System.IServiceProvider)">
+            <summary>
+            Validation behavior for return value is <see cref="T:Milvasoft.Components.Rest.MilvaResponse.Response"/> typed requests.
+            </summary>
+            <typeparam name="TRequest"></typeparam>
+            <typeparam name="TResponse"></typeparam>
+            <param name="validators"></param>
+            <param name="serviceProvider"></param>
+        </member>
+        <member name="M:Milvonion.Application.Behaviours.ValidationBehaviorForResponse`2.Handle(`0,MediatR.RequestHandlerDelegate{`1},System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Milvonion.Application.Dtos.AccountDtos.AccountDetailDto">
+            <summary>
+            Data transfer object for account details.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Dtos.AccountDtos.AccountDetailDto.UserName">
+            <summary>
+            Unique username of the user. 
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Dtos.AccountDtos.AccountDetailDto.Email">
+            <summary>
+            Email of the user.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Dtos.AccountDtos.AccountDetailDto.Name">
+            <summary>
+            Name of the user.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Dtos.AccountDtos.AccountDetailDto.Surname">
+            <summary>
+            Surname of the user.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Dtos.AccountDtos.AccountDetailDto.Roles">
+            <summary>
+            Roles the user belongs to.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Dtos.AccountDtos.AccountDetailDto.Projection">
+            <summary>
+            Projection expression for mapping User entity to AccountDetailDto.
+            </summary>
+        </member>
+        <member name="T:Milvonion.Application.Dtos.AccountDtos.LoginResponseDto">
+            <summary>
+            Response object for login operation.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Dtos.AccountDtos.LoginResponseDto.UserType">
+            <summary>
+            Type of user.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Dtos.AccountDtos.LoginResponseDto.UserTypeDescription">
+            <summary>
+            User type description.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Dtos.AccountDtos.LoginResponseDto.Token">
+            <summary>
+            Token information of the user.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Dtos.AccountDtos.LoginResponseDto.AccessibleMenuItems">
+            <summary>
+            Accessible menu items of the user.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Dtos.AccountDtos.LoginResponseDto.PageInformations">
+            <summary>
+            Page informations.
+            </summary>
+        </member>
+        <member name="T:Milvonion.Application.Dtos.ActivityLogDtos.ActivityLogListDto">
+            <summary>
+            Data transfer object for activity log list.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Dtos.ActivityLogDtos.ActivityLogListDto.UserName">
+            <summary>
+            The username who performed the activity.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Dtos.ActivityLogDtos.ActivityLogListDto.Activity">
+            <summary>
+            Activity type.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Dtos.ActivityLogDtos.ActivityLogListDto.ActivityDescription">
+            <summary>
+            User activity description.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Dtos.ActivityLogDtos.ActivityLogListDto.ActivityDate">
+            <summary>
+            Date and time of the activity.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Dtos.ActivityLogDtos.ActivityLogListDto.Projection">
+            <summary>
+            Projection expression for mapping ActivityLog entity to ActivityLogListDto.
+            </summary>
+        </member>
+        <member name="T:Milvonion.Application.Dtos.AuditDto`1">
+            <summary>
+            Represents an audit data transfer object.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Dtos.AuditDto`1.CreationDate">
+            <summary>
+            Gets or sets the creation date.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Dtos.AuditDto`1.CreatorUserName">
+            <summary>
+            Gets or sets the username of the creator.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Dtos.AuditDto`1.LastModificationDate">
+            <summary>
+            Gets or sets the last modification date.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Dtos.AuditDto`1.LastModifierUserName">
+            <summary>
+            Gets or sets the username of the last modifier.
+            </summary>
+        </member>
+        <member name="M:Milvonion.Application.Dtos.AuditDto`1.#ctor(Milvasoft.Core.EntityBases.Abstract.IFullAuditable{`0})">
+            <summary>
+            Assigns the values of the entity to the properties of the data transfer object.
+            </summary>
+            <param name="entity"></param>
+        </member>
+        <member name="T:Milvonion.Application.Dtos.EnumLookupModel">
+            <summary>
+            Model for enum lookups.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Dtos.EnumLookupModel.Value">
+            <summary>
+            Enum value.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Dtos.EnumLookupModel.Name">
+            <summary>
+            Enum localized name.
+            </summary>
+        </member>
+        <member name="T:Milvonion.Application.Dtos.NameIntNavigationDto">
+            <summary>
+            It can be used to obtain Id-Name pair information for any domain.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Dtos.NameIntNavigationDto.Name">
+            <summary>
+            Name of related domain.
+            </summary>
+        </member>
+        <member name="T:Milvonion.Application.Dtos.PermissionDtos.PermissionListDto">
+            <summary>
+            Data transfer object for permission list.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Dtos.PermissionDtos.PermissionListDto.Name">
+            <summary>
+            Permission name. (e.g. List, Update)
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Dtos.PermissionDtos.PermissionListDto.Description">
+            <summary>
+            Permission description. (e.g. User list permission. ) 
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Dtos.PermissionDtos.PermissionListDto.PermissionGroup">
+            <summary>
+            Permission group. (e.g. UserManagement) 
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Dtos.PermissionDtos.PermissionListDto.PermissionGroupDescription">
+            <summary>
+            Permission group description. (e.g. User management permissions)
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Dtos.PermissionDtos.PermissionListDto.Projection">
+            <summary>
+            Projection expression for mapping Permission entity to PermissionListDto.
+            </summary>
+        </member>
+        <member name="T:Milvonion.Application.Dtos.RoleDtos.RoleDetailDto">
+            <summary>
+            Data transfer object for role details.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Dtos.RoleDtos.RoleDetailDto.Name">
+            <summary>
+            Name of role. (e.g. Viewer, Editor)
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Dtos.RoleDtos.RoleDetailDto.Users">
+            <summary>
+            Users belonging to the role.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Dtos.RoleDtos.RoleDetailDto.Permissions">
+            <summary>
+            Permissions belonging to the role.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Dtos.RoleDtos.RoleDetailDto.AuditInfo">
+            <summary>
+            Information about record audit.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Dtos.RoleDtos.RoleDetailDto.Projection">
+            <summary>
+            Projection expression for mapping Role entity to RoleDetailDto.
+            </summary>
+        </member>
+        <member name="T:Milvonion.Application.Dtos.RoleDtos.RoleListDto">
+            <summary>
+            Data transfer object for role list.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Dtos.RoleDtos.RoleListDto.Name">
+            <summary>
+            Name of the role.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Dtos.RoleDtos.RoleListDto.Projection">
+            <summary>
+            Projection expression for mapping Role entity to RoleListDto.
+            </summary>
+        </member>
+        <member name="T:Milvonion.Application.Dtos.UIDtos.LocalizedContentDto">
+            <summary>
+            Represents a localized content data transfer object.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Dtos.UIDtos.LocalizedContentDto.Key">
+            <summary>
+            Gets or sets the key of the localized content.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Dtos.UIDtos.LocalizedContentDto.Value">
+            <summary>
+            Gets or sets the value of the localized content.
+            </summary>
+        </member>
+        <member name="T:Milvonion.Application.Dtos.UIDtos.MenuItemDtos.MenuItemDto">
+            <summary>
+            Data transfer object for user list.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Dtos.UIDtos.MenuItemDtos.MenuItemDto.Name">
+            <summary>
+            Name of menu item.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Dtos.UIDtos.MenuItemDtos.MenuItemDto.Url">
+            <summary>
+            Frontend page url for navigate to on click.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Dtos.UIDtos.MenuItemDtos.MenuItemDto.PageName">
+            <summary>
+            Frontend page name for navigate to on click.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Dtos.UIDtos.MenuItemDtos.MenuItemDto.ParentId">
+            <summary>
+            Related parent menu item id.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Dtos.UIDtos.MenuItemDtos.MenuItemDto.Group">
+            <summary>
+            Menu item group information.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Dtos.UIDtos.MenuItemDtos.MenuItemDto.Childrens">
+            <summary>
+            Children items of this menu items.
+            </summary>
+        </member>
+        <member name="M:Milvonion.Application.Dtos.UIDtos.MenuItemDtos.MenuItemDto.Projection(Milvasoft.Core.MultiLanguage.Manager.IMultiLanguageManager)">
+            <summary>
+            Projection expression for mapping MenuItem entity to MenuItem.
+            </summary>
+        </member>
+        <member name="T:Milvonion.Application.Dtos.UIDtos.PageDtos.PageActionDto">
+            <summary>
+            Page action information.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Dtos.UIDtos.PageDtos.PageActionDto.Title">
+            <summary>
+            Action localized title.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Dtos.UIDtos.PageDtos.PageActionDto.ActionName">
+            <summary>
+            Frontend action or page name.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Dtos.UIDtos.PageDtos.PageActionDto.Url">
+            <summary>
+            Url of action.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Dtos.UIDtos.PageDtos.PageActionDto.IsAction">
+            <summary>
+            If an action will be taken on the page, it takes the value true. If a redirection will be made to another page on the page, it takes the value false.
+            </summary>
+        </member>
+        <member name="M:Milvonion.Application.Dtos.UIDtos.PageDtos.PageActionDto.Projection(Milvasoft.Core.MultiLanguage.Manager.IMultiLanguageManager)">
+            <summary>
+            Projection expression for mapping PageAction entity to PageActionDto.
+            </summary>
+        </member>
+        <member name="T:Milvonion.Application.Dtos.UIDtos.PageDtos.PageDto">
+            <summary>
+            Page information.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Dtos.UIDtos.PageDtos.PageDto.Name">
+            <summary>
+            Frontend page name.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Dtos.UIDtos.PageDtos.PageDto.LocalizedName">
+            <summary>
+            Frontend page localized name.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Dtos.UIDtos.PageDtos.PageDto.HasCreate">
+            <summary>
+            Determines whether the page has create action or not.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Dtos.UIDtos.PageDtos.PageDto.HasDetail">
+            <summary>
+            Determines whether the page has detail action or not.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Dtos.UIDtos.PageDtos.PageDto.HasEdit">
+            <summary>
+            Determines whether the page has edit action or not.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Dtos.UIDtos.PageDtos.PageDto.HasDelete">
+            <summary>
+            Determines whether the page has delete action or not.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Dtos.UIDtos.PageDtos.PageDto.UserCanCreate">
+            <summary>
+            Determines whether the user can create a new record in this page.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Dtos.UIDtos.PageDtos.PageDto.UserCanDetail">
+            <summary>
+            Determines whether the user can access a record detail in this page.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Dtos.UIDtos.PageDtos.PageDto.UserCanEdit">
+            <summary>
+            Determines whether the user can edit a record in this page.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Dtos.UIDtos.PageDtos.PageDto.UserCanDelete">
+            <summary>
+            Determines whether the user can delete a record in this page.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Dtos.UIDtos.PageDtos.PageDto.AdditionalActions">
+            <summary>
+            Navigation property of additional page action relation.    
+            </summary>
+        </member>
+        <member name="M:Milvonion.Application.Dtos.UIDtos.PageDtos.PageDto.Projection(Milvasoft.Core.MultiLanguage.Manager.IMultiLanguageManager)">
+            <summary>
+            Projection expression for mapping MenuItem entity to MenuItem.
+            </summary>
+        </member>
+        <member name="T:Milvonion.Application.Dtos.UserDtos.UserDetailDto">
+            <summary>
+            Data transfer object for user details.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Dtos.UserDtos.UserDetailDto.UserName">
+            <summary>
+            Unique username of the user.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Dtos.UserDtos.UserDetailDto.Email">
+            <summary>
+            Email of the user.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Dtos.UserDtos.UserDetailDto.Name">
+            <summary>
+            Name of the user.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Dtos.UserDtos.UserDetailDto.Surname">
+            <summary>
+            Surname of the user.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Dtos.UserDtos.UserDetailDto.Roles">
+            <summary>
+            Information about the roles the user is assigned to.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Dtos.UserDtos.UserDetailDto.AuditInfo">
+            <summary>
+            Information about record audit.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Dtos.UserDtos.UserDetailDto.Projection">
+            <summary>
+            Projection expression for mapping User entity to UserDetailDto.
+            </summary>
+        </member>
+        <member name="T:Milvonion.Application.Dtos.UserDtos.UserListDto">
+            <summary>
+            Data transfer object for user list.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Dtos.UserDtos.UserListDto.UserName">
+            <summary>
+            Unique username of user.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Dtos.UserDtos.UserListDto.Email">
+            <summary>
+            Email of user.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Dtos.UserDtos.UserListDto.Name">
+            <summary>
+            Name of user.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Dtos.UserDtos.UserListDto.Surname">
+            <summary>
+            Surname of user.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Dtos.UserDtos.UserListDto.Projection">
+            <summary>
+            Projection expression for mapping User entity to UserListDto.
+            </summary>
+        </member>
+        <member name="T:Milvonion.Application.Features.Account.AccountDetail.AccountDetailQuery">
+            <summary>
+            Data transfer object for account details.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Features.Account.AccountDetail.AccountDetailQuery.UserId">
+            <summary>
+            The user Id whose account details you want to access.
+            </summary>
+        </member>
+        <member name="T:Milvonion.Application.Features.Account.AccountDetail.AccountDetailQueryHandler">
+            <summary>
+            Handles the query for retrieving the account details.
+            </summary>
+        </member>
+        <member name="M:Milvonion.Application.Features.Account.AccountDetail.AccountDetailQueryHandler.#ctor(Milvonion.Application.Interfaces.IMilvonionRepositoryBase{Milvonion.Domain.User},Microsoft.AspNetCore.Http.IHttpContextAccessor)">
+            <summary>
+            Handles the query for retrieving the account details.
+            </summary>
+        </member>
+        <member name="M:Milvonion.Application.Features.Account.AccountDetail.AccountDetailQueryHandler.Handle(Milvonion.Application.Features.Account.AccountDetail.AccountDetailQuery,System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Milvonion.Application.Features.Account.AccountDetail.AccountDetailQueryValidator">
+            <summary>
+            Account detail query validations. 
+            </summary>
+        </member>
+        <member name="M:Milvonion.Application.Features.Account.AccountDetail.AccountDetailQueryValidator.#ctor(Milvasoft.Core.Abstractions.Localization.IMilvaLocalizer)">
+            <inheritdoc cref="T:Milvonion.Application.Features.Account.AccountDetail.AccountDetailQueryValidator"/>
+        </member>
+        <member name="T:Milvonion.Application.Features.Account.ChangePassword.ChangePasswordCommand">
+            <summary>
+            Data transfer object for password change operation.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Features.Account.ChangePassword.ChangePasswordCommand.UserName">
+            <summary>
+            Username whose password will be changed
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Features.Account.ChangePassword.ChangePasswordCommand.OldPassword">
+            <summary>
+            Old password of account.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Features.Account.ChangePassword.ChangePasswordCommand.NewPassword">
+            <summary>
+            New password.
+            </summary>
+        </member>
+        <member name="T:Milvonion.Application.Features.Account.ChangePassword.ChangePasswordCommandHandler">
+            <summary>
+            Handles the change password command.
+            </summary>
+        </member>
+        <member name="M:Milvonion.Application.Features.Account.ChangePassword.ChangePasswordCommandHandler.#ctor(Milvonion.Application.Interfaces.IMilvonionRepositoryBase{Milvonion.Domain.User},Milvonion.Application.Interfaces.IMilvonionRepositoryBase{Milvonion.Domain.UserSession},Milvasoft.Identity.Abstract.IMilvaUserManager{Milvonion.Domain.User,System.Int32},Microsoft.AspNetCore.Http.IHttpContextAccessor)">
+            <summary>
+            Handles the change password command.
+            </summary>
+        </member>
+        <member name="M:Milvonion.Application.Features.Account.ChangePassword.ChangePasswordCommandHandler.Handle(Milvonion.Application.Features.Account.ChangePassword.ChangePasswordCommand,System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Milvonion.Application.Features.Account.ChangePassword.ChangePasswordCommandValidator">
+            <summary>
+            Account detail query validations. 
+            </summary>
+        </member>
+        <member name="M:Milvonion.Application.Features.Account.ChangePassword.ChangePasswordCommandValidator.#ctor(Milvasoft.Core.Abstractions.Localization.IMilvaLocalizer)">
+            <inheritdoc cref="T:Milvonion.Application.Features.Account.ChangePassword.ChangePasswordCommandValidator"/>
+        </member>
+        <member name="T:Milvonion.Application.Features.Account.Login.LoginCommand">
+            <summary>
+            Data transfer object for login operation.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Features.Account.Login.LoginCommand.UserName">
+            <summary>
+            Username to log in.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Features.Account.Login.LoginCommand.Password">
+            <summary>
+            Password to log in.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Features.Account.Login.LoginCommand.DeviceId">
+            <summary>
+            Unique Id of the device being logged in. Can be MacAddress or something.
+            </summary>
+        </member>
+        <member name="T:Milvonion.Application.Features.Account.Login.LoginCommandHandler">
+            <summary>
+            Handles the login command and performs the necessary operations.
+            </summary>
+        </member>
+        <member name="M:Milvonion.Application.Features.Account.Login.LoginCommandHandler.#ctor(Milvonion.Application.Interfaces.IMilvonionRepositoryBase{Milvonion.Domain.User},Milvasoft.Identity.Abstract.IMilvaUserManager{Milvonion.Domain.User,System.Int32},Milvonion.Application.Interfaces.IAccountManager,Milvonion.Application.Interfaces.IUIService,Milvasoft.Core.Abstractions.Localization.IMilvaLocalizer,Milvasoft.Identity.Concrete.Options.MilvaIdentityOptions)">
+            <summary>
+            Handles the login command and performs the necessary operations.
+            </summary>
+        </member>
+        <member name="M:Milvonion.Application.Features.Account.Login.LoginCommandHandler.Handle(Milvonion.Application.Features.Account.Login.LoginCommand,System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Milvonion.Application.Features.Account.Login.LoginCommandValidator">
+            <summary>
+            Account detail query validations. 
+            </summary>
+        </member>
+        <member name="M:Milvonion.Application.Features.Account.Login.LoginCommandValidator.#ctor(Milvasoft.Core.Abstractions.Localization.IMilvaLocalizer)">
+            <inheritdoc cref="T:Milvonion.Application.Features.Account.Login.LoginCommandValidator"/>
+        </member>
+        <member name="T:Milvonion.Application.Features.Account.Logout.LogoutCommand">
+            <summary>
+            Data transfer object for logout operation.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Features.Account.Logout.LogoutCommand.UserName">
+            <summary>
+            Username to logged out.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Features.Account.Logout.LogoutCommand.DeviceId">
+            <summary>
+            Unique Id of the device being logged out. Can be MacAddress or something.
+            </summary>
+        </member>
+        <member name="T:Milvonion.Application.Features.Account.Logout.LogoutCommandHandler">
+            <summary>
+            Handles the LogoutCommand and performs the logout operation.
+            </summary>
+        </member>
+        <member name="M:Milvonion.Application.Features.Account.Logout.LogoutCommandHandler.#ctor(Milvonion.Application.Interfaces.IMilvonionRepositoryBase{Milvonion.Domain.UserSession},Milvonion.Application.Interfaces.IAccountManager,Microsoft.AspNetCore.Http.IHttpContextAccessor)">
+            <summary>
+            Handles the LogoutCommand and performs the logout operation.
+            </summary>
+        </member>
+        <member name="M:Milvonion.Application.Features.Account.Logout.LogoutCommandHandler.Handle(Milvonion.Application.Features.Account.Logout.LogoutCommand,System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Milvonion.Application.Features.Account.Logout.LogoutCommandValidator">
+            <summary>
+            Account detail query validations. 
+            </summary>
+        </member>
+        <member name="M:Milvonion.Application.Features.Account.Logout.LogoutCommandValidator.#ctor(Milvasoft.Core.Abstractions.Localization.IMilvaLocalizer)">
+            <inheritdoc cref="T:Milvonion.Application.Features.Account.Logout.LogoutCommandValidator"/>
+        </member>
+        <member name="T:Milvonion.Application.Features.Account.RefreshLogin.RefreshLoginCommand">
+            <summary>
+            Data transfer object for refresh login operation.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Features.Account.RefreshLogin.RefreshLoginCommand.UserName">
+            <summary>
+            Username to log in.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Features.Account.RefreshLogin.RefreshLoginCommand.DeviceId">
+            <summary>
+            Unique Id of the device being logged in. Can be MacAddress or something.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Features.Account.RefreshLogin.RefreshLoginCommand.RefreshToken">
+            <summary>
+            Refresh token received during login.
+            </summary>
+        </member>
+        <member name="T:Milvonion.Application.Features.Account.RefreshLogin.RefreshLoginCommandHandler">
+            <summary>
+            Handles the RefreshLoginCommand and refreshes the user's login token.
+            </summary>
+        </member>
+        <member name="M:Milvonion.Application.Features.Account.RefreshLogin.RefreshLoginCommandHandler.#ctor(Milvonion.Application.Interfaces.IMilvonionRepositoryBase{Milvonion.Domain.User},Milvonion.Application.Interfaces.IAccountManager,Microsoft.AspNetCore.Http.IHttpContextAccessor)">
+            <summary>
+            Handles the RefreshLoginCommand and refreshes the user's login token.
+            </summary>
+        </member>
+        <member name="M:Milvonion.Application.Features.Account.RefreshLogin.RefreshLoginCommandHandler.Handle(Milvonion.Application.Features.Account.RefreshLogin.RefreshLoginCommand,System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Milvonion.Application.Features.Account.RefreshLogin.RefreshLoginCommandValidator">
+            <summary>
+            Account detail query validations. 
+            </summary>
+        </member>
+        <member name="M:Milvonion.Application.Features.Account.RefreshLogin.RefreshLoginCommandValidator.#ctor(Milvasoft.Core.Abstractions.Localization.IMilvaLocalizer)">
+            <inheritdoc cref="T:Milvonion.Application.Features.Account.Logout.LogoutCommandValidator"/>
+        </member>
+        <member name="T:Milvonion.Application.Features.ActivityLogs.GetActivityLogList.GetActivityLogListQuery">
+            <summary>
+            Data transfer object for user activity log list.
+            </summary>
+        </member>
+        <member name="T:Milvonion.Application.Features.ActivityLogs.GetActivityLogList.GetActivityLogListQueryHandler">
+            <summary>
+            Get all activity logs.
+            </summary>
+            <param name="activityLogRepository"></param>
+        </member>
+        <member name="M:Milvonion.Application.Features.ActivityLogs.GetActivityLogList.GetActivityLogListQueryHandler.#ctor(Milvonion.Application.Interfaces.IMilvonionRepositoryBase{Milvonion.Domain.ActivityLog})">
+            <summary>
+            Get all activity logs.
+            </summary>
+            <param name="activityLogRepository"></param>
+        </member>
+        <member name="M:Milvonion.Application.Features.ActivityLogs.GetActivityLogList.GetActivityLogListQueryHandler.Handle(Milvonion.Application.Features.ActivityLogs.GetActivityLogList.GetActivityLogListQuery,System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Milvonion.Application.Features.ActivityLogs.GetActivityLogList.GetActivityLogListQueryValidator">
+            <summary>
+            Account detail query validations. 
+            </summary>
+        </member>
+        <member name="M:Milvonion.Application.Features.ActivityLogs.GetActivityLogList.GetActivityLogListQueryValidator.#ctor">
+            <inheritdoc cref="T:Milvonion.Application.Features.ActivityLogs.GetActivityLogList.GetActivityLogListQueryValidator"/>
+        </member>
+        <member name="T:Milvonion.Application.Features.MilvonionBaseDto`1">
+            <summary>
+            App pool base dto for attribute usage.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Features.MilvonionBaseDto`1.Id">
+            <inheritdoc/>
+        </member>
+        <member name="T:Milvonion.Application.Features.Pages.GetPageAccessibilityForCurrentUser.GetPageAccessibilityForCurrentUserQuery">
+            <summary>
+            Data transfer object for page details.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Features.Pages.GetPageAccessibilityForCurrentUser.GetPageAccessibilityForCurrentUserQuery.PageName">
+            <summary>
+            Page name where you want to access the information.
+            </summary>
+        </member>
+        <member name="T:Milvonion.Application.Features.Pages.GetPageAccessibilityForCurrentUser.GetPageAccessibilityForCurrentUserQueryHandler">
+            <summary>
+            Handles the page detail operation.
+            </summary>
+            <param name="uiService"></param>
+        </member>
+        <member name="M:Milvonion.Application.Features.Pages.GetPageAccessibilityForCurrentUser.GetPageAccessibilityForCurrentUserQueryHandler.#ctor(Milvonion.Application.Interfaces.IUIService)">
+            <summary>
+            Handles the page detail operation.
+            </summary>
+            <param name="uiService"></param>
+        </member>
+        <member name="M:Milvonion.Application.Features.Pages.GetPageAccessibilityForCurrentUser.GetPageAccessibilityForCurrentUserQueryHandler.Handle(Milvonion.Application.Features.Pages.GetPageAccessibilityForCurrentUser.GetPageAccessibilityForCurrentUserQuery,System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Milvonion.Application.Features.Pages.GetPageAccessibilityForCurrentUser.GetPageAccessibilityForCurrentUserQueryValidator">
+            <summary>
+            Account detail query validations. 
+            </summary>
+        </member>
+        <member name="M:Milvonion.Application.Features.Pages.GetPageAccessibilityForCurrentUser.GetPageAccessibilityForCurrentUserQueryValidator.#ctor(Milvasoft.Core.Abstractions.Localization.IMilvaLocalizer)">
+            <inheritdoc cref="T:Milvonion.Application.Features.Pages.GetPageAccessibilityForCurrentUser.GetPageAccessibilityForCurrentUserQueryValidator"/>
+        </member>
+        <member name="T:Milvonion.Application.Features.Permissions.GetPermissionList.GetPermissionListQuery">
+            <summary>
+            Data transfer object for permission details.
+            </summary>
+        </member>
+        <member name="T:Milvonion.Application.Features.Permissions.GetPermissionList.GetPermissionListQueryHandler">
+            <summary>
+            Handles the permission list operation.
+            </summary>
+            <param name="permissionRepository"></param>
+            <param name="milvaLocalizer"></param>
+        </member>
+        <member name="M:Milvonion.Application.Features.Permissions.GetPermissionList.GetPermissionListQueryHandler.#ctor(Milvonion.Application.Interfaces.IMilvonionRepositoryBase{Milvonion.Domain.Permission},Milvasoft.Core.Abstractions.Localization.IMilvaLocalizer)">
+            <summary>
+            Handles the permission list operation.
+            </summary>
+            <param name="permissionRepository"></param>
+            <param name="milvaLocalizer"></param>
+        </member>
+        <member name="M:Milvonion.Application.Features.Permissions.GetPermissionList.GetPermissionListQueryHandler.Handle(Milvonion.Application.Features.Permissions.GetPermissionList.GetPermissionListQuery,System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Milvonion.Application.Features.Permissions.GetPermissionList.GetPermissionListQueryValidator">
+            <summary>
+            Account detail query validations. 
+            </summary>
+        </member>
+        <member name="M:Milvonion.Application.Features.Permissions.GetPermissionList.GetPermissionListQueryValidator.#ctor">
+            <inheritdoc cref="T:Milvonion.Application.Features.Permissions.GetPermissionList.GetPermissionListQueryValidator"/>
+        </member>
+        <member name="T:Milvonion.Application.Features.Roles.CreateRole.CreateRoleCommand">
+            <summary>
+            Data transfer object for role creation.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Features.Roles.CreateRole.CreateRoleCommand.Name">
+            <summary>
+            Name of role. (e.g. Viewer, Support, Developer)
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Features.Roles.CreateRole.CreateRoleCommand.PermissionIdList">
+            <summary>
+            Role's permission id list.
+            </summary>
+        </member>
+        <member name="T:Milvonion.Application.Features.Roles.CreateRole.CreateRoleCommandHandler">
+            <summary>
+            Handles the creation of the role.
+            </summary>
+            <param name="RoleRepository"></param>
+        </member>
+        <member name="M:Milvonion.Application.Features.Roles.CreateRole.CreateRoleCommandHandler.#ctor(Milvonion.Application.Interfaces.IMilvonionRepositoryBase{Milvonion.Domain.Role})">
+            <summary>
+            Handles the creation of the role.
+            </summary>
+            <param name="RoleRepository"></param>
+        </member>
+        <member name="P:Milvonion.Application.Features.Roles.CreateRole.CreateRoleCommandHandler.RoleRepository">
+            <summary></summary>
+        </member>
+        <member name="M:Milvonion.Application.Features.Roles.CreateRole.CreateRoleCommandHandler.Handle(Milvonion.Application.Features.Roles.CreateRole.CreateRoleCommand,System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Milvonion.Application.Features.Roles.CreateRole.CreateRoleCommandValidator">
+            <summary>
+            Account detail query validations. 
+            </summary>
+        </member>
+        <member name="M:Milvonion.Application.Features.Roles.CreateRole.CreateRoleCommandValidator.#ctor(Milvasoft.Core.Abstractions.Localization.IMilvaLocalizer)">
+            <inheritdoc cref="T:Milvonion.Application.Features.Roles.CreateRole.CreateRoleCommandValidator"/>
+        </member>
+        <member name="T:Milvonion.Application.Features.Roles.DeleteRole.DeleteRoleCommand">
+            <summary>
+            Data transfer object for role deletion.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Features.Roles.DeleteRole.DeleteRoleCommand.RoleId">
+            <summary>
+            Id of the role to be deleted.
+            </summary>
+        </member>
+        <member name="T:Milvonion.Application.Features.Roles.DeleteRole.DeleteRoleCommandHandler">
+            <summary>
+            Handles the deletion of the role.
+            </summary>
+            <param name="RoleRepository"></param>
+        </member>
+        <member name="M:Milvonion.Application.Features.Roles.DeleteRole.DeleteRoleCommandHandler.#ctor(Milvonion.Application.Interfaces.IMilvonionRepositoryBase{Milvonion.Domain.Role})">
+            <summary>
+            Handles the deletion of the role.
+            </summary>
+            <param name="RoleRepository"></param>
+        </member>
+        <member name="P:Milvonion.Application.Features.Roles.DeleteRole.DeleteRoleCommandHandler.RoleRepository">
+            <summary></summary>
+        </member>
+        <member name="M:Milvonion.Application.Features.Roles.DeleteRole.DeleteRoleCommandHandler.Handle(Milvonion.Application.Features.Roles.DeleteRole.DeleteRoleCommand,System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Milvonion.Application.Features.Roles.DeleteRole.DeleteRoleCommandValidator">
+            <summary>
+            Account detail query validations. 
+            </summary>
+        </member>
+        <member name="M:Milvonion.Application.Features.Roles.DeleteRole.DeleteRoleCommandValidator.#ctor(Milvasoft.Core.Abstractions.Localization.IMilvaLocalizer)">
+            <inheritdoc cref="T:Milvonion.Application.Features.Roles.DeleteRole.DeleteRoleCommandValidator"/>
+        </member>
+        <member name="T:Milvonion.Application.Features.Roles.GetRoleDetail.GetRoleDetailQuery">
+            <summary>
+            Data transfer object for role details.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Features.Roles.GetRoleDetail.GetRoleDetailQuery.RoleId">
+            <summary>
+            Role id to access details.
+            </summary>
+        </member>
+        <member name="T:Milvonion.Application.Features.Roles.GetRoleDetail.GetRoleDetailQueryHandler">
+            <summary>
+            Handles the role detail operation.
+            </summary>
+            <param name="roleRepository"></param>
+        </member>
+        <member name="M:Milvonion.Application.Features.Roles.GetRoleDetail.GetRoleDetailQueryHandler.#ctor(Milvonion.Application.Interfaces.IMilvonionRepositoryBase{Milvonion.Domain.Role})">
+            <summary>
+            Handles the role detail operation.
+            </summary>
+            <param name="roleRepository"></param>
+        </member>
+        <member name="M:Milvonion.Application.Features.Roles.GetRoleDetail.GetRoleDetailQueryHandler.Handle(Milvonion.Application.Features.Roles.GetRoleDetail.GetRoleDetailQuery,System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Milvonion.Application.Features.Roles.GetRoleDetail.GetRoleDetailQueryValidator">
+            <summary>
+            Account detail query validations. 
+            </summary>
+        </member>
+        <member name="M:Milvonion.Application.Features.Roles.GetRoleDetail.GetRoleDetailQueryValidator.#ctor(Milvasoft.Core.Abstractions.Localization.IMilvaLocalizer)">
+            <inheritdoc cref="T:Milvonion.Application.Features.Roles.GetRoleDetail.GetRoleDetailQueryValidator"/>
+        </member>
+        <member name="T:Milvonion.Application.Features.Roles.GetRoleList.GetRoleListQuery">
+            <summary>
+            Data transfer object for role list.
+            </summary>
+        </member>
+        <member name="T:Milvonion.Application.Features.Roles.GetRoleList.GetRoleListQueryHandler">
+            <summary>
+            Handles the role list operation.
+            </summary>
+            <param name="roleRepository"></param>
+        </member>
+        <member name="M:Milvonion.Application.Features.Roles.GetRoleList.GetRoleListQueryHandler.#ctor(Milvonion.Application.Interfaces.IMilvonionRepositoryBase{Milvonion.Domain.Role})">
+            <summary>
+            Handles the role list operation.
+            </summary>
+            <param name="roleRepository"></param>
+        </member>
+        <member name="M:Milvonion.Application.Features.Roles.GetRoleList.GetRoleListQueryHandler.Handle(Milvonion.Application.Features.Roles.GetRoleList.GetRoleListQuery,System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Milvonion.Application.Features.Roles.GetRoleList.GetRoleListQueryValidator">
+            <summary>
+            Account detail query validations. 
+            </summary>
+        </member>
+        <member name="M:Milvonion.Application.Features.Roles.GetRoleList.GetRoleListQueryValidator.#ctor">
+            <inheritdoc cref="T:Milvonion.Application.Features.Roles.GetRoleList.GetRoleListQueryValidator"/>
+        </member>
+        <member name="T:Milvonion.Application.Features.Roles.UpdateRole.UpdateRoleCommand">
+            <summary>
+            Data transfer object for role update.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Features.Roles.UpdateRole.UpdateRoleCommand.Name">
+            <summary>
+            Name of role.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Features.Roles.UpdateRole.UpdateRoleCommand.PermissionIdList">
+            <summary>
+            Related entities will always be updated according to the values ​​in this list. If you send it empty, related entities will be cleared. 
+            If no update has been made, please send it with isUpdated false.
+            </summary>
+        </member>
+        <member name="T:Milvonion.Application.Features.Roles.UpdateRole.UpdateRoleCommandHandler">
+            <summary>
+            Handles the update of the role.
+            </summary>
+            <param name="RoleRepository"></param>
+            <param name="RolePermissionRelationRepository"></param>
+        </member>
+        <member name="M:Milvonion.Application.Features.Roles.UpdateRole.UpdateRoleCommandHandler.#ctor(Milvonion.Application.Interfaces.IMilvonionRepositoryBase{Milvonion.Domain.Role},Milvonion.Application.Interfaces.IMilvonionRepositoryBase{Milvonion.Domain.RolePermissionRelation})">
+            <summary>
+            Handles the update of the role.
+            </summary>
+            <param name="RoleRepository"></param>
+            <param name="RolePermissionRelationRepository"></param>
+        </member>
+        <member name="P:Milvonion.Application.Features.Roles.UpdateRole.UpdateRoleCommandHandler.RoleRepository">
+            <summary></summary>
+        </member>
+        <member name="P:Milvonion.Application.Features.Roles.UpdateRole.UpdateRoleCommandHandler.RolePermissionRelationRepository">
+            <summary></summary>
+        </member>
+        <member name="M:Milvonion.Application.Features.Roles.UpdateRole.UpdateRoleCommandHandler.Handle(Milvonion.Application.Features.Roles.UpdateRole.UpdateRoleCommand,System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Milvonion.Application.Features.Roles.UpdateRole.UpdateRoleCommandValidator">
+            <summary>
+            Account detail query validations. 
+            </summary>
+        </member>
+        <member name="M:Milvonion.Application.Features.Roles.UpdateRole.UpdateRoleCommandValidator.#ctor(Milvasoft.Core.Abstractions.Localization.IMilvaLocalizer)">
+            <inheritdoc cref="T:Milvonion.Application.Features.Roles.UpdateRole.UpdateRoleCommandValidator"/>
+        </member>
+        <member name="T:Milvonion.Application.Features.Users.CreateUser.CreateUserCommand">
+            <summary>
+            Data transfer object for user creation.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Features.Users.CreateUser.CreateUserCommand.UserType">
+            <summary>
+            Type of user.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Features.Users.CreateUser.CreateUserCommand.UserName">
+            <summary>
+            Unique username of the user. (e.g. johndoe)
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Features.Users.CreateUser.CreateUserCommand.Email">
+            <summary>
+            Email of user.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Features.Users.CreateUser.CreateUserCommand.Name">
+            <summary>
+            Name of the user.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Features.Users.CreateUser.CreateUserCommand.Surname">
+            <summary>
+            Surname of the user.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Features.Users.CreateUser.CreateUserCommand.Password">
+            <summary>
+            Password of the user.    
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Features.Users.CreateUser.CreateUserCommand.RoleIdList">
+            <summary>
+            The id list of the role the user will be assigned to.
+            </summary>
+        </member>
+        <member name="T:Milvonion.Application.Features.Users.CreateUser.CreateUserCommandHandler">
+            <summary>
+            Handles the creation of the user.
+            </summary>
+            <param name="UserRepository"></param>
+            <param name="UserManager"></param>
+        </member>
+        <member name="M:Milvonion.Application.Features.Users.CreateUser.CreateUserCommandHandler.#ctor(Milvonion.Application.Interfaces.IMilvonionRepositoryBase{Milvonion.Domain.User},Milvasoft.Identity.Abstract.IMilvaUserManager{Milvonion.Domain.User,System.Int32})">
+            <summary>
+            Handles the creation of the user.
+            </summary>
+            <param name="UserRepository"></param>
+            <param name="UserManager"></param>
+        </member>
+        <member name="P:Milvonion.Application.Features.Users.CreateUser.CreateUserCommandHandler.UserRepository">
+            <summary></summary>
+        </member>
+        <member name="P:Milvonion.Application.Features.Users.CreateUser.CreateUserCommandHandler.UserManager">
+            <summary></summary>
+        </member>
+        <member name="M:Milvonion.Application.Features.Users.CreateUser.CreateUserCommandHandler.Handle(Milvonion.Application.Features.Users.CreateUser.CreateUserCommand,System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Milvonion.Application.Features.Users.CreateUser.CreateUserCommandValidator">
+            <summary>
+            Account detail query validations. 
+            </summary>
+        </member>
+        <member name="M:Milvonion.Application.Features.Users.CreateUser.CreateUserCommandValidator.#ctor(Milvasoft.Core.Abstractions.Localization.IMilvaLocalizer)">
+            <inheritdoc cref="T:Milvonion.Application.Features.Users.CreateUser.CreateUserCommandValidator"/>
+        </member>
+        <member name="T:Milvonion.Application.Features.Users.DeleteUser.DeleteUserCommand">
+            <summary>
+            Data transfer object for user deletion.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Features.Users.DeleteUser.DeleteUserCommand.UserId">
+            <summary>
+            Id of the user to be deleted.
+            </summary>
+        </member>
+        <member name="T:Milvonion.Application.Features.Users.DeleteUser.DeleteUserCommandHandler">
+            <summary>
+            Handles the deletion of the user.
+            </summary>
+            <param name="UserRepository"></param>
+        </member>
+        <member name="M:Milvonion.Application.Features.Users.DeleteUser.DeleteUserCommandHandler.#ctor(Milvonion.Application.Interfaces.IMilvonionRepositoryBase{Milvonion.Domain.User})">
+            <summary>
+            Handles the deletion of the user.
+            </summary>
+            <param name="UserRepository"></param>
+        </member>
+        <member name="P:Milvonion.Application.Features.Users.DeleteUser.DeleteUserCommandHandler.UserRepository">
+            <summary></summary>
+        </member>
+        <member name="M:Milvonion.Application.Features.Users.DeleteUser.DeleteUserCommandHandler.Handle(Milvonion.Application.Features.Users.DeleteUser.DeleteUserCommand,System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Milvonion.Application.Features.Users.DeleteUser.DeleteUserCommandValidator">
+            <summary>
+            Account detail query validations. 
+            </summary>
+        </member>
+        <member name="M:Milvonion.Application.Features.Users.DeleteUser.DeleteUserCommandValidator.#ctor(Milvasoft.Core.Abstractions.Localization.IMilvaLocalizer)">
+            <inheritdoc cref="T:Milvonion.Application.Features.Users.DeleteUser.DeleteUserCommandValidator"/>
+        </member>
+        <member name="T:Milvonion.Application.Features.Users.GetUserDetail.GetUserDetailQuery">
+            <summary>
+            Data transfer object for user details.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Features.Users.GetUserDetail.GetUserDetailQuery.UserId">
+            <summary>
+            Id of the user whose details will be accessed.
+            </summary>
+        </member>
+        <member name="T:Milvonion.Application.Features.Users.GetUserDetail.GetUserDetailQueryHandler">
+            <summary>
+            Handles the user detail operation.
+            </summary>
+            <param name="userRepository"></param>
+        </member>
+        <member name="M:Milvonion.Application.Features.Users.GetUserDetail.GetUserDetailQueryHandler.#ctor(Milvonion.Application.Interfaces.IMilvonionRepositoryBase{Milvonion.Domain.User})">
+            <summary>
+            Handles the user detail operation.
+            </summary>
+            <param name="userRepository"></param>
+        </member>
+        <member name="M:Milvonion.Application.Features.Users.GetUserDetail.GetUserDetailQueryHandler.Handle(Milvonion.Application.Features.Users.GetUserDetail.GetUserDetailQuery,System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Milvonion.Application.Features.Users.GetUserDetail.GetUserDetailQueryValidator">
+            <summary>
+            Account detail query validations. 
+            </summary>
+        </member>
+        <member name="M:Milvonion.Application.Features.Users.GetUserDetail.GetUserDetailQueryValidator.#ctor(Milvasoft.Core.Abstractions.Localization.IMilvaLocalizer)">
+            <inheritdoc cref="T:Milvonion.Application.Features.Users.GetUserDetail.GetUserDetailQueryValidator"/>
+        </member>
+        <member name="T:Milvonion.Application.Features.Users.GetUserList.GetUserListQuery">
+            <summary>
+            Data transfer object for user list.
+            </summary>
+        </member>
+        <member name="T:Milvonion.Application.Features.Users.GetUserList.GetUserListQueryHandler">
+            <summary>
+            Handles the user list operation.
+            </summary>
+            <param name="userRepository"></param>
+        </member>
+        <member name="M:Milvonion.Application.Features.Users.GetUserList.GetUserListQueryHandler.#ctor(Milvonion.Application.Interfaces.IMilvonionRepositoryBase{Milvonion.Domain.User})">
+            <summary>
+            Handles the user list operation.
+            </summary>
+            <param name="userRepository"></param>
+        </member>
+        <member name="M:Milvonion.Application.Features.Users.GetUserList.GetUserListQueryHandler.Handle(Milvonion.Application.Features.Users.GetUserList.GetUserListQuery,System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Milvonion.Application.Features.Users.GetUserList.GetUserListQueryValidator">
+            <summary>
+            Account detail query validations. 
+            </summary>
+        </member>
+        <member name="M:Milvonion.Application.Features.Users.GetUserList.GetUserListQueryValidator.#ctor">
+            <inheritdoc cref="T:Milvonion.Application.Features.Users.GetUserList.GetUserListQueryValidator"/>
+        </member>
+        <member name="T:Milvonion.Application.Features.Users.UpdateUser.UpdateUserCommand">
+            <summary>
+            Data transfer object for user update.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Features.Users.UpdateUser.UpdateUserCommand.Name">
+            <summary>
+            Name of user.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Features.Users.UpdateUser.UpdateUserCommand.Surname">
+            <summary>
+            Surname of user.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Features.Users.UpdateUser.UpdateUserCommand.Lockout">
+            <summary>
+            If the user enters the wrong password repeatedly, the account will be locked for a certain period of time. 
+            If this lock is to be removed, false should be sent, if this lock is to be placed on the user for a certain period of time, true should be sent.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Features.Users.UpdateUser.UpdateUserCommand.NewPassword">
+            <summary>
+            If a new password is to be assigned to the user, this field should be sent.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Features.Users.UpdateUser.UpdateUserCommand.RoleIdList">
+            <summary>
+            Related entities will always be updated according to the values ​​in this list. If you send it empty, related entities will be cleared. 
+            If no update has been made, please send it with isUpdated false.
+            </summary>
+        </member>
+        <member name="T:Milvonion.Application.Features.Users.UpdateUser.UpdateUserCommandHandler">
+            <summary>
+            Handles the update of the user.
+            </summary>
+            <param name="UserRepository"></param>
+            <param name="UserRoleRelationRepository"></param>
+            <param name="MilvaIdentityOptions"></param>
+            <param name="MilvaUserManager"></param>
+            <param name="MilvaPasswordHasher"></param>
+        </member>
+        <member name="M:Milvonion.Application.Features.Users.UpdateUser.UpdateUserCommandHandler.#ctor(Milvonion.Application.Interfaces.IMilvonionRepositoryBase{Milvonion.Domain.User},Milvonion.Application.Interfaces.IMilvonionRepositoryBase{Milvonion.Domain.UserRoleRelation},System.Lazy{Milvasoft.Identity.Concrete.Options.MilvaIdentityOptions},System.Lazy{Milvasoft.Identity.Abstract.IMilvaUserManager{Milvonion.Domain.User,System.Int32}},System.Lazy{Milvasoft.Identity.Abstract.IMilvaPasswordHasher})">
+            <summary>
+            Handles the update of the user.
+            </summary>
+            <param name="UserRepository"></param>
+            <param name="UserRoleRelationRepository"></param>
+            <param name="MilvaIdentityOptions"></param>
+            <param name="MilvaUserManager"></param>
+            <param name="MilvaPasswordHasher"></param>
+        </member>
+        <member name="P:Milvonion.Application.Features.Users.UpdateUser.UpdateUserCommandHandler.UserRepository">
+            <summary></summary>
+        </member>
+        <member name="P:Milvonion.Application.Features.Users.UpdateUser.UpdateUserCommandHandler.UserRoleRelationRepository">
+            <summary></summary>
+        </member>
+        <member name="P:Milvonion.Application.Features.Users.UpdateUser.UpdateUserCommandHandler.MilvaIdentityOptions">
+            <summary></summary>
+        </member>
+        <member name="P:Milvonion.Application.Features.Users.UpdateUser.UpdateUserCommandHandler.MilvaUserManager">
+            <summary></summary>
+        </member>
+        <member name="P:Milvonion.Application.Features.Users.UpdateUser.UpdateUserCommandHandler.MilvaPasswordHasher">
+            <summary></summary>
+        </member>
+        <member name="M:Milvonion.Application.Features.Users.UpdateUser.UpdateUserCommandHandler.Handle(Milvonion.Application.Features.Users.UpdateUser.UpdateUserCommand,System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Milvonion.Application.Features.Users.UpdateUser.UpdateUserCommandValidator">
+            <summary>
+            Account detail query validations. 
+            </summary>
+        </member>
+        <member name="M:Milvonion.Application.Features.Users.UpdateUser.UpdateUserCommandValidator.#ctor(Milvasoft.Core.Abstractions.Localization.IMilvaLocalizer)">
+            <inheritdoc cref="T:Milvonion.Application.Features.Users.UpdateUser.UpdateUserCommandValidator"/>
+        </member>
+        <member name="T:Milvonion.Application.Interfaces.IAccountManager">
+            <summary>
+            Account manager for user account operations.
+            </summary>
+        </member>
+        <member name="M:Milvonion.Application.Interfaces.IAccountManager.LoginAsync(Milvonion.Domain.User,System.String,System.Threading.CancellationToken)">
+            <summary>
+            User login operation.
+            It updates sessions in database.
+            Generates access and refresh tokens.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Milvonion.Application.Interfaces.IAccountManager.GenerateToken(Milvonion.Domain.User,System.Nullable{System.DateTime})">
+            <summary>
+            Generates token for ci user.
+            Generates access token.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Milvonion.Application.Interfaces.IDevelopmentService">
+            <summary>
+            Development service for development purposes.
+            </summary>
+        </member>
+        <member name="M:Milvonion.Application.Interfaces.IDevelopmentService.ResetDatabaseAsync">
+            <summary>
+            Remove, recreates and seed database for development purposes.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Milvonion.Application.Interfaces.IDevelopmentService.SeedDataAsync">
+            <summary>
+            Seeds data for development purposes.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Milvonion.Application.Interfaces.IDevelopmentService.InitDatabaseAsync">
+            <summary>
+            Initial migration operation.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Milvonion.Application.Interfaces.IDevelopmentService.GetMethodLogsAsync(Milvasoft.Components.Rest.Request.ListRequest)">
+            <summary>
+            Gets method logs.
+            </summary>
+            <param name="listRequest"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Milvonion.Application.Interfaces.IDevelopmentService.GetApiLogsAsync(Milvasoft.Components.Rest.Request.ListRequest)">
+            <summary>
+            Gets api logs.
+            </summary>
+            <param name="listRequest"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Milvonion.Application.Interfaces.ILookupService">
+            <summary>
+            Lookup service for getting dynamic entity fetch.
+            </summary>
+        </member>
+        <member name="M:Milvonion.Application.Interfaces.ILookupService.GetLookupsAsync(Milvasoft.DataAccess.EfCore.Utils.LookupModels.LookupRequest)">
+            <summary>
+            Dynamic entity fetch.
+            </summary>
+            <param name="request"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Milvonion.Application.Interfaces.ILookupService.GetEnumLookups(System.String)">
+            <summary>
+            Get enum names as localized.
+            </summary>
+            <param name="enumName"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Milvonion.Application.Interfaces.IMilvonionRepositoryBase`1">
+            <summary>
+            Base repository for Milvonion.
+            </summary>
+            <typeparam name="TEntity"></typeparam>
+        </member>
+        <member name="T:Milvonion.Application.Interfaces.IPermissionManager">
+            <summary>
+            Permission manager for managing system permissions.
+            </summary>
+        </member>
+        <member name="M:Milvonion.Application.Interfaces.IPermissionManager.MigratePermissionsAsync">
+            <summary>
+            Migrate permissions to the database.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Milvonion.Application.Interfaces.IUIService">
+            <summary>
+            Service for UI operations.
+            </summary>
+        </member>
+        <member name="M:Milvonion.Application.Interfaces.IUIService.GetAccessibleMenuItemsAsync(System.Collections.Generic.List{Milvonion.Domain.Permission},System.Threading.CancellationToken)">
+            <summary>
+            Gets accessible menu items according to <paramref name="userPermissions"/>.
+            </summary>
+            <param name="userPermissions"></param>
+            <param name="cancellationToken"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Milvonion.Application.Interfaces.IUIService.GetAccessibleMenuItemsForCurrentUserAsync(System.Threading.CancellationToken)">
+            <summary>
+            Gets accessible menu items according to current user permissions.
+            </summary>
+            <param name="cancellationToken"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Milvonion.Application.Interfaces.IUIService.GetCurrentUserPageAccessibilityAsync(System.String,System.Threading.CancellationToken)">
+            <summary>
+            Gets page information by <paramref name="pageName"/>. 
+            </summary>
+            <param name="pageName"></param>
+            <param name="cancellationToken"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Milvonion.Application.Interfaces.IUIService.GetPagesAccessibilityAsync(System.Collections.Generic.List{System.String},System.Threading.CancellationToken)">
+            <summary>
+            Gets pages information. 
+            </summary>
+            <param name="userPermissions"></param>
+            <param name="cancellationToken"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Milvonion.Application.Interfaces.IUIService.GetCurrentUserPagesAccessibilityAsync(System.Threading.CancellationToken)">
+            <summary>
+            Gets pages information for current user. 
+            </summary>
+            <param name="cancellationToken"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Milvonion.Application.Interfaces.IUIService.GetLocalizedContents">
+            <summary>
+            Gets localized contents related to UI.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Milvonion.Application.Utils.Aspects.UserActivityLogAspect.UserActivityLogInterceptor">
+            <summary>
+            Specifies that the method marked with this attribute will be added to as activity to database by the <see cref="T:Milvonion.Application.Utils.Aspects.UserActivityLogAspect.UserActivityLogInterceptor"/>.
+            </summary>
+            <param name="serviceProvider"></param>
+        </member>
+        <member name="M:Milvonion.Application.Utils.Aspects.UserActivityLogAspect.UserActivityLogInterceptor.#ctor(System.IServiceProvider)">
+            <summary>
+            Specifies that the method marked with this attribute will be added to as activity to database by the <see cref="T:Milvonion.Application.Utils.Aspects.UserActivityLogAspect.UserActivityLogInterceptor"/>.
+            </summary>
+            <param name="serviceProvider"></param>
+        </member>
+        <member name="P:Milvonion.Application.Utils.Aspects.UserActivityLogAspect.UserActivityLogInterceptor.InterceptionOrder">
+            <inheritdoc/>
+        </member>
+        <member name="M:Milvonion.Application.Utils.Aspects.UserActivityLogAspect.UserActivityLogInterceptor.OnInvoke(Milvasoft.Interception.Decorator.Call)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Milvonion.Application.Utils.Attributes.AuthAttribute">
+            <summary>
+            Specifies that the method marked with this attribute will be added to as activity to database by the <see cref="T:Milvonion.Application.Utils.Aspects.UserActivityLogAspect.UserActivityLogInterceptor"/>.
+            </summary>
+        </member>
+        <member name="M:Milvonion.Application.Utils.Attributes.AuthAttribute.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Milvonion.Application.Utils.Attributes.AuthAttribute"/> class with <see cref="F:Milvonion.Application.Utils.PermissionManager.PermissionCatalog.App.SuperAdmin"/> role.
+            </summary>
+        </member>
+        <member name="M:Milvonion.Application.Utils.Attributes.AuthAttribute.#ctor(System.String[])">
+            <summary>
+            Initializes a new instance of the <see cref="T:Milvonion.Application.Utils.Attributes.AuthAttribute"/> class with <see cref="F:Milvonion.Application.Utils.PermissionManager.PermissionCatalog.App.SuperAdmin"/> role and <paramref name="roles"/>.
+            </summary>
+        </member>
+        <member name="T:Milvonion.Application.Utils.Attributes.UserActivityTrackAttribute">
+            <summary>
+            Specifies that the method marked with this attribute will be added to as activity to database by the <see cref="T:Milvonion.Application.Utils.Aspects.UserActivityLogAspect.UserActivityLogInterceptor"/>.
+            </summary>
+        </member>
+        <member name="M:Milvonion.Application.Utils.Attributes.UserActivityTrackAttribute.#ctor(Milvonion.Domain.Enums.UserActivity)">
+            <summary>
+            Specifies that the method marked with this attribute will be added to as activity to database by the <see cref="T:Milvonion.Application.Utils.Aspects.UserActivityLogAspect.UserActivityLogInterceptor"/>.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Utils.Attributes.UserActivityTrackAttribute.Activity">
+            <summary>
+            Activity type.
+            </summary>
+        </member>
+        <member name="T:Milvonion.Application.Utils.Attributes.UserTypeAuthAttribute">
+            <summary>
+            Determines the type of user who can access the method.
+            </summary>
+            <param name="userType"></param>
+        </member>
+        <member name="M:Milvonion.Application.Utils.Attributes.UserTypeAuthAttribute.#ctor(Milvonion.Domain.Enums.UserType)">
+            <summary>
+            Determines the type of user who can access the method.
+            </summary>
+            <param name="userType"></param>
+        </member>
+        <member name="M:Milvonion.Application.Utils.Attributes.UserTypeAuthAttribute.OnAuthorization(Microsoft.AspNetCore.Mvc.Filters.AuthorizationFilterContext)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Milvonion.Application.Utils.Constants.GlobalConstant">
+            <summary>
+            Represents a class that contains global constants for the application.
+            </summary>
+        </member>
+        <member name="F:Milvonion.Application.Utils.Constants.GlobalConstant.RoutePrefix">
+            <summary>
+            Route prefix of api.
+            </summary>
+        </member>
+        <member name="F:Milvonion.Application.Utils.Constants.GlobalConstant.RouteBase">
+            <summary>
+            Base route path of api.
+            </summary>
+        </member>
+        <member name="F:Milvonion.Application.Utils.Constants.GlobalConstant.FullRoute">
+            <summary>
+            Full route path of api. It includes <see cref="F:Milvonion.Application.Utils.Constants.GlobalConstant.RouteBase"/> and controller name. 
+            </summary>
+        </member>
+        <member name="F:Milvonion.Application.Utils.Constants.GlobalConstant.WWWRoot">
+            <summary>
+            Root directory path. 
+            </summary>
+        </member>
+        <member name="F:Milvonion.Application.Utils.Constants.GlobalConstant.HealthCheckPath">
+            <summary>
+            Health check path. 
+            </summary>
+        </member>
+        <member name="F:Milvonion.Application.Utils.Constants.GlobalConstant.HealthCheckUIPath">
+            <summary>
+            Health check ui path. 
+            </summary>
+        </member>
+        <member name="F:Milvonion.Application.Utils.Constants.GlobalConstant.HealthCheckWebHookPath">
+            <summary>
+            Health check ui path. 
+            </summary>
+        </member>
+        <member name="F:Milvonion.Application.Utils.Constants.GlobalConstant.HealthCheckResourcesPath">
+            <summary>
+            Health check resources path. 
+            </summary>
+        </member>
+        <member name="F:Milvonion.Application.Utils.Constants.GlobalConstant.Http">
+            <summary>
+            http string.
+            </summary>
+        </member>
+        <member name="F:Milvonion.Application.Utils.Constants.GlobalConstant.Https">
+            <summary>
+            https string.
+            </summary>
+        </member>
+        <member name="F:Milvonion.Application.Utils.Constants.GlobalConstant.LocalizationResourcesFolderName">
+            <summary>
+            Localization resources folder name.
+            </summary>
+        </member>
+        <member name="F:Milvonion.Application.Utils.Constants.GlobalConstant.ResourcesFolderName">
+            <summary>
+            Resources folder name.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Utils.Constants.GlobalConstant.RootPath">
+            <summary>
+            Rootpath of application.  
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Utils.Constants.GlobalConstant.SqlFilesPath">
+            <summary>
+            SQL folder path.  
+            </summary>
+        </member>
+        <member name="F:Milvonion.Application.Utils.Constants.GlobalConstant.DefaultApiVersion">
+            <summary>
+            Default api version.
+            </summary>
+        </member>
+        <member name="F:Milvonion.Application.Utils.Constants.GlobalConstant.CustomForbidSchema">
+            <summary>
+            Custom forbid scheme for super admin.
+            </summary>
+        </member>
+        <member name="F:Milvonion.Application.Utils.Constants.GlobalConstant.LoggingActivityName">
+            <summary>
+            Logging activity name for activity starter interception.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Utils.Constants.GlobalConstant.CurrentEnvironment">
+            <summary>
+            Gets or sets the current environment.
+            </summary>
+        </member>
+        <member name="F:Milvonion.Application.Utils.Constants.GlobalConstant.UserTypeClaimName">
+            <summary>
+            UserType claim name.
+            </summary>
+        </member>
+        <member name="F:Milvonion.Application.Utils.Constants.GlobalConstant.IgnoreResponseLoggingItemsKey">
+            <summary>
+            Response logging ignore httpcontext items key.
+            </summary>
+        </member>
+        <member name="T:Milvonion.Application.Utils.Constants.MessageConstant">
+            <summary>
+            Represents a class that contains global constants for the application.
+            </summary>
+        </member>
+        <member name="T:Milvonion.Application.Utils.Constants.MessageKey">
+            <summary>
+            Represents a class that contains global constants for the application.
+            </summary>
+        </member>
+        <member name="T:Milvonion.Application.Utils.Extensions.MilvonionExtensions">
+            <summary>
+            Contains extension methods for the Milvonion.
+            </summary>
+        </member>
+        <member name="M:Milvonion.Application.Utils.Extensions.MilvonionExtensions.GetTokenFromHeader(Microsoft.AspNetCore.Http.IHttpContextAccessor)">
+            <summary>
+            Gets token from header via HttpContextAccessor.
+            </summary>
+            <param name="httpContextAccessor"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Milvonion.Application.Utils.Extensions.MilvonionExtensions.GetTokenFromHeader(Microsoft.AspNetCore.Http.HttpContext)">
+            <summary>
+            Gets token from header via HttpContext.
+            </summary>
+            <param name="httpContext"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Milvonion.Application.Utils.Extensions.MilvonionExtensions.IsCurrentUser(Microsoft.AspNetCore.Http.IHttpContextAccessor,System.String)">
+            <summary>
+            Checks whether the current user is the user whose name is given as a parameter via HttpContext.
+            </summary>
+            <param name="httpContextAccessor"></param>
+            <param name="userName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Milvonion.Application.Utils.Extensions.MilvonionExtensions.CurrentUserName(Microsoft.AspNetCore.Http.HttpContext)">
+            <summary>
+            Gets current user name via HttpContextAccessor.
+            </summary>
+            <param name="httpContext"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Milvonion.Application.Utils.Extensions.MilvonionExtensions.GetCurrentUserType(Microsoft.AspNetCore.Http.HttpContext)">
+            <summary>
+            Get current user type from claims.
+            </summary>
+            <param name="httpContext"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Milvonion.Application.Utils.Extensions.MilvonionExtensions.GetCurrentUserPermissions(Microsoft.AspNetCore.Http.HttpContext)">
+            <summary>
+            Get current user permissions from claims.
+            </summary>
+            <param name="httpContext"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Milvonion.Application.Utils.Extensions.MilvonionExtensions.GetCurrentUserClaims(Microsoft.AspNetCore.Http.HttpContext)">
+            <summary>
+            Checks whether the current user is the user whose name is given as a parameter via HttpContext.
+            </summary>
+            <param name="httpContext"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Milvonion.Application.Utils.Extensions.MilvonionExtensions.ToLowerAndNonSpacingUnicode(System.String)">
+            <summary>
+            Converts the input string to lowercase and removes diacritics (accents) from characters.
+            </summary>
+            <param name="input">The input string to be converted.</param>
+            <returns>The converted string with lowercase letters and no diacritics.</returns>
+        </member>
+        <member name="M:Milvonion.Application.Utils.Extensions.MilvonionExtensions.IsBase64StringValidLength(System.String)">
+            <summary>
+            Calculates base 64 string length and returns whether it is valid.
+            </summary>
+            <param name="base64String"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Milvonion.Application.Utils.Extensions.MilvonionExtensions.IsBase64StringHasValidFileExtension(System.String)">
+            <summary>
+            Validates the base64 string by checking the file extension.
+            </summary>
+            <param name="base64String"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Milvonion.Application.Utils.Extensions.MilvonionExtensions.IsValidDataUri(System.String)">
+            <summary>
+            Determines whether the given string is a valid data uri base64 format.
+            </summary>
+            <param name="dataUri"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Milvonion.Application.Utils.Extensions.MilvonionExtensions.DataUriToPlainText(System.String)">
+            <summary>
+            Converts data uri base64 string to plain text base64 string.
+            </summary>
+            <param name="dataUriBase64"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Milvonion.Application.Utils.Extensions.MilvonionExtensions.DataUriRegex">
+            <remarks>
+            Pattern:<br/>
+            <code>^data:(?&lt;mediatype&gt;[\\w/+.-]+);base64,(?&lt;data&gt;[a-zA-Z0-9+/]+={0,2})$</code><br/>
+            Explanation:<br/>
+            <code>
+            ○ Match if at the beginning of the string.<br/>
+            ○ Match the string "data:".<br/>
+            ○ "mediatype" capture group.<br/>
+                ○ Match a character in the set [+--/\w] atomically at least once.<br/>
+            ○ Match the string ";base64,".<br/>
+            ○ "data" capture group.<br/>
+                ○ Match a character in the set [+/-9A-Za-z] atomically at least once.<br/>
+                ○ Match '=' atomically at most 2 times.<br/>
+            ○ Match if at the end of the string or if before an ending newline.<br/>
+            </code>
+            </remarks>
+        </member>
+        <member name="M:Milvonion.Application.Utils.Extensions.MilvonionExtensions.ReplaceAndToLowerRegex">
+            <remarks>
+            Pattern:<br/>
+            <code>\\s+</code><br/>
+            Explanation:<br/>
+            <code>
+            ○ Match a whitespace character atomically at least once.<br/>
+            </code>
+            </remarks>
+        </member>
+        <member name="T:Milvonion.Application.Utils.LinkedWithFormatters.ByteArrayToBase64Formatter">
+            <summary>
+            Converts byte array to base64 string.
+            </summary>
+        </member>
+        <member name="F:Milvonion.Application.Utils.LinkedWithFormatters.ByteArrayToBase64Formatter.FormatterName">
+            <inheritdoc/>
+        </member>
+        <member name="M:Milvonion.Application.Utils.LinkedWithFormatters.ByteArrayToBase64Formatter.Format(System.Object)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Milvonion.Application.Utils.LinkedWithFormatters.EnumFormatter`1">
+            <summary>
+            Converts enum value to its localized display name.
+            </summary>
+            <typeparam name="TEnum"></typeparam>
+            <param name="milvaLocalizer"></param>
+        </member>
+        <member name="M:Milvonion.Application.Utils.LinkedWithFormatters.EnumFormatter`1.#ctor(Milvasoft.Core.Abstractions.Localization.IMilvaLocalizer)">
+            <summary>
+            Converts enum value to its localized display name.
+            </summary>
+            <typeparam name="TEnum"></typeparam>
+            <param name="milvaLocalizer"></param>
+        </member>
+        <member name="F:Milvonion.Application.Utils.LinkedWithFormatters.EnumFormatter`1.FormatterName">
+            <inheritdoc/>
+        </member>
+        <member name="M:Milvonion.Application.Utils.LinkedWithFormatters.EnumFormatter`1.Format(System.Object)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Milvonion.Application.Utils.LinkedWithFormatters.ExistsNotFormatter">
+            <summary>
+            Converts boolean value to Exists or NotExists.
+            </summary>
+            <param name="milvaLocalizer"></param>
+        </member>
+        <member name="M:Milvonion.Application.Utils.LinkedWithFormatters.ExistsNotFormatter.#ctor(Milvasoft.Core.Abstractions.Localization.IMilvaLocalizer)">
+            <summary>
+            Converts boolean value to Exists or NotExists.
+            </summary>
+            <param name="milvaLocalizer"></param>
+        </member>
+        <member name="P:Milvonion.Application.Utils.LinkedWithFormatters.ExistsNotFormatter.FormatterName">
+            <inheritdoc/>
+        </member>
+        <member name="M:Milvonion.Application.Utils.LinkedWithFormatters.ExistsNotFormatter.Format(System.Object)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Milvonion.Application.Utils.LinkedWithFormatters.FormatterServiceCollectionExtensions">
+            <summary>
+            Formatter service collection extensions.
+            </summary>
+        </member>
+        <member name="M:Milvonion.Application.Utils.LinkedWithFormatters.FormatterServiceCollectionExtensions.AddLinkedWithFormatters(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Reflection.Assembly[])">
+            <summary>
+            Add linked with formatters to service collection.
+            </summary>
+            <param name="services"></param>
+            <param name="assemblies"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Milvonion.Application.Utils.LinkedWithFormatters.FormatterServiceCollectionExtensions.AddEnumFormatters(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Reflection.Assembly[])">
+            <summary>
+            Finds enums in assemblies and adds their enum formatters to the service collection.
+            </summary>
+            <param name="services"></param>
+            <param name="assemblies"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Milvonion.Application.Utils.LinkedWithFormatters.PageNameTranslateFormatter">
+            <summary>
+            Converts boolean value to Yes or No.
+            </summary>
+            <param name="milvaLocalizer"></param>
+        </member>
+        <member name="M:Milvonion.Application.Utils.LinkedWithFormatters.PageNameTranslateFormatter.#ctor(Milvasoft.Core.Abstractions.Localization.IMilvaLocalizer)">
+            <summary>
+            Converts boolean value to Yes or No.
+            </summary>
+            <param name="milvaLocalizer"></param>
+        </member>
+        <member name="F:Milvonion.Application.Utils.LinkedWithFormatters.PageNameTranslateFormatter.FormatterName">
+            <inheritdoc/>
+        </member>
+        <member name="M:Milvonion.Application.Utils.LinkedWithFormatters.PageNameTranslateFormatter.Format(System.Object)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Milvonion.Application.Utils.LinkedWithFormatters.YesNoFormatter">
+            <summary>
+            Converts boolean value to Yes or No.
+            </summary>
+            <param name="milvaLocalizer"></param>
+        </member>
+        <member name="M:Milvonion.Application.Utils.LinkedWithFormatters.YesNoFormatter.#ctor(Milvasoft.Core.Abstractions.Localization.IMilvaLocalizer)">
+            <summary>
+            Converts boolean value to Yes or No.
+            </summary>
+            <param name="milvaLocalizer"></param>
+        </member>
+        <member name="F:Milvonion.Application.Utils.LinkedWithFormatters.YesNoFormatter.FormatterName">
+            <inheritdoc/>
+        </member>
+        <member name="M:Milvonion.Application.Utils.LinkedWithFormatters.YesNoFormatter.Format(System.Object)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Milvonion.Application.Utils.PermissionManager.PermissionCatalog.GetPermissionGroups">
+            <summary>
+            Gets all permissions in the system as grouped by permission group.
+            </summary>
+            <returns> Permission group and group's permissions pair. </returns>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.DataUriRegex_0">
+            <summary>Custom <see cref="T:System.Text.RegularExpressions.Regex"/>-derived type for the DataUriRegex method.</summary>
+        </member>
+        <member name="F:System.Text.RegularExpressions.Generated.DataUriRegex_0.Instance">
+            <summary>Cached, thread-safe singleton instance.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.DataUriRegex_0.#ctor">
+            <summary>Initializes the instance.</summary>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.DataUriRegex_0.RunnerFactory">
+            <summary>Provides a factory for creating <see cref="T:System.Text.RegularExpressions.RegexRunner"/> instances to be used by methods on <see cref="T:System.Text.RegularExpressions.Regex"/>.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.DataUriRegex_0.RunnerFactory.CreateInstance">
+            <summary>Creates an instance of a <see cref="T:System.Text.RegularExpressions.RegexRunner"/> used by methods on <see cref="T:System.Text.RegularExpressions.Regex"/>.</summary>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.DataUriRegex_0.RunnerFactory.Runner">
+            <summary>Provides the runner that contains the custom logic implementing the specified regular expression.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.DataUriRegex_0.RunnerFactory.Runner.Scan(System.ReadOnlySpan{System.Char})">
+            <summary>Scan the <paramref name="inputSpan"/> starting from base.runtextstart for the next match.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.DataUriRegex_0.RunnerFactory.Runner.TryFindNextPossibleStartingPosition(System.ReadOnlySpan{System.Char})">
+            <summary>Search <paramref name="inputSpan"/> starting from base.runtextpos for the next location a match could possibly start.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+            <returns>true if a possible match was found; false if no more matches are possible.</returns>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.DataUriRegex_0.RunnerFactory.Runner.TryMatchAtCurrentPosition(System.ReadOnlySpan{System.Char})">
+            <summary>Determine whether <paramref name="inputSpan"/> at base.runtextpos is a match for the regular expression.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+            <returns>true if the regular expression matches at the current position; otherwise, false.</returns>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.ReplaceAndToLowerRegex_1">
+            <summary>Custom <see cref="T:System.Text.RegularExpressions.Regex"/>-derived type for the ReplaceAndToLowerRegex method.</summary>
+        </member>
+        <member name="F:System.Text.RegularExpressions.Generated.ReplaceAndToLowerRegex_1.Instance">
+            <summary>Cached, thread-safe singleton instance.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.ReplaceAndToLowerRegex_1.#ctor">
+            <summary>Initializes the instance.</summary>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.ReplaceAndToLowerRegex_1.RunnerFactory">
+            <summary>Provides a factory for creating <see cref="T:System.Text.RegularExpressions.RegexRunner"/> instances to be used by methods on <see cref="T:System.Text.RegularExpressions.Regex"/>.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.ReplaceAndToLowerRegex_1.RunnerFactory.CreateInstance">
+            <summary>Creates an instance of a <see cref="T:System.Text.RegularExpressions.RegexRunner"/> used by methods on <see cref="T:System.Text.RegularExpressions.Regex"/>.</summary>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.ReplaceAndToLowerRegex_1.RunnerFactory.Runner">
+            <summary>Provides the runner that contains the custom logic implementing the specified regular expression.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.ReplaceAndToLowerRegex_1.RunnerFactory.Runner.Scan(System.ReadOnlySpan{System.Char})">
+            <summary>Scan the <paramref name="inputSpan"/> starting from base.runtextstart for the next match.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.ReplaceAndToLowerRegex_1.RunnerFactory.Runner.TryFindNextPossibleStartingPosition(System.ReadOnlySpan{System.Char})">
+            <summary>Search <paramref name="inputSpan"/> starting from base.runtextpos for the next location a match could possibly start.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+            <returns>true if a possible match was found; false if no more matches are possible.</returns>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.ReplaceAndToLowerRegex_1.RunnerFactory.Runner.TryMatchAtCurrentPosition(System.ReadOnlySpan{System.Char})">
+            <summary>Determine whether <paramref name="inputSpan"/> at base.runtextpos is a match for the regular expression.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+            <returns>true if the regular expression matches at the current position; otherwise, false.</returns>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.Utilities">
+            <summary>Helper methods used by generated <see cref="T:System.Text.RegularExpressions.Regex"/>-derived implementations.</summary>
+        </member>
+        <member name="F:System.Text.RegularExpressions.Generated.Utilities.s_defaultTimeout">
+            <summary>Default timeout value set in <see cref="T:System.AppContext"/>, or <see cref="F:System.Text.RegularExpressions.Regex.InfiniteMatchTimeout"/> if none was set.</summary>
+        </member>
+        <member name="F:System.Text.RegularExpressions.Generated.Utilities.s_hasTimeout">
+            <summary>Whether <see cref="F:System.Text.RegularExpressions.Generated.Utilities.s_defaultTimeout"/> is non-infinite.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.Utilities.IndexOfAnyWhiteSpace(System.ReadOnlySpan{System.Char})">
+            <summary>Finds the next index of any character that matches a whitespace character.</summary>
+        </member>
+        <member name="F:System.Text.RegularExpressions.Generated.Utilities.s_asciiExceptWhiteSpace">
+            <summary>Supports searching for characters in or not in "\0\u0001\u0002\u0003\u0004\u0005\u0006\a\b\u000e\u000f\u0010\u0011\u0012\u0013\u0014\u0015\u0016\u0017\u0018\u0019\u001a\u001b\u001c\u001d\u001e\u001f!\"#$%&amp;'()*+,-./0123456789:;&lt;=&gt;?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~\u007f".</summary>
+        </member>
+        <member name="F:System.Text.RegularExpressions.Generated.Utilities.s_ascii_88FF03FEFFFF07FEFFFF07">
+            <summary>Supports searching for characters in or not in "+/0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz".</summary>
+        </member>
+    </members>
+</doc>

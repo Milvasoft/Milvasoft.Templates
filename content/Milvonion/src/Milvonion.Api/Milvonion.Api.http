@@ -1,0 +1,6 @@
+@Milvonion.Api_HostAddress = http://localhost:xhttpportxx
+
+GET {{Milvonion.Api_HostAddress}}/healthcheck/
+Accept: application/json
+
+###

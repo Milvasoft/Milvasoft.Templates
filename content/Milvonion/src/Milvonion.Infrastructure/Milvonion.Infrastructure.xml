@@ -1,0 +1,491 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Milvonion.Infrastructure</name>
+    </assembly>
+    <members>
+        <member name="T:Milvonion.Infrastructure.InfraServiceCollectionExtensions">
+            <summary>
+            Infrastructure service collection extensions.
+            </summary>
+        </member>
+        <member name="M:Milvonion.Infrastructure.InfraServiceCollectionExtensions.AddInfrastructureServices(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Extensions.Configuration.IConfigurationManager)">
+            <summary>
+            Adds infrastructure services.
+            </summary>
+            <param name="services"></param>
+            <param name="configurationManager"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Milvonion.Infrastructure.InfraServiceCollectionExtensions.AddDataAccessServices(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Extensions.Configuration.IConfigurationManager)">
+            <summary>
+            Adds data access services.
+            </summary>
+            <param name="services"></param>
+            <param name="configurationManager"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Milvonion.Infrastructure.InfrastructureAssembly">
+            <summary>
+            Static class for ease of assembly access.
+            </summary>
+        </member>
+        <member name="F:Milvonion.Infrastructure.InfrastructureAssembly.Assembly">
+            <summary>
+            Assembly instance.
+            </summary>
+        </member>
+        <member name="T:Milvonion.Infrastructure.LazyImpl.MilvonionLazy`1">
+            <summary>
+            Custom <see cref="T:System.Lazy`1"/> class.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <remarks>
+            Constructor of <see cref="T:Milvonion.Infrastructure.LazyImpl.MilvonionLazy`1"/>.
+            </remarks>
+            <param name="serviceProvider"></param>
+        </member>
+        <member name="M:Milvonion.Infrastructure.LazyImpl.MilvonionLazy`1.#ctor(System.IServiceProvider)">
+            <summary>
+            Custom <see cref="T:System.Lazy`1"/> class.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <remarks>
+            Constructor of <see cref="T:Milvonion.Infrastructure.LazyImpl.MilvonionLazy`1"/>.
+            </remarks>
+            <param name="serviceProvider"></param>
+        </member>
+        <member name="T:Milvonion.Infrastructure.Logging.MilvonionDbLogger">
+            <summary>
+            Example <see cref="T:Milvasoft.Core.Abstractions.IMilvaLogger"/> implementation.
+            </summary>
+            <param name="loggerFactory"></param>
+        </member>
+        <member name="M:Milvonion.Infrastructure.Logging.MilvonionDbLogger.#ctor(Microsoft.Extensions.Logging.ILoggerFactory)">
+            <summary>
+            Example <see cref="T:Milvasoft.Core.Abstractions.IMilvaLogger"/> implementation.
+            </summary>
+            <param name="loggerFactory"></param>
+        </member>
+        <member name="M:Milvonion.Infrastructure.Logging.MilvonionDbLogger.Log(System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Milvonion.Infrastructure.Logging.MilvonionDbLogger.LogAsync(System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Milvonion.Infrastructure.Logging.MilvonionDbLogger.Debug(System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Milvonion.Infrastructure.Logging.MilvonionDbLogger.Debug(System.String,System.Object[])">
+            <inheritdoc/>
+        </member>
+        <member name="M:Milvonion.Infrastructure.Logging.MilvonionDbLogger.Debug(System.Exception,System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Milvonion.Infrastructure.Logging.MilvonionDbLogger.Debug(System.Exception,System.String,System.Object[])">
+            <inheritdoc/>
+        </member>
+        <member name="M:Milvonion.Infrastructure.Logging.MilvonionDbLogger.Error(System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Milvonion.Infrastructure.Logging.MilvonionDbLogger.Error(System.String,System.Object[])">
+            <inheritdoc/>
+        </member>
+        <member name="M:Milvonion.Infrastructure.Logging.MilvonionDbLogger.Error(System.Exception,System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Milvonion.Infrastructure.Logging.MilvonionDbLogger.Error(System.Exception,System.String,System.Object[])">
+            <inheritdoc/>
+        </member>
+        <member name="M:Milvonion.Infrastructure.Logging.MilvonionDbLogger.Fatal(System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Milvonion.Infrastructure.Logging.MilvonionDbLogger.Fatal(System.String,System.Object[])">
+            <inheritdoc/>
+        </member>
+        <member name="M:Milvonion.Infrastructure.Logging.MilvonionDbLogger.Fatal(System.Exception,System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Milvonion.Infrastructure.Logging.MilvonionDbLogger.Fatal(System.Exception,System.String,System.Object[])">
+            <inheritdoc/>
+        </member>
+        <member name="M:Milvonion.Infrastructure.Logging.MilvonionDbLogger.Information(System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Milvonion.Infrastructure.Logging.MilvonionDbLogger.Information(System.String,System.Object[])">
+            <inheritdoc/>
+        </member>
+        <member name="M:Milvonion.Infrastructure.Logging.MilvonionDbLogger.Information(System.Exception,System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Milvonion.Infrastructure.Logging.MilvonionDbLogger.Information(System.Exception,System.String,System.Object[])">
+            <inheritdoc/>
+        </member>
+        <member name="M:Milvonion.Infrastructure.Logging.MilvonionDbLogger.Verbose(System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Milvonion.Infrastructure.Logging.MilvonionDbLogger.Verbose(System.String,System.Object[])">
+            <inheritdoc/>
+        </member>
+        <member name="M:Milvonion.Infrastructure.Logging.MilvonionDbLogger.Verbose(System.Exception,System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Milvonion.Infrastructure.Logging.MilvonionDbLogger.Verbose(System.Exception,System.String,System.Object[])">
+            <inheritdoc/>
+        </member>
+        <member name="M:Milvonion.Infrastructure.Logging.MilvonionDbLogger.Warning(System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Milvonion.Infrastructure.Logging.MilvonionDbLogger.Warning(System.String,System.Object[])">
+            <inheritdoc/>
+        </member>
+        <member name="M:Milvonion.Infrastructure.Logging.MilvonionDbLogger.Warning(System.Exception,System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Milvonion.Infrastructure.Logging.MilvonionDbLogger.Warning(System.Exception,System.String,System.Object[])">
+            <inheritdoc/>
+        </member>
+        <member name="T:Milvonion.Infrastructure.Logging.RemoveTypeTagEnricher">
+            <summary>
+            Removes _typeTag from Serilog's output.
+            </summary>
+        </member>
+        <member name="M:Milvonion.Infrastructure.Logging.RemoveTypeTagEnricher.Enrich(Serilog.Events.LogEvent,Serilog.Core.ILogEventPropertyFactory)">
+            <summary>
+            Removes _typeTag from Serilog's output.
+            </summary>
+            <param name="logEvent"></param>
+            <param name="propertyFactory"></param>
+        </member>
+        <member name="M:Milvonion.Infrastructure.Logging.RemoveTypeTagEnricher.RemoveTypeTags(Serilog.Events.LogEventPropertyValue)">
+            <summary>
+            Removes _typeTag from Serilog's output.
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Milvonion.Infrastructure.Persistence.Context.MilvonionDbContext">
+            <summary>
+            Handles all database operations. Inherits <see cref="T:Milvonion.Infrastructure.Persistence.Context.MilvonionDbContext"/>
+            </summary>
+            
+            <remarks>
+            <para> You must register <see cref="T:Milvasoft.DataAccess.EfCore.Configuration.IDataAccessConfiguration"/> in your application startup. </para>
+            <para> If <see cref="T:Milvasoft.DataAccess.EfCore.Configuration.IDataAccessConfiguration"/>'s AuditDeleter, AuditModifier or AuditCreator is true
+                   and HttpMethod is POST,PUT or DELETE it will gets performer user in constructor from database.
+                   This can affect performance little bit. But you want audit every record easily you must use this :( </para>
+            </remarks>
+        </member>
+        <member name="M:Milvonion.Infrastructure.Persistence.Context.MilvonionDbContext.#ctor(Microsoft.EntityFrameworkCore.DbContextOptions)">
+            <summary>
+            Handles all database operations. Inherits <see cref="T:Milvonion.Infrastructure.Persistence.Context.MilvonionDbContext"/>
+            </summary>
+            
+            <remarks>
+            <para> You must register <see cref="T:Milvasoft.DataAccess.EfCore.Configuration.IDataAccessConfiguration"/> in your application startup. </para>
+            <para> If <see cref="T:Milvasoft.DataAccess.EfCore.Configuration.IDataAccessConfiguration"/>'s AuditDeleter, AuditModifier or AuditCreator is true
+                   and HttpMethod is POST,PUT or DELETE it will gets performer user in constructor from database.
+                   This can affect performance little bit. But you want audit every record easily you must use this :( </para>
+            </remarks>
+        </member>
+        <member name="M:Milvonion.Infrastructure.Persistence.Context.MilvonionDbContext.OnModelCreating(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <summary>
+            Overrided the OnModelCreating for custom configurations to database.
+            </summary>
+            <param name="modelBuilder"></param>
+        </member>
+        <member name="T:Milvonion.Infrastructure.Persistence.Context.MilvonionDbContextScopedFactory">
+            <summary>
+            Milvonion scoped factory.
+            </summary>
+            <remarks>
+            Initializes new instance of <see cref="T:Milvonion.Infrastructure.Persistence.Context.MilvonionDbContextScopedFactory"/>.
+            </remarks>
+            <param name="pooledFactory"></param>
+            <param name="dataAccessConfiguration"></param>
+            <param name="serviceProvider"></param>
+        </member>
+        <member name="M:Milvonion.Infrastructure.Persistence.Context.MilvonionDbContextScopedFactory.#ctor(Microsoft.EntityFrameworkCore.IDbContextFactory{Milvonion.Infrastructure.Persistence.Context.MilvonionDbContext},Milvasoft.DataAccess.EfCore.Configuration.IDataAccessConfiguration,System.IServiceProvider)">
+            <summary>
+            Milvonion scoped factory.
+            </summary>
+            <remarks>
+            Initializes new instance of <see cref="T:Milvonion.Infrastructure.Persistence.Context.MilvonionDbContextScopedFactory"/>.
+            </remarks>
+            <param name="pooledFactory"></param>
+            <param name="dataAccessConfiguration"></param>
+            <param name="serviceProvider"></param>
+        </member>
+        <member name="M:Milvonion.Infrastructure.Persistence.Context.MilvonionDbContextScopedFactory.CreateDbContext">
+            <summary>
+            Db context creation implementation.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Milvonion.Infrastructure.Persistence.Context.ModelBuilderExtensions">
+            <summary>
+            Extension methods for MilvonionDbContexts
+            </summary>
+        </member>
+        <member name="M:Milvonion.Infrastructure.Persistence.Context.ModelBuilderExtensions.UseUtcDateTime(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <summary>
+            Use UTC for datetime types.
+            </summary>
+            <param name="modelBuilder"></param>
+        </member>
+        <member name="T:Milvonion.Infrastructure.Persistence.Repository.MilvonionRepositoryBase`1">
+            <summary>
+            Constructor of <c>BillRepository</c> class.
+            </summary>
+            <param name="dbContext"></param>
+        </member>
+        <member name="M:Milvonion.Infrastructure.Persistence.Repository.MilvonionRepositoryBase`1.#ctor(Milvonion.Infrastructure.Persistence.Context.MilvonionDbContext)">
+            <summary>
+            Constructor of <c>BillRepository</c> class.
+            </summary>
+            <param name="dbContext"></param>
+        </member>
+        <member name="T:Milvonion.Infrastructure.Services.AccountManager">
+            <summary>
+            User login operation.
+            It updates sessions in database.
+            Generates access and refresh tokens.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Milvonion.Infrastructure.Services.AccountManager.#ctor(Milvonion.Application.Interfaces.IMilvonionRepositoryBase{Milvonion.Domain.UserSession},Milvasoft.Identity.Abstract.IMilvaTokenManager,Milvasoft.Identity.Concrete.Options.MilvaIdentityOptions)">
+            <summary>
+            User login operation.
+            It updates sessions in database.
+            Generates access and refresh tokens.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Milvonion.Infrastructure.Services.AccountManager.LoginAsync(Milvonion.Domain.User,System.String,System.Threading.CancellationToken)">
+            <summary>
+            User login operation.
+            It updates sessions in database.
+            Generates access and refresh tokens.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Milvonion.Infrastructure.Services.AccountManager.GenerateToken(Milvonion.Domain.User,System.Nullable{System.DateTime})">
+            <summary>
+            Generates token for ci user.
+            Generates access token.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Milvonion.Infrastructure.Services.AccountManager.FindSessionsToRemove(System.Collections.Generic.List{Milvonion.Domain.UserSession},System.String)">
+            <summary>
+            Finds the sessions to remove. Find criteria is the device id and the expiry date.
+            </summary>
+            <param name="userSessions"></param>
+            <param name="deviceId"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Milvonion.Infrastructure.Services.DevelopmentService">
+            <summary>
+            Development service for development purposes.
+            </summary>
+            <param name="mediator"></param>
+            <param name="permissionManager"></param>
+            <param name="milvonionDbContext"></param>
+            <param name="userManager"></param>
+            <param name="methodLogRepository"></param>
+            <param name="apiLogRepository"></param>
+            <param name="configuration"></param>
+        </member>
+        <member name="M:Milvonion.Infrastructure.Services.DevelopmentService.#ctor(MediatR.IMediator,Milvonion.Application.Interfaces.IPermissionManager,Milvonion.Infrastructure.Persistence.Context.MilvonionDbContext,Milvasoft.Identity.Abstract.IMilvaUserManager{Milvonion.Domain.User,System.Int32},Milvonion.Application.Interfaces.IMilvonionRepositoryBase{Milvonion.Domain.MethodLog},Milvonion.Application.Interfaces.IMilvonionRepositoryBase{Milvonion.Domain.ApiLog},Microsoft.Extensions.Configuration.IConfiguration)">
+            <summary>
+            Development service for development purposes.
+            </summary>
+            <param name="mediator"></param>
+            <param name="permissionManager"></param>
+            <param name="milvonionDbContext"></param>
+            <param name="userManager"></param>
+            <param name="methodLogRepository"></param>
+            <param name="apiLogRepository"></param>
+            <param name="configuration"></param>
+        </member>
+        <member name="M:Milvonion.Infrastructure.Services.DevelopmentService.ResetDatabaseAsync">
+            <summary>
+            Remove, recreates and seed database for development purposes.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Milvonion.Infrastructure.Services.DevelopmentService.SeedDataAsync">
+            <summary>
+            Seeds data for development purposes.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Milvonion.Infrastructure.Services.DevelopmentService.InitDatabaseAsync">
+            <summary>
+            Initial migration operation.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Milvonion.Infrastructure.Services.DevelopmentService.GetMethodLogsAsync(Milvasoft.Components.Rest.Request.ListRequest)">
+            <summary>
+            Gets method logs.
+            </summary>
+            <param name="listRequest"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Milvonion.Infrastructure.Services.DevelopmentService.GetApiLogsAsync(Milvasoft.Components.Rest.Request.ListRequest)">
+            <summary>
+            Gets api logs.
+            </summary>
+            <param name="listRequest"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Milvonion.Infrastructure.Services.LookupService">
+            <summary>
+            Lookup service for getting dynamic entity fetch.
+            </summary>
+            <param name="dbContext"></param>
+            <param name="localizer"></param>
+        </member>
+        <member name="M:Milvonion.Infrastructure.Services.LookupService.#ctor(Milvonion.Infrastructure.Persistence.Context.MilvonionDbContext,Milvasoft.Core.Abstractions.Localization.IMilvaLocalizer)">
+            <summary>
+            Lookup service for getting dynamic entity fetch.
+            </summary>
+            <param name="dbContext"></param>
+            <param name="localizer"></param>
+        </member>
+        <member name="M:Milvonion.Infrastructure.Services.LookupService.GetLookupsAsync(Milvasoft.DataAccess.EfCore.Utils.LookupModels.LookupRequest)">
+            <summary>
+            Dynamic entity fetch.
+            </summary>
+            <param name="request"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Milvonion.Infrastructure.Services.LookupService.GetEnumLookups(System.String)">
+            <summary>
+            Get enum names as localized.
+            </summary>
+            <param name="enumName"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Milvonion.Infrastructure.Services.PermissionManager">
+            <summary>
+            Permission manager for managing system permissions.
+            </summary>
+        </member>
+        <member name="M:Milvonion.Infrastructure.Services.PermissionManager.#ctor(Milvonion.Application.Interfaces.IMilvonionRepositoryBase{Milvonion.Domain.Permission},Milvonion.Application.Interfaces.IMilvonionRepositoryBase{Milvonion.Domain.RolePermissionRelation})">
+            <summary>
+            Permission manager for managing system permissions.
+            </summary>
+        </member>
+        <member name="M:Milvonion.Infrastructure.Services.PermissionManager.GetAllPermissionsAsync">
+            <summary>
+            Get all permissions as entity.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Milvonion.Infrastructure.Services.PermissionManager.MigratePermissionsAsync">
+            <summary>
+            Migrate permissions to the database.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Milvonion.Infrastructure.Services.UIService">
+            <summary>
+            Service for UI operations.
+            </summary>
+            <param name="multiLanguageManager"></param>
+            <param name="menuItemRepository"></param>
+            <param name="pageRepository"></param>
+            <param name="userRepository"></param>
+            <param name="httpContextAccessor"></param>
+            <param name="milvaLocalizer"></param>
+        </member>
+        <member name="M:Milvonion.Infrastructure.Services.UIService.#ctor(Milvasoft.Core.MultiLanguage.Manager.IMultiLanguageManager,Milvonion.Application.Interfaces.IMilvonionRepositoryBase{Milvonion.Domain.UI.MenuItem},Milvonion.Application.Interfaces.IMilvonionRepositoryBase{Milvonion.Domain.UI.Page},Milvonion.Application.Interfaces.IMilvonionRepositoryBase{Milvonion.Domain.User},Microsoft.AspNetCore.Http.IHttpContextAccessor,Milvasoft.Core.Abstractions.Localization.IMilvaLocalizer)">
+            <summary>
+            Service for UI operations.
+            </summary>
+            <param name="multiLanguageManager"></param>
+            <param name="menuItemRepository"></param>
+            <param name="pageRepository"></param>
+            <param name="userRepository"></param>
+            <param name="httpContextAccessor"></param>
+            <param name="milvaLocalizer"></param>
+        </member>
+        <member name="M:Milvonion.Infrastructure.Services.UIService.GetAccessibleMenuItemsAsync(System.Collections.Generic.List{Milvonion.Domain.Permission},System.Threading.CancellationToken)">
+            <summary>
+            Gets accessible menu items according to <paramref name="userPermissions"/>.
+            </summary>
+            <param name="userPermissions"></param>
+            <param name="cancellationToken"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Milvonion.Infrastructure.Services.UIService.GetAccessibleMenuItemsForCurrentUserAsync(System.Threading.CancellationToken)">
+            <summary>
+            Gets accessible menu items according to current user permissions.
+            </summary>
+            <param name="cancellationToken"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Milvonion.Infrastructure.Services.UIService.GetCurrentUserPageAccessibilityAsync(System.String,System.Threading.CancellationToken)">
+            <summary>
+            Gets page information by <paramref name="pageName"/>. 
+            </summary>
+            <param name="pageName"></param>
+            <param name="cancellationToken"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Milvonion.Infrastructure.Services.UIService.GetPagesAccessibilityAsync(System.Collections.Generic.List{System.String},System.Threading.CancellationToken)">
+            <summary>
+            Gets pages information according to <paramref name="userPermissions"/>. 
+            </summary>
+            <param name="userPermissions"></param>
+            <param name="cancellationToken"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Milvonion.Infrastructure.Services.UIService.GetCurrentUserPagesAccessibilityAsync(System.Threading.CancellationToken)">
+            <summary>
+            Gets pages information for current user. 
+            </summary>
+            <param name="cancellationToken"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Milvonion.Infrastructure.Services.UIService.GetLocalizedContents">
+            <summary>
+            Gets localized contents related to UI.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Milvonion.Infrastructure.Services.UIService.BuildHierarchy(System.Collections.Generic.List{Milvonion.Domain.UI.MenuItem})">
+            <summary>
+            Builds parent-child hierarchy for menu items.
+            </summary>
+            <param name="menuItems"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Milvonion.Infrastructure.Utils.Swagger.ExampleSchemaFilter">
+            <summary>
+            Swagger examples.
+            </summary>
+        </member>
+        <member name="M:Milvonion.Infrastructure.Utils.Swagger.ExampleSchemaFilter.Apply(Microsoft.OpenApi.Models.OpenApiSchema,Swashbuckle.AspNetCore.SwaggerGen.SchemaFilterContext)">
+            <summary>
+            Apply examples to swagger schema
+            </summary>
+            <param name="schema"></param>
+            <param name="context"></param>
+        </member>
+        <member name="T:Milvonion.Infrastructure.Utils.Swagger.RequestHeaderFilter">
+            <summary>
+            Operation filter to add the requirement of the custom header
+            </summary>
+        </member>
+        <member name="M:Milvonion.Infrastructure.Utils.Swagger.RequestHeaderFilter.Apply(Microsoft.OpenApi.Models.OpenApiOperation,Swashbuckle.AspNetCore.SwaggerGen.OperationFilterContext)">
+            <summary>
+            Applies configuration.
+            </summary>
+            <param name="operation"></param>
+            <param name="context"></param>
+        </member>
+    </members>
+</doc>

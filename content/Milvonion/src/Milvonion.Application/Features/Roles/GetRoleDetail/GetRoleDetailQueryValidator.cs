@@ -1,0 +1,18 @@
+﻿using FluentValidation;
+using Milvasoft.Core.Abstractions.Localization;
+
+namespace Milvonion.Application.Features.Roles.GetRoleDetail;
+
+/// <summary>
+/// Account detail query validations. 
+/// </summary>
+public sealed class GetRoleDetailQueryValidator : AbstractValidator<GetRoleDetailQuery>
+{
+    ///<inheritdoc cref="GetRoleDetailQueryValidator"/>
+    public GetRoleDetailQueryValidator(IMilvaLocalizer localizer)
+    {
+        RuleFor(query => query.RoleId)
+            .NotEqual(0)
+            .WithMessage(localizer[MessageKey.PleaseSendCorrect, localizer[MessageKey.Role]]);
+    }
+}
