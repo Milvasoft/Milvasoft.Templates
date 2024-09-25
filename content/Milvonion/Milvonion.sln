@@ -15,7 +15,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{5FBD06AE-B62
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Milvonion.UnitTests", "tests\Milvonion.UnitTests\Milvonion.UnitTests.csproj", "{A0BCDB0E-9232-4B62-BE1D-F906205AC4EC}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Milvaonion.IntegrationTests", "tests\Milvaonion.IntegrationTests\Milvaonion.IntegrationTests.csproj", "{E97663AE-6998-4B4A-893C-183951D62C69}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Milvonion.IntegrationTests", "tests\Milvonion.IntegrationTests\Milvonion.IntegrationTests.csproj", "{E97663AE-6998-4B4A-893C-183951D62C69}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{CEDCCDAA-0318-4501-BECE-B332558E2E8B}"
 EndProject

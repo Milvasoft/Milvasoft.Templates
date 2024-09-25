@@ -1,4 +1,4 @@
-namespace Milvaonion.IntegrationTests;
+namespace Milvonion.IntegrationTests;
 
 public class UnitTest1
 {
