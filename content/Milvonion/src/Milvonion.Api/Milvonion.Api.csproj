@@ -2,7 +2,6 @@
 
 	<PropertyGroup>
 		<TargetFramework>net8.0</TargetFramework>
-		<Nullable>xnullablexx</Nullable>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<UserSecretsId>d5ffdc97-ad34-4194-b342-29d0aac4ee8f</UserSecretsId>
 		<DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
@@ -10,16 +9,24 @@
 		<DocumentationFile>..\Milvonion.Api\Milvonion.Api.xml</DocumentationFile>
 	</PropertyGroup>
 
+	<PropertyGroup Condition="'$(Configuration)' == 'Debug'">
+		<Nullable>disable</Nullable>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)' != 'Debug'">
+		<Nullable>xnullablexx</Nullable>
+	</PropertyGroup>
+
 	<ItemGroup>
-		<PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.8" />
-		<PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.8">
+		<PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.10" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.10">
 			<PrivateAssets>all</PrivateAssets>
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
-		<PackageReference Include="Milvasoft.Components.Swagger" Version="8.1.37" />
+		<PackageReference Include="Milvasoft.Components.Swagger" Version="8.1.38" />
 		<PackageReference Include="Asp.Versioning.Mvc.ApiExplorer" Version="8.1.0" />
 		<PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.21.0" />
-		<PackageReference Include="System.Text.Json" Version="8.0.4" />
+		<PackageReference Include="System.Text.Json" Version="8.0.5" />
 		<PackageReference Include="AspNetCore.HealthChecks.NpgSql" Version="8.0.2" />
 		<PackageReference Include="AspNetCore.HealthChecks.System" Version="8.0.1" />
 		<PackageReference Include="AspNetCore.HealthChecks.UI" Version="8.0.2" />

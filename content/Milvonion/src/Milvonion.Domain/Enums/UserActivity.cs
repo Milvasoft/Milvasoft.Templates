@@ -4,6 +4,7 @@ namespace Milvonion.Domain.Enums;
 /// <summary>
 /// User activity types.
 /// </summary>
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 public enum UserActivity : byte
 {
     [Description("User added")]
@@ -24,3 +25,4 @@ public enum UserActivity : byte
     [Description("Role deleted")]
     DeleteRole = 6,
 }
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member

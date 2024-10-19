@@ -3,15 +3,24 @@
 	<PropertyGroup>
 		<TargetFramework>net8.0</TargetFramework>
 		<ImplicitUsings>enable</ImplicitUsings>
-		<Nullable>xnullablexx</Nullable>
 		<GenerateDocumentationFile>True</GenerateDocumentationFile>
 		<DocumentationFile>..\Milvonion.Domain\Milvonion.Domain.xml</DocumentationFile>
 	</PropertyGroup>
 
+
+	<PropertyGroup Condition="'$(Configuration)' == 'Debug'">
+		<Nullable>disable</Nullable>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)' != 'Debug'">
+		<Nullable>xnullablexx</Nullable>
+	</PropertyGroup>
+
+	
 	<ItemGroup>
-		<PackageReference Include="Milvasoft.Core.MultiLanguage" Version="8.1.37" />
-		<PackageReference Include="Milvasoft.DataAccess.EfCore" Version="8.1.37" />
-		<PackageReference Include="Milvasoft.Identity" Version="8.1.37" />
+		<PackageReference Include="Milvasoft.Core.MultiLanguage" Version="8.1.38" />
+		<PackageReference Include="Milvasoft.DataAccess.EfCore" Version="8.1.38" />
+		<PackageReference Include="Milvasoft.Identity" Version="8.1.38" />
 	</ItemGroup>
 
 </Project>

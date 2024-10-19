@@ -65,6 +65,7 @@ public class MenuItem : CreationAuditableEntity<int>, IHasTranslation<MenuItemTr
 
     #region Projections
 
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
     public static class Projections
     {
         public static Expression<Func<MenuItem, MenuItem>> AccessibleMenuItems { get; } = u => new MenuItem
@@ -82,4 +83,5 @@ public class MenuItem : CreationAuditableEntity<int>, IHasTranslation<MenuItemTr
     }
 
     #endregion
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 }

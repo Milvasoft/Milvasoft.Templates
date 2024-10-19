@@ -84,6 +84,7 @@ public class User : MilvaUser<int>, IFullAuditable<int>
 
     #region Projections
 
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
     public static class Projections
     {
         public static Expression<Func<User, User>> UserRemove { get; } = u => new User
@@ -244,4 +245,5 @@ public class User : MilvaUser<int>, IFullAuditable<int>
     }
 
     #endregion
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 }

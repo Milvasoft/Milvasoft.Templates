@@ -46,6 +46,7 @@ public class UserSession : FullAuditableEntity<int>
     /// </summary>
     public virtual User User { get; set; }
 
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
     public static class Conditions
     {
         public static Expression<Func<UserSession, bool>> CurrentSession(string userName, string deviceId) => s => s.UserName == userName && s.DeviceId == deviceId;
@@ -66,4 +67,5 @@ public class UserSession : FullAuditableEntity<int>
             ExpiryDate = s.ExpiryDate,
         };
     }
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 }

@@ -1,5 +1,6 @@
 ﻿namespace Milvonion.Domain;
 
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 public static class TableNames
 {
     public const string Users = nameof(Users);
@@ -20,3 +21,4 @@ public static class TableNames
     public const string PageActionTranslations = nameof(PageActionTranslations);
     public const string MigrationHistory = "_MigrationHistory";
 }
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
