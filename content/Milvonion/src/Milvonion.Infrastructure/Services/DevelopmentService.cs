@@ -112,18 +112,6 @@ public class DevelopmentService(IMediator mediator,
                 RoleIdList = [1]
             });
 
-            //Akbank mobil user creation
-            await mediator.Send(new CreateUserCommand
-            {
-                Name = "Ak",
-                Surname = "Bank",
-                UserName = "akbank",
-                UserType = Domain.Enums.UserType.Manager,
-                Email = "akbank@gmail.com",
-                Password = "string",
-                RoleIdList = [addedRole.Data],
-            });
-
             //Viewer User creation
             await mediator.Send(new CreateUserCommand
             {
