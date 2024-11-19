@@ -38,7 +38,7 @@ public static partial class StartupExtensions
         app.MapScalarApiReference(options =>
         {
             options.WithOpenApiRoutePattern($"/{GlobalConstant.RoutePrefix}/docs/v1.0/docs.json");
-            options.WithEndpointPrefix("/api/documentation/{documentName}");
+            options.WithEndpointPrefix($"/{GlobalConstant.RoutePrefix}/documentation/{{documentName}}");
 
             options.WithDefaultHttpClient(ScalarTarget.JavaScript, ScalarClient.Axios);
             options.WithApiKeyAuthentication(opt =>

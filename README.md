@@ -1,4 +1,4 @@
-## .Net 8 Api Templates/Boilerplates
+## .Net 9 Api Templates/Boilerplates
   
 
 [![license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/Milvasoft/Milvasoft/blob/master/LICENSE)  [![NuGet](https://img.shields.io/nuget/v/Milvasoft.Templates)](https://www.nuget.org/packages/Milvasoft/)   [![NuGet](https://img.shields.io/nuget/dt/Milvasoft.Templates)](https://www.nuget.org/packages/Milvasoft.Templates/) 

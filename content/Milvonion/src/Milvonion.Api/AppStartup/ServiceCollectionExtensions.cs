@@ -152,7 +152,7 @@ public static partial class StartupExtensions
                 Version = GlobalConstant.DefaultApiVersion,
                 Title = "Milvonion Api",
                 Description = "Milvonion api.",
-                TermsOfService = new Uri("https://www.mobtech.com.tr"),
+                TermsOfService = new Uri("https://www.milvasoft.com"),
                 Contact = new OpenApiContact { Name = "Milvonion", Email = "info@milvasoft.com", Url = new Uri("https://www.milvasoft.com") },
                 License = new OpenApiLicense { Name = "MIT", Url = new Uri("https://opensource.org/licenses/MIT") }
             });
