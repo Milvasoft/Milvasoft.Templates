@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Milvasoft.Caching.Builder;
@@ -79,6 +80,8 @@ public static class InfraServiceCollectionExtensions
 
         services.AddPooledDbContextFactory<MilvonionDbContext>((provider, options) =>
         {
+            options.ConfigureWarnings(warnings => { warnings.Log(RelationalEventId.PendingModelChangesWarning); });
+
             options.UseNpgsql(dataSource, b => b.MigrationsHistoryTable("_MigrationHistory").MigrationsAssembly("Milvonion.Api").EnableRetryOnFailure())
                    .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTrackingWithIdentityResolution);
         });

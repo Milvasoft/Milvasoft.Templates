@@ -147,7 +147,6 @@ public static partial class StartupExtensions
                 }
             });
 
-#pragma warning disable S1075 // URIs should not be hardcoded
             options.SwaggerDoc(GlobalConstant.DefaultApiVersion, new OpenApiInfo
             {
                 Version = GlobalConstant.DefaultApiVersion,
@@ -157,7 +156,6 @@ public static partial class StartupExtensions
                 Contact = new OpenApiContact { Name = "Milvonion", Email = "info@milvasoft.com", Url = new Uri("https://www.milvasoft.com") },
                 License = new OpenApiLicense { Name = "MIT", Url = new Uri("https://opensource.org/licenses/MIT") }
             });
-#pragma warning restore S1075 // URIs should not be hardcoded
 
             foreach (var assembly in assemblies)
             {
@@ -171,6 +169,7 @@ public static partial class StartupExtensions
             options.OperationFilter<SwaggerFileOperationFilter>();
             options.OperationFilter<RequestHeaderFilter>();
             options.SchemaFilter<ExampleSchemaFilter>();
+            options.SchemaFilter<EnumSchemaFilter>();
         });
 
         return services;

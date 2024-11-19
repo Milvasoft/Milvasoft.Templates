@@ -9,7 +9,7 @@ namespace Milvonion.Infrastructure.Persistence.Repository;
 /// Constructor of <c>BillRepository</c> class.
 /// </summary>
 /// <param name="dbContext"></param>
-public class MilvonionRepositoryBase<TEntity>(MilvonionDbContext dbContext) : BaseRepository<TEntity, MilvonionDbContext>(dbContext), IMilvonionRepositoryBase<TEntity>
+public class MilvonionRepositoryBase<TEntity>(MilvonionDbContext dbContext) : BulkBaseRepository<TEntity, MilvonionDbContext>(dbContext), IMilvonionRepositoryBase<TEntity>
     where TEntity : EntityBase
 {
 }

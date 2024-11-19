@@ -1532,6 +1532,11 @@
             Response logging ignore httpcontext items key.
             </summary>
         </member>
+        <member name="F:Milvonion.Application.Utils.Constants.GlobalConstant.RootUsername">
+            <summary>
+            Root user name.
+            </summary>
+        </member>
         <member name="T:Milvonion.Application.Utils.Constants.MessageConstant">
             <summary>
             Represents a class that contains global constants for the application.
@@ -1845,14 +1850,11 @@
         <member name="F:System.Text.RegularExpressions.Generated.Utilities.s_hasTimeout">
             <summary>Whether <see cref="F:System.Text.RegularExpressions.Generated.Utilities.s_defaultTimeout"/> is non-infinite.</summary>
         </member>
-        <member name="M:System.Text.RegularExpressions.Generated.Utilities.IndexOfAnyWhiteSpace(System.ReadOnlySpan{System.Char})">
-            <summary>Finds the next index of any character that matches a whitespace character.</summary>
-        </member>
-        <member name="F:System.Text.RegularExpressions.Generated.Utilities.s_asciiExceptWhiteSpace">
-            <summary>Supports searching for characters in or not in "\0\u0001\u0002\u0003\u0004\u0005\u0006\a\b\u000e\u000f\u0010\u0011\u0012\u0013\u0014\u0015\u0016\u0017\u0018\u0019\u001a\u001b\u001c\u001d\u001e\u001f!\"#$%&amp;'()*+,-./0123456789:;&lt;=&gt;?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~\u007f".</summary>
-        </member>
         <member name="F:System.Text.RegularExpressions.Generated.Utilities.s_ascii_88FF03FEFFFF07FEFFFF07">
             <summary>Supports searching for characters in or not in "+/0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz".</summary>
+        </member>
+        <member name="F:System.Text.RegularExpressions.Generated.Utilities.s_whitespace">
+            <summary>Supports searching for characters in or not in "\t\n\v\f\r \u0085             \u2028\u2029  　".</summary>
         </member>
     </members>
 </doc>

@@ -10,7 +10,9 @@ namespace Milvonion.Infrastructure.Logging;
 /// Example <see cref="IMilvaLogger"/> implementation.
 /// </summary>
 /// <param name="loggerFactory"></param>
+#pragma warning disable IDE0079 // Remove unnecessary suppression
 [System.Diagnostics.CodeAnalysis.SuppressMessage("Usage", "CA2254:Template should be a static expression", Justification = "<Pending>")]
+#pragma warning restore IDE0079 // Remove unnecessary suppression
 public class MilvonionDbLogger(ILoggerFactory loggerFactory) : IMilvaLogger
 {
     private readonly ILogger _logger = loggerFactory.CreateLogger<MilvonionDbLogger>();

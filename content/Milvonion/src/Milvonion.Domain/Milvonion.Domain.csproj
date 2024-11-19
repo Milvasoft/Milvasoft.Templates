@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFramework>net8.0</TargetFramework>
+		<TargetFramework>net9.0</TargetFramework>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<GenerateDocumentationFile>True</GenerateDocumentationFile>
 		<DocumentationFile>..\Milvonion.Domain\Milvonion.Domain.xml</DocumentationFile>
@@ -18,9 +18,9 @@
 
 	
 	<ItemGroup>
-		<PackageReference Include="Milvasoft.Core.MultiLanguage" Version="8.2.2" />
-		<PackageReference Include="Milvasoft.DataAccess.EfCore" Version="8.2.2" />
-		<PackageReference Include="Milvasoft.Identity" Version="8.2.2" />
+		<PackageReference Include="Milvasoft.Core.MultiLanguage" Version="9.0.1" />
+		<PackageReference Include="Milvasoft.DataAccess.EfCore.Bulk" Version="9.0.1" />
+		<PackageReference Include="Milvasoft.Identity" Version="9.0.1" />
 	</ItemGroup>
 
 </Project>

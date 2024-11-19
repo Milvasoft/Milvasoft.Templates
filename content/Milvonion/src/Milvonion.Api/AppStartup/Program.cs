@@ -3,6 +3,7 @@ using Milvasoft.Core.Utils.Converters;
 using Milvonion.Api;
 using Milvonion.Api.AppStartup;
 using Milvonion.Api.Middlewares;
+using Milvonion.Api.Migrations;
 using Milvonion.Application;
 using Milvonion.Application.Utils.LinkedWithFormatters;
 using Milvonion.Domain;
@@ -26,7 +27,7 @@ try
 #if DEBUG
     builder.Host.UseSerilog((_, lc) => lc.ReadFrom.Configuration(builder.Configuration));
 #else
-builder.Host.UseSerilog((_, lc) => lc.ReadFrom.Configuration(builder.Configuration).Enrich.With(new RemoveTypeTagEnricher()));
+    builder.Host.UseSerilog((_, lc) => lc.ReadFrom.Configuration(builder.Configuration).Enrich.With(new RemoveTypeTagEnricher()));
 #endif
 
     #region ConfigureServices
@@ -43,7 +44,7 @@ builder.Host.UseSerilog((_, lc) => lc.ReadFrom.Configuration(builder.Configurati
     services.AddSwagger(assemblies);
 
 #if !DEBUG
-services.AddHealthCheck(builder.Configuration);
+    services.AddHealthCheck(builder.Configuration);
 #endif
 
     services.AddAuthorization(builder.Configuration);
@@ -70,6 +71,8 @@ services.AddHealthCheck(builder.Configuration);
 
     builder.WebHost.UseWebRoot("wwwroot");
 
+    builder.Services.AddHostedService<MigrationHostedService>();
+
     #endregion
 
     services.AddCors(o => o.AddPolicy("AllowAll", builder =>
@@ -85,8 +88,6 @@ services.AddHealthCheck(builder.Configuration);
     app.UseCors("AllowAll");
 
     #region Configure
-
-    await app.CreateDatabaseIfNotExistsAsync();
 
     // This must be first.
     app.UseResponseCompression();
@@ -106,7 +107,7 @@ services.AddHealthCheck(builder.Configuration);
     app.UseSwagger();
 
 #if !DEBUG
-app.UseHealthCheck();
+    app.UseHealthCheck();
 #endif
 
     #endregion

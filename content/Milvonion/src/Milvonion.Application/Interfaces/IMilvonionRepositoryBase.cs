@@ -1,5 +1,5 @@
 ﻿using Milvasoft.Core.EntityBases.Concrete;
-using Milvasoft.DataAccess.EfCore.RepositoryBase.Abstract;
+using Milvasoft.DataAccess.EfCore.Bulk.RepositoryBase.Abstract;
 
 namespace Milvonion.Application.Interfaces;
 
@@ -7,6 +7,6 @@ namespace Milvonion.Application.Interfaces;
 /// Base repository for Milvonion.
 /// </summary>
 /// <typeparam name="TEntity"></typeparam>
-public interface IMilvonionRepositoryBase<TEntity> : IBaseRepository<TEntity> where TEntity : EntityBase
+public interface IMilvonionRepositoryBase<TEntity> : IBulkBaseRepository<TEntity> where TEntity : EntityBase
 {
 }

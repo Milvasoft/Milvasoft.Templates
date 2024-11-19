@@ -4,11 +4,16 @@ using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.EntityFrameworkCore;
 using Milvasoft.Core.MultiLanguage.Manager;
+using Milvasoft.Identity.Concrete.Options;
+using Milvasoft.Identity.TokenProvider.AuthToken;
 using Milvasoft.Localization;
 using Milvonion.Application.Utils.Constants;
+using Milvonion.Application.Utils.PermissionManager;
+using Milvonion.Domain.Enums;
 using Milvonion.Infrastructure.Persistence.Context;
-using Swashbuckle.AspNetCore.SwaggerUI;
+using Scalar.AspNetCore;
 using System.Globalization;
+using System.Security.Claims;
 
 namespace Milvonion.Api.AppStartup;
 
@@ -28,18 +33,44 @@ public static partial class StartupExtensions
         {
             c.SerializeAsV2 = true;
             c.RouteTemplate = GlobalConstant.RoutePrefix + "/docs/{documentName}/docs.json";
-        }).UseSwaggerUI(c =>
+        });
+
+        app.MapScalarApiReference(options =>
         {
-            c.DefaultModelExpandDepth(-1);
-            c.DefaultModelsExpandDepth(1);
-            c.DefaultModelRendering(ModelRendering.Example);
-            c.DocExpansion(DocExpansion.None);
-            c.RoutePrefix = $"{GlobalConstant.RoutePrefix}/documentation";
-            c.SwaggerEndpoint($"/{GlobalConstant.RoutePrefix}/docs/v1.0/docs.json", "Milvonion Api v1.0");
-            c.InjectJavascript($"/{GlobalConstant.RoutePrefix}/swagger-ui/custom.js");
+            options.WithOpenApiRoutePattern($"/{GlobalConstant.RoutePrefix}/docs/v1.0/docs.json");
+            options.WithEndpointPrefix("/api/documentation/{documentName}");
+
+            options.WithDefaultHttpClient(ScalarTarget.JavaScript, ScalarClient.Axios);
+            options.WithApiKeyAuthentication(opt =>
+            {
+                opt.Token = GenerateTokenForUI(app);
+            });
+
+            //UI
+            options.WithTitle("Milvonion Api Reference")
+                   .WithFavicon("https://demo.milvasoft.com/api/favicon.ico")
+                   .WithDownloadButton(false)
+                   .WithDarkMode(true)
+                   .WithPreferredScheme("Bearer")
+                   .WithCustomCss(".darklight-reference-promo { display: none !important; } .darklight-reference { padding-bottom: 15px !important; } .open-api-client-button { display: none !important; }");
         });
 
         return app;
+
+        static string GenerateTokenForUI(WebApplication app)
+        {
+            var identityOptions = app.Services.GetRequiredService<MilvaIdentityOptions>();
+
+            var tokenManager = new MilvaTokenManager(identityOptions, null);
+
+            var roleClaim = new Claim(ClaimTypes.Role, PermissionCatalog.App.SuperAdmin);
+            var userTypeClaim = new Claim(GlobalConstant.UserTypeClaimName, UserType.Manager.ToString());
+            var userClaim = new Claim(ClaimTypes.Name, "rootuser");
+
+            var accessToken = tokenManager.GenerateToken(DateTime.UtcNow.AddYears(1), claims: [userClaim, roleClaim, userTypeClaim]);
+
+            return "Bearer " + accessToken;
+        }
     }
 
     /// <summary>

@@ -74,6 +74,11 @@
             Username of the user associated with the API request.
             </summary>
         </member>
+        <member name="P:Milvonion.Domain.ApiLog.Exception">
+            <summary>
+            Exception in request if exists.
+            </summary>
+        </member>
         <member name="T:Milvonion.Domain.Enums.UserActivity">
             <summary>
             User activity types.

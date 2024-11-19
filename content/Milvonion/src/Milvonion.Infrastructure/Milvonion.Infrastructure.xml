@@ -463,6 +463,14 @@
             <param name="menuItems"></param>
             <returns></returns>
         </member>
+        <member name="T:Milvonion.Infrastructure.Utils.Swagger.EnumSchemaFilter">
+            <summary>
+            View enums strings with values.
+            </summary>
+        </member>
+        <member name="M:Milvonion.Infrastructure.Utils.Swagger.EnumSchemaFilter.Apply(Microsoft.OpenApi.Models.OpenApiSchema,Swashbuckle.AspNetCore.SwaggerGen.SchemaFilterContext)">
+            <inheritdoc/>
+        </member>
         <member name="T:Milvonion.Infrastructure.Utils.Swagger.ExampleSchemaFilter">
             <summary>
             Swagger examples.

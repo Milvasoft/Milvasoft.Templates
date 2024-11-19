@@ -1,5 +1,6 @@
 ﻿using MediatR;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.Extensions.Configuration;
 using Milvasoft.Attributes.Annotations;
 using Milvasoft.Components.Rest.MilvaResponse;
@@ -59,6 +60,8 @@ public class DevelopmentService(IMediator mediator,
         var opt = new DbContextOptionsBuilder<MilvonionDbContext>()
                     .UseNpgsql(connectionString, b => b.MigrationsHistoryTable("_MigrationHistory").MigrationsAssembly("Milvonion.Api").EnableRetryOnFailure())
                     .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTrackingWithIdentityResolution);
+
+        opt.ConfigureWarnings(warnings => { warnings.Log(RelationalEventId.PendingModelChangesWarning); });
 
         using var db = new MilvonionDbContext(opt.Options);
 

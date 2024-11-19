@@ -432,6 +432,32 @@
         <member name="M:Milvonion.Api.Migrations.InitialCreate.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
             <inheritdoc />
         </member>
+        <member name="T:Milvonion.Api.Migrations.MigrationHostedService">
+            <summary>
+            Applies migrations when the application starts.
+            </summary>
+            <param name="scopeFactory"></param>
+        </member>
+        <member name="M:Milvonion.Api.Migrations.MigrationHostedService.#ctor(Microsoft.Extensions.DependencyInjection.IServiceScopeFactory)">
+            <summary>
+            Applies migrations when the application starts.
+            </summary>
+            <param name="scopeFactory"></param>
+        </member>
+        <member name="M:Milvonion.Api.Migrations.MigrationHostedService.StartAsync(System.Threading.CancellationToken)">
+            <summary>
+            Starts hosted service.
+            </summary>
+            <param name="cancellationToken"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Milvonion.Api.Migrations.MigrationHostedService.StopAsync(System.Threading.CancellationToken)">
+            <summary>
+            Stops hosted service.
+            </summary>
+            <param name="cancellationToken"></param>
+            <returns></returns>
+        </member>
         <member name="T:Milvonion.Api.PresentationAssembly">
             <summary>
             Static class for ease of assembly access.

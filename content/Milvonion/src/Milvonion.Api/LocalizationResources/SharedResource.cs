@@ -5,8 +5,4 @@ namespace Milvonion.Api;
 /// <summary>
 /// Dummy class for localization
 /// </summary>
-#pragma warning disable S2094 // Classes should not be empty
-public class SharedResource
-#pragma warning restore S2094 // Classes should not be empty
-{
-}
+public class SharedResource;
