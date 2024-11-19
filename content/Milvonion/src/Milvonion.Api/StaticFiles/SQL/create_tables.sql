@@ -115,7 +115,8 @@ CREATE TABLE public."ApiLogs" (
     "ResponseInfoJson" jsonb,
 	"ElapsedMs" bigint,
     "IpAddress" VARCHAR(50),
-    "UserName" VARCHAR(100)
+    "UserName" VARCHAR(100),
+    "Exception" VARCHAR
 );
 
 --------------------------------------------------------------------------------------------------

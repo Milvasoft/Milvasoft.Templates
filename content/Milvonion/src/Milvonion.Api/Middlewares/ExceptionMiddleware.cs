@@ -36,10 +36,14 @@ public class ExceptionMiddleware(RequestDelegate next, ILoggerFactory loggerFact
         }
         catch (PostgresException ex)
         {
+            context.Items.Add(nameof(Exception), ex);
+
             await HandlePostgresException(context, ex);
         }
         catch (MilvaUserFriendlyException ex)
         {
+            context.Items.Add(nameof(Exception), ex);
+
             if (context.Response.StatusCode == (int)HttpStatusCode.Unauthorized || context.Response.StatusCode == (int)HttpStatusCode.Forbidden)
             {
                 await RewriteResponseAsync(context, context.Response.StatusCode == (int)HttpStatusCode.Unauthorized ? MessageKey.Unauthorized : MessageKey.Forbidden, context.Response.StatusCode, MessageType.Warning);
@@ -50,6 +54,8 @@ public class ExceptionMiddleware(RequestDelegate next, ILoggerFactory loggerFact
         }
         catch (Exception ex)
         {
+            context.Items.Add(nameof(Exception), ex);
+
             if (ex.InnerException is PostgresException postgresEx)
                 await HandlePostgresException(context, postgresEx);
             else

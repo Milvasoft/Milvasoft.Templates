@@ -18,9 +18,9 @@
 
 	
 	<ItemGroup>
-		<PackageReference Include="Milvasoft.Core.MultiLanguage" Version="8.1.38" />
-		<PackageReference Include="Milvasoft.DataAccess.EfCore" Version="8.1.38" />
-		<PackageReference Include="Milvasoft.Identity" Version="8.1.38" />
+		<PackageReference Include="Milvasoft.Core.MultiLanguage" Version="8.2.2" />
+		<PackageReference Include="Milvasoft.DataAccess.EfCore" Version="8.2.2" />
+		<PackageReference Include="Milvasoft.Identity" Version="8.2.2" />
 	</ItemGroup>
 
 </Project>

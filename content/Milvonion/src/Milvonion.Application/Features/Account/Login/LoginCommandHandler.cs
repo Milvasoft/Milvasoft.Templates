@@ -102,25 +102,33 @@ public record LoginCommandHandler(IMilvonionRepositoryBase<User> UserRepository,
     {
         var isPasswordTrue = _milvaUserManager.CheckPassword(user, password);
 
+        Response<LoginResponseDto> response = null;
+
         if (!isPasswordTrue)
         {
             if (user.LockoutEnabled)
             {
                 _milvaUserManager.ConfigureLockout(user, true);
 
-                await _userRepository.UpdateAsync(user, cancellationToken, i => i.AccessFailedCount, i => i.LockoutEnd);
-
                 if (_milvaUserManager.IsLockedOut(user))
-                    return PrepareLockoutResponse(user);
+                    response = PrepareLockoutResponse(user);
 
                 var lockWarningMessage = _milvaLocalizer[MessageKey.LockWarning, _identityOptions.Lockout.MaxFailedAccessAttempts - user.AccessFailedCount];
 
-                return Response<LoginResponseDto>.Error(null, lockWarningMessage);
+                response = Response<LoginResponseDto>.Error(null, lockWarningMessage);
             }
             else
-                return Response<LoginResponseDto>.Error(null, MessageKey.Unauthorized);
+                response = Response<LoginResponseDto>.Error(null, MessageKey.Unauthorized);
+        }
+        else
+        {
+            user.AccessFailedCount = 0;
+            user.LockoutEnd = null;
         }
 
-        return null;
+        if (user.UserName != GlobalConstant.RootUsername)
+            await _userRepository.UpdateAsync(user, cancellationToken, i => i.AccessFailedCount, i => i.LockoutEnd);
+
+        return response;
     }
 }

@@ -67,4 +67,9 @@ public class ApiLog : BaseEntity<int>
     /// </summary>
     [MaxLength(100)]
     public string UserName { get; set; }
+
+    /// <summary>
+    /// Exception in request if exists.
+    /// </summary>
+    public string Exception { get; set; }
 }

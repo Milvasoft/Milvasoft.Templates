@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.Primitives;
 using Microsoft.IO;
 using Milvasoft.Core.Abstractions;
+using Milvasoft.Core.Helpers;
 using Milvasoft.Core.Utils.Constants;
 using Milvasoft.Interception.Interceptors.ActivityScope;
 using Milvonion.Application.Utils.Constants;
@@ -141,7 +142,9 @@ public class RequestResponseLoggingMiddleware(RequestDelegate next, ILoggerFacto
 
             _sw.Stop();
 
-            _logger.LogInformation("{TransactionId}{Severity}{Timestamp}{Path}{@RequestInfoJson}{@ResponseInfoJson}{ElapsedMs}{IpAddress}{UserName}",
+            var exceptionExists = context.Items.TryGetValue(nameof(Exception), out var exception);
+
+            _logger.LogInformation("{TransactionId}{Severity}{Timestamp}{Path}{@RequestInfoJson}{@ResponseInfoJson}{ElapsedMs}{IpAddress}{UserName}{@Exception}",
                                    ActivityHelper.Id,
                                    LogLevel.Information.ToString(),
                                    DateTimeOffset.UtcNow,
@@ -150,7 +153,8 @@ public class RequestResponseLoggingMiddleware(RequestDelegate next, ILoggerFacto
                                    responseInfo,
                                    _sw.ElapsedMilliseconds,
                                    requestIp,
-                                   User.GetCurrentUser(context.RequestServices.GetService<IServiceProvider>())
+                                   User.GetCurrentUser(context.RequestServices.GetService<IServiceProvider>()),
+                                   exceptionExists ? exception.ToJson() : "No exception."
             );
 
             await emptyResponseBody.CopyToAsync(originalBodyStream);

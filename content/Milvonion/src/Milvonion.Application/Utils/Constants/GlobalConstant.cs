@@ -108,5 +108,10 @@ public static class GlobalConstant
     /// Response logging ignore httpcontext items key.
     /// </summary>
     public const string IgnoreResponseLoggingItemsKey = "IgnoreResponseLogging";
+
+    /// <summary>
+    /// Root user name.
+    /// </summary>
+    public const string RootUsername = "rootuser";
 }
 
