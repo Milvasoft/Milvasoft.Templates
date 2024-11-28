@@ -1,4 +1,5 @@
-﻿using Milvasoft.Core.EntityBases.Concrete;
+﻿using Microsoft.EntityFrameworkCore;
+using Milvasoft.Core.EntityBases.Concrete;
 using Milvonion.Domain.JsonModels;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -9,6 +10,11 @@ namespace Milvonion.Domain;
 /// Entity of the ApiLogs table.
 /// </summary>
 [Table(TableNames.ApiLogs)]
+[Index(nameof(Timestamp), IsDescending = [true])]
+[Index(nameof(UserName))]
+[Index(nameof(TransactionId))]
+[Index(nameof(Severity))]
+[Index(nameof(Path))]
 public class ApiLog : BaseEntity<int>
 {
     /// <summary>

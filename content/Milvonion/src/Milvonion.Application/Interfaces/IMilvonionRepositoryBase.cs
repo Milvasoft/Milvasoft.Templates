@@ -7,6 +7,4 @@ namespace Milvonion.Application.Interfaces;
 /// Base repository for Milvonion.
 /// </summary>
 /// <typeparam name="TEntity"></typeparam>
-public interface IMilvonionRepositoryBase<TEntity> : IBulkBaseRepository<TEntity> where TEntity : EntityBase
-{
-}
+public interface IMilvonionRepositoryBase<TEntity> : IBulkBaseRepository<TEntity> where TEntity : EntityBase;

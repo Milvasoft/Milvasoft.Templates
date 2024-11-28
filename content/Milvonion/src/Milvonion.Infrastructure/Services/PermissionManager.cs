@@ -18,7 +18,7 @@ public class PermissionManager(IMilvonionRepositoryBase<Permission> permissionRe
     /// Get all permissions as entity.
     /// </summary>
     /// <returns></returns>
-    public async Task<List<Permission>> GetAllPermissionsAsync()
+    public async Task<List<Permission>> GetAllPermissionsAsync(CancellationToken cancellationToken)
     {
         var permissions = await _permissionRepository.GetAllAsync(projection: i => new Permission
         {
@@ -29,7 +29,7 @@ public class PermissionManager(IMilvonionRepositoryBase<Permission> permissionRe
             PermissionGroup = i.PermissionGroup,
             PermissionGroupDescription = i.PermissionGroupDescription,
             RolePermissionRelations = i.RolePermissionRelations,
-        });
+        }, cancellationToken: cancellationToken);
 
         return permissions;
     }
@@ -39,9 +39,9 @@ public class PermissionManager(IMilvonionRepositoryBase<Permission> permissionRe
     /// </summary>
     /// <returns></returns>
     [Transaction]
-    public async Task<Response<string>> MigratePermissionsAsync()
+    public async Task<Response<string>> MigratePermissionsAsync(CancellationToken cancellationToken)
     {
-        var permissions = await GetAllPermissionsAsync();
+        var permissions = await GetAllPermissionsAsync(cancellationToken);
 
         var groupedPermissionsInDatabase = permissions.GroupBy(p => p.PermissionGroup).ToDictionary(g => g.Key, g => g.ToList());
 
@@ -70,7 +70,7 @@ public class PermissionManager(IMilvonionRepositoryBase<Permission> permissionRe
 
         // Add the permissions to the database
         if (permissionsToAdd.Count > 0)
-            await _permissionRepository.BulkAddAsync(permissionsToAdd);
+            await _permissionRepository.BulkAddAsync(permissionsToAdd, cancellationToken: cancellationToken);
 
         if (permissionsToRemove.Count > 0)
         {
@@ -78,9 +78,9 @@ public class PermissionManager(IMilvonionRepositoryBase<Permission> permissionRe
             var roleRelations = permissionsToRemove.SelectMany(i => i.RolePermissionRelations).ToList();
 
             if (roleRelations.Count > 0)
-                await _rolePermissionRelationRepository.BulkDeleteAsync(roleRelations);
+                await _rolePermissionRelationRepository.BulkDeleteAsync(roleRelations, cancellationToken: cancellationToken);
 
-            await _permissionRepository.BulkDeleteAsync(permissionsToRemove);
+            await _permissionRepository.BulkDeleteAsync(permissionsToRemove, cancellationToken: cancellationToken);
         }
 
         return Response<string>.Success($"Added : {permissionsToAdd.Count} / Removed : {permissionsToRemove.Count}");

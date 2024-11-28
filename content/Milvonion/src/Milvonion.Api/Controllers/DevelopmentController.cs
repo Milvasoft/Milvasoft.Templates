@@ -31,7 +31,7 @@ public class DevelopmentController(IDevelopmentService developmentService) : Con
     /// </summary>
     /// <returns></returns>
     [HttpPost("database/seed")]
-    public async Task<Response> SeedDataAsync() => await _developmentService.SeedDataAsync();
+    public async Task<Response> SeedDataAsync() => await _developmentService.SeedDevelopmentDataAsync();
 
     /// <summary>
     /// Initial migration operation.

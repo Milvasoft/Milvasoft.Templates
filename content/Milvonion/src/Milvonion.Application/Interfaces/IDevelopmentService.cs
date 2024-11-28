@@ -19,7 +19,7 @@ public interface IDevelopmentService : IInterceptable
     /// Seeds data for development purposes.
     /// </summary>
     /// <returns></returns>
-    Task<Response> SeedDataAsync();
+    Task<Response> SeedDevelopmentDataAsync();
 
     /// <summary>
     /// Initial migration operation.

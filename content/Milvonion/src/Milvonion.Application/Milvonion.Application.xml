@@ -1253,7 +1253,7 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Milvonion.Application.Interfaces.IDevelopmentService.SeedDataAsync">
+        <member name="M:Milvonion.Application.Interfaces.IDevelopmentService.SeedDevelopmentDataAsync">
             <summary>
             Seeds data for development purposes.
             </summary>
@@ -1309,7 +1309,7 @@
             Permission manager for managing system permissions.
             </summary>
         </member>
-        <member name="M:Milvonion.Application.Interfaces.IPermissionManager.MigratePermissionsAsync">
+        <member name="M:Milvonion.Application.Interfaces.IPermissionManager.MigratePermissionsAsync(System.Threading.CancellationToken)">
             <summary>
             Migrate permissions to the database.
             </summary>

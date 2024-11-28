@@ -10,6 +10,4 @@ namespace Milvonion.Infrastructure.Persistence.Repository;
 /// </summary>
 /// <param name="dbContext"></param>
 public class MilvonionRepositoryBase<TEntity>(MilvonionDbContext dbContext) : BulkBaseRepository<TEntity, MilvonionDbContext>(dbContext), IMilvonionRepositoryBase<TEntity>
-    where TEntity : EntityBase
-{
-}
+    where TEntity : EntityBase;

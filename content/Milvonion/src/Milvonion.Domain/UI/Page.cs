@@ -1,4 +1,5 @@
-﻿using Milvasoft.Core.EntityBases.Concrete.Auditing;
+﻿using Microsoft.EntityFrameworkCore;
+using Milvasoft.Core.EntityBases.Concrete.Auditing;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq.Expressions;
 
@@ -8,6 +9,7 @@ namespace Milvonion.Domain.UI;
 /// Entity of the Pages table.
 /// </summary>
 [Table(TableNames.Pages)]
+[Index(nameof(Name), IsUnique = true)]
 public class Page : CreationAuditableEntity<int>
 {
     /// <summary>

@@ -7,7 +7,7 @@ public static class MessageConstant
 {
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
     public const string DefaultDataCannotModifyPgCode = "P0001";
-    public const string DefaultDataCannotModifyPgMessage = "P0001: Seed records cannot be modified.";
+    public const string DefaultDataCannotModifyPgMessage = "Seed records cannot be";
     public const string DuplicateDataViolationPgCode = "23505";
     public const string ForeignKeyViolationPgCode = "20503";
     public const string ExceptionLogTemplate = "Exception raised : {message}";

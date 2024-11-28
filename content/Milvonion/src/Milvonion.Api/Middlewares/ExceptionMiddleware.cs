@@ -71,7 +71,7 @@ public class ExceptionMiddleware(RequestDelegate next, ILoggerFactory loggerFact
     {
         string messageKey;
 
-        if (ex.SqlState.Equals(MessageConstant.DefaultDataCannotModifyPgCode) && ex.Message.Equals(MessageConstant.DefaultDataCannotModifyPgMessage))
+        if (ex.SqlState.Equals(MessageConstant.DefaultDataCannotModifyPgCode) && ex.Message.Contains(MessageConstant.DefaultDataCannotModifyPgMessage))
             messageKey = MessageKey.DefaultValueCannotModify;
         else if (ex.SqlState.Equals(MessageConstant.DuplicateDataViolationPgCode))
             messageKey = MessageKey.PostgreDuplicateDataException;

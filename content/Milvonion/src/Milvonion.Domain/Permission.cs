@@ -1,4 +1,5 @@
-﻿using Milvasoft.Core.EntityBases.Concrete;
+﻿using Microsoft.EntityFrameworkCore;
+using Milvasoft.Core.EntityBases.Concrete;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -8,6 +9,7 @@ namespace Milvonion.Domain;
 /// Entity of the Permissions table.
 /// </summary>
 [Table(TableNames.Permissions)]
+[Index(nameof(PermissionGroup), nameof(Name), IsUnique = true)]
 public class Permission : BaseEntity<int>
 {
     /// <summary>

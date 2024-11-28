@@ -1,4 +1,5 @@
-﻿using Milvasoft.Core.EntityBases.Concrete;
+﻿using Microsoft.EntityFrameworkCore;
+using Milvasoft.Core.EntityBases.Concrete;
 using Milvonion.Domain.Enums;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -9,6 +10,7 @@ namespace Milvonion.Domain;
 /// Entity of the ActivityLogs table.
 /// </summary>
 [Table(TableNames.ActivityLogs)]
+[Index(nameof(ActivityDate), IsDescending = [true])]
 public class ActivityLog : BaseEntity<int>
 {
     /// <summary>

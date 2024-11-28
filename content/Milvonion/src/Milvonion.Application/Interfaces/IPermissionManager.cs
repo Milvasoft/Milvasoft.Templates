@@ -12,5 +12,5 @@ public interface IPermissionManager : IInterceptable
     /// Migrate permissions to the database.
     /// </summary>
     /// <returns></returns>
-    Task<Response<string>> MigratePermissionsAsync();
+    Task<Response<string>> MigratePermissionsAsync(CancellationToken cancellationToken);
 }

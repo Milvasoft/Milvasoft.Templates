@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Milvasoft.Attributes.Annotations;
 using Milvasoft.Core.EntityBases.Abstract;
@@ -14,6 +15,7 @@ namespace Milvonion.Domain;
 /// Entity of the Users table.
 /// </summary>
 [Table(TableNames.Users)]
+[Index(nameof(UserName), IsUnique = true)]
 public class User : MilvaUser<int>, IFullAuditable<int>
 {
     /// <summary>

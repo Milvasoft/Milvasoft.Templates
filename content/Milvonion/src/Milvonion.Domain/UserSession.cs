@@ -1,4 +1,5 @@
-﻿using Milvasoft.Core.EntityBases.Concrete.Auditing;
+﻿using Microsoft.EntityFrameworkCore;
+using Milvasoft.Core.EntityBases.Concrete.Auditing;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq.Expressions;
 
@@ -8,6 +9,7 @@ namespace Milvonion.Domain;
 /// Entity of the Users table.
 /// </summary>
 [Table(TableNames.UserSessions)]
+[Index(nameof(UserName), nameof(DeviceId))]
 public class UserSession : FullAuditableEntity<int>
 {
     /// <summary>

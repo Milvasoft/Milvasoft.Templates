@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Milvasoft.DataAccess.EfCore.Bulk.DbContextBase;
 using Milvasoft.DataAccess.EfCore.Configuration;
+using Milvasoft.DataAccess.EfCore.DbContextBase;
 using Milvonion.Domain;
 using Milvonion.Domain.UI;
 
@@ -35,12 +36,13 @@ public class MilvonionDbContext(DbContextOptions options) : MilvaBulkDbContext(o
     public DbSet<MigrationHistory> MigrationHistory { get; set; }
 #pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 
-    /// <summary>
-    /// Overrided the OnModelCreating for custom configurations to database.
-    /// </summary>
-    /// <param name="modelBuilder"></param>
+    /// <inheritdoc/>
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        modelBuilder.UseIndexToCreationAuditableEntities();
+        modelBuilder.UseIndexToSoftDeletableEntities();
+        modelBuilder.UseLogEntityBaseIndexes();
+
         if (_useUtcForDateTimes)
             modelBuilder.UseUtcDateTime();
 

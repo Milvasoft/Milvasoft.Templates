@@ -189,10 +189,7 @@
             </remarks>
         </member>
         <member name="M:Milvonion.Infrastructure.Persistence.Context.MilvonionDbContext.OnModelCreating(Microsoft.EntityFrameworkCore.ModelBuilder)">
-            <summary>
-            Overrided the OnModelCreating for custom configurations to database.
-            </summary>
-            <param name="modelBuilder"></param>
+            <inheritdoc/>
         </member>
         <member name="T:Milvonion.Infrastructure.Persistence.Context.MilvonionDbContextScopedFactory">
             <summary>
@@ -232,6 +229,57 @@
             Use UTC for datetime types.
             </summary>
             <param name="modelBuilder"></param>
+        </member>
+        <member name="T:Milvonion.Infrastructure.Persistence.DatabaseMigrator">
+            <summary>
+            Data seed methods.
+            </summary>
+            <param name="milvonionDbContext"></param>
+        </member>
+        <member name="M:Milvonion.Infrastructure.Persistence.DatabaseMigrator.#ctor(Milvonion.Infrastructure.Persistence.Context.MilvonionDbContext)">
+            <summary>
+            Data seed methods.
+            </summary>
+            <param name="milvonionDbContext"></param>
+        </member>
+        <member name="M:Milvonion.Infrastructure.Persistence.DatabaseMigrator.ResetDatabaseAsync(Microsoft.Extensions.Configuration.IConfiguration,System.Threading.CancellationToken)">
+            <summary>
+            Remove, recreates and seed database for development purposes.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Milvonion.Infrastructure.Persistence.DatabaseMigrator.CreateTriggersAsync(System.Threading.CancellationToken)">
+            <summary>
+            Creates default triggers.
+            </summary>
+            <param name="cancellationToken"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Milvonion.Infrastructure.Persistence.DatabaseMigrator.SeedDefaultDataAsync(System.String,System.Threading.CancellationToken)">
+            <summary>
+            Seeds default production data.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Milvonion.Infrastructure.Persistence.DatabaseMigrator.SeedUIRelatedDataAsync(System.Threading.CancellationToken)">
+            <summary>
+            Seeds default ui related data.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Milvonion.Infrastructure.Persistence.DatabaseMigrator.MigratePermissionsAsync(Milvonion.Application.Interfaces.IPermissionManager,System.Threading.CancellationToken)">
+            <summary>
+            Migrate default permissions.
+            </summary>
+            <param name="permissionManager"></param>
+            <param name="cancellationToken"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Milvonion.Infrastructure.Persistence.DatabaseMigrator.InitDatabaseAsync(Milvonion.Application.Interfaces.IPermissionManager,System.Threading.CancellationToken)">
+            <summary>
+            Initial data seed and migration operation for production.
+            </summary>
+            <returns></returns>
         </member>
         <member name="T:Milvonion.Infrastructure.Persistence.Repository.MilvonionRepositoryBase`1">
             <summary>
@@ -296,7 +344,7 @@
             <param name="apiLogRepository"></param>
             <param name="configuration"></param>
         </member>
-        <member name="M:Milvonion.Infrastructure.Services.DevelopmentService.#ctor(MediatR.IMediator,Milvonion.Application.Interfaces.IPermissionManager,Milvonion.Infrastructure.Persistence.Context.MilvonionDbContext,Milvasoft.Identity.Abstract.IMilvaUserManager{Milvonion.Domain.User,System.Int32},Milvonion.Application.Interfaces.IMilvonionRepositoryBase{Milvonion.Domain.MethodLog},Milvonion.Application.Interfaces.IMilvonionRepositoryBase{Milvonion.Domain.ApiLog},Microsoft.Extensions.Configuration.IConfiguration)">
+        <member name="M:Milvonion.Infrastructure.Services.DevelopmentService.#ctor(MediatR.IMediator,Milvonion.Application.Interfaces.IPermissionManager,Milvonion.Infrastructure.Persistence.Context.MilvonionDbContext,Milvonion.Application.Interfaces.IMilvonionRepositoryBase{Milvonion.Domain.MethodLog},Milvonion.Application.Interfaces.IMilvonionRepositoryBase{Milvonion.Domain.ApiLog},Microsoft.Extensions.Configuration.IConfiguration)">
             <summary>
             Development service for development purposes.
             </summary>
@@ -314,7 +362,7 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Milvonion.Infrastructure.Services.DevelopmentService.SeedDataAsync">
+        <member name="M:Milvonion.Infrastructure.Services.DevelopmentService.SeedDevelopmentDataAsync">
             <summary>
             Seeds data for development purposes.
             </summary>
@@ -378,13 +426,13 @@
             Permission manager for managing system permissions.
             </summary>
         </member>
-        <member name="M:Milvonion.Infrastructure.Services.PermissionManager.GetAllPermissionsAsync">
+        <member name="M:Milvonion.Infrastructure.Services.PermissionManager.GetAllPermissionsAsync(System.Threading.CancellationToken)">
             <summary>
             Get all permissions as entity.
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Milvonion.Infrastructure.Services.PermissionManager.MigratePermissionsAsync">
+        <member name="M:Milvonion.Infrastructure.Services.PermissionManager.MigratePermissionsAsync(System.Threading.CancellationToken)">
             <summary>
             Migrate permissions to the database.
             </summary>

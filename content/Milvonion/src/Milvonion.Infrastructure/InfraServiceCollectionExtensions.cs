@@ -82,7 +82,7 @@ public static class InfraServiceCollectionExtensions
         {
             options.ConfigureWarnings(warnings => { warnings.Log(RelationalEventId.PendingModelChangesWarning); });
 
-            options.UseNpgsql(dataSource, b => b.MigrationsHistoryTable("_MigrationHistory").MigrationsAssembly("Milvonion.Api").EnableRetryOnFailure())
+            options.UseNpgsql(dataSource, b => b.MigrationsHistoryTable(TableNames.MigrationHistory).MigrationsAssembly("Milvonion.Api").EnableRetryOnFailure())
                    .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTrackingWithIdentityResolution);
         });
 
