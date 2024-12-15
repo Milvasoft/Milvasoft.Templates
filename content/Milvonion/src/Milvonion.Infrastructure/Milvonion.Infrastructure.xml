@@ -332,9 +332,9 @@
             <param name="deviceId"></param>
             <returns></returns>
         </member>
-        <member name="T:Milvonion.Infrastructure.Services.DevelopmentService">
+        <member name="T:Milvonion.Infrastructure.Services.DeveloperService">
             <summary>
-            Development service for development purposes.
+            Developer service.
             </summary>
             <param name="mediator"></param>
             <param name="permissionManager"></param>
@@ -343,9 +343,9 @@
             <param name="apiLogRepository"></param>
             <param name="configuration"></param>
         </member>
-        <member name="M:Milvonion.Infrastructure.Services.DevelopmentService.#ctor(MediatR.IMediator,Milvonion.Application.Interfaces.IPermissionManager,Milvonion.Infrastructure.Persistence.Context.MilvonionDbContext,Milvonion.Application.Interfaces.IMilvonionRepositoryBase{Milvonion.Domain.MethodLog},Milvonion.Application.Interfaces.IMilvonionRepositoryBase{Milvonion.Domain.ApiLog},Microsoft.Extensions.Configuration.IConfiguration)">
+        <member name="M:Milvonion.Infrastructure.Services.DeveloperService.#ctor(MediatR.IMediator,Milvonion.Application.Interfaces.IPermissionManager,Milvonion.Infrastructure.Persistence.Context.MilvonionDbContext,Milvonion.Application.Interfaces.IMilvonionRepositoryBase{Milvonion.Domain.MethodLog},Milvonion.Application.Interfaces.IMilvonionRepositoryBase{Milvonion.Domain.ApiLog},Microsoft.Extensions.Configuration.IConfiguration)">
             <summary>
-            Development service for development purposes.
+            Developer service.
             </summary>
             <param name="mediator"></param>
             <param name="permissionManager"></param>
@@ -354,32 +354,32 @@
             <param name="apiLogRepository"></param>
             <param name="configuration"></param>
         </member>
-        <member name="M:Milvonion.Infrastructure.Services.DevelopmentService.ResetDatabaseAsync">
+        <member name="M:Milvonion.Infrastructure.Services.DeveloperService.ResetDatabaseAsync">
             <summary>
             Remove, recreates and seed database for development purposes.
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Milvonion.Infrastructure.Services.DevelopmentService.SeedDevelopmentDataAsync">
+        <member name="M:Milvonion.Infrastructure.Services.DeveloperService.SeedDevelopmentDataAsync">
             <summary>
             Seeds data for development purposes.
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Milvonion.Infrastructure.Services.DevelopmentService.InitDatabaseAsync">
+        <member name="M:Milvonion.Infrastructure.Services.DeveloperService.InitDatabaseAsync">
             <summary>
             Initial migration operation.
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Milvonion.Infrastructure.Services.DevelopmentService.GetMethodLogsAsync(Milvasoft.Components.Rest.Request.ListRequest)">
+        <member name="M:Milvonion.Infrastructure.Services.DeveloperService.GetMethodLogsAsync(Milvasoft.Components.Rest.Request.ListRequest)">
             <summary>
             Gets method logs.
             </summary>
             <param name="listRequest"></param>
             <returns></returns>
         </member>
-        <member name="M:Milvonion.Infrastructure.Services.DevelopmentService.GetApiLogsAsync(Milvasoft.Components.Rest.Request.ListRequest)">
+        <member name="M:Milvonion.Infrastructure.Services.DeveloperService.GetApiLogsAsync(Milvasoft.Components.Rest.Request.ListRequest)">
             <summary>
             Gets api logs.
             </summary>

@@ -39,7 +39,7 @@ public static class InfraServiceCollectionExtensions
         services.AddScoped<IAccountManager, AccountManager>();
         services.AddScoped<ILookupService, LookupService>();
         services.AddScoped<IUIService, UIService>();
-        services.AddScoped<IDevelopmentService, DevelopmentService>();
+        services.AddScoped<IDeveloperService, DeveloperService>();
 
         services.AddTransient(typeof(Lazy<>), typeof(MilvonionLazy<>));
 

@@ -35,9 +35,7 @@ public class MigrationHostedService(IServiceScopeFactory scopeFactory) : IHosted
             if (!pendingMigrations.IsNullOrEmpty())
                 await context.Database.MigrateAsync(cancellationToken);
 
-            var milvonionDbContext = scope.ServiceProvider.GetRequiredService<MilvonionDbContext>();
-
-            var languages = await milvonionDbContext.Languages.ToListAsync(cancellationToken);
+            var languages = await context.Languages.ToListAsync(cancellationToken);
 
             var languageSeed = languages.Cast<ILanguage>().ToList();
 

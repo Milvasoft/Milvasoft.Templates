@@ -2339,37 +2339,37 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="T:Milvonion.Application.Interfaces.IDevelopmentService">
+        <member name="T:Milvonion.Application.Interfaces.IDeveloperService">
             <summary>
-            Development service for development purposes.
+            Developer service.
             </summary>
         </member>
-        <member name="M:Milvonion.Application.Interfaces.IDevelopmentService.ResetDatabaseAsync">
+        <member name="M:Milvonion.Application.Interfaces.IDeveloperService.ResetDatabaseAsync">
             <summary>
             Remove, recreates and seed database for development purposes.
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Milvonion.Application.Interfaces.IDevelopmentService.SeedDevelopmentDataAsync">
+        <member name="M:Milvonion.Application.Interfaces.IDeveloperService.SeedDevelopmentDataAsync">
             <summary>
             Seeds data for development purposes.
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Milvonion.Application.Interfaces.IDevelopmentService.InitDatabaseAsync">
+        <member name="M:Milvonion.Application.Interfaces.IDeveloperService.InitDatabaseAsync">
             <summary>
             Initial migration operation.
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Milvonion.Application.Interfaces.IDevelopmentService.GetMethodLogsAsync(Milvasoft.Components.Rest.Request.ListRequest)">
+        <member name="M:Milvonion.Application.Interfaces.IDeveloperService.GetMethodLogsAsync(Milvasoft.Components.Rest.Request.ListRequest)">
             <summary>
             Gets method logs.
             </summary>
             <param name="listRequest"></param>
             <returns></returns>
         </member>
-        <member name="M:Milvonion.Application.Interfaces.IDevelopmentService.GetApiLogsAsync(Milvasoft.Components.Rest.Request.ListRequest)">
+        <member name="M:Milvonion.Application.Interfaces.IDeveloperService.GetApiLogsAsync(Milvasoft.Components.Rest.Request.ListRequest)">
             <summary>
             Gets api logs.
             </summary>

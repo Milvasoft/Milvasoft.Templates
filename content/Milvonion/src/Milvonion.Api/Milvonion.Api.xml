@@ -278,41 +278,41 @@
             <param name="request"></param>
             <returns></returns>
         </member>
-        <member name="T:Milvonion.Api.Controllers.DevelopmentController">
+        <member name="T:Milvonion.Api.Controllers.DeveloperController">
             <summary>
             Developer endpoints.
             </summary>
         </member>
-        <member name="M:Milvonion.Api.Controllers.DevelopmentController.#ctor(Milvonion.Application.Interfaces.IDevelopmentService)">
+        <member name="M:Milvonion.Api.Controllers.DeveloperController.#ctor(Milvonion.Application.Interfaces.IDeveloperService)">
             <summary>
             Developer endpoints.
             </summary>
         </member>
-        <member name="M:Milvonion.Api.Controllers.DevelopmentController.MigrateAsync">
+        <member name="M:Milvonion.Api.Controllers.DeveloperController.MigrateAsync">
             <summary>
             Remove, recreates and seed database for development purposes.
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Milvonion.Api.Controllers.DevelopmentController.SeedDataAsync">
+        <member name="M:Milvonion.Api.Controllers.DeveloperController.SeedDataAsync">
             <summary>
             Seeds data for development purposes.
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Milvonion.Api.Controllers.DevelopmentController.InitDatabaseAsync">
+        <member name="M:Milvonion.Api.Controllers.DeveloperController.InitDatabaseAsync">
             <summary>
             Initial migration operation.
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Milvonion.Api.Controllers.DevelopmentController.GetApiLogsAsync(Milvasoft.Components.Rest.Request.ListRequest)">
+        <member name="M:Milvonion.Api.Controllers.DeveloperController.GetApiLogsAsync(Milvasoft.Components.Rest.Request.ListRequest)">
             <summary>
             Gets api logs.
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Milvonion.Api.Controllers.DevelopmentController.GetMethodLogsAsync(Milvasoft.Components.Rest.Request.ListRequest)">
+        <member name="M:Milvonion.Api.Controllers.DeveloperController.GetMethodLogsAsync(Milvasoft.Components.Rest.Request.ListRequest)">
             <summary>
             Gets method logs.
             </summary>

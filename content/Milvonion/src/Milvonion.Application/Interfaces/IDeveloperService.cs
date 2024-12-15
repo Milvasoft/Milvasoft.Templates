@@ -5,9 +5,9 @@ using Milvasoft.Core.Abstractions;
 namespace Milvonion.Application.Interfaces;
 
 /// <summary>
-/// Development service for development purposes.
+/// Developer service.
 /// </summary>
-public interface IDevelopmentService : IInterceptable
+public interface IDeveloperService : IInterceptable
 {
     /// <summary>
     /// Remove, recreates and seed database for development purposes.

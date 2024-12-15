@@ -17,7 +17,7 @@ using Milvonion.Infrastructure.Persistence.Context;
 namespace Milvonion.Infrastructure.Services;
 
 /// <summary>
-/// Development service for development purposes.
+/// Developer service.
 /// </summary>
 /// <param name="mediator"></param>
 /// <param name="permissionManager"></param>
@@ -25,12 +25,12 @@ namespace Milvonion.Infrastructure.Services;
 /// <param name="methodLogRepository"></param>
 /// <param name="apiLogRepository"></param>
 /// <param name="configuration"></param>
-public class DevelopmentService(IMediator mediator,
-                                IPermissionManager permissionManager,
-                                MilvonionDbContext milvonionDbContext,
-                                IMilvonionRepositoryBase<MethodLog> methodLogRepository,
-                                IMilvonionRepositoryBase<ApiLog> apiLogRepository,
-                                IConfiguration configuration) : IDevelopmentService
+public class DeveloperService(IMediator mediator,
+                              IPermissionManager permissionManager,
+                              MilvonionDbContext milvonionDbContext,
+                              IMilvonionRepositoryBase<MethodLog> methodLogRepository,
+                              IMilvonionRepositoryBase<ApiLog> apiLogRepository,
+                              IConfiguration configuration) : IDeveloperService
 {
     private readonly IMediator _mediator = mediator;
     private readonly IPermissionManager _permissionManager = permissionManager;
