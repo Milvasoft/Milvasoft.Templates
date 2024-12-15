@@ -1,5 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Milvasoft.Core.Helpers;
+using Milvasoft.Core.MultiLanguage.EntityBases.Abstract;
+using Milvasoft.Core.MultiLanguage.Manager;
 using Milvonion.Infrastructure.Persistence.Context;
 using Serilog;
 
@@ -32,6 +34,14 @@ public class MigrationHostedService(IServiceScopeFactory scopeFactory) : IHosted
 
             if (!pendingMigrations.IsNullOrEmpty())
                 await context.Database.MigrateAsync(cancellationToken);
+
+            var milvonionDbContext = scope.ServiceProvider.GetRequiredService<MilvonionDbContext>();
+
+            var languages = await milvonionDbContext.Languages.ToListAsync(cancellationToken);
+
+            var languageSeed = languages.Cast<ILanguage>().ToList();
+
+            MultiLanguageManager.UpdateLanguagesList(languageSeed);
         }
         catch (Exception ex)
         {

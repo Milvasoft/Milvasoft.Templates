@@ -52,6 +52,63 @@ public static partial class PermissionCatalog
         public const string Delete = "RoleManagement.Delete";
     }
 
+    [Description("Content Management")]
+    public static class ContentManagement
+    {
+        [Description("Content list permission.")]
+        public const string List = "ContentManagement.List";
+
+        [Description("Content detail view permission")]
+        public const string Detail = "ContentManagement.Detail";
+
+        [Description("Content create permission")]
+        public const string Create = "ContentManagement.Create";
+
+        [Description("Content update permission")]
+        public const string Update = "ContentManagement.Update";
+
+        [Description("Content delete permission")]
+        public const string Delete = "ContentManagement.Delete";
+    }
+
+    [Description("Content Namespace Management")]
+    public static class NamespaceManagement
+    {
+        [Description("Content Namespace list permission.")]
+        public const string List = "NamespaceManagement.List";
+
+        [Description("Content Namespace detail view permission")]
+        public const string Detail = "NamespaceManagement.Detail";
+
+        [Description("Content Namespace create permission")]
+        public const string Create = "NamespaceManagement.Create";
+
+        [Description("Content Namespace update permission")]
+        public const string Update = "NamespaceManagement.Update";
+
+        [Description("Content Namespace delete permission")]
+        public const string Delete = "NamespaceManagement.Delete";
+    }
+
+    [Description("Content Resource Group Management")]
+    public static class ResourceGroupManagement
+    {
+        [Description("Content Resource Group list permission.")]
+        public const string List = "ResourceGroupManagement.List";
+
+        [Description("Content Resource Group detail view permission")]
+        public const string Detail = "ResourceGroupManagement.Detail";
+
+        [Description("Content Resource Group create permission")]
+        public const string Create = "ResourceGroupManagement.Create";
+
+        [Description("Content Resource Group update permission")]
+        public const string Update = "ResourceGroupManagement.Update";
+
+        [Description("Content Resource Group delete permission")]
+        public const string Delete = "ResourceGroupManagement.Delete";
+    }
+
     [Description("Permission Management")]
     public static class PermissionManagement
     {
@@ -64,6 +121,16 @@ public static partial class PermissionCatalog
     {
         [Description("Activity Log list permission.")]
         public const string List = "ActivityLogManagement.List";
+    }
+
+    [Description("Language Management")]
+    public static class LanguageManagement
+    {
+        [Description("Language list permission.")]
+        public const string List = "Language.List";
+
+        [Description("Language update permission.")]
+        public const string Update = "Language.Update";
     }
 
     /// <summary>

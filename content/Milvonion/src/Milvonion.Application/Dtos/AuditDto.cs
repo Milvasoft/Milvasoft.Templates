@@ -31,7 +31,7 @@ public record AuditDto<TKey> where TKey : struct, IEquatable<TKey>
     /// Assigns the values of the entity to the properties of the data transfer object.
     /// </summary>
     /// <param name="entity"></param>
-    public AuditDto(IFullAuditable<TKey> entity)
+    public AuditDto(IAuditable<TKey> entity)
     {
         CreatorUserName = entity.CreatorUserName;
         CreationDate = entity.CreationDate;

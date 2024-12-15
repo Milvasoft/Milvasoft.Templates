@@ -149,6 +149,135 @@
             <param name="request"></param>
             <returns></returns>
         </member>
+        <member name="T:Milvonion.Api.Controllers.CmsController">
+            <summary>
+            Content endpoints.
+            </summary>
+        </member>
+        <member name="M:Milvonion.Api.Controllers.CmsController.#ctor(MediatR.IMediator)">
+            <summary>
+            Content endpoints.
+            </summary>
+        </member>
+        <member name="M:Milvonion.Api.Controllers.CmsController.GetNamespacesAsync(Milvonion.Application.Features.ContentManagement.Namespaces.GetNamespaceList.GetNamespaceListQuery)">
+            <summary>
+            Gets namespaces.
+            </summary>
+            <param name="request"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Milvonion.Api.Controllers.CmsController.GetNamespaceAsync(Milvonion.Application.Features.ContentManagement.Namespaces.GetNamespaceDetail.GetNamespaceDetailQuery)">
+            <summary>
+            Get namespace according to namespace id.
+            </summary>
+            <param name="request"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Milvonion.Api.Controllers.CmsController.AddNamespaceAsync(Milvonion.Application.Features.ContentManagement.Namespaces.CreateNamespace.CreateNamespaceCommand)">
+            <summary>
+            Adds namespace.
+            </summary>
+            <param name="request"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Milvonion.Api.Controllers.CmsController.UpdateNamespaceAsync(Milvonion.Application.Features.ContentManagement.Namespaces.UpdateNamespace.UpdateNamespaceCommand)">
+            <summary>
+            Updates namespace. Only the fields that are sent as isUpdated true are updated.
+            </summary>
+            <param name="request"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Milvonion.Api.Controllers.CmsController.RemoveNamespaceAsync(Milvonion.Application.Features.ContentManagement.Namespaces.DeleteNamespace.DeleteNamespaceCommand)">
+            <summary>
+            Removes namespace.
+            </summary>
+            <param name="request"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Milvonion.Api.Controllers.CmsController.GetResourceGroupsAsync(Milvonion.Application.Features.ContentManagement.ResourceGroups.GetResourceGroupList.GetResourceGroupListQuery)">
+            <summary>
+            Gets resource groups.
+            </summary>
+            <param name="request"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Milvonion.Api.Controllers.CmsController.GetResourceGroupAsync(Milvonion.Application.Features.ContentManagement.ResourceGroups.GetResourceGroupDetail.GetResourceGroupDetailQuery)">
+            <summary>
+            Get resource group according to resourceGroup id.
+            </summary>
+            <param name="request"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Milvonion.Api.Controllers.CmsController.AddResourceGroupAsync(Milvonion.Application.Features.ContentManagement.ResourceGroups.CreateResourceGroup.CreateResourceGroupCommand)">
+            <summary>
+            Adds resource group.
+            </summary>
+            <param name="request"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Milvonion.Api.Controllers.CmsController.UpdateResourceGroupAsync(Milvonion.Application.Features.ContentManagement.ResourceGroups.UpdateResourceGroup.UpdateResourceGroupCommand)">
+            <summary>
+            Updates resource group. Only the fields that are sent as isUpdated true are updated.
+            </summary>
+            <param name="request"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Milvonion.Api.Controllers.CmsController.RemoveResourceGroupAsync(Milvonion.Application.Features.ContentManagement.ResourceGroups.DeleteResourceGroup.DeleteResourceGroupCommand)">
+            <summary>
+            Removes resource group.
+            </summary>
+            <param name="request"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Milvonion.Api.Controllers.CmsController.GetContentAsync(Milvonion.Application.Features.ContentManagement.Contents.GetContent.GetContentQuery)">
+            <summary>
+            Query contents.
+            </summary>
+            <param name="request"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Milvonion.Api.Controllers.CmsController.GetContentsAsync(Milvonion.Application.Features.ContentManagement.Contents.GetContentList.GetContentListQuery)">
+            <summary>
+            Gets contents.
+            </summary>
+            <param name="request"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Milvonion.Api.Controllers.CmsController.GetContentAsync(Milvonion.Application.Features.ContentManagement.Contents.GetContentDetail.GetContentDetailQuery)">
+            <summary>
+            Get content according to content id.
+            </summary>
+            <param name="request"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Milvonion.Api.Controllers.CmsController.AddContentAsync(Milvonion.Application.Features.ContentManagement.Contents.CreateContent.CreateContentCommand)">
+            <summary>
+            Adds content.
+            </summary>
+            <param name="request"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Milvonion.Api.Controllers.CmsController.AddContentsAsync(Milvonion.Application.Features.ContentManagement.Contents.CreateBulkContent.CreateBulkContentCommand)">
+            <summary>
+            Adds contents with bulk method.
+            </summary>
+            <param name="request"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Milvonion.Api.Controllers.CmsController.UpdateContentAsync(Milvonion.Application.Features.ContentManagement.Contents.UpdateContent.UpdateContentCommand)">
+            <summary>
+            Updates content. Only the fields that are sent as isUpdated true are updated.
+            </summary>
+            <param name="request"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Milvonion.Api.Controllers.CmsController.RemoveContentsAsync(Milvonion.Application.Features.ContentManagement.Contents.DeleteContents.DeleteContentsCommand)">
+            <summary>
+            Removes content.
+            </summary>
+            <param name="request"></param>
+            <returns></returns>
+        </member>
         <member name="T:Milvonion.Api.Controllers.DevelopmentController">
             <summary>
             Developer endpoints.
@@ -205,6 +334,30 @@
             Alert endpoint for sending notifications.
             </summary>
             <param name="defaultNotification"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Milvonion.Api.Controllers.LanguagesController">
+            <summary>
+            Language endpoints.
+            </summary>
+        </member>
+        <member name="M:Milvonion.Api.Controllers.LanguagesController.#ctor(MediatR.IMediator)">
+            <summary>
+            Language endpoints.
+            </summary>
+        </member>
+        <member name="M:Milvonion.Api.Controllers.LanguagesController.GetLanguagesAsync(Milvonion.Application.Features.Languages.GetLanguageList.GetLanguageListQuery)">
+            <summary>
+            Gets languages.
+            </summary>
+            <param name="request"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Milvonion.Api.Controllers.LanguagesController.UpdateLanguagesAsync(Milvonion.Application.Features.Languages.UpdateLanguage.UpdateLanguageCommand)">
+            <summary>
+            Updates language. Only the fields that are sent as isUpdated true are updated.
+            </summary>
+            <param name="request"></param>
             <returns></returns>
         </member>
         <member name="T:Milvonion.Api.Controllers.LookupsController">

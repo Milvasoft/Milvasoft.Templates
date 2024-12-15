@@ -24,5 +24,35 @@ public enum UserActivity : byte
 
     [Description("Role deleted")]
     DeleteRole = 6,
+
+    [Description("Namespace added")]
+    CreateNamespace = 7,
+
+    [Description("Namespace updated")]
+    UpdateNamespace = 8,
+
+    [Description("Namespace deleted")]
+    DeleteNamespace = 9,
+
+    [Description("Resource Group added")]
+    CreateResourceGroup = 10,
+
+    [Description("Resource Group updated")]
+    UpdateResourceGroup = 11,
+
+    [Description("Resource Group deleted")]
+    DeleteResourceGroup = 12,
+
+    [Description("Content added")]
+    CreateContent = 13,
+
+    [Description("Content updated")]
+    UpdateContent = 14,
+
+    [Description("Content deleted")]
+    DeleteContent = 15,
+
+    [Description("Languages updated")]
+    UpdateLanguages = 16,
 }
 #pragma warning restore CS1591 // Missing XML comment for publicly visible type or member

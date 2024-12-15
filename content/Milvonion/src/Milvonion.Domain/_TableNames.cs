@@ -19,6 +19,10 @@ public static class TableNames
     public const string Pages = nameof(Pages);
     public const string PageActions = nameof(PageActions);
     public const string PageActionTranslations = nameof(PageActionTranslations);
+    public const string Contents = nameof(Contents);
+    public const string Medias = nameof(Medias);
+    public const string Namespaces = nameof(Namespaces);
+    public const string ResourceGroups = nameof(ResourceGroups);
     public const string MigrationHistory = "_MigrationHistory";
 }
 #pragma warning restore CS1591 // Missing XML comment for publicly visible type or member

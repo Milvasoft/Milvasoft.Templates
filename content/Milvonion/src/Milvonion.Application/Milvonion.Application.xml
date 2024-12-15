@@ -176,11 +176,391 @@
             Gets or sets the username of the last modifier.
             </summary>
         </member>
-        <member name="M:Milvonion.Application.Dtos.AuditDto`1.#ctor(Milvasoft.Core.EntityBases.Abstract.IFullAuditable{`0})">
+        <member name="M:Milvonion.Application.Dtos.AuditDto`1.#ctor(Milvasoft.Core.EntityBases.Abstract.IAuditable{`0})">
             <summary>
             Assigns the values of the entity to the properties of the data transfer object.
             </summary>
             <param name="entity"></param>
+        </member>
+        <member name="T:Milvonion.Application.Dtos.ContentManagementDtos.ContentDtos.ContentDetailDto">
+            <summary>
+            Response of namespace detail.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Dtos.ContentManagementDtos.ContentDtos.ContentDetailDto.Key">
+            <summary>
+            Key of content.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Dtos.ContentManagementDtos.ContentDtos.ContentDetailDto.Value">
+            <summary>
+            Value of content.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Dtos.ContentManagementDtos.ContentDtos.ContentDetailDto.LanguageId">
+            <summary>
+            LanguageId of content.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Dtos.ContentManagementDtos.ContentDtos.ContentDetailDto.NamespaceSlug">
+            <summary>
+            Slug for the namespace for search without join.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Dtos.ContentManagementDtos.ContentDtos.ContentDetailDto.ResourceGroupSlug">
+            <summary>
+            Slug for the resource group for search without join.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Dtos.ContentManagementDtos.ContentDtos.ContentDetailDto.KeyAlias">
+            <summary>
+            Key alias for search without join. A combination of namespace slug, resource group slug and key. etc. "namespaceSlug.resourceGroupSlug.key"
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Dtos.ContentManagementDtos.ContentDtos.ContentDetailDto.Namespace">
+            <summary>
+            Id of the namespace this content belongs to.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Dtos.ContentManagementDtos.ContentDtos.ContentDetailDto.ResourceGroup">
+            <summary>
+            Id of the namespace this content belongs to.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Dtos.ContentManagementDtos.ContentDtos.ContentDetailDto.Medias">
+            <summary>
+            Id of the namespace this content belongs to.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Dtos.ContentManagementDtos.ContentDtos.ContentDetailDto.AuditInfo">
+            <summary>
+            Information about record audit.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Dtos.ContentManagementDtos.ContentDtos.ContentDetailDto.Projection">
+            <summary>
+            Projection expression for mapping Content entity to ContentDetailDto.
+            </summary>
+        </member>
+        <member name="T:Milvonion.Application.Dtos.ContentManagementDtos.ContentDtos.ContentDto">
+            <summary>
+            Response of namespace detail.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Dtos.ContentManagementDtos.ContentDtos.ContentDto.Key">
+            <summary>
+            Key of content.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Dtos.ContentManagementDtos.ContentDtos.ContentDto.Value">
+            <summary>
+            Value of content.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Dtos.ContentManagementDtos.ContentDtos.ContentDto.LanguageId">
+            <summary>
+            LanguageId of content.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Dtos.ContentManagementDtos.ContentDtos.ContentDto.NamespaceSlug">
+            <summary>
+            Slug for the namespace for search without join.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Dtos.ContentManagementDtos.ContentDtos.ContentDto.ResourceGroupSlug">
+            <summary>
+            Slug for the resource group for search without join.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Dtos.ContentManagementDtos.ContentDtos.ContentDto.KeyAlias">
+            <summary>
+            Key alias for search without join. A combination of namespace slug, resource group slug and key. etc. "namespaceSlug.resourceGroupSlug.key"
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Dtos.ContentManagementDtos.ContentDtos.ContentDto.Medias">
+            <summary>
+            Content related medias.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Dtos.ContentManagementDtos.ContentDtos.ContentDto.Projection">
+            <summary>
+            Projection expression for mapping Content entity to ContentDto.
+            </summary>
+        </member>
+        <member name="T:Milvonion.Application.Dtos.ContentManagementDtos.ContentDtos.ContentListDto">
+            <summary>
+            Response of namespace detail.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Dtos.ContentManagementDtos.ContentDtos.ContentListDto.Key">
+            <summary>
+            Key of content.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Dtos.ContentManagementDtos.ContentDtos.ContentListDto.Value">
+            <summary>
+            Value of content.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Dtos.ContentManagementDtos.ContentDtos.ContentListDto.LanguageId">
+            <summary>
+            LanguageId of content.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Dtos.ContentManagementDtos.ContentDtos.ContentListDto.NamespaceSlug">
+            <summary>
+            Slug for the namespace for search without join.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Dtos.ContentManagementDtos.ContentDtos.ContentListDto.ResourceGroupSlug">
+            <summary>
+            Slug for the resource group for search without join.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Dtos.ContentManagementDtos.ContentDtos.ContentListDto.KeyAlias">
+            <summary>
+            Key alias for search without join. A combination of namespace slug, resource group slug and key. etc. "namespaceSlug.resourceGroupSlug.key"
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Dtos.ContentManagementDtos.ContentDtos.ContentListDto.Namespace">
+            <summary>
+            Id of the namespace this content belongs to.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Dtos.ContentManagementDtos.ContentDtos.ContentListDto.ResourceGroup">
+            <summary>
+            Id of the namespace this content belongs to.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Dtos.ContentManagementDtos.ContentDtos.ContentListDto.Projection">
+            <summary>
+            Projection expression for mapping Content entity to ContentListDto.
+            </summary>
+        </member>
+        <member name="T:Milvonion.Application.Dtos.ContentManagementDtos.ContentDtos.CreateContentDto">
+            <summary>
+            Create content model.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Dtos.ContentManagementDtos.ContentDtos.CreateContentDto.Key">
+            <summary>
+            Key of content.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Dtos.ContentManagementDtos.ContentDtos.CreateContentDto.Value">
+            <summary>
+            Value of content.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Dtos.ContentManagementDtos.ContentDtos.CreateContentDto.LanguageId">
+            <summary>
+            LanguageId of content.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Dtos.ContentManagementDtos.ContentDtos.CreateContentDto.ResourceGroupId">
+            <summary>
+            Id of the namespace this content belongs to.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Dtos.ContentManagementDtos.ContentDtos.CreateContentDto.Medias">
+            <summary>
+            Media files if exists.
+            </summary>
+        </member>
+        <member name="T:Milvonion.Application.Dtos.ContentManagementDtos.ContentDtos.MediaDto">
+            <summary>
+            Media model.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Dtos.ContentManagementDtos.ContentDtos.MediaDto.Value">
+            <summary>
+            Media value.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Dtos.ContentManagementDtos.ContentDtos.MediaDto.MediaAsBase64">
+            <summary>
+            Media as base64 string.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Dtos.ContentManagementDtos.ContentDtos.MediaDto.Type">
+            <summary>
+            Media type. etc. "image", "video", "audio"
+            </summary>
+        </member>
+        <member name="T:Milvonion.Application.Dtos.ContentManagementDtos.ContentDtos.UpsertMediaDto">
+            <summary>
+            Create content model.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Dtos.ContentManagementDtos.ContentDtos.UpsertMediaDto.MediaAsBase64">
+            <summary>
+            Media of the content as base64 string.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Dtos.ContentManagementDtos.ContentDtos.UpsertMediaDto.Media">
+            <summary>
+            Media of the content.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Dtos.ContentManagementDtos.ContentDtos.UpsertMediaDto.Type">
+            <summary>
+            Media type. etc. "image", "video", "audio"
+            </summary>
+        </member>
+        <member name="T:Milvonion.Application.Dtos.ContentManagementDtos.LanguageDtos.LanguageDto">
+            <summary>
+            Language model.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Dtos.ContentManagementDtos.LanguageDtos.LanguageDto.Id">
+            <summary>
+            Language id.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Dtos.ContentManagementDtos.LanguageDtos.LanguageDto.Name">
+            <summary>
+            Name of the language.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Dtos.ContentManagementDtos.LanguageDtos.LanguageDto.Code">
+            <summary>
+            Iso code of the language.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Dtos.ContentManagementDtos.LanguageDtos.LanguageDto.Supported">
+            <summary>
+            Determines whether the language is supported or not.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Dtos.ContentManagementDtos.LanguageDtos.LanguageDto.IsDefault">
+            <summary>
+            Determines whether the language is default or not.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Dtos.ContentManagementDtos.LanguageDtos.LanguageDto.Projection">
+            <summary>
+            Projection expression for mapping Language entity to LanguageDto.
+            </summary>
+        </member>
+        <member name="T:Milvonion.Application.Dtos.ContentManagementDtos.NamespaceDtos.NamespaceDetailDto">
+            <summary>
+            Response of namespace detail.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Dtos.ContentManagementDtos.NamespaceDtos.NamespaceDetailDto.Slug">
+            <summary>
+            Unique slug of namespace.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Dtos.ContentManagementDtos.NamespaceDtos.NamespaceDetailDto.Name">
+            <summary>
+            Name of namespace.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Dtos.ContentManagementDtos.NamespaceDtos.NamespaceDetailDto.Description">
+            <summary>
+            Description of namespace.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Dtos.ContentManagementDtos.NamespaceDtos.NamespaceDetailDto.AuditInfo">
+            <summary>
+            Information about record audit.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Dtos.ContentManagementDtos.NamespaceDtos.NamespaceDetailDto.Projection">
+            <summary>
+            Projection expression for mapping Namespace entity to GetNamespaceDetailResponse.
+            </summary>
+        </member>
+        <member name="T:Milvonion.Application.Dtos.ContentManagementDtos.NamespaceDtos.NamespaceListDto">
+            <summary>
+            Response of namespace detail.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Dtos.ContentManagementDtos.NamespaceDtos.NamespaceListDto.Slug">
+            <summary>
+            Unique slug of namespace.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Dtos.ContentManagementDtos.NamespaceDtos.NamespaceListDto.Name">
+            <summary>
+            Name of namespace.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Dtos.ContentManagementDtos.NamespaceDtos.NamespaceListDto.Description">
+            <summary>
+            Description of namespace.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Dtos.ContentManagementDtos.NamespaceDtos.NamespaceListDto.Projection">
+            <summary>
+            Projection expression for mapping Namespace entity to GetNamespaceListResponse.
+            </summary>
+        </member>
+        <member name="T:Milvonion.Application.Dtos.ContentManagementDtos.ResourceGroupDtos.ResourceGroupDetailDto">
+            <summary>
+            Response of namespace detail.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Dtos.ContentManagementDtos.ResourceGroupDtos.ResourceGroupDetailDto.Slug">
+            <summary>
+            Unique slug of namespace.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Dtos.ContentManagementDtos.ResourceGroupDtos.ResourceGroupDetailDto.Name">
+            <summary>
+            Name of namespace.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Dtos.ContentManagementDtos.ResourceGroupDtos.ResourceGroupDetailDto.Description">
+            <summary>
+            Description of namespace.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Dtos.ContentManagementDtos.ResourceGroupDtos.ResourceGroupDetailDto.Namespace">
+            <summary>
+            Description of namespace.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Dtos.ContentManagementDtos.ResourceGroupDtos.ResourceGroupDetailDto.AuditInfo">
+            <summary>
+            Information about record audit.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Dtos.ContentManagementDtos.ResourceGroupDtos.ResourceGroupDetailDto.Projection">
+            <summary>
+            Projection expression for mapping ResourceGroup entity to ResourceGroupDetailDto.
+            </summary>
+        </member>
+        <member name="T:Milvonion.Application.Dtos.ContentManagementDtos.ResourceGroupDtos.ResourceGroupListDto">
+            <summary>
+            Response of resource group detail.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Dtos.ContentManagementDtos.ResourceGroupDtos.ResourceGroupListDto.Slug">
+            <summary>
+            Unique slug of resource group.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Dtos.ContentManagementDtos.ResourceGroupDtos.ResourceGroupListDto.Name">
+            <summary>
+            Name of resource group.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Dtos.ContentManagementDtos.ResourceGroupDtos.ResourceGroupListDto.Description">
+            <summary>
+            Description of resource group.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Dtos.ContentManagementDtos.ResourceGroupDtos.ResourceGroupListDto.Namespace">
+            <summary>
+            Description of namespace.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Dtos.ContentManagementDtos.ResourceGroupDtos.ResourceGroupListDto.Projection">
+            <summary>
+            Projection expression for mapping ResourceGroup entity to ResourceGroupListDto.
+            </summary>
         </member>
         <member name="T:Milvonion.Application.Dtos.EnumLookupModel">
             <summary>
@@ -719,6 +1099,723 @@
         </member>
         <member name="M:Milvonion.Application.Features.ActivityLogs.GetActivityLogList.GetActivityLogListQueryValidator.#ctor">
             <inheritdoc cref="T:Milvonion.Application.Features.ActivityLogs.GetActivityLogList.GetActivityLogListQueryValidator"/>
+        </member>
+        <member name="T:Milvonion.Application.Features.ContentManagement.Contents.CreateBulkContent.CreateBulkContentCommand">
+            <summary>
+            Data transfer object for contents creation.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Features.ContentManagement.Contents.CreateBulkContent.CreateBulkContentCommand.Contents">
+            <summary>
+            List of content creation objects.
+            </summary>
+        </member>
+        <member name="T:Milvonion.Application.Features.ContentManagement.Contents.CreateBulkContent.CreateBulkContentCommandHandler">
+            <summary>
+            Handles the creation of the content.
+            </summary>
+            <param name="ContentRepository"></param>
+            <param name="ResourceGroupRepository"></param>
+        </member>
+        <member name="M:Milvonion.Application.Features.ContentManagement.Contents.CreateBulkContent.CreateBulkContentCommandHandler.#ctor(Milvonion.Application.Interfaces.IMilvonionRepositoryBase{Milvonion.Domain.ContentManagement.Content},Milvonion.Application.Interfaces.IMilvonionRepositoryBase{Milvonion.Domain.ContentManagement.ResourceGroup})">
+            <summary>
+            Handles the creation of the content.
+            </summary>
+            <param name="ContentRepository"></param>
+            <param name="ResourceGroupRepository"></param>
+        </member>
+        <member name="P:Milvonion.Application.Features.ContentManagement.Contents.CreateBulkContent.CreateBulkContentCommandHandler.ContentRepository">
+            <summary></summary>
+        </member>
+        <member name="P:Milvonion.Application.Features.ContentManagement.Contents.CreateBulkContent.CreateBulkContentCommandHandler.ResourceGroupRepository">
+            <summary></summary>
+        </member>
+        <member name="M:Milvonion.Application.Features.ContentManagement.Contents.CreateBulkContent.CreateBulkContentCommandHandler.Handle(Milvonion.Application.Features.ContentManagement.Contents.CreateBulkContent.CreateBulkContentCommand,System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Milvonion.Application.Features.ContentManagement.Contents.CreateBulkContent.CreateBulkContentCommandValidator">
+            <summary>
+            Query validations. 
+            </summary>
+        </member>
+        <member name="M:Milvonion.Application.Features.ContentManagement.Contents.CreateBulkContent.CreateBulkContentCommandValidator.#ctor(Milvasoft.Core.Abstractions.Localization.IMilvaLocalizer)">
+            <inheritdoc cref="T:Milvonion.Application.Features.ContentManagement.Contents.CreateContent.CreateContentCommandValidator"/>
+        </member>
+        <member name="T:Milvonion.Application.Features.ContentManagement.Contents.CreateContent.CreateContentCommand">
+            <summary>
+            Data transfer object for content creation.
+            </summary>
+        </member>
+        <member name="T:Milvonion.Application.Features.ContentManagement.Contents.CreateContent.CreateContentCommandHandler">
+            <summary>
+            Handles the creation of the content.
+            </summary>
+            <param name="ContentRepository"></param>
+            <param name="ResourceGroupRepository"></param>
+        </member>
+        <member name="M:Milvonion.Application.Features.ContentManagement.Contents.CreateContent.CreateContentCommandHandler.#ctor(Milvonion.Application.Interfaces.IMilvonionRepositoryBase{Milvonion.Domain.ContentManagement.Content},Milvonion.Application.Interfaces.IMilvonionRepositoryBase{Milvonion.Domain.ContentManagement.ResourceGroup})">
+            <summary>
+            Handles the creation of the content.
+            </summary>
+            <param name="ContentRepository"></param>
+            <param name="ResourceGroupRepository"></param>
+        </member>
+        <member name="P:Milvonion.Application.Features.ContentManagement.Contents.CreateContent.CreateContentCommandHandler.ContentRepository">
+            <summary></summary>
+        </member>
+        <member name="P:Milvonion.Application.Features.ContentManagement.Contents.CreateContent.CreateContentCommandHandler.ResourceGroupRepository">
+            <summary></summary>
+        </member>
+        <member name="M:Milvonion.Application.Features.ContentManagement.Contents.CreateContent.CreateContentCommandHandler.Handle(Milvonion.Application.Features.ContentManagement.Contents.CreateContent.CreateContentCommand,System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Milvonion.Application.Features.ContentManagement.Contents.CreateContent.CreateContentCommandValidator">
+            <summary>
+            Query validations. 
+            </summary>
+        </member>
+        <member name="M:Milvonion.Application.Features.ContentManagement.Contents.CreateContent.CreateContentCommandValidator.#ctor(Milvasoft.Core.Abstractions.Localization.IMilvaLocalizer)">
+            <inheritdoc cref="T:Milvonion.Application.Features.ContentManagement.Contents.CreateContent.CreateContentCommandValidator"/>
+        </member>
+        <member name="T:Milvonion.Application.Features.ContentManagement.Contents.DeleteContents.DeleteContentsCommand">
+            <summary>
+            Data transfer object for contents deletion.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Features.ContentManagement.Contents.DeleteContents.DeleteContentsCommand.ContentIdList">
+            <summary>
+            Id list of the contents to be deleted.
+            </summary>
+        </member>
+        <member name="T:Milvonion.Application.Features.ContentManagement.Contents.DeleteContents.DeleteContentsCommandHandler">
+            <summary>
+            Handles the deletion of the content.
+            </summary>
+            <param name="ContentRepository"></param>
+        </member>
+        <member name="M:Milvonion.Application.Features.ContentManagement.Contents.DeleteContents.DeleteContentsCommandHandler.#ctor(Milvonion.Application.Interfaces.IMilvonionRepositoryBase{Milvonion.Domain.ContentManagement.Content})">
+            <summary>
+            Handles the deletion of the content.
+            </summary>
+            <param name="ContentRepository"></param>
+        </member>
+        <member name="P:Milvonion.Application.Features.ContentManagement.Contents.DeleteContents.DeleteContentsCommandHandler.ContentRepository">
+            <summary></summary>
+        </member>
+        <member name="M:Milvonion.Application.Features.ContentManagement.Contents.DeleteContents.DeleteContentsCommandHandler.Handle(Milvonion.Application.Features.ContentManagement.Contents.DeleteContents.DeleteContentsCommand,System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Milvonion.Application.Features.ContentManagement.Contents.DeleteContents.DeleteContentsCommandValidator">
+            <summary>
+            Query validations. 
+            </summary>
+        </member>
+        <member name="M:Milvonion.Application.Features.ContentManagement.Contents.DeleteContents.DeleteContentsCommandValidator.#ctor(Milvasoft.Core.Abstractions.Localization.IMilvaLocalizer)">
+            <inheritdoc cref="T:Milvonion.Application.Features.ContentManagement.Contents.DeleteContents.DeleteContentsCommandValidator"/>
+        </member>
+        <member name="T:Milvonion.Application.Features.ContentManagement.Contents.GetContentDetail.GetContentDetailQuery">
+            <summary>
+            Data transfer object for content details.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Features.ContentManagement.Contents.GetContentDetail.GetContentDetailQuery.ContentId">
+            <summary>
+            Resource group id to access details.
+            </summary>
+        </member>
+        <member name="T:Milvonion.Application.Features.ContentManagement.Contents.GetContentDetail.GetContentDetailQueryHandler">
+            <summary>
+            Handles the content detail operation.
+            </summary>
+            <param name="resourceGroupRepository"></param>
+        </member>
+        <member name="M:Milvonion.Application.Features.ContentManagement.Contents.GetContentDetail.GetContentDetailQueryHandler.#ctor(Milvonion.Application.Interfaces.IMilvonionRepositoryBase{Milvonion.Domain.ContentManagement.Content})">
+            <summary>
+            Handles the content detail operation.
+            </summary>
+            <param name="resourceGroupRepository"></param>
+        </member>
+        <member name="M:Milvonion.Application.Features.ContentManagement.Contents.GetContentDetail.GetContentDetailQueryHandler.Handle(Milvonion.Application.Features.ContentManagement.Contents.GetContentDetail.GetContentDetailQuery,System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Milvonion.Application.Features.ContentManagement.Contents.GetContentDetail.GetContentDetailQueryValidator">
+            <summary>
+            Query validations. 
+            </summary>
+        </member>
+        <member name="M:Milvonion.Application.Features.ContentManagement.Contents.GetContentDetail.GetContentDetailQueryValidator.#ctor(Milvasoft.Core.Abstractions.Localization.IMilvaLocalizer)">
+            <inheritdoc cref="T:Milvonion.Application.Features.ContentManagement.Contents.GetContentDetail.GetContentDetailQueryValidator"/>
+        </member>
+        <member name="T:Milvonion.Application.Features.ContentManagement.Contents.GetContentList.GetContentListQuery">
+            <summary>
+            Data transfer object for content list.
+            </summary>
+        </member>
+        <member name="T:Milvonion.Application.Features.ContentManagement.Contents.GetContentList.GetContentListQueryHandler">
+            <summary>
+            Handles the content list operation.
+            </summary>
+            <param name="resourceGroupRepository"></param>
+        </member>
+        <member name="M:Milvonion.Application.Features.ContentManagement.Contents.GetContentList.GetContentListQueryHandler.#ctor(Milvonion.Application.Interfaces.IMilvonionRepositoryBase{Milvonion.Domain.ContentManagement.Content})">
+            <summary>
+            Handles the content list operation.
+            </summary>
+            <param name="resourceGroupRepository"></param>
+        </member>
+        <member name="M:Milvonion.Application.Features.ContentManagement.Contents.GetContentList.GetContentListQueryHandler.Handle(Milvonion.Application.Features.ContentManagement.Contents.GetContentList.GetContentListQuery,System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Milvonion.Application.Features.ContentManagement.Contents.GetContentList.GetContentListQueryValidator">
+            <summary>
+            Query validations. 
+            </summary>
+        </member>
+        <member name="M:Milvonion.Application.Features.ContentManagement.Contents.GetContentList.GetContentListQueryValidator.#ctor">
+            <inheritdoc cref="T:Milvonion.Application.Features.ContentManagement.Contents.GetContentList.GetContentListQueryValidator"/>
+        </member>
+        <member name="T:Milvonion.Application.Features.ContentManagement.Contents.GetContent.GetContentQuery">
+            <summary>
+            Data transfer object for content.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Features.ContentManagement.Contents.GetContent.GetContentQuery.Query">
+            <summary>
+            Query for content list.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Features.ContentManagement.Contents.GetContent.GetContentQuery.NamespaceSlug">
+            <summary>
+            Namespace of content.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Features.ContentManagement.Contents.GetContent.GetContentQuery.QueryType">
+            <summary>
+            Query type for content list.
+            </summary>
+        </member>
+        <member name="T:Milvonion.Application.Features.ContentManagement.Contents.GetContent.ContentQueryType">
+            <summary>
+            Query type for content list.
+            </summary>
+        </member>
+        <member name="F:Milvonion.Application.Features.ContentManagement.Contents.GetContent.ContentQueryType.Key">
+            <summary>
+            Query by key.
+            </summary>
+        </member>
+        <member name="F:Milvonion.Application.Features.ContentManagement.Contents.GetContent.ContentQueryType.ResourceGroup">
+            <summary>
+            Query by resource group.
+            </summary>
+        </member>
+        <member name="F:Milvonion.Application.Features.ContentManagement.Contents.GetContent.ContentQueryType.Namespace">
+            <summary>
+            Query by namespace.
+            </summary>
+        </member>
+        <member name="T:Milvonion.Application.Features.ContentManagement.Contents.GetContent.GetContentQueryHandler">
+            <summary>
+            Handles the content list operation.
+            </summary>
+            <param name="resourceGroupRepository"></param>
+            <param name="multiLanguageManager"></param>
+        </member>
+        <member name="M:Milvonion.Application.Features.ContentManagement.Contents.GetContent.GetContentQueryHandler.#ctor(Milvonion.Application.Interfaces.IMilvonionRepositoryBase{Milvonion.Domain.ContentManagement.Content},Milvasoft.Core.MultiLanguage.Manager.IMultiLanguageManager)">
+            <summary>
+            Handles the content list operation.
+            </summary>
+            <param name="resourceGroupRepository"></param>
+            <param name="multiLanguageManager"></param>
+        </member>
+        <member name="M:Milvonion.Application.Features.ContentManagement.Contents.GetContent.GetContentQueryHandler.Handle(Milvonion.Application.Features.ContentManagement.Contents.GetContent.GetContentQuery,System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Milvonion.Application.Features.ContentManagement.Contents.GetContent.GetContentQueryValidator">
+            <summary>
+            Query validations. 
+            </summary>
+        </member>
+        <member name="M:Milvonion.Application.Features.ContentManagement.Contents.GetContent.GetContentQueryValidator.#ctor">
+            <inheritdoc cref="T:Milvonion.Application.Features.ContentManagement.Contents.GetContent.GetContentQueryValidator"/>
+        </member>
+        <member name="T:Milvonion.Application.Features.ContentManagement.Contents.UpdateContent.UpdateContentCommand">
+            <summary>
+            Data transfer object for content update.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Features.ContentManagement.Contents.UpdateContent.UpdateContentCommand.Value">
+            <summary>
+            Name of content.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Features.ContentManagement.Contents.UpdateContent.UpdateContentCommand.Medias">
+            <summary>
+            Medias of content.
+            </summary>
+        </member>
+        <member name="T:Milvonion.Application.Features.ContentManagement.Contents.UpdateContent.UpdateContentCommandHandler">
+            <summary>
+            Handles the update of the content.
+            </summary>
+            <param name="ContentRepository"></param>
+            <param name="MediaRepository"></param>
+        </member>
+        <member name="M:Milvonion.Application.Features.ContentManagement.Contents.UpdateContent.UpdateContentCommandHandler.#ctor(Milvonion.Application.Interfaces.IMilvonionRepositoryBase{Milvonion.Domain.ContentManagement.Content},Milvonion.Application.Interfaces.IMilvonionRepositoryBase{Milvonion.Domain.ContentManagement.Media})">
+            <summary>
+            Handles the update of the content.
+            </summary>
+            <param name="ContentRepository"></param>
+            <param name="MediaRepository"></param>
+        </member>
+        <member name="P:Milvonion.Application.Features.ContentManagement.Contents.UpdateContent.UpdateContentCommandHandler.ContentRepository">
+            <summary></summary>
+        </member>
+        <member name="P:Milvonion.Application.Features.ContentManagement.Contents.UpdateContent.UpdateContentCommandHandler.MediaRepository">
+            <summary></summary>
+        </member>
+        <member name="M:Milvonion.Application.Features.ContentManagement.Contents.UpdateContent.UpdateContentCommandHandler.Handle(Milvonion.Application.Features.ContentManagement.Contents.UpdateContent.UpdateContentCommand,System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Milvonion.Application.Features.ContentManagement.Contents.UpdateContent.UpdateContentCommandValidator">
+            <summary>
+            Query validations. 
+            </summary>
+        </member>
+        <member name="M:Milvonion.Application.Features.ContentManagement.Contents.UpdateContent.UpdateContentCommandValidator.#ctor(Milvasoft.Core.Abstractions.Localization.IMilvaLocalizer)">
+            <inheritdoc cref="T:Milvonion.Application.Features.ContentManagement.Contents.UpdateContent.UpdateContentCommandValidator"/>
+        </member>
+        <member name="T:Milvonion.Application.Features.ContentManagement.Namespaces.CreateNamespace.CreateNamespaceCommand">
+            <summary>
+            Data transfer object for namespace creation.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Features.ContentManagement.Namespaces.CreateNamespace.CreateNamespaceCommand.Name">
+            <summary>
+            Name of namespace.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Features.ContentManagement.Namespaces.CreateNamespace.CreateNamespaceCommand.Description">
+            <summary>
+            Description of namespace.
+            </summary>
+        </member>
+        <member name="T:Milvonion.Application.Features.ContentManagement.Namespaces.CreateNamespace.CreateNamespaceCommandHandler">
+            <summary>
+            Handles the creation of the contentNamespace.
+            </summary>
+            <param name="NamespaceRepository"></param>
+        </member>
+        <member name="M:Milvonion.Application.Features.ContentManagement.Namespaces.CreateNamespace.CreateNamespaceCommandHandler.#ctor(Milvonion.Application.Interfaces.IMilvonionRepositoryBase{Milvonion.Domain.ContentManagement.Namespace})">
+            <summary>
+            Handles the creation of the contentNamespace.
+            </summary>
+            <param name="NamespaceRepository"></param>
+        </member>
+        <member name="P:Milvonion.Application.Features.ContentManagement.Namespaces.CreateNamespace.CreateNamespaceCommandHandler.NamespaceRepository">
+            <summary></summary>
+        </member>
+        <member name="M:Milvonion.Application.Features.ContentManagement.Namespaces.CreateNamespace.CreateNamespaceCommandHandler.Handle(Milvonion.Application.Features.ContentManagement.Namespaces.CreateNamespace.CreateNamespaceCommand,System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Milvonion.Application.Features.ContentManagement.Namespaces.CreateNamespace.CreateNamespaceCommandValidator">
+            <summary>
+            Account detail query validations. 
+            </summary>
+        </member>
+        <member name="M:Milvonion.Application.Features.ContentManagement.Namespaces.CreateNamespace.CreateNamespaceCommandValidator.#ctor(Milvasoft.Core.Abstractions.Localization.IMilvaLocalizer)">
+            <inheritdoc cref="T:Milvonion.Application.Features.ContentManagement.Namespaces.CreateNamespace.CreateNamespaceCommandValidator"/>
+        </member>
+        <member name="T:Milvonion.Application.Features.ContentManagement.Namespaces.DeleteNamespace.DeleteNamespaceCommand">
+            <summary>
+            Data transfer object for contentNamespace deletion.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Features.ContentManagement.Namespaces.DeleteNamespace.DeleteNamespaceCommand.NamespaceId">
+            <summary>
+            Id of the contentNamespace to be deleted.
+            </summary>
+        </member>
+        <member name="T:Milvonion.Application.Features.ContentManagement.Namespaces.DeleteNamespace.DeleteNamespaceCommandHandler">
+            <summary>
+            Handles the deletion of the contentNamespace.
+            </summary>
+            <param name="NamespaceRepository"></param>
+        </member>
+        <member name="M:Milvonion.Application.Features.ContentManagement.Namespaces.DeleteNamespace.DeleteNamespaceCommandHandler.#ctor(Milvonion.Application.Interfaces.IMilvonionRepositoryBase{Milvonion.Domain.ContentManagement.Namespace})">
+            <summary>
+            Handles the deletion of the contentNamespace.
+            </summary>
+            <param name="NamespaceRepository"></param>
+        </member>
+        <member name="P:Milvonion.Application.Features.ContentManagement.Namespaces.DeleteNamespace.DeleteNamespaceCommandHandler.NamespaceRepository">
+            <summary></summary>
+        </member>
+        <member name="M:Milvonion.Application.Features.ContentManagement.Namespaces.DeleteNamespace.DeleteNamespaceCommandHandler.Handle(Milvonion.Application.Features.ContentManagement.Namespaces.DeleteNamespace.DeleteNamespaceCommand,System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Milvonion.Application.Features.ContentManagement.Namespaces.DeleteNamespace.DeleteNamespaceCommandValidator">
+            <summary>
+            Account detail query validations. 
+            </summary>
+        </member>
+        <member name="M:Milvonion.Application.Features.ContentManagement.Namespaces.DeleteNamespace.DeleteNamespaceCommandValidator.#ctor(Milvasoft.Core.Abstractions.Localization.IMilvaLocalizer)">
+            <inheritdoc cref="T:Milvonion.Application.Features.ContentManagement.Namespaces.DeleteNamespace.DeleteNamespaceCommandValidator"/>
+        </member>
+        <member name="T:Milvonion.Application.Features.ContentManagement.Namespaces.GetNamespaceDetail.GetNamespaceDetailQuery">
+            <summary>
+            Data transfer object for contentNamespace details.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Features.ContentManagement.Namespaces.GetNamespaceDetail.GetNamespaceDetailQuery.NamespaceId">
+            <summary>
+            Namespace id to access details.
+            </summary>
+        </member>
+        <member name="T:Milvonion.Application.Features.ContentManagement.Namespaces.GetNamespaceDetail.GetNamespaceDetailQueryHandler">
+            <summary>
+            Handles the contentNamespace detail operation.
+            </summary>
+            <param name="contentNamespaceRepository"></param>
+        </member>
+        <member name="M:Milvonion.Application.Features.ContentManagement.Namespaces.GetNamespaceDetail.GetNamespaceDetailQueryHandler.#ctor(Milvonion.Application.Interfaces.IMilvonionRepositoryBase{Milvonion.Domain.ContentManagement.Namespace})">
+            <summary>
+            Handles the contentNamespace detail operation.
+            </summary>
+            <param name="contentNamespaceRepository"></param>
+        </member>
+        <member name="M:Milvonion.Application.Features.ContentManagement.Namespaces.GetNamespaceDetail.GetNamespaceDetailQueryHandler.Handle(Milvonion.Application.Features.ContentManagement.Namespaces.GetNamespaceDetail.GetNamespaceDetailQuery,System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Milvonion.Application.Features.ContentManagement.Namespaces.GetNamespaceDetail.GetNamespaceDetailQueryValidator">
+            <summary>
+            Account detail query validations. 
+            </summary>
+        </member>
+        <member name="M:Milvonion.Application.Features.ContentManagement.Namespaces.GetNamespaceDetail.GetNamespaceDetailQueryValidator.#ctor(Milvasoft.Core.Abstractions.Localization.IMilvaLocalizer)">
+            <inheritdoc cref="T:Milvonion.Application.Features.ContentManagement.Namespaces.GetNamespaceDetail.GetNamespaceDetailQueryValidator"/>
+        </member>
+        <member name="T:Milvonion.Application.Features.ContentManagement.Namespaces.GetNamespaceList.GetNamespaceListQuery">
+            <summary>
+            Data transfer object for contentNamespace list.
+            </summary>
+        </member>
+        <member name="T:Milvonion.Application.Features.ContentManagement.Namespaces.GetNamespaceList.GetNamespaceListQueryHandler">
+            <summary>
+            Handles the contentNamespace list operation.
+            </summary>
+            <param name="contentNamespaceRepository"></param>
+        </member>
+        <member name="M:Milvonion.Application.Features.ContentManagement.Namespaces.GetNamespaceList.GetNamespaceListQueryHandler.#ctor(Milvonion.Application.Interfaces.IMilvonionRepositoryBase{Milvonion.Domain.ContentManagement.Namespace})">
+            <summary>
+            Handles the contentNamespace list operation.
+            </summary>
+            <param name="contentNamespaceRepository"></param>
+        </member>
+        <member name="M:Milvonion.Application.Features.ContentManagement.Namespaces.GetNamespaceList.GetNamespaceListQueryHandler.Handle(Milvonion.Application.Features.ContentManagement.Namespaces.GetNamespaceList.GetNamespaceListQuery,System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Milvonion.Application.Features.ContentManagement.Namespaces.GetNamespaceList.GetNamespaceListQueryValidator">
+            <summary>
+            Account detail query validations. 
+            </summary>
+        </member>
+        <member name="M:Milvonion.Application.Features.ContentManagement.Namespaces.GetNamespaceList.GetNamespaceListQueryValidator.#ctor">
+            <inheritdoc cref="T:Milvonion.Application.Features.ContentManagement.Namespaces.GetNamespaceList.GetNamespaceListQueryValidator"/>
+        </member>
+        <member name="T:Milvonion.Application.Features.ContentManagement.Namespaces.UpdateNamespace.UpdateNamespaceCommand">
+            <summary>
+            Data transfer object for namespace update.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Features.ContentManagement.Namespaces.UpdateNamespace.UpdateNamespaceCommand.Name">
+            <summary>
+            Name of namespace.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Features.ContentManagement.Namespaces.UpdateNamespace.UpdateNamespaceCommand.Description">
+            <summary>
+            Description of namespace.
+            </summary>
+        </member>
+        <member name="T:Milvonion.Application.Features.ContentManagement.Namespaces.UpdateNamespace.UpdateNamespaceCommandHandler">
+            <summary>
+            Handles the update of the contentNamespace.
+            </summary>
+            <param name="NamespaceRepository"></param>
+        </member>
+        <member name="M:Milvonion.Application.Features.ContentManagement.Namespaces.UpdateNamespace.UpdateNamespaceCommandHandler.#ctor(Milvonion.Application.Interfaces.IMilvonionRepositoryBase{Milvonion.Domain.ContentManagement.Namespace})">
+            <summary>
+            Handles the update of the contentNamespace.
+            </summary>
+            <param name="NamespaceRepository"></param>
+        </member>
+        <member name="P:Milvonion.Application.Features.ContentManagement.Namespaces.UpdateNamespace.UpdateNamespaceCommandHandler.NamespaceRepository">
+            <summary></summary>
+        </member>
+        <member name="M:Milvonion.Application.Features.ContentManagement.Namespaces.UpdateNamespace.UpdateNamespaceCommandHandler.Handle(Milvonion.Application.Features.ContentManagement.Namespaces.UpdateNamespace.UpdateNamespaceCommand,System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Milvonion.Application.Features.ContentManagement.Namespaces.UpdateNamespace.UpdateNamespaceCommandValidator">
+            <summary>
+            Account detail query validations. 
+            </summary>
+        </member>
+        <member name="M:Milvonion.Application.Features.ContentManagement.Namespaces.UpdateNamespace.UpdateNamespaceCommandValidator.#ctor(Milvasoft.Core.Abstractions.Localization.IMilvaLocalizer)">
+            <inheritdoc cref="T:Milvonion.Application.Features.ContentManagement.Namespaces.UpdateNamespace.UpdateNamespaceCommandValidator"/>
+        </member>
+        <member name="T:Milvonion.Application.Features.ContentManagement.ResourceGroups.CreateResourceGroup.CreateResourceGroupCommand">
+            <summary>
+            Data transfer object for resource group creation.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Features.ContentManagement.ResourceGroups.CreateResourceGroup.CreateResourceGroupCommand.NamespaceId">
+            <summary>
+            Belongs to which namespace.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Features.ContentManagement.ResourceGroups.CreateResourceGroup.CreateResourceGroupCommand.Name">
+            <summary>
+            Name of resource group.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Features.ContentManagement.ResourceGroups.CreateResourceGroup.CreateResourceGroupCommand.Description">
+            <summary>
+            Description of resource group.
+            </summary>
+        </member>
+        <member name="T:Milvonion.Application.Features.ContentManagement.ResourceGroups.CreateResourceGroup.CreateResourceGroupCommandHandler">
+            <summary>
+            Handles the creation of the resource group.
+            </summary>
+            <param name="ResourceGroupRepository"></param>
+        </member>
+        <member name="M:Milvonion.Application.Features.ContentManagement.ResourceGroups.CreateResourceGroup.CreateResourceGroupCommandHandler.#ctor(Milvonion.Application.Interfaces.IMilvonionRepositoryBase{Milvonion.Domain.ContentManagement.ResourceGroup})">
+            <summary>
+            Handles the creation of the resource group.
+            </summary>
+            <param name="ResourceGroupRepository"></param>
+        </member>
+        <member name="P:Milvonion.Application.Features.ContentManagement.ResourceGroups.CreateResourceGroup.CreateResourceGroupCommandHandler.ResourceGroupRepository">
+            <summary></summary>
+        </member>
+        <member name="M:Milvonion.Application.Features.ContentManagement.ResourceGroups.CreateResourceGroup.CreateResourceGroupCommandHandler.Handle(Milvonion.Application.Features.ContentManagement.ResourceGroups.CreateResourceGroup.CreateResourceGroupCommand,System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Milvonion.Application.Features.ContentManagement.ResourceGroups.CreateResourceGroup.CreateResourceGroupCommandValidator">
+            <summary>
+            Query validations. 
+            </summary>
+        </member>
+        <member name="M:Milvonion.Application.Features.ContentManagement.ResourceGroups.CreateResourceGroup.CreateResourceGroupCommandValidator.#ctor(Milvasoft.Core.Abstractions.Localization.IMilvaLocalizer)">
+            <inheritdoc cref="T:Milvonion.Application.Features.ContentManagement.ResourceGroups.CreateResourceGroup.CreateResourceGroupCommandValidator"/>
+        </member>
+        <member name="T:Milvonion.Application.Features.ContentManagement.ResourceGroups.DeleteResourceGroup.DeleteResourceGroupCommand">
+            <summary>
+            Data transfer object for resource group deletion.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Features.ContentManagement.ResourceGroups.DeleteResourceGroup.DeleteResourceGroupCommand.ResourceGroupId">
+            <summary>
+            Id of the resource group to be deleted.
+            </summary>
+        </member>
+        <member name="T:Milvonion.Application.Features.ContentManagement.ResourceGroups.DeleteResourceGroup.DeleteResourceGroupCommandHandler">
+            <summary>
+            Handles the deletion of the resource group.
+            </summary>
+            <param name="ResourceGroupRepository"></param>
+        </member>
+        <member name="M:Milvonion.Application.Features.ContentManagement.ResourceGroups.DeleteResourceGroup.DeleteResourceGroupCommandHandler.#ctor(Milvonion.Application.Interfaces.IMilvonionRepositoryBase{Milvonion.Domain.ContentManagement.ResourceGroup})">
+            <summary>
+            Handles the deletion of the resource group.
+            </summary>
+            <param name="ResourceGroupRepository"></param>
+        </member>
+        <member name="P:Milvonion.Application.Features.ContentManagement.ResourceGroups.DeleteResourceGroup.DeleteResourceGroupCommandHandler.ResourceGroupRepository">
+            <summary></summary>
+        </member>
+        <member name="M:Milvonion.Application.Features.ContentManagement.ResourceGroups.DeleteResourceGroup.DeleteResourceGroupCommandHandler.Handle(Milvonion.Application.Features.ContentManagement.ResourceGroups.DeleteResourceGroup.DeleteResourceGroupCommand,System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Milvonion.Application.Features.ContentManagement.ResourceGroups.DeleteResourceGroup.DeleteResourceGroupCommandValidator">
+            <summary>
+            Query validations. 
+            </summary>
+        </member>
+        <member name="M:Milvonion.Application.Features.ContentManagement.ResourceGroups.DeleteResourceGroup.DeleteResourceGroupCommandValidator.#ctor(Milvasoft.Core.Abstractions.Localization.IMilvaLocalizer)">
+            <inheritdoc cref="T:Milvonion.Application.Features.ContentManagement.ResourceGroups.DeleteResourceGroup.DeleteResourceGroupCommandValidator"/>
+        </member>
+        <member name="T:Milvonion.Application.Features.ContentManagement.ResourceGroups.GetResourceGroupDetail.GetResourceGroupDetailQuery">
+            <summary>
+            Data transfer object for resource group details.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Features.ContentManagement.ResourceGroups.GetResourceGroupDetail.GetResourceGroupDetailQuery.ResourceGroupId">
+            <summary>
+            Resource group id to access details.
+            </summary>
+        </member>
+        <member name="T:Milvonion.Application.Features.ContentManagement.ResourceGroups.GetResourceGroupDetail.GetResourceGroupDetailQueryHandler">
+            <summary>
+            Handles the resource group detail operation.
+            </summary>
+            <param name="resourceGroupRepository"></param>
+        </member>
+        <member name="M:Milvonion.Application.Features.ContentManagement.ResourceGroups.GetResourceGroupDetail.GetResourceGroupDetailQueryHandler.#ctor(Milvonion.Application.Interfaces.IMilvonionRepositoryBase{Milvonion.Domain.ContentManagement.ResourceGroup})">
+            <summary>
+            Handles the resource group detail operation.
+            </summary>
+            <param name="resourceGroupRepository"></param>
+        </member>
+        <member name="M:Milvonion.Application.Features.ContentManagement.ResourceGroups.GetResourceGroupDetail.GetResourceGroupDetailQueryHandler.Handle(Milvonion.Application.Features.ContentManagement.ResourceGroups.GetResourceGroupDetail.GetResourceGroupDetailQuery,System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Milvonion.Application.Features.ContentManagement.ResourceGroups.GetResourceGroupDetail.GetResourceGroupDetailQueryValidator">
+            <summary>
+            Query validations. 
+            </summary>
+        </member>
+        <member name="M:Milvonion.Application.Features.ContentManagement.ResourceGroups.GetResourceGroupDetail.GetResourceGroupDetailQueryValidator.#ctor(Milvasoft.Core.Abstractions.Localization.IMilvaLocalizer)">
+            <inheritdoc cref="T:Milvonion.Application.Features.ContentManagement.ResourceGroups.GetResourceGroupDetail.GetResourceGroupDetailQueryValidator"/>
+        </member>
+        <member name="T:Milvonion.Application.Features.ContentManagement.ResourceGroups.GetResourceGroupList.GetResourceGroupListQuery">
+            <summary>
+            Data transfer object for resource group list.
+            </summary>
+        </member>
+        <member name="T:Milvonion.Application.Features.ContentManagement.ResourceGroups.GetResourceGroupList.GetResourceGroupListQueryHandler">
+            <summary>
+            Handles the resource group list operation.
+            </summary>
+            <param name="resourceGroupRepository"></param>
+        </member>
+        <member name="M:Milvonion.Application.Features.ContentManagement.ResourceGroups.GetResourceGroupList.GetResourceGroupListQueryHandler.#ctor(Milvonion.Application.Interfaces.IMilvonionRepositoryBase{Milvonion.Domain.ContentManagement.ResourceGroup})">
+            <summary>
+            Handles the resource group list operation.
+            </summary>
+            <param name="resourceGroupRepository"></param>
+        </member>
+        <member name="M:Milvonion.Application.Features.ContentManagement.ResourceGroups.GetResourceGroupList.GetResourceGroupListQueryHandler.Handle(Milvonion.Application.Features.ContentManagement.ResourceGroups.GetResourceGroupList.GetResourceGroupListQuery,System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Milvonion.Application.Features.ContentManagement.ResourceGroups.GetResourceGroupList.GetResourceGroupListQueryValidator">
+            <summary>
+            Query validations. 
+            </summary>
+        </member>
+        <member name="M:Milvonion.Application.Features.ContentManagement.ResourceGroups.GetResourceGroupList.GetResourceGroupListQueryValidator.#ctor">
+            <inheritdoc cref="T:Milvonion.Application.Features.ContentManagement.ResourceGroups.GetResourceGroupList.GetResourceGroupListQueryValidator"/>
+        </member>
+        <member name="T:Milvonion.Application.Features.ContentManagement.ResourceGroups.UpdateResourceGroup.UpdateResourceGroupCommand">
+            <summary>
+            Data transfer object for resource group update.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Features.ContentManagement.ResourceGroups.UpdateResourceGroup.UpdateResourceGroupCommand.Name">
+            <summary>
+            Name of resource group.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Features.ContentManagement.ResourceGroups.UpdateResourceGroup.UpdateResourceGroupCommand.Description">
+            <summary>
+            Description of resource group.
+            </summary>
+        </member>
+        <member name="T:Milvonion.Application.Features.ContentManagement.ResourceGroups.UpdateResourceGroup.UpdateResourceGroupCommandHandler">
+            <summary>
+            Handles the update of the resource group.
+            </summary>
+            <param name="ResourceGroupRepository"></param>
+        </member>
+        <member name="M:Milvonion.Application.Features.ContentManagement.ResourceGroups.UpdateResourceGroup.UpdateResourceGroupCommandHandler.#ctor(Milvonion.Application.Interfaces.IMilvonionRepositoryBase{Milvonion.Domain.ContentManagement.ResourceGroup})">
+            <summary>
+            Handles the update of the resource group.
+            </summary>
+            <param name="ResourceGroupRepository"></param>
+        </member>
+        <member name="P:Milvonion.Application.Features.ContentManagement.ResourceGroups.UpdateResourceGroup.UpdateResourceGroupCommandHandler.ResourceGroupRepository">
+            <summary></summary>
+        </member>
+        <member name="M:Milvonion.Application.Features.ContentManagement.ResourceGroups.UpdateResourceGroup.UpdateResourceGroupCommandHandler.Handle(Milvonion.Application.Features.ContentManagement.ResourceGroups.UpdateResourceGroup.UpdateResourceGroupCommand,System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Milvonion.Application.Features.ContentManagement.ResourceGroups.UpdateResourceGroup.UpdateResourceGroupCommandValidator">
+            <summary>
+            Query validations. 
+            </summary>
+        </member>
+        <member name="M:Milvonion.Application.Features.ContentManagement.ResourceGroups.UpdateResourceGroup.UpdateResourceGroupCommandValidator.#ctor(Milvasoft.Core.Abstractions.Localization.IMilvaLocalizer)">
+            <inheritdoc cref="T:Milvonion.Application.Features.ContentManagement.ResourceGroups.UpdateResourceGroup.UpdateResourceGroupCommandValidator"/>
+        </member>
+        <member name="T:Milvonion.Application.Features.Languages.GetLanguageList.GetLanguageListQuery">
+            <summary>
+            Data transfer object for language list.
+            </summary>
+        </member>
+        <member name="T:Milvonion.Application.Features.Languages.GetLanguageList.GetLanguageListQueryHandler">
+            <summary>
+            Handles the language list operation.
+            </summary>
+            <param name="languageRepository"></param>
+        </member>
+        <member name="M:Milvonion.Application.Features.Languages.GetLanguageList.GetLanguageListQueryHandler.#ctor(Milvonion.Application.Interfaces.IMilvonionRepositoryBase{Milvonion.Domain.Language})">
+            <summary>
+            Handles the language list operation.
+            </summary>
+            <param name="languageRepository"></param>
+        </member>
+        <member name="M:Milvonion.Application.Features.Languages.GetLanguageList.GetLanguageListQueryHandler.Handle(Milvonion.Application.Features.Languages.GetLanguageList.GetLanguageListQuery,System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Milvonion.Application.Features.Languages.GetLanguageList.GetLanguageListQueryValidator">
+            <summary>
+            Account detail query validations. 
+            </summary>
+        </member>
+        <member name="M:Milvonion.Application.Features.Languages.GetLanguageList.GetLanguageListQueryValidator.#ctor">
+            <inheritdoc cref="T:Milvonion.Application.Features.Languages.GetLanguageList.GetLanguageListQueryValidator"/>
+        </member>
+        <member name="T:Milvonion.Application.Features.Languages.UpdateLanguage.UpdateLanguageCommand">
+            <summary>
+            Data transfer object for role update.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Features.Languages.UpdateLanguage.UpdateLanguageCommand.IsDefault">
+            <summary>
+            Determines whether language is default or not.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Features.Languages.UpdateLanguage.UpdateLanguageCommand.Supported">
+            <summary>
+            Determines whether language is supported or not.
+            </summary>
+        </member>
+        <member name="T:Milvonion.Application.Features.Languages.UpdateLanguage.UpdateLanguageCommandHandler">
+            <summary>
+            Handles the update of the language.
+            </summary>
+            <param name="LanguageRepository"></param>
+        </member>
+        <member name="M:Milvonion.Application.Features.Languages.UpdateLanguage.UpdateLanguageCommandHandler.#ctor(Milvonion.Application.Interfaces.IMilvonionRepositoryBase{Milvonion.Domain.Language})">
+            <summary>
+            Handles the update of the language.
+            </summary>
+            <param name="LanguageRepository"></param>
+        </member>
+        <member name="P:Milvonion.Application.Features.Languages.UpdateLanguage.UpdateLanguageCommandHandler.LanguageRepository">
+            <summary></summary>
+        </member>
+        <member name="M:Milvonion.Application.Features.Languages.UpdateLanguage.UpdateLanguageCommandHandler.Handle(Milvonion.Application.Features.Languages.UpdateLanguage.UpdateLanguageCommand,System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Milvonion.Application.Features.Languages.UpdateLanguage.UpdateLanguageCommandValidator">
+            <summary>
+            Account detail query validations. 
+            </summary>
+        </member>
+        <member name="M:Milvonion.Application.Features.Languages.UpdateLanguage.UpdateLanguageCommandValidator.#ctor(Milvasoft.Core.Abstractions.Localization.IMilvaLocalizer)">
+            <inheritdoc cref="T:Milvonion.Application.Features.Roles.UpdateRole.UpdateRoleCommandValidator"/>
         </member>
         <member name="T:Milvonion.Application.Features.MilvonionBaseDto`1">
             <summary>

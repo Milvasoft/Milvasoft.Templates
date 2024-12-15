@@ -465,4 +465,31 @@
   <data name="UI.Table.Type" xml:space="preserve">
     <value>İşlem</value>
   </data>
+  <data name="Global.Namespace" xml:space="preserve">
+    <value>Namespace</value>
+  </data>
+  <data name="Resource Group" xml:space="preserve">
+    <value>Resource Grup</value>
+  </data>
+  <data name="Global.Content" xml:space="preserve">
+    <value>İçerik</value>
+  </data>
+  <data name="Global.Media" xml:space="preserve">
+    <value>Medya</value>
+  </data>
+  <data name="Global.Language" xml:space="preserve">
+    <value>Dil</value>
+  </data>
+  <data name="NamespaceNotFound" xml:space="preserve">
+    <value>Namespace bulunamadı!</value>
+  </data>
+  <data name="ResourceGroupNotFound" xml:space="preserve">
+    <value>Resource Grup bulunamadı!</value>
+  </data>
+  <data name="MediaNotFound" xml:space="preserve">
+    <value>Medya bulunamadı!</value>
+  </data>
+  <data name="ContentNotFound" xml:space="preserve">
+    <value>İçerik bulunamadı!</value>
+  </data>
 </root>

@@ -5,6 +5,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Milvasoft.Attributes.Annotations;
 using Milvasoft.Components.Rest.MilvaResponse;
 using Milvasoft.Core.Helpers;
+using Milvasoft.Core.MultiLanguage.EntityBases.Abstract;
+using Milvasoft.Core.MultiLanguage.Manager;
 using Milvasoft.Identity.Abstract;
 using Milvasoft.Identity.Concrete;
 using Milvonion.Application.Interfaces;
@@ -121,10 +123,7 @@ public class DatabaseMigrator(MilvonionDbContext milvonionDbContext)
             ]
         };
 
-        if (rootPass == null)
-        {
-            rootPass = IdentityHelpers.GenerateRandomPassword(16, true, true, true, true);
-        }
+        rootPass ??= IdentityHelpers.GenerateRandomPassword(16, true, true, true, true);
 
         _milvonionDbContext.ServiceProvider.GetService<IMilvaUserManager<User, int>>().SetPasswordHash(rootUser, rootPass);
 
@@ -367,7 +366,7 @@ public class DatabaseMigrator(MilvonionDbContext milvonionDbContext)
     /// <param name="permissionManager"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    public async Task<Response<string>> MigratePermissionsAsync(IPermissionManager permissionManager, CancellationToken cancellationToken = default) => await permissionManager.MigratePermissionsAsync(cancellationToken);
+    public static async Task<Response<string>> MigratePermissionsAsync(IPermissionManager permissionManager, CancellationToken cancellationToken = default) => await permissionManager.MigratePermissionsAsync(cancellationToken);
 
     /// <summary>
     /// Initial data seed and migration operation for production.
@@ -398,6 +397,22 @@ public class DatabaseMigrator(MilvonionDbContext milvonionDbContext)
 
             await CreateTriggersAsync(cancellationToken);
 
+            var languages = LanguagesSeed.Seed.Select(l => new Language
+            {
+                Code = l.Code,
+                Name = l.Name,
+                IsDefault = l.IsDefault,
+                Supported = l.Supported,
+            });
+
+            await _milvonionDbContext.Languages.AddRangeAsync(languages, cancellationToken);
+
+            await _milvonionDbContext.SaveChangesAsync(cancellationToken);
+
+            var languageSeed = languages.Cast<ILanguage>().ToList();
+
+            MultiLanguageManager.UpdateLanguagesList(languageSeed);
+
             await MigratePermissionsAsync(permissionManager, cancellationToken);
 
             initialMigration.MigrationCompleted = true;
@@ -407,7 +422,7 @@ public class DatabaseMigrator(MilvonionDbContext milvonionDbContext)
 
             return Response<string>.Success(rootPass);
         }
-        catch (Exception ex)
+        catch (Exception)
         {
             return Response<string>.Error("Already initialized!");
         }

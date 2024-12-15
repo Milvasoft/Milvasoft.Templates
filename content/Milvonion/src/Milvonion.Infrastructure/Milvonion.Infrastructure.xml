@@ -339,7 +339,6 @@
             <param name="mediator"></param>
             <param name="permissionManager"></param>
             <param name="milvonionDbContext"></param>
-            <param name="userManager"></param>
             <param name="methodLogRepository"></param>
             <param name="apiLogRepository"></param>
             <param name="configuration"></param>
@@ -351,7 +350,6 @@
             <param name="mediator"></param>
             <param name="permissionManager"></param>
             <param name="milvonionDbContext"></param>
-            <param name="userManager"></param>
             <param name="methodLogRepository"></param>
             <param name="apiLogRepository"></param>
             <param name="configuration"></param>

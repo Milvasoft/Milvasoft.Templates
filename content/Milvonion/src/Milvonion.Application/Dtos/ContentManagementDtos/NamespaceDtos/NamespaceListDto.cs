@@ -1,0 +1,41 @@
+﻿using Milvasoft.Attributes.Annotations;
+using Milvonion.Domain.ContentManagement;
+using System.Linq.Expressions;
+using System.Text.Json.Serialization;
+
+namespace Milvonion.Application.Dtos.ContentManagementDtos.NamespaceDtos;
+
+/// <summary>
+/// Response of namespace detail.
+/// </summary>
+[Translate]
+public class NamespaceListDto : MilvonionBaseDto<int>
+{
+    /// <summary>
+    /// Unique slug of namespace.
+    /// </summary>
+    public string Slug { get; set; }
+
+    /// <summary>
+    /// Name of namespace.
+    /// </summary>
+    public string Name { get; set; }
+
+    /// <summary>
+    /// Description of namespace.
+    /// </summary>
+    public string Description { get; set; }
+
+    /// <summary>
+    /// Projection expression for mapping Namespace entity to GetNamespaceListResponse.
+    /// </summary>
+    [JsonIgnore]
+    [ExcludeFromMetadata]
+    public static Expression<Func<Namespace, NamespaceListDto>> Projection { get; } = n => new NamespaceListDto
+    {
+        Id = n.Id,
+        Slug = n.Slug,
+        Name = n.Name,
+        Description = n.Description
+    };
+}

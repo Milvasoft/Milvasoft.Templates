@@ -31,5 +31,14 @@ public static class MessageKey
     public const string Seconds = nameof(Seconds);
     public const string Locked = nameof(Locked);
     public const string LockWarning = nameof(LockWarning);
+    public const string NamespaceNotFound = nameof(NamespaceNotFound);
+    public const string ResourceGroupNotFound = nameof(ResourceGroupNotFound);
+    public const string ContentNotFound = nameof(ContentNotFound);
+    public const string MediaNotFound = nameof(MediaNotFound);
+    public const string Namespace = "Global.Namespace";
+    public const string ResourceGroup = "Global.ResourceGroup";
+    public const string Content = "Global.Content";
+    public const string Media = "Global.Media";
+    public const string Language = "Global.Language";
 #pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 }

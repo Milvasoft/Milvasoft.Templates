@@ -115,6 +115,232 @@ namespace Milvonion.Api.Migrations
                     b.ToTable("ApiLogs");
                 });
 
+            modelBuilder.Entity("Milvonion.Domain.ContentManagement.Content", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime?>("CreationDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("CreatorUserName")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Key")
+                        .HasColumnType("text");
+
+                    b.Property<string>("KeyAlias")
+                        .HasColumnType("text");
+
+                    b.Property<int>("LanguageId")
+                        .HasColumnType("integer");
+
+                    b.Property<DateTime?>("LastModificationDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("LastModifierUserName")
+                        .HasColumnType("text");
+
+                    b.Property<int>("NamespaceId")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("NamespaceSlug")
+                        .HasColumnType("text");
+
+                    b.Property<int>("ResourceGroupId")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("ResourceGroupSlug")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Value")
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CreationDate");
+
+                    b.HasIndex("NamespaceId");
+
+                    b.HasIndex("ResourceGroupId");
+
+                    b.HasIndex("LanguageId", "KeyAlias")
+                        .IsUnique();
+
+                    b.ToTable("Contents");
+                });
+
+            modelBuilder.Entity("Milvonion.Domain.ContentManagement.Media", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("ContentId")
+                        .HasColumnType("integer");
+
+                    b.Property<DateTime?>("CreationDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("CreatorUserName")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime?>("LastModificationDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("LastModifierUserName")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Type")
+                        .HasColumnType("text");
+
+                    b.Property<byte[]>("Value")
+                        .HasColumnType("bytea");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ContentId");
+
+                    b.HasIndex("CreationDate");
+
+                    b.ToTable("Medias");
+                });
+
+            modelBuilder.Entity("Milvonion.Domain.ContentManagement.Namespace", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime?>("CreationDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("CreatorUserName")
+                        .HasColumnType("text");
+
+                    b.Property<string>("DeleterUserName")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime?>("DeletionDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("text");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean");
+
+                    b.Property<DateTime?>("LastModificationDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("LastModifierUserName")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Slug")
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CreationDate");
+
+                    b.HasIndex("IsDeleted");
+
+                    b.HasIndex("Slug")
+                        .IsUnique();
+
+                    b.ToTable("Namespaces");
+                });
+
+            modelBuilder.Entity("Milvonion.Domain.ContentManagement.ResourceGroup", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime?>("CreationDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("CreatorUserName")
+                        .HasColumnType("text");
+
+                    b.Property<string>("DeleterUserName")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime?>("DeletionDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("text");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean");
+
+                    b.Property<DateTime?>("LastModificationDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("LastModifierUserName")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("text");
+
+                    b.Property<int>("NamespaceId")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("Slug")
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CreationDate");
+
+                    b.HasIndex("IsDeleted");
+
+                    b.HasIndex("Slug");
+
+                    b.HasIndex("NamespaceId", "Slug")
+                        .IsUnique();
+
+                    b.ToTable("ResourceGroups");
+                });
+
+            modelBuilder.Entity("Milvonion.Domain.Language", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Code")
+                        .HasColumnType("text");
+
+                    b.Property<bool>("IsDefault")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("text");
+
+                    b.Property<bool>("Supported")
+                        .HasColumnType("boolean");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Languages");
+                });
+
             modelBuilder.Entity("Milvonion.Domain.MethodLog", b =>
                 {
                     b.Property<int>("Id")
@@ -614,6 +840,47 @@ namespace Milvonion.Api.Migrations
                     b.ToTable("UserSessions");
                 });
 
+            modelBuilder.Entity("Milvonion.Domain.ContentManagement.Content", b =>
+                {
+                    b.HasOne("Milvonion.Domain.ContentManagement.Namespace", "Namespace")
+                        .WithMany("Contents")
+                        .HasForeignKey("NamespaceId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Milvonion.Domain.ContentManagement.ResourceGroup", "ResourceGroup")
+                        .WithMany("Contents")
+                        .HasForeignKey("ResourceGroupId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Namespace");
+
+                    b.Navigation("ResourceGroup");
+                });
+
+            modelBuilder.Entity("Milvonion.Domain.ContentManagement.Media", b =>
+                {
+                    b.HasOne("Milvonion.Domain.ContentManagement.Content", "Content")
+                        .WithMany("Medias")
+                        .HasForeignKey("ContentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Content");
+                });
+
+            modelBuilder.Entity("Milvonion.Domain.ContentManagement.ResourceGroup", b =>
+                {
+                    b.HasOne("Milvonion.Domain.ContentManagement.Namespace", "Namespace")
+                        .WithMany("ResourceGroups")
+                        .HasForeignKey("NamespaceId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Namespace");
+                });
+
             modelBuilder.Entity("Milvonion.Domain.RolePermissionRelation", b =>
                 {
                     b.HasOne("Milvonion.Domain.Permission", "Permission")
@@ -689,6 +956,23 @@ namespace Milvonion.Api.Migrations
                         .IsRequired();
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Milvonion.Domain.ContentManagement.Content", b =>
+                {
+                    b.Navigation("Medias");
+                });
+
+            modelBuilder.Entity("Milvonion.Domain.ContentManagement.Namespace", b =>
+                {
+                    b.Navigation("Contents");
+
+                    b.Navigation("ResourceGroups");
+                });
+
+            modelBuilder.Entity("Milvonion.Domain.ContentManagement.ResourceGroup", b =>
+                {
+                    b.Navigation("Contents");
                 });
 
             modelBuilder.Entity("Milvonion.Domain.Permission", b =>

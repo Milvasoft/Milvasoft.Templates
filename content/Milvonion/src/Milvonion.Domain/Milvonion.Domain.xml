@@ -79,6 +79,162 @@
             Exception in request if exists.
             </summary>
         </member>
+        <member name="T:Milvonion.Domain.ContentManagement.Content">
+            <summary>
+            Key value pairs.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Domain.ContentManagement.Content.Key">
+            <summary>
+            Key of content.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Domain.ContentManagement.Content.Value">
+            <summary>
+            Value of content.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Domain.ContentManagement.Content.LanguageId">
+            <summary>
+            LanguageId of content.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Domain.ContentManagement.Content.NamespaceSlug">
+            <summary>
+            Slug for the namespace for search without join.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Domain.ContentManagement.Content.ResourceGroupSlug">
+            <summary>
+            Slug for the resource group for search without join.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Domain.ContentManagement.Content.KeyAlias">
+            <summary>
+            Key alias for search without join. A combination of namespace slug, resource group slug and key. etc. "namespaceSlug.resourceGroupSlug.key"
+            </summary>
+        </member>
+        <member name="P:Milvonion.Domain.ContentManagement.Content.NamespaceId">
+            <summary>
+            Id of the namespace this content belongs to.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Domain.ContentManagement.Content.Namespace">
+            <summary>
+            Navigation property to the namespace this content belongs to.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Domain.ContentManagement.Content.ResourceGroupId">
+            <summary>
+            Id of the namespace this content belongs to.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Domain.ContentManagement.Content.ResourceGroup">
+            <summary>
+            Navigation property to the resource group this content belongs to.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Domain.ContentManagement.Content.Medias">
+            <summary>
+            Navigation property to the medias.
+            </summary>
+        </member>
+        <member name="M:Milvonion.Domain.ContentManagement.Content.BuildKeyAlias">
+            <summary>
+            Builds key alias.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Milvonion.Domain.ContentManagement.Media">
+            <summary>
+            Media typed content values.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Domain.ContentManagement.Media.Value">
+            <summary>
+            Value of media.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Domain.ContentManagement.Media.Type">
+            <summary>
+            Media type. etc. "image", "video", "audio"
+            </summary>
+        </member>
+        <member name="P:Milvonion.Domain.ContentManagement.Media.ContentId">
+            <summary>
+            Id of the content this media belongs to.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Domain.ContentManagement.Media.Content">
+            <summary>
+            Navigation property to the content this media to.
+            </summary>
+        </member>
+        <member name="T:Milvonion.Domain.ContentManagement.Namespace">
+            <summary>
+            Namespace of resources.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Domain.ContentManagement.Namespace.Slug">
+            <summary>
+            Unique slug of namespace.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Domain.ContentManagement.Namespace.Name">
+            <summary>
+            Name of namespace.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Domain.ContentManagement.Namespace.Description">
+            <summary>
+            Description of namespace.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Domain.ContentManagement.Namespace.ResourceGroups">
+            <summary>
+            Navigation property to the resource groups. 
+            </summary>
+        </member>
+        <member name="P:Milvonion.Domain.ContentManagement.Namespace.Contents">
+            <summary>
+            Navigation property to the contents. 
+            </summary>
+        </member>
+        <member name="T:Milvonion.Domain.ContentManagement.ResourceGroup">
+            <summary>
+            Resource group of resources.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Domain.ContentManagement.ResourceGroup.Slug">
+            <summary>
+            Unique slug of resource group.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Domain.ContentManagement.ResourceGroup.Name">
+            <summary>
+            Name of resource group.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Domain.ContentManagement.ResourceGroup.Description">
+            <summary>
+            Description of resource group.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Domain.ContentManagement.ResourceGroup.NamespaceId">
+            <summary>
+            Id of the namespace this resource group belongs to.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Domain.ContentManagement.ResourceGroup.Namespace">
+            <summary>
+            Navigation property to the namespace this resource group belongs to.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Domain.ContentManagement.ResourceGroup.Contents">
+            <summary>
+            Navigation property to the contents.
+            </summary>
+        </member>
         <member name="T:Milvonion.Domain.Enums.UserActivity">
             <summary>
             User activity types.
@@ -238,6 +394,23 @@
             <summary>
             Response content type.
             </summary>
+        </member>
+        <member name="T:Milvonion.Domain.Language">
+            <summary>
+            Language entity.
+            </summary>
+        </member>
+        <member name="M:Milvonion.Domain.Language.GetUniqueIdentifier">
+            <summary>
+            Gets the unique identifier of the entity.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Milvonion.Domain.Language.ToString">
+            <summary>
+            Returns this instance of "<see cref="T:System.Type"/>.Name <see cref="T:Milvasoft.Core.EntityBases.Concrete.BaseEntity`1"/>.Id" as string.
+            </summary>
+            <returns></returns>
         </member>
         <member name="T:Milvonion.Domain.MethodLog">
             <summary>

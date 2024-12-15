@@ -3,6 +3,7 @@ using Milvasoft.DataAccess.EfCore.Bulk.DbContextBase;
 using Milvasoft.DataAccess.EfCore.Configuration;
 using Milvasoft.DataAccess.EfCore.DbContextBase;
 using Milvonion.Domain;
+using Milvonion.Domain.ContentManagement;
 using Milvonion.Domain.UI;
 
 namespace Milvonion.Infrastructure.Persistence.Context;
@@ -34,6 +35,11 @@ public class MilvonionDbContext(DbContextOptions options) : MilvaBulkDbContext(o
     public DbSet<Page> Pages { get; set; }
     public DbSet<PageAction> PageActions { get; set; }
     public DbSet<MigrationHistory> MigrationHistory { get; set; }
+    public DbSet<Content> Contents { get; set; }
+    public DbSet<Media> Medias { get; set; }
+    public DbSet<ResourceGroup> ResourceGroups { get; set; }
+    public DbSet<Namespace> Namespaces { get; set; }
+    public DbSet<Language> Languages { get; set; }
 #pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 
     /// <inheritdoc/>

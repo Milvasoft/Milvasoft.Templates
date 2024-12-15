@@ -3,6 +3,8 @@ using Microsoft.Extensions.Configuration;
 using Milvasoft.Attributes.Annotations;
 using Milvasoft.Components.Rest.MilvaResponse;
 using Milvasoft.Components.Rest.Request;
+using Milvasoft.Core.MultiLanguage.EntityBases.Abstract;
+using Milvasoft.Core.MultiLanguage.Manager;
 using Milvasoft.Types.Structs;
 using Milvonion.Application.Features.Roles.CreateRole;
 using Milvonion.Application.Features.Roles.UpdateRole;
@@ -20,7 +22,6 @@ namespace Milvonion.Infrastructure.Services;
 /// <param name="mediator"></param>
 /// <param name="permissionManager"></param>
 /// <param name="milvonionDbContext"></param>
-/// <param name="userManager"></param>
 /// <param name="methodLogRepository"></param>
 /// <param name="apiLogRepository"></param>
 /// <param name="configuration"></param>
@@ -36,6 +37,7 @@ public class DevelopmentService(IMediator mediator,
     private readonly IMilvonionRepositoryBase<MethodLog> _methodLogRepository = methodLogRepository;
     private readonly IMilvonionRepositoryBase<ApiLog> _apiLogRepository = apiLogRepository;
     private readonly IConfiguration _configuration = configuration;
+    private readonly MilvonionDbContext _milvonionDbContext = milvonionDbContext;
     private readonly DatabaseMigrator _databaseMigrator = new(milvonionDbContext);
 
     /// <summary>
@@ -58,7 +60,23 @@ public class DevelopmentService(IMediator mediator,
 
             await _databaseMigrator.SeedUIRelatedDataAsync(default);
 
-            await _databaseMigrator.MigratePermissionsAsync(_permissionManager, default);
+            await DatabaseMigrator.MigratePermissionsAsync(_permissionManager, default);
+
+            var languages = LanguagesSeed.Seed.Select(l => new Language
+            {
+                Code = l.Code,
+                Name = l.Name,
+                IsDefault = l.IsDefault,
+                Supported = l.Supported,
+            });
+
+            await _milvonionDbContext.Languages.AddRangeAsync(languages, default);
+
+            await _milvonionDbContext.SaveChangesAsync(default);
+
+            var languageSeed = languages.Cast<ILanguage>().ToList();
+
+            MultiLanguageManager.UpdateLanguagesList(languageSeed);
 
             //Role creation
             var addedRole = await _mediator.Send(new CreateRoleCommand
@@ -103,7 +121,7 @@ public class DevelopmentService(IMediator mediator,
 
             return Response.Success();
         }
-        catch (Exception ex)
+        catch (Exception)
         {
             return Response.Error("Already seeded!");
         }

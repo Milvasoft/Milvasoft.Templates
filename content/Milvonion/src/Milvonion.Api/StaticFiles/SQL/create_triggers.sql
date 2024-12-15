@@ -48,9 +48,10 @@ BEGIN
         IF OLD."Id" < 21 THEN
             RAISE EXCEPTION 'Seed records cannot be deleted.';
         END IF;
+        RETURN OLD;
     END IF;
 
-    RETURN NEW; -- RETURN OLD; if TG_OP = 'DELETE'
+    RETURN NEW;
 	
 END;
 $$ LANGUAGE plpgsql;
@@ -58,6 +59,7 @@ $$ LANGUAGE plpgsql;
 
 ----------------------------------------------------------------------------------------------------------------
 -- Add trigger to all tables
+
 
 DO $$ 
 DECLARE
@@ -86,7 +88,6 @@ BEGIN
             FOR EACH ROW EXECUTE FUNCTION prevent_seed_modification();', r.table_name);
     END LOOP;
 END $$;
-
 
 
 ----------------------------------------------------------------------------------------------------------------

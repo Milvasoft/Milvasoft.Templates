@@ -1,0 +1,18 @@
+﻿using FluentValidation;
+using Milvasoft.Core.Abstractions.Localization;
+
+namespace Milvonion.Application.Features.ContentManagement.Contents.GetContentDetail;
+
+/// <summary>
+/// Query validations. 
+/// </summary>
+public sealed class GetContentDetailQueryValidator : AbstractValidator<GetContentDetailQuery>
+{
+    ///<inheritdoc cref="GetContentDetailQueryValidator"/>
+    public GetContentDetailQueryValidator(IMilvaLocalizer localizer)
+    {
+        RuleFor(query => query.ContentId)
+            .NotEqual(0)
+            .WithMessage(localizer[MessageKey.PleaseSendCorrect, localizer[MessageKey.Content]]);
+    }
+}

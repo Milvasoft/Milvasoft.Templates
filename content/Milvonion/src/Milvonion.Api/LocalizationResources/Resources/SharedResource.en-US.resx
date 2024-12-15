@@ -465,4 +465,31 @@
   <data name="UI.Hint.EnterRoleName" xml:space="preserve">
     <value>Please enter role name</value>
   </data>
+  <data name="Global.Namespace" xml:space="preserve">
+    <value>Namespace</value>
+  </data>
+  <data name="Resource Group" xml:space="preserve">
+    <value>Resource Group</value>
+  </data>
+  <data name="Global.Content" xml:space="preserve">
+    <value>Content</value>
+  </data>
+  <data name="Global.Media" xml:space="preserve">
+    <value>Media)</value>
+  </data>
+  <data name="Global.Language" xml:space="preserve">
+    <value>Language</value>
+  </data>
+  <data name="NamespaceNotFound" xml:space="preserve">
+    <value>Namespace not found!</value>
+  </data>
+  <data name="ResourceGroupNotFound" xml:space="preserve">
+    <value>Resource Group not found!</value>
+  </data>
+  <data name="MediaNotFound" xml:space="preserve">
+    <value>Media not found!</value>
+  </data>
+  <data name="ContentNotFound" xml:space="preserve">
+    <value>Content not found!</value>
+  </data>
 </root>
