@@ -225,17 +225,8 @@ namespace Milvonion.Api.Migrations
                     b.Property<string>("CreatorUserName")
                         .HasColumnType("text");
 
-                    b.Property<string>("DeleterUserName")
-                        .HasColumnType("text");
-
-                    b.Property<DateTime?>("DeletionDate")
-                        .HasColumnType("timestamp with time zone");
-
                     b.Property<string>("Description")
                         .HasColumnType("text");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("boolean");
 
                     b.Property<DateTime?>("LastModificationDate")
                         .HasColumnType("timestamp with time zone");
@@ -252,8 +243,6 @@ namespace Milvonion.Api.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("CreationDate");
-
-                    b.HasIndex("IsDeleted");
 
                     b.HasIndex("Slug")
                         .IsUnique();
@@ -275,17 +264,8 @@ namespace Milvonion.Api.Migrations
                     b.Property<string>("CreatorUserName")
                         .HasColumnType("text");
 
-                    b.Property<string>("DeleterUserName")
-                        .HasColumnType("text");
-
-                    b.Property<DateTime?>("DeletionDate")
-                        .HasColumnType("timestamp with time zone");
-
                     b.Property<string>("Description")
                         .HasColumnType("text");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("boolean");
 
                     b.Property<DateTime?>("LastModificationDate")
                         .HasColumnType("timestamp with time zone");
@@ -305,8 +285,6 @@ namespace Milvonion.Api.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("CreationDate");
-
-                    b.HasIndex("IsDeleted");
 
                     b.HasIndex("Slug");
 

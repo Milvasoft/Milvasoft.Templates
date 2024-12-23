@@ -243,6 +243,13 @@
             <param name="request"></param>
             <returns></returns>
         </member>
+        <member name="M:Milvonion.Api.Controllers.CmsController.GetGroupedContentsAsync(Milvonion.Application.Features.ContentManagement.Contents.GetGroupedContentList.GetGroupedContentListQuery)">
+            <summary>
+            Gets contents as grouped by key.
+            </summary>
+            <param name="request"></param>
+            <returns></returns>
+        </member>
         <member name="M:Milvonion.Api.Controllers.CmsController.GetContentAsync(Milvonion.Application.Features.ContentManagement.Contents.GetContentDetail.GetContentDetailQuery)">
             <summary>
             Get content according to content id.

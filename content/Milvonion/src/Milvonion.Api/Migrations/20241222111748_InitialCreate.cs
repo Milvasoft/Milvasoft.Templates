@@ -121,10 +121,7 @@ public partial class InitialCreate : Migration
                 CreationDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
                 CreatorUserName = table.Column<string>(type: "text", nullable: true),
                 LastModificationDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
-                LastModifierUserName = table.Column<string>(type: "text", nullable: true),
-                DeletionDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
-                DeleterUserName = table.Column<string>(type: "text", nullable: true),
-                IsDeleted = table.Column<bool>(type: "boolean", nullable: false)
+                LastModifierUserName = table.Column<string>(type: "text", nullable: true)
             },
             constraints: table =>
             {
@@ -269,10 +266,7 @@ public partial class InitialCreate : Migration
                 CreationDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
                 CreatorUserName = table.Column<string>(type: "text", nullable: true),
                 LastModificationDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
-                LastModifierUserName = table.Column<string>(type: "text", nullable: true),
-                DeletionDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
-                DeleterUserName = table.Column<string>(type: "text", nullable: true),
-                IsDeleted = table.Column<bool>(type: "boolean", nullable: false)
+                LastModifierUserName = table.Column<string>(type: "text", nullable: true)
             },
             constraints: table =>
             {
@@ -563,11 +557,6 @@ public partial class InitialCreate : Migration
             column: "CreationDate");
 
         migrationBuilder.CreateIndex(
-            name: "IX_Namespaces_IsDeleted",
-            table: "Namespaces",
-            column: "IsDeleted");
-
-        migrationBuilder.CreateIndex(
             name: "IX_Namespaces_Slug",
             table: "Namespaces",
             column: "Slug",
@@ -604,11 +593,6 @@ public partial class InitialCreate : Migration
             name: "IX_ResourceGroups_CreationDate",
             table: "ResourceGroups",
             column: "CreationDate");
-
-        migrationBuilder.CreateIndex(
-            name: "IX_ResourceGroups_IsDeleted",
-            table: "ResourceGroups",
-            column: "IsDeleted");
 
         migrationBuilder.CreateIndex(
             name: "IX_ResourceGroups_NamespaceId_Slug",

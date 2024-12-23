@@ -13,6 +13,11 @@ public sealed class DeleteContentsCommandValidator : AbstractValidator<DeleteCon
     {
         RuleFor(query => query.ContentIdList)
             .NotEmpty()
+            .NotNull()
+            .WithMessage(localizer[MessageKey.PleaseSendCorrect, localizer[MessageKey.Content]]);
+
+        RuleForEach(query => query.ContentIdList)
+            .GreaterThan(0)
             .WithMessage(localizer[MessageKey.PleaseSendCorrect, localizer[MessageKey.Content]]);
     }
 }

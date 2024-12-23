@@ -10,7 +10,7 @@ namespace Milvonion.Domain.ContentManagement;
 /// </summary>
 [Table(TableNames.Namespaces)]
 [Index(nameof(Slug), IsUnique = true)]
-public class Namespace : FullAuditableEntity<int>
+public class Namespace : AuditableEntity<int>
 {
     /// <summary>
     /// Unique slug of namespace.

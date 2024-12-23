@@ -1,5 +1,6 @@
 ﻿using Milvasoft.Attributes.Annotations;
 using Milvonion.Domain.ContentManagement;
+using System.ComponentModel;
 using System.Linq.Expressions;
 using System.Text.Json.Serialization;
 
@@ -24,6 +25,14 @@ public class ContentDetailDto : MilvonionBaseDto<int>
     /// LanguageId of content.
     /// </summary>
     public int LanguageId { get; set; }
+
+    /// <summary>
+    /// LanguageId of content.
+    /// </summary>
+    [Filterable(false)]
+    [LinkedWith<LanguageIdNameFormatter>(nameof(LanguageId), LanguageIdNameFormatter.FormatterName)]
+    [DefaultValue(MessageConstant.QuestionMark)]
+    public string LanguageName { get; set; }
 
     /// <summary>
     /// Slug for the namespace for search without join.

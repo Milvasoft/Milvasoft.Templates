@@ -12,7 +12,7 @@ namespace Milvonion.Domain.ContentManagement;
 [Table(TableNames.ResourceGroups)]
 [Index(nameof(Slug))]
 [Index(nameof(NamespaceId), nameof(Slug), IsUnique = true)]
-public class ResourceGroup : FullAuditableEntity<int>
+public class ResourceGroup : AuditableEntity<int>
 {
     /// <summary>
     /// Unique slug of resource group.

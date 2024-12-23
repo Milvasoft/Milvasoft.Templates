@@ -16,6 +16,20 @@ namespace Milvonion.Application.Utils.Extensions;
 public static partial class MilvonionExtensions
 {
     /// <summary>
+    /// Generates metadata for the request according to header.
+    /// </summary>
+    /// <param name="serviceProvider"></param>
+    /// <returns></returns>
+    public static bool GenerateMetadata(IServiceProvider serviceProvider)
+    {
+        var httpContextAccessor = serviceProvider.GetService<IHttpContextAccessor>();
+
+        var exists = httpContextAccessor.HttpContext.Request.Headers.TryGetValue(GlobalConstant.GenerateMetadataHeaderKey, out var generateMetadata);
+
+        return exists && bool.Parse(generateMetadata);
+    }
+
+    /// <summary>
     /// Gets token from header via HttpContextAccessor.
     /// </summary>
     /// <param name="httpContextAccessor"></param>
@@ -193,7 +207,12 @@ public static partial class MilvonionExtensions
         if (string.IsNullOrEmpty(dataUriBase64))
             return [];
 
-        var base64String = dataUriBase64.Split(";base64,")[1];
+        var splitted = dataUriBase64.Split(";base64,");
+
+        if (splitted.Length != 2)
+            return [];
+
+        var base64String = splitted[1];
 
         var array = Convert.FromBase64String(base64String);
 

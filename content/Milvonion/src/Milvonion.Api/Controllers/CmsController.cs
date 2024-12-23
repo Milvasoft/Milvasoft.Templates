@@ -11,6 +11,7 @@ using Milvonion.Application.Features.ContentManagement.Contents.DeleteContents;
 using Milvonion.Application.Features.ContentManagement.Contents.GetContent;
 using Milvonion.Application.Features.ContentManagement.Contents.GetContentDetail;
 using Milvonion.Application.Features.ContentManagement.Contents.GetContentList;
+using Milvonion.Application.Features.ContentManagement.Contents.GetGroupedContentList;
 using Milvonion.Application.Features.ContentManagement.Contents.UpdateContent;
 using Milvonion.Application.Features.ContentManagement.Namespaces.CreateNamespace;
 using Milvonion.Application.Features.ContentManagement.Namespaces.DeleteNamespace;
@@ -157,6 +158,15 @@ public class CmsController(IMediator mediator) : ControllerBase
     [Auth(PermissionCatalog.ContentManagement.List)]
     [HttpPatch("contents")]
     public async Task<ListResponse<ContentListDto>> GetContentsAsync(GetContentListQuery request) => await _mediator.Send(request);
+
+    /// <summary>
+    /// Gets contents as grouped by key.
+    /// </summary>
+    /// <param name="request"></param>
+    /// <returns></returns>
+    [Auth(PermissionCatalog.ContentManagement.List)]
+    [HttpPatch("contents/by/key")]
+    public async Task<ListResponse<GroupedContentListDto>> GetGroupedContentsAsync(GetGroupedContentListQuery request) => await _mediator.Send(request);
 
     /// <summary>
     /// Get content according to content id.

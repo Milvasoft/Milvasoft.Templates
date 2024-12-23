@@ -1,5 +1,6 @@
 ﻿using Milvasoft.Attributes.Annotations;
 using Milvonion.Domain.ContentManagement;
+using System.ComponentModel;
 using System.Linq.Expressions;
 using System.Text.Json.Serialization;
 
@@ -14,6 +15,7 @@ public class ResourceGroupListDto : MilvonionBaseDto<int>
     /// <summary>
     /// Unique slug of resource group.
     /// </summary>
+    [Info(MessageKey.SlugExplaniton)]
     public string Slug { get; set; }
 
     /// <summary>
@@ -29,6 +31,9 @@ public class ResourceGroupListDto : MilvonionBaseDto<int>
     /// <summary>
     /// Description of namespace.
     /// </summary>
+    [Filterable(false)]
+    [DisplayFormat("{namespace.name}")]
+    [DefaultValue(MessageConstant.Hypen)]
     public NameIntNavigationDto Namespace { get; set; }
 
     /// <summary>

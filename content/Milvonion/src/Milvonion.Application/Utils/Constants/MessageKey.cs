@@ -6,6 +6,7 @@
 public static class MessageKey
 {
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
+    public const string SlugExplaniton = nameof(SlugExplaniton);
     public const string InvalidParameterException = nameof(InvalidParameterException);
     public const string UnhandledException = nameof(UnhandledException);
     public const string PostgreBasedException = nameof(PostgreBasedException);
@@ -40,5 +41,10 @@ public static class MessageKey
     public const string Content = "Global.Content";
     public const string Media = "Global.Media";
     public const string Language = "Global.Language";
+    public const string UnsupportedMediaType = nameof(UnsupportedMediaType);
+    public const string OnlyImageFilesAccepted = nameof(OnlyImageFilesAccepted);
+    public const string FileSizeMustLowerThan = nameof(FileSizeMustLowerThan);
+    public const string Query = nameof(Query);
+    public const string QueryType = nameof(QueryType);
 #pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 }

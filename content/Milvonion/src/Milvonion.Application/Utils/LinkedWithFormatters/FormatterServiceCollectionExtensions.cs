@@ -22,6 +22,7 @@ public static class FormatterServiceCollectionExtensions
         services.AddKeyedScoped<ILinkedWithFormatter, YesNoFormatter>(YesNoFormatter.FormatterName);
         services.AddKeyedScoped<ILinkedWithFormatter, ExistsNotFormatter>(ExistsNotFormatter.FormatterName);
         services.AddKeyedScoped<ILinkedWithFormatter, PageNameTranslateFormatter>(PageNameTranslateFormatter.FormatterName);
+        services.AddKeyedScoped<ILinkedWithFormatter, LanguageIdNameFormatter>(LanguageIdNameFormatter.FormatterName);
 
         return services;
     }

@@ -191,6 +191,30 @@
         <member name="M:Milvonion.Infrastructure.Persistence.Context.MilvonionDbContext.OnModelCreating(Microsoft.EntityFrameworkCore.ModelBuilder)">
             <inheritdoc/>
         </member>
+        <member name="T:Milvonion.Infrastructure.Persistence.Context.MilvonionDbContextAccessor">
+            <summary>
+            Milvonion scoped factory.
+            </summary>
+            <remarks>
+            Initializes new instance of <see cref="T:Milvonion.Infrastructure.Persistence.Context.MilvonionDbContextScopedFactory"/>.
+            </remarks>
+            <param name="context"></param>
+        </member>
+        <member name="M:Milvonion.Infrastructure.Persistence.Context.MilvonionDbContextAccessor.#ctor(Milvonion.Infrastructure.Persistence.Context.MilvonionDbContext)">
+            <summary>
+            Milvonion scoped factory.
+            </summary>
+            <remarks>
+            Initializes new instance of <see cref="T:Milvonion.Infrastructure.Persistence.Context.MilvonionDbContextScopedFactory"/>.
+            </remarks>
+            <param name="context"></param>
+        </member>
+        <member name="M:Milvonion.Infrastructure.Persistence.Context.MilvonionDbContextAccessor.GetDbContext">
+            <summary>
+            Db context creation implementation.
+            </summary>
+            <returns></returns>
+        </member>
         <member name="T:Milvonion.Infrastructure.Persistence.Context.MilvonionDbContextScopedFactory">
             <summary>
             Milvonion scoped factory.

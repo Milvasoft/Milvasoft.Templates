@@ -14,7 +14,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Milvonion.Api.Migrations
 {
     [DbContext(typeof(MilvonionDbContext))]
-    [Migration("20241215160947_InitialCreate")]
+    [Migration("20241222111748_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -228,17 +228,8 @@ namespace Milvonion.Api.Migrations
                     b.Property<string>("CreatorUserName")
                         .HasColumnType("text");
 
-                    b.Property<string>("DeleterUserName")
-                        .HasColumnType("text");
-
-                    b.Property<DateTime?>("DeletionDate")
-                        .HasColumnType("timestamp with time zone");
-
                     b.Property<string>("Description")
                         .HasColumnType("text");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("boolean");
 
                     b.Property<DateTime?>("LastModificationDate")
                         .HasColumnType("timestamp with time zone");
@@ -255,8 +246,6 @@ namespace Milvonion.Api.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("CreationDate");
-
-                    b.HasIndex("IsDeleted");
 
                     b.HasIndex("Slug")
                         .IsUnique();
@@ -278,17 +267,8 @@ namespace Milvonion.Api.Migrations
                     b.Property<string>("CreatorUserName")
                         .HasColumnType("text");
 
-                    b.Property<string>("DeleterUserName")
-                        .HasColumnType("text");
-
-                    b.Property<DateTime?>("DeletionDate")
-                        .HasColumnType("timestamp with time zone");
-
                     b.Property<string>("Description")
                         .HasColumnType("text");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("boolean");
 
                     b.Property<DateTime?>("LastModificationDate")
                         .HasColumnType("timestamp with time zone");
@@ -308,8 +288,6 @@ namespace Milvonion.Api.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("CreationDate");
-
-                    b.HasIndex("IsDeleted");
 
                     b.HasIndex("Slug");
 

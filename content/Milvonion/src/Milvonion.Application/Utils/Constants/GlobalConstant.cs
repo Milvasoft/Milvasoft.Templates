@@ -113,5 +113,56 @@ public static class GlobalConstant
     /// Root user name.
     /// </summary>
     public const string RootUsername = "rootuser";
+
+    /// <summary>
+    /// Generate metadata header key.
+    /// </summary>
+    public const string GenerateMetadataHeaderKey = "M-Metadata";
+
+    /// <summary>
+    /// Generate metadata header key.
+    /// </summary>
+    public const string ContentDispositionHeaderKey = "Content-Disposition";
+
+    /// <summary>
+    /// X-Real-IP header key.
+    /// </summary>
+    public const string RealIpHeaderKey = "X-Real-IP";
+
+    /// <summary>
+    /// Generate metadata header key.
+    /// </summary>
+    public const string DownloadEnpointPathEnd = "/download";
+
+    /// <summary>
+    /// Default ip.
+    /// </summary>
+    public const string DefaultIp = "0.0.0.1";
+
+    /// <summary>
+    /// Url start segment.
+    /// </summary>
+    public const string UrlStartSegment = "://";
+
+    /// <summary>
+    /// Ignored content disposition parts.
+    /// </summary>
+    public static HashSet<string> ContentDispositionIgnores { get; } =
+    [
+        "attachment",
+        "inline"
+    ];
+
+    /// <summary>
+    /// UI request paths.
+    /// </summary>
+    public static HashSet<string> UIPaths { get; } =
+    [
+        $"/{RoutePrefix}/documentation",
+        $"/{RoutePrefix}/docs",
+        $"/{RoutePrefix}/hc",
+        $"/{RoutePrefix}/health-check",
+        $"/{RoutePrefix}/hc-ui"
+    ];
 }
 

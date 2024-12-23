@@ -1,5 +1,6 @@
 ﻿using FluentValidation;
 using Milvasoft.Core.Abstractions.Localization;
+using Milvonion.Application.Behaviours;
 
 namespace Milvonion.Application.Features.ContentManagement.Namespaces.DeleteNamespace;
 
@@ -12,7 +13,11 @@ public sealed class DeleteNamespaceCommandValidator : AbstractValidator<DeleteNa
     public DeleteNamespaceCommandValidator(IMilvaLocalizer localizer)
     {
         RuleFor(query => query.NamespaceId)
-            .NotEqual(0)
+            .NotBeDefaultData()
+            .WithMessage(localizer[MessageKey.DefaultValueCannotModify]);
+
+        RuleFor(query => query.NamespaceId)
+            .GreaterThan(0)
             .WithMessage(localizer[MessageKey.PleaseSendCorrect, localizer[MessageKey.Namespace]]);
     }
 }

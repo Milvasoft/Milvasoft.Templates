@@ -11,6 +11,7 @@ using Milvasoft.Interception.Ef;
 using Milvonion.Application;
 using Milvonion.Application.Interfaces;
 using Milvonion.Application.Utils.Aspects.UserActivityLogAspect;
+using Milvonion.Application.Utils.Extensions;
 using Milvonion.Domain;
 using Milvonion.Infrastructure.LazyImpl;
 using Milvonion.Infrastructure.Logging;
@@ -54,7 +55,11 @@ public static class InfraServiceCollectionExtensions
                 .WithCacheInterceptor()
                 .WithTransactionInterceptor()
                 .WithActivityInterceptor()
-                .WithInterceptor<UserActivityLogInterceptor>();
+                .WithInterceptor<UserActivityLogInterceptor>()
+                .PostConfigureInterceptionOptions(opt =>
+                {
+                    opt.Response.GenerateMetadataFunc = MilvonionExtensions.GenerateMetadata;
+                });
 
         return services;
     }
@@ -90,6 +95,7 @@ public static class InfraServiceCollectionExtensions
         services.AddScoped(sp => sp.GetRequiredService<MilvonionDbContextScopedFactory>().CreateDbContext());
 
         services.AddScoped(typeof(IMilvonionRepositoryBase<>), typeof(MilvonionRepositoryBase<>));
+        services.AddScoped<IMilvonionDbContextAccessor, MilvonionDbContextAccessor>();
 
         return services;
     }

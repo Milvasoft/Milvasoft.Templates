@@ -12,7 +12,7 @@ public sealed class GetNamespaceDetailQueryValidator : AbstractValidator<GetName
     public GetNamespaceDetailQueryValidator(IMilvaLocalizer localizer)
     {
         RuleFor(query => query.NamespaceId)
-            .NotEqual(0)
+            .GreaterThan(0)
             .WithMessage(localizer[MessageKey.PleaseSendCorrect, localizer[MessageKey.Namespace]]);
     }
 }

@@ -1,5 +1,7 @@
 ﻿using Milvasoft.Attributes.Annotations;
 using Milvasoft.Core.MultiLanguage.EntityBases.Abstract;
+using Milvasoft.Core.Utils.Constants;
+using System.ComponentModel;
 using System.Linq.Expressions;
 using System.Text.Json.Serialization;
 
@@ -28,12 +30,32 @@ public class LanguageDto : ILanguage
     /// <summary>
     /// Determines whether the language is supported or not.
     /// </summary>
+    [DisplayFormat("{supportedDescription}")]
+    [Filterable(FilterComponentType = UiInputConstant.SwitchInput)]
     public bool Supported { get; set; }
+
+    /// <summary>
+    /// Determines whether language is supported or not.
+    /// </summary>
+    [Filterable(false)]
+    [Browsable(false)]
+    [LinkedWith<YesNoFormatter>(nameof(Supported), YesNoFormatter.FormatterName)]
+    public string SupportedDescription { get; set; }
 
     /// <summary>
     /// Determines whether the language is default or not.
     /// </summary>
+    [DisplayFormat("{isDefaultDescription}")]
+    [Filterable(FilterComponentType = UiInputConstant.SwitchInput)]
     public bool IsDefault { get; set; }
+
+    /// <summary>
+    /// Determines whether language is default or not.
+    /// </summary>
+    [Filterable(false)]
+    [Browsable(false)]
+    [LinkedWith<YesNoFormatter>(nameof(IsDefault), YesNoFormatter.FormatterName)]
+    public string IsDefaultDescription { get; set; }
 
     /// <summary>
     /// Projection expression for mapping Language entity to LanguageDto.

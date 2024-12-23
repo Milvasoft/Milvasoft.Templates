@@ -12,7 +12,7 @@ public sealed class GetContentDetailQueryValidator : AbstractValidator<GetConten
     public GetContentDetailQueryValidator(IMilvaLocalizer localizer)
     {
         RuleFor(query => query.ContentId)
-            .NotEqual(0)
+            .GreaterThan(0)
             .WithMessage(localizer[MessageKey.PleaseSendCorrect, localizer[MessageKey.Content]]);
     }
 }

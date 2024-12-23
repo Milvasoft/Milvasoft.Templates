@@ -1,5 +1,6 @@
 ﻿using FluentValidation;
 using Milvasoft.Core.Abstractions.Localization;
+using Milvonion.Application.Behaviours;
 
 namespace Milvonion.Application.Features.Users.DeleteUser;
 
@@ -12,7 +13,11 @@ public sealed class DeleteUserCommandValidator : AbstractValidator<DeleteUserCom
     public DeleteUserCommandValidator(IMilvaLocalizer localizer)
     {
         RuleFor(query => query.UserId)
-            .NotEqual(0)
+            .NotBeDefaultData()
+            .WithMessage(localizer[MessageKey.DefaultValueCannotModify]);
+
+        RuleFor(query => query.UserId)
+            .GreaterThan(0)
             .WithMessage(localizer[MessageKey.PleaseSendCorrect, localizer[MessageKey.User]]);
     }
 }

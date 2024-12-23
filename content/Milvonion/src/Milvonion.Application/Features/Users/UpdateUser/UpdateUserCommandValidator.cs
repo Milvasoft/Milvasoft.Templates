@@ -1,5 +1,6 @@
 ﻿using FluentValidation;
 using Milvasoft.Core.Abstractions.Localization;
+using Milvonion.Application.Behaviours;
 
 namespace Milvonion.Application.Features.Users.UpdateUser;
 
@@ -12,7 +13,11 @@ public sealed class UpdateUserCommandValidator : AbstractValidator<UpdateUserCom
     public UpdateUserCommandValidator(IMilvaLocalizer localizer)
     {
         RuleFor(query => query.Id)
-            .NotEqual(0)
+            .NotBeDefaultData()
+            .WithMessage(localizer[MessageKey.DefaultValueCannotModify]);
+
+        RuleFor(query => query.Id)
+            .GreaterThan(0)
             .WithMessage(localizer[MessageKey.PleaseSendCorrect, localizer[MessageKey.User]]);
     }
 }

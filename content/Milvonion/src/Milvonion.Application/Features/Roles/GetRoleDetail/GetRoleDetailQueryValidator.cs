@@ -12,7 +12,7 @@ public sealed class GetRoleDetailQueryValidator : AbstractValidator<GetRoleDetai
     public GetRoleDetailQueryValidator(IMilvaLocalizer localizer)
     {
         RuleFor(query => query.RoleId)
-            .NotEqual(0)
+            .GreaterThan(0)
             .WithMessage(localizer[MessageKey.PleaseSendCorrect, localizer[MessageKey.Role]]);
     }
 }

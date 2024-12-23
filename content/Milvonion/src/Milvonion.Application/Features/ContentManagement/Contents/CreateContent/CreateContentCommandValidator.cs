@@ -1,20 +1,17 @@
 ﻿using FluentValidation;
 using Milvasoft.Core.Abstractions.Localization;
-using Milvonion.Application.Features.ContentManagement.Namespaces.CreateNamespace;
+using Milvonion.Application.Features.ContentManagement.Contents.CreateBulkContent;
 
 namespace Milvonion.Application.Features.ContentManagement.Contents.CreateContent;
 
 /// <summary>
 /// Query validations. 
 /// </summary>
-public sealed class CreateContentCommandValidator : AbstractValidator<CreateNamespaceCommand>
+public sealed class CreateContentCommandValidator : AbstractValidator<CreateContentCommand>
 {
     ///<inheritdoc cref="CreateContentCommandValidator"/>
     public CreateContentCommandValidator(IMilvaLocalizer localizer)
     {
-        RuleFor(query => query.Name)
-            .NotEmpty()
-            .NotNull()
-            .WithMessage(localizer[MessageKey.CannotBeEmpty, localizer[nameof(CreateNamespaceCommand.Name)]]);
+        RuleFor(dto => dto).SetValidator(new CreateContentDtoValidator(localizer));
     }
 }

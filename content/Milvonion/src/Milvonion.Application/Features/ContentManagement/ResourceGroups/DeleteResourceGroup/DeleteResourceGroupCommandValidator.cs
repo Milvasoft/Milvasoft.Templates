@@ -1,5 +1,6 @@
 ﻿using FluentValidation;
 using Milvasoft.Core.Abstractions.Localization;
+using Milvonion.Application.Behaviours;
 
 namespace Milvonion.Application.Features.ContentManagement.ResourceGroups.DeleteResourceGroup;
 
@@ -12,7 +13,11 @@ public sealed class DeleteResourceGroupCommandValidator : AbstractValidator<Dele
     public DeleteResourceGroupCommandValidator(IMilvaLocalizer localizer)
     {
         RuleFor(query => query.ResourceGroupId)
-            .NotEqual(0)
+            .NotBeDefaultData()
+            .WithMessage(localizer[MessageKey.DefaultValueCannotModify]);
+
+        RuleFor(query => query.ResourceGroupId)
+            .GreaterThan(0)
             .WithMessage(localizer[MessageKey.PleaseSendCorrect, localizer[MessageKey.Namespace]]);
     }
 }

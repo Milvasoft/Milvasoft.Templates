@@ -13,7 +13,7 @@ public sealed class UpdateLanguageCommandValidator : AbstractValidator<UpdateLan
     public UpdateLanguageCommandValidator(IMilvaLocalizer localizer)
     {
         RuleFor(query => query.Id)
-            .NotEqual(0)
+            .GreaterThan(0)
             .WithMessage(localizer[MessageKey.PleaseSendCorrect, localizer[MessageKey.Language]]);
     }
 }

@@ -12,7 +12,7 @@ public sealed class GetResourceGroupDetailQueryValidator : AbstractValidator<Get
     public GetResourceGroupDetailQueryValidator(IMilvaLocalizer localizer)
     {
         RuleFor(query => query.ResourceGroupId)
-            .NotEqual(0)
+            .GreaterThan(0)
             .WithMessage(localizer[MessageKey.PleaseSendCorrect, localizer[MessageKey.Namespace]]);
     }
 }

@@ -35,6 +35,33 @@
             <param name="assemblies"></param>
             <returns></returns>
         </member>
+        <member name="T:Milvonion.Application.Behaviours.CustomValidators">
+            <summary>
+            Custom validators.
+            </summary>
+        </member>
+        <member name="M:Milvonion.Application.Behaviours.CustomValidators.NotBeDefaultData``1(FluentValidation.IRuleBuilder{``0,System.Int32})">
+            <summary>
+            Checks whether the value is greater than or equal to 21.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="ruleBuilder"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Milvonion.Application.Behaviours.DefaultDataValidator`1">
+            <summary>
+            Default data validator.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Behaviours.DefaultDataValidator`1.Name">
+            <inheritdoc/>
+        </member>
+        <member name="M:Milvonion.Application.Behaviours.DefaultDataValidator`1.GetDefaultMessageTemplate(System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Milvonion.Application.Behaviours.DefaultDataValidator`1.IsValid(FluentValidation.ValidationContext{`0},System.Int32)">
+            <inheritdoc/>
+        </member>
         <member name="T:Milvonion.Application.Behaviours.ValidationBehaviorForResponse`2">
             <summary>
             Validation behavior for return value is <see cref="T:Milvasoft.Components.Rest.MilvaResponse.Response"/> typed requests.
@@ -202,6 +229,11 @@
             LanguageId of content.
             </summary>
         </member>
+        <member name="P:Milvonion.Application.Dtos.ContentManagementDtos.ContentDtos.ContentDetailDto.LanguageName">
+            <summary>
+            LanguageId of content.
+            </summary>
+        </member>
         <member name="P:Milvonion.Application.Dtos.ContentManagementDtos.ContentDtos.ContentDetailDto.NamespaceSlug">
             <summary>
             Slug for the namespace for search without join.
@@ -292,6 +324,11 @@
             Response of namespace detail.
             </summary>
         </member>
+        <member name="P:Milvonion.Application.Dtos.ContentManagementDtos.ContentDtos.ContentListDto.KeyAlias">
+            <summary>
+            Key alias for search without join. A combination of namespace slug, resource group slug and key. etc. "namespaceSlug.resourceGroupSlug.key"
+            </summary>
+        </member>
         <member name="P:Milvonion.Application.Dtos.ContentManagementDtos.ContentDtos.ContentListDto.Key">
             <summary>
             Key of content.
@@ -307,6 +344,11 @@
             LanguageId of content.
             </summary>
         </member>
+        <member name="P:Milvonion.Application.Dtos.ContentManagementDtos.ContentDtos.ContentListDto.LanguageName">
+            <summary>
+            LanguageId of content.
+            </summary>
+        </member>
         <member name="P:Milvonion.Application.Dtos.ContentManagementDtos.ContentDtos.ContentListDto.NamespaceSlug">
             <summary>
             Slug for the namespace for search without join.
@@ -315,11 +357,6 @@
         <member name="P:Milvonion.Application.Dtos.ContentManagementDtos.ContentDtos.ContentListDto.ResourceGroupSlug">
             <summary>
             Slug for the resource group for search without join.
-            </summary>
-        </member>
-        <member name="P:Milvonion.Application.Dtos.ContentManagementDtos.ContentDtos.ContentListDto.KeyAlias">
-            <summary>
-            Key alias for search without join. A combination of namespace slug, resource group slug and key. etc. "namespaceSlug.resourceGroupSlug.key"
             </summary>
         </member>
         <member name="P:Milvonion.Application.Dtos.ContentManagementDtos.ContentDtos.ContentListDto.Namespace">
@@ -365,6 +402,51 @@
         <member name="P:Milvonion.Application.Dtos.ContentManagementDtos.ContentDtos.CreateContentDto.Medias">
             <summary>
             Media files if exists.
+            </summary>
+        </member>
+        <member name="T:Milvonion.Application.Dtos.ContentManagementDtos.ContentDtos.GroupedContentListDto">
+            <summary>
+            Content list grouped by key.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Dtos.ContentManagementDtos.ContentDtos.GroupedContentListDto.IdList">
+            <summary>
+            Grouped contents id list.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Dtos.ContentManagementDtos.ContentDtos.GroupedContentListDto.KeyAlias">
+            <summary>
+            Key alias for search without join. A combination of namespace slug, resource group slug and key. etc. "namespaceSlug.resourceGroupSlug.key"
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Dtos.ContentManagementDtos.ContentDtos.GroupedContentListDto.Key">
+            <summary>
+            Key of content.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Dtos.ContentManagementDtos.ContentDtos.GroupedContentListDto.NamespaceSlug">
+            <summary>
+            Slug for the namespace for search without join.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Dtos.ContentManagementDtos.ContentDtos.GroupedContentListDto.ResourceGroupSlug">
+            <summary>
+            Slug for the resource group for search without join.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Dtos.ContentManagementDtos.ContentDtos.GroupedContentListDto.Namespace">
+            <summary>
+            Id of the namespace this content belongs to.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Dtos.ContentManagementDtos.ContentDtos.GroupedContentListDto.ResourceGroup">
+            <summary>
+            Id of the namespace this content belongs to.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Dtos.ContentManagementDtos.ContentDtos.GroupedContentListDto.Projection">
+            <summary>
+            Projection expression for mapping Content entity to ContentListDto.
             </summary>
         </member>
         <member name="T:Milvonion.Application.Dtos.ContentManagementDtos.ContentDtos.MediaDto">
@@ -432,9 +514,19 @@
             Determines whether the language is supported or not.
             </summary>
         </member>
+        <member name="P:Milvonion.Application.Dtos.ContentManagementDtos.LanguageDtos.LanguageDto.SupportedDescription">
+            <summary>
+            Determines whether language is supported or not.
+            </summary>
+        </member>
         <member name="P:Milvonion.Application.Dtos.ContentManagementDtos.LanguageDtos.LanguageDto.IsDefault">
             <summary>
             Determines whether the language is default or not.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Dtos.ContentManagementDtos.LanguageDtos.LanguageDto.IsDefaultDescription">
+            <summary>
+            Determines whether language is default or not.
             </summary>
         </member>
         <member name="P:Milvonion.Application.Dtos.ContentManagementDtos.LanguageDtos.LanguageDto.Projection">
@@ -1141,6 +1233,22 @@
         <member name="M:Milvonion.Application.Features.ContentManagement.Contents.CreateBulkContent.CreateBulkContentCommandValidator.#ctor(Milvasoft.Core.Abstractions.Localization.IMilvaLocalizer)">
             <inheritdoc cref="T:Milvonion.Application.Features.ContentManagement.Contents.CreateContent.CreateContentCommandValidator"/>
         </member>
+        <member name="T:Milvonion.Application.Features.ContentManagement.Contents.CreateBulkContent.CreateContentDtoValidator">
+            <summary>
+            Query validations. 
+            </summary>
+        </member>
+        <member name="M:Milvonion.Application.Features.ContentManagement.Contents.CreateBulkContent.CreateContentDtoValidator.#ctor(Milvasoft.Core.Abstractions.Localization.IMilvaLocalizer)">
+            <inheritdoc cref="T:Milvonion.Application.Features.ContentManagement.Contents.CreateBulkContent.CreateContentDtoValidator"/>
+        </member>
+        <member name="T:Milvonion.Application.Features.ContentManagement.Contents.CreateBulkContent.UpsertMediaValidator">
+            <summary>
+            Query validations. 
+            </summary>
+        </member>
+        <member name="M:Milvonion.Application.Features.ContentManagement.Contents.CreateBulkContent.UpsertMediaValidator.#ctor(Milvasoft.Core.Abstractions.Localization.IMilvaLocalizer)">
+            <inheritdoc cref="T:Milvonion.Application.Features.ContentManagement.Contents.CreateBulkContent.UpsertMediaValidator"/>
+        </member>
         <member name="T:Milvonion.Application.Features.ContentManagement.Contents.CreateContent.CreateContentCommand">
             <summary>
             Data transfer object for content creation.
@@ -1336,8 +1444,36 @@
             Query validations. 
             </summary>
         </member>
-        <member name="M:Milvonion.Application.Features.ContentManagement.Contents.GetContent.GetContentQueryValidator.#ctor">
+        <member name="M:Milvonion.Application.Features.ContentManagement.Contents.GetContent.GetContentQueryValidator.#ctor(Milvasoft.Core.Abstractions.Localization.IMilvaLocalizer)">
             <inheritdoc cref="T:Milvonion.Application.Features.ContentManagement.Contents.GetContent.GetContentQueryValidator"/>
+        </member>
+        <member name="T:Milvonion.Application.Features.ContentManagement.Contents.GetGroupedContentList.GetGroupedContentListQuery">
+            <summary>
+            Data transfer object for content list.
+            </summary>
+        </member>
+        <member name="T:Milvonion.Application.Features.ContentManagement.Contents.GetGroupedContentList.GetGroupedContentListQueryHandler">
+            <summary>
+            Handles the content list operation.
+            </summary>
+            <param name="dbContextAccessor"></param>
+        </member>
+        <member name="M:Milvonion.Application.Features.ContentManagement.Contents.GetGroupedContentList.GetGroupedContentListQueryHandler.#ctor(Milvonion.Application.Interfaces.IMilvonionDbContextAccessor)">
+            <summary>
+            Handles the content list operation.
+            </summary>
+            <param name="dbContextAccessor"></param>
+        </member>
+        <member name="M:Milvonion.Application.Features.ContentManagement.Contents.GetGroupedContentList.GetGroupedContentListQueryHandler.Handle(Milvonion.Application.Features.ContentManagement.Contents.GetGroupedContentList.GetGroupedContentListQuery,System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Milvonion.Application.Features.ContentManagement.Contents.GetGroupedContentList.GetGroupedContentListQueryValidator">
+            <summary>
+            Query validations. 
+            </summary>
+        </member>
+        <member name="M:Milvonion.Application.Features.ContentManagement.Contents.GetGroupedContentList.GetGroupedContentListQueryValidator.#ctor">
+            <inheritdoc cref="T:Milvonion.Application.Features.ContentManagement.Contents.GetGroupedContentList.GetGroupedContentListQueryValidator"/>
         </member>
         <member name="T:Milvonion.Application.Features.ContentManagement.Contents.UpdateContent.UpdateContentCommand">
             <summary>
@@ -2395,6 +2531,17 @@
             <param name="enumName"></param>
             <returns></returns>
         </member>
+        <member name="T:Milvonion.Application.Interfaces.IMilvonionDbContextAccessor">
+            <summary>
+            Interface for MilvonionDbContextAccessor.
+            </summary>
+        </member>
+        <member name="M:Milvonion.Application.Interfaces.IMilvonionDbContextAccessor.GetDbContext">
+            <summary>
+            Get db context.
+            </summary>
+            <returns></returns>
+        </member>
         <member name="T:Milvonion.Application.Interfaces.IMilvonionRepositoryBase`1">
             <summary>
             Base repository for Milvonion.
@@ -2634,6 +2781,51 @@
             Root user name.
             </summary>
         </member>
+        <member name="F:Milvonion.Application.Utils.Constants.GlobalConstant.GenerateMetadataHeaderKey">
+            <summary>
+            Generate metadata header key.
+            </summary>
+        </member>
+        <member name="F:Milvonion.Application.Utils.Constants.GlobalConstant.ContentDispositionHeaderKey">
+            <summary>
+            Generate metadata header key.
+            </summary>
+        </member>
+        <member name="F:Milvonion.Application.Utils.Constants.GlobalConstant.RealIpHeaderKey">
+            <summary>
+            X-Real-IP header key.
+            </summary>
+        </member>
+        <member name="F:Milvonion.Application.Utils.Constants.GlobalConstant.DownloadEnpointPathEnd">
+            <summary>
+            Generate metadata header key.
+            </summary>
+        </member>
+        <member name="F:Milvonion.Application.Utils.Constants.GlobalConstant.DefaultIp">
+            <summary>
+            Default ip.
+            </summary>
+        </member>
+        <member name="F:Milvonion.Application.Utils.Constants.GlobalConstant.UrlStartSegment">
+            <summary>
+            Url start segment.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Utils.Constants.GlobalConstant.ContentDispositionIgnores">
+            <summary>
+            Ignored content disposition parts.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Utils.Constants.GlobalConstant.UIPaths">
+            <summary>
+            UI request paths.
+            </summary>
+        </member>
+        <member name="T:Milvonion.Application.Utils.Constants.LogTemplate">
+            <summary>
+            Represents a class that contains global constants for the application.
+            </summary>
+        </member>
         <member name="T:Milvonion.Application.Utils.Constants.MessageConstant">
             <summary>
             Represents a class that contains global constants for the application.
@@ -2648,6 +2840,13 @@
             <summary>
             Contains extension methods for the Milvonion.
             </summary>
+        </member>
+        <member name="M:Milvonion.Application.Utils.Extensions.MilvonionExtensions.GenerateMetadata(System.IServiceProvider)">
+            <summary>
+            Generates metadata for the request according to header.
+            </summary>
+            <param name="serviceProvider"></param>
+            <returns></returns>
         </member>
         <member name="M:Milvonion.Application.Utils.Extensions.MilvonionExtensions.GetTokenFromHeader(Microsoft.AspNetCore.Http.IHttpContextAccessor)">
             <summary>
@@ -2831,6 +3030,17 @@
             <param name="services"></param>
             <param name="assemblies"></param>
             <returns></returns>
+        </member>
+        <member name="T:Milvonion.Application.Utils.LinkedWithFormatters.LanguageIdNameFormatter">
+            <summary>
+            Gets language name by language id from static language list via multi language manager.
+            </summary>
+        </member>
+        <member name="F:Milvonion.Application.Utils.LinkedWithFormatters.LanguageIdNameFormatter.FormatterName">
+            <inheritdoc/>
+        </member>
+        <member name="M:Milvonion.Application.Utils.LinkedWithFormatters.LanguageIdNameFormatter.Format(System.Object)">
+            <inheritdoc/>
         </member>
         <member name="T:Milvonion.Application.Utils.LinkedWithFormatters.PageNameTranslateFormatter">
             <summary>

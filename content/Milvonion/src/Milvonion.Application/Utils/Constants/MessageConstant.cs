@@ -6,6 +6,11 @@
 public static class MessageConstant
 {
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
+    public const char CurlyBracket = '{';
+    public const string Filtered = "FILTERED";
+    public const string QuestionMark = "?";
+    public const string Hypen = "-";
+    public const string NoException = "No exception.";
     public const string DefaultDataCannotModifyPgCode = "P0001";
     public const string DefaultDataCannotModifyPgMessage = "Seed records cannot be";
     public const string DuplicateDataViolationPgCode = "23505";

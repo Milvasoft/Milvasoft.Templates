@@ -333,9 +333,6 @@
   <data name="PG.PermissionManagement" xml:space="preserve">
     <value>Yetki yönetimi izinleri</value>
   </data>
-  <data name="PG.ActivityLogManagement" xml:space="preserve">
-    <value>Aktivite Geçmişi yönetimi izinleri</value>
-  </data>
   <data name="PG.SuperAdmin" xml:space="preserve">
     <value>Bütün sisteme erişim sağlar.</value>
   </data>
@@ -491,5 +488,50 @@
   </data>
   <data name="ContentNotFound" xml:space="preserve">
     <value>İçerik bulunamadı!</value>
+  </data>
+  <data name="SlugExplaniton" xml:space="preserve">
+    <value>Değiştirilemez, benzersiz isim. Bir kayıt eklerken, "Ad" alanına göre oluşturulur.</value>
+  </data>
+  <data name="Global.Slug" xml:space="preserve">
+    <value>Slug</value>
+  </data>
+  <data name="Global.Key" xml:space="preserve">
+    <value>Anahtar</value>
+  </data>
+  <data name="Global.Value" xml:space="preserve">
+    <value>Değer</value>
+  </data>
+  <data name="Global.KeyAlias" xml:space="preserve">
+    <value>Anahtar Tam Değer</value>
+  </data>
+  <data name="ContentListDto.LanguageId" xml:space="preserve">
+    <value>Dil</value>
+  </data>
+  <data name="Global.NamespaceSlug" xml:space="preserve">
+    <value>Namespace Slug</value>
+  </data>
+  <data name="Global.ResourceGroupSlug" xml:space="preserve">
+    <value>Resource Grup Slug</value>
+  </data>
+  <data name="LanguageDto.Code" xml:space="preserve">
+    <value>Iso Kodu</value>
+  </data>
+  <data name="LanguageDto.Supported" xml:space="preserve">
+    <value>Destekleniyor</value>
+  </data>
+  <data name="LanguageDto.IsDefault" xml:space="preserve">
+    <value>Varsayılan</value>
+  </data>
+  <data name="OnlyImageFilesAccepted" xml:space="preserve">
+    <value>Sadece .jpeg ve .png dosya formatları kabul edilmektedir.</value>
+  </data>
+  <data name="UnsupportedMediaType" xml:space="preserve">
+    <value>Dosya yüklenirken bir hata meydana geldi. Lütfen yetkililer ile iletişime geçiniz!</value>
+  </data>
+  <data name="FileSizeMustLowerThan" xml:space="preserve">
+    <value>Dosya boyutu 1MB'tan küçük olmalıdır.</value>
+  </data>
+  <data name="FileShouldBeUploaded" xml:space="preserve">
+    <value>Lütfen dosya yükleyiniz!</value>
   </data>
 </root>

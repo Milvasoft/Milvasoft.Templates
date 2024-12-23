@@ -1,6 +1,4 @@
-﻿using Mapster;
-using Mapster.Models;
-using Milvasoft.Attributes.Annotations;
+﻿using Milvasoft.Attributes.Annotations;
 using System.Linq.Expressions;
 using System.Text.Json.Serialization;
 
@@ -22,9 +20,9 @@ public class RoleListDto : MilvonionBaseDto<int>
     /// </summary>
     [JsonIgnore]
     [ExcludeFromMetadata]
-    public static Expression<Func<Role, RoleListDto>> Projection { get; }
-    = (Expression<Func<Role, RoleListDto>>)TypeAdapterConfig.GlobalSettings
-                                                              .Default
-                                                              .Config.CreateMapExpression(new TypeTuple(typeof(Role),
-                                                                                                        typeof(RoleListDto)), MapType.Projection);
+    public static Expression<Func<Role, RoleListDto>> Projection { get; } = r => new RoleListDto
+    {
+        Id = r.Id,
+        Name = r.Name
+    };
 }

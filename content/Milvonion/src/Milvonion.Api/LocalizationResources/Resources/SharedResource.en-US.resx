@@ -333,9 +333,6 @@
   <data name="PG.PermissionManagement" xml:space="preserve">
     <value>Permission management permissions</value>
   </data>
-  <data name="PG.ActivityLogManagement" xml:space="preserve">
-    <value>Activity Log management permissions</value>
-  </data>
   <data name="PG.SuperAdmin" xml:space="preserve">
     <value>Provides access to the entire system.</value>
   </data>
@@ -491,5 +488,50 @@
   </data>
   <data name="ContentNotFound" xml:space="preserve">
     <value>Content not found!</value>
+  </data>
+  <data name="SlugExplaniton" xml:space="preserve">
+    <value>Immutable, unique name. When adding a record, it is created based on the "Name" field.</value>
+  </data>
+  <data name="Global.Slug" xml:space="preserve">
+    <value>Slug</value>
+  </data>
+  <data name="Global.Key" xml:space="preserve">
+    <value>Key</value>
+  </data>
+  <data name="Global.Value" xml:space="preserve">
+    <value>Value</value>
+  </data>
+  <data name="Global.KeyAlias" xml:space="preserve">
+    <value>Key Alias</value>
+  </data>
+  <data name="ContentListDto.LanguageId" xml:space="preserve">
+    <value>Language</value>
+  </data>
+  <data name="Global.NamespaceSlug" xml:space="preserve">
+    <value>Namespace Slug</value>
+  </data>
+  <data name="Global.ResourceGroupSlug" xml:space="preserve">
+    <value>Resource Group Slug</value>
+  </data>
+  <data name="LanguageDto.Code" xml:space="preserve">
+    <value>Iso Code</value>
+  </data>
+  <data name="LanguageDto.Supported" xml:space="preserve">
+    <value>Supported</value>
+  </data>
+  <data name="LanguageDto.IsDefault" xml:space="preserve">
+    <value>Default</value>
+  </data>
+  <data name="OnlyImageFilesAccepted" xml:space="preserve">
+    <value>Only .jpeg and .png file formats are accepted.</value>
+  </data>
+  <data name="UnsupportedMediaType" xml:space="preserve">
+    <value>An error occurred while uploading the file. Please contact the authorities!</value>
+  </data>
+  <data name="FileSizeMustLowerThan" xml:space="preserve">
+    <value>The file size must be less than 1MB.</value>
+  </data>
+  <data name="FileShouldBeUploaded" xml:space="preserve">
+    <value>Please upload a file!</value>
   </data>
 </root>

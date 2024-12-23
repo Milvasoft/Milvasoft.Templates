@@ -14,6 +14,7 @@ public class NamespaceListDto : MilvonionBaseDto<int>
     /// <summary>
     /// Unique slug of namespace.
     /// </summary>
+    [Info(MessageKey.SlugExplaniton)]
     public string Slug { get; set; }
 
     /// <summary>

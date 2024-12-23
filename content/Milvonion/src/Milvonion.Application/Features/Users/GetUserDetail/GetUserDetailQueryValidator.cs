@@ -12,7 +12,7 @@ public sealed class GetUserDetailQueryValidator : AbstractValidator<GetUserDetai
     public GetUserDetailQueryValidator(IMilvaLocalizer localizer)
     {
         RuleFor(query => query.UserId)
-            .NotEqual(0)
+            .GreaterThan(0)
             .WithMessage(localizer[MessageKey.PleaseSendCorrect, localizer[MessageKey.User]]);
     }
 }

@@ -75,7 +75,7 @@ public class RequestResponseLoggingMiddleware(RequestDelegate next, ILoggerFacto
         _requestInfo.ContentLength = context.Request.ContentLength ?? 0;
 
         _requestInfo.AbsoluteUri = string.Concat(context.Request.Scheme,
-                                                 "://",
+                                                 GlobalConstant.UrlStartSegment,
                                                  context.Request.Host.ToUriComponent(),
                                                  context.Request.PathBase.ToUriComponent(),
                                                  context.Request.Path.ToUriComponent(),
@@ -112,7 +112,7 @@ public class RequestResponseLoggingMiddleware(RequestDelegate next, ILoggerFacto
 
             emptyResponseBody.Seek(0, SeekOrigin.Begin);
 
-            var realIpExists = context.Request.Headers.TryGetValue("X-Real-IP", out StringValues realIpAddress);
+            var realIpExists = context.Request.Headers.TryGetValue(GlobalConstant.RealIpHeaderKey, out StringValues realIpAddress);
 
             string requestIp;
 
@@ -122,11 +122,11 @@ public class RequestResponseLoggingMiddleware(RequestDelegate next, ILoggerFacto
             {
                 requestIp = context.Connection.RemoteIpAddress?.MapToIPv4().ToString();
 
-                if (requestIp == "0.0.0.1")
+                if (requestIp == GlobalConstant.DefaultIp)
                     requestIp = context.Connection.LocalIpAddress?.MapToIPv4().ToString();
             }
 
-            if (!responseBody.Contains('{') && JsonNode.Parse(responseBody) is JsonObject jsonObject)
+            if (!responseBody.Contains(MessageConstant.CurlyBracket) && JsonNode.Parse(responseBody) is JsonObject jsonObject)
             {
                 responseBody = FilterBase64FromJson(jsonObject); // Hatalı JSON döndürülüyor
             }
@@ -144,7 +144,7 @@ public class RequestResponseLoggingMiddleware(RequestDelegate next, ILoggerFacto
 
             var exceptionExists = context.Items.TryGetValue(nameof(Exception), out var exception);
 
-            _logger.LogInformation("{TransactionId}{Severity}{Timestamp}{Path}{@RequestInfoJson}{@ResponseInfoJson}{ElapsedMs}{IpAddress}{UserName}{@Exception}",
+            _logger.LogInformation(LogTemplate.RequestResponse,
                                    ActivityHelper.Id,
                                    LogLevel.Information.ToString(),
                                    DateTimeOffset.UtcNow,
@@ -154,7 +154,7 @@ public class RequestResponseLoggingMiddleware(RequestDelegate next, ILoggerFacto
                                    _sw.ElapsedMilliseconds,
                                    requestIp,
                                    User.GetCurrentUser(context.RequestServices.GetService<IServiceProvider>()),
-                                   exceptionExists ? exception.ToJson() : "No exception."
+                                   exceptionExists ? exception.ToJson() : MessageConstant.NoException
             );
 
             await emptyResponseBody.CopyToAsync(originalBodyStream);
@@ -197,11 +197,10 @@ public class RequestResponseLoggingMiddleware(RequestDelegate next, ILoggerFacto
 
     private static string FilterBase64FromJson(JsonObject jsonObject)
     {
-        // Özellikleri döngüye alıp base64 stringleri filtreleyin
         foreach (var property in jsonObject.ToList())
         {
             if (property.Value is JsonValue jsonValue && IsBase64String(jsonValue))
-                jsonObject[property.Key] = "FILTERED";
+                jsonObject[property.Key] = MessageConstant.Filtered;
             else if (property.Value is JsonObject jObj)
                 FilterBase64FromJson(jObj);
             else if (property.Value is JsonArray jArray)
@@ -233,7 +232,7 @@ public class RequestResponseLoggingMiddleware(RequestDelegate next, ILoggerFacto
     private static bool Ignore(HttpContext httpContext)
     {
         if (IsUIRequest(httpContext)
-            || httpContext.Request.Path.ToString().EndsWith("/download")
+            || httpContext.Request.Path.ToString().EndsWith(GlobalConstant.DownloadEnpointPathEnd)
             || (httpContext.Request.ContentType?.Contains(MimeTypeNames.MultipartFormData, StringComparison.CurrentCultureIgnoreCase) ?? false))
             return true;
 
@@ -241,11 +240,7 @@ public class RequestResponseLoggingMiddleware(RequestDelegate next, ILoggerFacto
 
         static bool IsUIRequest(HttpContext httpContext)
         {
-            return httpContext.Request.Path.StartsWithSegments($"/{GlobalConstant.RoutePrefix}/documentation")
-                    || httpContext.Request.Path.StartsWithSegments($"/{GlobalConstant.RoutePrefix}/docs")
-                    || httpContext.Request.Path.StartsWithSegments($"/{GlobalConstant.RoutePrefix}/hc")
-                    || httpContext.Request.Path.StartsWithSegments($"/{GlobalConstant.RoutePrefix}/health-check")
-                    || httpContext.Request.Path.StartsWithSegments($"/{GlobalConstant.RoutePrefix}/hc-ui");
+            return GlobalConstant.UIPaths.Any(path => httpContext.Request.Path.StartsWithSegments(path));
         }
     }
 
@@ -261,15 +256,12 @@ public class RequestResponseLoggingMiddleware(RequestDelegate next, ILoggerFacto
             return true;
         }
 
-        if (httpContext.Response.Headers.TryGetValue("Content-Disposition", out StringValues value))
+        if (httpContext.Response.Headers.TryGetValue(GlobalConstant.ContentDispositionHeaderKey, out StringValues value))
         {
             var contentDisposition = value.ToString();
 
-            if (contentDisposition.Contains("attachment", StringComparison.OrdinalIgnoreCase) ||
-                contentDisposition.Contains("inline", StringComparison.OrdinalIgnoreCase))
-            {
+            if (GlobalConstant.ContentDispositionIgnores.Any(i => contentDisposition.Contains(i, StringComparison.OrdinalIgnoreCase)))
                 return true;
-            }
         }
 
         return false;

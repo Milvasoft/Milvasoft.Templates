@@ -1,5 +1,6 @@
 ﻿using Milvasoft.Attributes.Annotations;
 using Milvonion.Domain.ContentManagement;
+using System.ComponentModel;
 using System.Linq.Expressions;
 using System.Text.Json.Serialization;
 
@@ -11,6 +12,11 @@ namespace Milvonion.Application.Dtos.ContentManagementDtos.ContentDtos;
 [Translate]
 public class ContentListDto : MilvonionBaseDto<int>
 {
+    /// <summary>
+    /// Key alias for search without join. A combination of namespace slug, resource group slug and key. etc. "namespaceSlug.resourceGroupSlug.key"
+    /// </summary>
+    public string KeyAlias { get; set; }
+
     /// <summary>
     /// Key of content.
     /// </summary>
@@ -24,7 +30,16 @@ public class ContentListDto : MilvonionBaseDto<int>
     /// <summary>
     /// LanguageId of content.
     /// </summary>
+    [DisplayFormat("{languageName}")]
     public int LanguageId { get; set; }
+
+    /// <summary>
+    /// LanguageId of content.
+    /// </summary>
+    [Filterable(false)]
+    [LinkedWith<LanguageIdNameFormatter>(nameof(LanguageId), LanguageIdNameFormatter.FormatterName)]
+    [DefaultValue(MessageConstant.QuestionMark)]
+    public string LanguageName { get; set; }
 
     /// <summary>
     /// Slug for the namespace for search without join.
@@ -37,18 +52,19 @@ public class ContentListDto : MilvonionBaseDto<int>
     public string ResourceGroupSlug { get; set; }
 
     /// <summary>
-    /// Key alias for search without join. A combination of namespace slug, resource group slug and key. etc. "namespaceSlug.resourceGroupSlug.key"
-    /// </summary>
-    public string KeyAlias { get; set; }
-
-    /// <summary>
     /// Id of the namespace this content belongs to.
     /// </summary>
+    [Filterable(false)]
+    [DisplayFormat("{namespace.name}")]
+    [DefaultValue(MessageConstant.Hypen)]
     public NameIntNavigationDto Namespace { get; set; }
 
     /// <summary>
     /// Id of the namespace this content belongs to.
     /// </summary>
+    [Filterable(false)]
+    [DisplayFormat("{resourceGroup.name}")]
+    [DefaultValue(MessageConstant.Hypen)]
     public NameIntNavigationDto ResourceGroup { get; set; }
 
     /// <summary>

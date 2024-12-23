@@ -4,6 +4,8 @@ using Milvasoft.Components.Rest.MilvaResponse;
 using Milvasoft.Core.Abstractions;
 using Milvasoft.Interception.Ef.Transaction;
 using Milvasoft.Interception.Interceptors.Logging;
+using Milvasoft.Types.Structs;
+using Milvonion.Application.Dtos.ContentManagementDtos.ContentDtos;
 using Milvonion.Domain.ContentManagement;
 
 namespace Milvonion.Application.Features.ContentManagement.Contents.UpdateContent;
@@ -24,10 +26,6 @@ public record UpdateContentCommandHandler(IMilvonionRepositoryBase<Content> Cont
     /// <inheritdoc/>
     public async Task<Response<int>> Handle(UpdateContentCommand request, CancellationToken cancellationToken)
     {
-        var setPropertyBuilder = _resourceGroupRepository.GetUpdatablePropertiesBuilder(request);
-
-        await _resourceGroupRepository.ExecuteUpdateAsync(request.Id, setPropertyBuilder, cancellationToken: cancellationToken);
-
         if (request.Medias.IsUpdated)
         {
             await _mediaRepository.ExecuteDeleteAsync(rl => rl.ContentId == request.Id, cancellationToken: cancellationToken);
@@ -37,6 +35,12 @@ public record UpdateContentCommandHandler(IMilvonionRepositoryBase<Content> Cont
             if (newMedias?.Count > 0)
                 await _mediaRepository.BulkAddAsync(newMedias, null, cancellationToken);
         }
+
+        request.Medias = new UpdateProperty<List<UpsertMediaDto>>();
+
+        var setPropertyBuilder = _resourceGroupRepository.GetUpdatablePropertiesBuilder(request);
+
+        await _resourceGroupRepository.ExecuteUpdateAsync(request.Id, setPropertyBuilder, cancellationToken: cancellationToken);
 
         return Response<int>.Success(request.Id);
     }

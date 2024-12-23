@@ -14,11 +14,13 @@ public class ContentDto : MilvonionBaseDto<int>
     /// <summary>
     /// Key of content.
     /// </summary>
+    [Filterable(false)]
     public string Key { get; set; }
 
     /// <summary>
     /// Value of content.
     /// </summary>
+    [Filterable(false)]
     public string Value { get; set; }
 
     /// <summary>
@@ -48,6 +50,7 @@ public class ContentDto : MilvonionBaseDto<int>
     /// <summary>
     /// Content related medias.
     /// </summary>
+    [Filterable(false)]
     public List<MediaDto> Medias { get; set; }
 
     /// <summary>
