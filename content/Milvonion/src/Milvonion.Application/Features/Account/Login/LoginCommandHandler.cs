@@ -111,7 +111,7 @@ public record LoginCommandHandler(IMilvonionRepositoryBase<User> UserRepository,
                 _milvaUserManager.ConfigureLockout(user, true);
 
                 if (_milvaUserManager.IsLockedOut(user))
-                    response = PrepareLockoutResponse(user);
+                    return PrepareLockoutResponse(user);
 
                 var lockWarningMessage = _milvaLocalizer[MessageKey.LockWarning, _identityOptions.Lockout.MaxFailedAccessAttempts - user.AccessFailedCount];
 

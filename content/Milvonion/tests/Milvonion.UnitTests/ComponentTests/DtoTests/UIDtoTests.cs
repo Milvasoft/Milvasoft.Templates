@@ -1,5 +1,4 @@
 ﻿using FluentAssertions;
-using Milvonion.Application.Dtos;
 using Milvonion.Application.Dtos.UIDtos;
 using Milvonion.Application.Dtos.UIDtos.MenuItemDtos;
 using Milvonion.Application.Dtos.UIDtos.PageDtos;
@@ -18,7 +17,7 @@ public class UIDtoTests
         var url = "http://testurl.com";
         var pageName = "TestPage";
         var parentId = 2;
-        var group = new NameIntNavigationDto { Id = 3, Name = "TestGroup" };
+        var group = new MenuGroupDto { Id = 3, Name = "TestGroup" };
         var childrens = new List<MenuItemDto>
         {
             new() { Id = 4, Name = "Child1" },

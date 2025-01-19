@@ -17,7 +17,6 @@ using Milvonion.Application.Utils.PermissionManager;
 using Milvonion.Domain;
 using Milvonion.Domain.UI;
 using Milvonion.Infrastructure.Persistence.Context;
-using OpsiyonManagement.Infrastructure.Persistence;
 
 namespace Milvonion.Infrastructure.Persistence;
 

@@ -1,5 +1,4 @@
 ﻿using Milvasoft.Core.EntityBases.Concrete;
-using Milvasoft.Core.MultiLanguage.EntityBases.Abstract;
 using Milvasoft.Core.MultiLanguage.EntityBases.Concrete;
 
 namespace Milvonion.Domain;
@@ -7,7 +6,7 @@ namespace Milvonion.Domain;
 /// <summary>
 /// Language entity.
 /// </summary>
-public class Language : LanguageEntity, ILanguage
+public class Language : LanguageEntity
 {
     /// <summary>
     /// Gets the unique identifier of the entity.

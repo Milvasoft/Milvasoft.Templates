@@ -4,7 +4,7 @@ using Milvonion.Application.Utils.PermissionManager;
 using Milvonion.Domain;
 using Milvonion.Domain.Enums;
 
-namespace OpsiyonManagement.Infrastructure.Persistence;
+namespace Milvonion.Infrastructure.Persistence;
 
 /// <summary>
 /// Data faker.

@@ -35,11 +35,9 @@ public static partial class StartupExtensions
             c.RouteTemplate = GlobalConstant.RoutePrefix + "/docs/{documentName}/docs.json";
         });
 
-        app.MapScalarApiReference(options =>
+        app.MapScalarApiReference(endpointPrefix: $"/{GlobalConstant.RoutePrefix}/documentation/{{documentName}}", options =>
         {
             options.WithOpenApiRoutePattern($"/{GlobalConstant.RoutePrefix}/docs/v1.0/docs.json");
-            options.WithEndpointPrefix($"/{GlobalConstant.RoutePrefix}/documentation/{{documentName}}");
-
             options.WithDefaultHttpClient(ScalarTarget.JavaScript, ScalarClient.Axios);
             options.WithApiKeyAuthentication(opt =>
             {
@@ -67,7 +65,7 @@ public static partial class StartupExtensions
             var userTypeClaim = new Claim(GlobalConstant.UserTypeClaimName, UserType.Manager.ToString());
             var userClaim = new Claim(ClaimTypes.Name, "rootuser");
 
-            var accessToken = tokenManager.GenerateToken(DateTime.UtcNow.AddYears(1), claims: [userClaim, roleClaim, userTypeClaim]);
+            var accessToken = tokenManager.GenerateToken(expired: DateTime.UtcNow.AddYears(1), issuer: null, userClaim, roleClaim, userTypeClaim);
 
             return "Bearer " + accessToken;
         }

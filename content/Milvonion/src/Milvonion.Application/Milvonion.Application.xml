@@ -769,6 +769,21 @@
             Gets or sets the value of the localized content.
             </summary>
         </member>
+        <member name="T:Milvonion.Application.Dtos.UIDtos.MenuItemDtos.MenuGroupDto">
+            <summary>
+            Data transfer object for user list.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Dtos.UIDtos.MenuItemDtos.MenuGroupDto.Name">
+            <summary>
+            Name of related domain.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Dtos.UIDtos.MenuItemDtos.MenuGroupDto.Order">
+            <summary>
+            Order of menu item.
+            </summary>
+        </member>
         <member name="T:Milvonion.Application.Dtos.UIDtos.MenuItemDtos.MenuItemDto">
             <summary>
             Data transfer object for user list.
@@ -782,6 +797,11 @@
         <member name="P:Milvonion.Application.Dtos.UIDtos.MenuItemDtos.MenuItemDto.Url">
             <summary>
             Frontend page url for navigate to on click.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Dtos.UIDtos.MenuItemDtos.MenuItemDto.Order">
+            <summary>
+            Order of menu item.
             </summary>
         </member>
         <member name="P:Milvonion.Application.Dtos.UIDtos.MenuItemDtos.MenuItemDto.PageName">
@@ -2490,6 +2510,14 @@
             <summary>
             Seeds data for development purposes.
             </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Milvonion.Application.Interfaces.IDeveloperService.SeedFakeDataAsync(System.Boolean,System.String)">
+            <summary>
+            Seeds fake data.
+            </summary>
+            <param name="sameData"></param>
+            <param name="locale"></param>
             <returns></returns>
         </member>
         <member name="M:Milvonion.Application.Interfaces.IDeveloperService.InitDatabaseAsync">

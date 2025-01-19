@@ -135,7 +135,7 @@ public class ExtensionsTests
         var result = httpContext.GetCurrentUserPermissions();
 
         // Assert
-        result.Should().BeEquivalentTo(["Admin", "User"]);
+        result.Should().BeEquivalentTo("Admin", "User");
     }
 
     [Fact]
@@ -236,7 +236,8 @@ public class ExtensionsTests
     public void IsBase64StringValidLength_ForInvalidLength_ShouldReturnFalse()
     {
         // Arrange
-        var base64String = Convert.ToBase64String(new byte[1024 * 1024 + 1]); // > 1 MB
+        var invalid = new byte[1024 * 1024 + 1];
+        var base64String = Convert.ToBase64String(invalid); // > 1 MB
 
         // Act
         var result = MilvonionExtensions.IsBase64StringValidLength(base64String);

@@ -9,7 +9,7 @@ using Moq;
 
 namespace Milvonion.UnitTests.UtilsTests;
 
-public enum TestEnum
+public enum TestEnumFixture
 {
     Value1,
     Value2
@@ -51,10 +51,10 @@ public class LinkedWithFormatterTests
         // Arrange
         var mockLocalizer = new Mock<IMilvaLocalizer>();
         mockLocalizer.Setup(l => l["TestEnum.Value1"]).Returns(new LocalizedValue("LocalizedValue1", "Localized Value1"));
-        var formatter = new EnumFormatter<TestEnum>(mockLocalizer.Object);
+        var formatter = new EnumFormatter<TestEnumFixture>(mockLocalizer.Object);
 
         // Act
-        var result = formatter.Format(TestEnum.Value1);
+        var result = formatter.Format(TestEnumFixture.Value1);
 
         // Assert
         result.Should().Be("Localized Value1");
@@ -65,7 +65,7 @@ public class LinkedWithFormatterTests
     {
         // Arrange
         var mockLocalizer = new Mock<IMilvaLocalizer>();
-        var formatter = new EnumFormatter<TestEnum>(mockLocalizer.Object);
+        var formatter = new EnumFormatter<TestEnumFixture>(mockLocalizer.Object);
         var nonEnumValue = "NonEnumValue";
 
         // Act
@@ -80,7 +80,7 @@ public class LinkedWithFormatterTests
     {
         // Arrange
         var mockLocalizer = new Mock<IMilvaLocalizer>();
-        var formatter = new EnumFormatter<TestEnum>(mockLocalizer.Object);
+        var formatter = new EnumFormatter<TestEnumFixture>(mockLocalizer.Object);
 
         // Act
         var result = formatter.Format(null);

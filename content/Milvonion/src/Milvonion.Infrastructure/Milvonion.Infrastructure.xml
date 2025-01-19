@@ -291,6 +291,12 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="M:Milvonion.Infrastructure.Persistence.DatabaseMigrator.SeedFakeDataAsync(System.Boolean,System.String,System.Threading.CancellationToken)">
+            <summary>
+            Seeds fake data.
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:Milvonion.Infrastructure.Persistence.DatabaseMigrator.MigratePermissionsAsync(Milvonion.Application.Interfaces.IPermissionManager,System.Threading.CancellationToken)">
             <summary>
             Migrate default permissions.
@@ -304,6 +310,31 @@
             Initial data seed and migration operation for production.
             </summary>
             <returns></returns>
+        </member>
+        <member name="T:Milvonion.Infrastructure.Persistence.UserFaker">
+            <summary>
+            Data faker.
+            </summary>
+        </member>
+        <member name="M:Milvonion.Infrastructure.Persistence.UserFaker.#ctor(System.Boolean,System.String,System.Collections.Generic.List{Milvonion.Domain.Role})">
+            <summary>
+            Constructor for faker.
+            </summary>
+            <param name="sameData"></param>
+            <param name="locale"></param>
+            <param name="roles"></param>
+        </member>
+        <member name="T:Milvonion.Infrastructure.Persistence.RoleFaker">
+            <summary>
+            Data faker.
+            </summary>
+        </member>
+        <member name="M:Milvonion.Infrastructure.Persistence.RoleFaker.#ctor(System.Boolean,System.String)">
+            <summary>
+            Constructor for faker.
+            </summary>
+            <param name="sameData"></param>
+            <param name="locale"></param>
         </member>
         <member name="T:Milvonion.Infrastructure.Persistence.Repository.MilvonionRepositoryBase`1">
             <summary>
@@ -388,6 +419,14 @@
             <summary>
             Seeds data for development purposes.
             </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Milvonion.Infrastructure.Services.DeveloperService.SeedFakeDataAsync(System.Boolean,System.String)">
+            <summary>
+            Seeds fake data.
+            </summary>
+            <param name="sameData"></param>
+            <param name="locale"></param>
             <returns></returns>
         </member>
         <member name="M:Milvonion.Infrastructure.Services.DeveloperService.InitDatabaseAsync">

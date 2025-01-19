@@ -508,6 +508,11 @@
             Entity of the MenuGroups table.
             </summary>
         </member>
+        <member name="P:Milvonion.Domain.UI.MenuGroup.Order">
+            <summary>
+            Order of menu group.
+            </summary>
+        </member>
         <member name="P:Milvonion.Domain.UI.MenuGroup.Translations">
             <summary>
             Translations of the menu group.
@@ -531,6 +536,11 @@
         <member name="P:Milvonion.Domain.UI.MenuItem.PageName">
             <summary>
             Frontend page name for navigate to on click.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Domain.UI.MenuItem.Order">
+            <summary>
+            Order of the menu item.
             </summary>
         </member>
         <member name="P:Milvonion.Domain.UI.MenuItem.PermissionOrGroupNames">

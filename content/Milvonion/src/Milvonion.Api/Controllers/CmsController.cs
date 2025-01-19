@@ -175,7 +175,7 @@ public class CmsController(IMediator mediator) : ControllerBase
     /// <returns></returns>
     [Auth(PermissionCatalog.ContentManagement.Detail)]
     [HttpGet("contents/content")]
-    public async Task<Response<ContentDetailDto>> GetContentAsync([FromQuery] GetContentDetailQuery request) => await _mediator.Send(request);
+    public async Task<Response<ContentDetailDto>> GetContentDetailAsync([FromQuery] GetContentDetailQuery request) => await _mediator.Send(request);
 
     /// <summary>
     /// Adds content.

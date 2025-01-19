@@ -22,7 +22,7 @@ public class SwaggerFilterTests
         // Arrange
         var schemaFilter = new EnumSchemaFilter();
         var schema = new OpenApiSchema();
-        var context = new SchemaFilterContext(typeof(TestEnum), null, null, null);
+        var context = new SchemaFilterContext(typeof(TestEnumFixture), null, null, null);
 
         // Act
         schemaFilter.Apply(schema, context);
