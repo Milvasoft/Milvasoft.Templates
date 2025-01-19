@@ -12,6 +12,11 @@ namespace Milvonion.Domain.UI;
 public class MenuGroup : CreationAuditableEntity<int>, IHasTranslation<MenuGroupTranslation>
 {
     /// <summary>
+    /// Order of menu group.
+    /// </summary>
+    public int Order { get; set; }
+
+    /// <summary>
     /// Translations of the menu group.
     /// </summary>
     [Column(TypeName = "jsonb")]

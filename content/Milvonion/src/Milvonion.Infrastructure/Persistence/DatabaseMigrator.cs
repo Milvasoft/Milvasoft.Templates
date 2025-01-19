@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using EFCore.BulkExtensions;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -9,12 +10,14 @@ using Milvasoft.Core.MultiLanguage.EntityBases.Abstract;
 using Milvasoft.Core.MultiLanguage.Manager;
 using Milvasoft.Identity.Abstract;
 using Milvasoft.Identity.Concrete;
+using Milvasoft.Interception.Ef.Transaction;
 using Milvonion.Application.Interfaces;
 using Milvonion.Application.Utils.Constants;
 using Milvonion.Application.Utils.PermissionManager;
 using Milvonion.Domain;
 using Milvonion.Domain.UI;
 using Milvonion.Infrastructure.Persistence.Context;
+using OpsiyonManagement.Infrastructure.Persistence;
 
 namespace Milvonion.Infrastructure.Persistence;
 
@@ -150,6 +153,7 @@ public class DatabaseMigrator(MilvonionDbContext milvonionDbContext)
         var managementGroup = new MenuGroup
         {
             Id = 21,
+            Order = 1,
             Translations =
             [
                 new()
@@ -172,6 +176,7 @@ public class DatabaseMigrator(MilvonionDbContext milvonionDbContext)
         var generalGroup = new MenuGroup
         {
             Id = 22,
+            Order = 0,
             Translations =
             [
                 new()
@@ -198,6 +203,7 @@ public class DatabaseMigrator(MilvonionDbContext milvonionDbContext)
             {
                 new() {
                      Id = 21,
+                     Order = 99,
                      GroupId = managementGroup.Id,
                      PermissionOrGroupNames = [nameof(PermissionCatalog.App), nameof(PermissionCatalog.UserManagement), nameof(PermissionCatalog.ActivityLogManagement)],
                      Translations =
@@ -220,6 +226,7 @@ public class DatabaseMigrator(MilvonionDbContext milvonionDbContext)
                          new()
                          {
                              Id = 22,
+                             Order = 98,
                              ParentId = 21,
                              GroupId = managementGroup.Id,
                              Url = "/users",
@@ -246,6 +253,7 @@ public class DatabaseMigrator(MilvonionDbContext milvonionDbContext)
                          new()
                          {
                              Id = 23,
+                             Order = 97,
                              ParentId = 21,
                              GroupId = managementGroup.Id,
                              Url = "/activityLogs",
@@ -275,6 +283,7 @@ public class DatabaseMigrator(MilvonionDbContext milvonionDbContext)
                 },
                 new() {
                      Id = 25,
+                     Order = 89,
                      GroupId = managementGroup.Id,
                      Url = "/role",
                      PageName = nameof(PermissionCatalog.RoleManagement),
@@ -358,6 +367,26 @@ public class DatabaseMigrator(MilvonionDbContext milvonionDbContext)
         await _milvonionDbContext.SaveChangesAsync(cancellationToken);
 
         #endregion
+    }
+
+    /// <summary>
+    /// Seeds fake data.
+    /// </summary>
+    /// <returns></returns>
+    [Transaction]
+    public async Task SeedFakeDataAsync(bool sameData = true, string locale = "tr", CancellationToken cancellationToken = default)
+    {
+        var roleFaker = new RoleFaker(sameData, locale);
+
+        var roles = roleFaker.Generate(100);
+
+        await _milvonionDbContext.BulkInsertAsync(roles, cancellationToken: cancellationToken);
+
+        var userFaker = new UserFaker(sameData, locale, roles);
+
+        var users = userFaker.Generate(250);
+
+        await _milvonionDbContext.BulkInsertAsync(users, cancellationToken: cancellationToken);
     }
 
     /// <summary>

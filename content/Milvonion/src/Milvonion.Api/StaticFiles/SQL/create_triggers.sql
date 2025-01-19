@@ -80,6 +80,7 @@ BEGIN
             n.nspname = 'public'
             AND a.attnum = ANY(con.conkey) -- Primary key kolonlarını filtrele
             AND a.attidentity IN ('a', 'd') -- Auto-increment identity kolonları
+            AND c.relname not in('_MigrationHistory')
     ) LOOP
         -- Trigger ekle
         EXECUTE format('

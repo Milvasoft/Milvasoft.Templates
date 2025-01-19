@@ -22,6 +22,11 @@ public class MenuItemDto : MilvonionBaseDto<int>
     public string Url { get; set; }
 
     /// <summary>
+    /// Order of menu item.
+    /// </summary>
+    public int Order { get; set; }
+
+    /// <summary>
     /// Frontend page name for navigate to on click.
     /// </summary>
     public string PageName { get; set; }
@@ -34,7 +39,7 @@ public class MenuItemDto : MilvonionBaseDto<int>
     /// <summary>
     /// Menu item group information.
     /// </summary>
-    public NameIntNavigationDto Group { get; set; }
+    public MenuGroupDto Group { get; set; }
 
     /// <summary>
     /// Children items of this menu items.
@@ -56,10 +61,12 @@ public class MenuItemDto : MilvonionBaseDto<int>
             ParentId = u.ParentId,
             PageName = u.PageName,
             Url = u.Url,
-            Group = new NameIntNavigationDto
+            Order = u.Order,
+            Group = new MenuGroupDto
             {
                 Id = u.Group.Id,
-                Name = groupNameLangExpression(u.Group)
+                Name = groupNameLangExpression(u.Group),
+                Order = u.Group.Order
             },
             Childrens = u.Childrens?.Select(Projection(multiLanguageManager)).ToList()
         };

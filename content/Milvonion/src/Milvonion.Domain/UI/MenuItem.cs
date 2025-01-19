@@ -23,6 +23,11 @@ public class MenuItem : CreationAuditableEntity<int>, IHasTranslation<MenuItemTr
     public string PageName { get; set; }
 
     /// <summary>
+    /// Order of the menu item.
+    /// </summary>
+    public int Order { get; set; }
+
+    /// <summary>
     /// Related permission group or permission names. If the user has a permission from one of these group or permissions, the menu item will be visible.
     /// If this is a parent menu item, it will be the permission group name. e.g. UserManagement
     /// If this is a child menu, it will be the permission name. e.g. UserManagement.List
@@ -73,6 +78,7 @@ public class MenuItem : CreationAuditableEntity<int>, IHasTranslation<MenuItemTr
             Id = u.Id,
             Url = u.Url,
             PageName = u.PageName,
+            Order = u.Order,
             ParentId = u.ParentId,
             PermissionOrGroupNames = u.PermissionOrGroupNames,
             GroupId = u.GroupId,

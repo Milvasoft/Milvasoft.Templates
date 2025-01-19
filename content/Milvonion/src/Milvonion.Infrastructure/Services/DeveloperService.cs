@@ -128,6 +128,19 @@ public class DeveloperService(IMediator mediator,
     }
 
     /// <summary>
+    /// Seeds fake data.
+    /// </summary>
+    /// <param name="sameData"></param>
+    /// <param name="locale"></param>
+    /// <returns></returns>
+    public async Task<Response> SeedFakeDataAsync(bool sameData = true, string locale = "tr")
+    {
+        await _databaseMigrator.SeedFakeDataAsync(sameData, locale, default);
+
+        return Response.Success();
+    }
+
+    /// <summary>
     /// Initial migration operation.
     /// </summary>
     /// <returns></returns>

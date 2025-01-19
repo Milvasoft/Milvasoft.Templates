@@ -534,4 +534,7 @@
   <data name="FileShouldBeUploaded" xml:space="preserve">
     <value>Lütfen dosya yükleyiniz!</value>
   </data>
+  <data name="Global.Order" xml:space="preserve">
+    <value>Sıra</value>
+  </data>
 </root>

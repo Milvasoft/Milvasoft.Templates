@@ -34,6 +34,13 @@ public class DeveloperController(IDeveloperService developerService) : Controlle
     public async Task<Response> SeedDataAsync() => await _developerService.SeedDevelopmentDataAsync();
 
     /// <summary>
+    /// Seeds fake data for development purposes.
+    /// </summary>
+    /// <returns></returns>
+    [HttpPost("database/seed/fake")]
+    public async Task<Response> SeedFakeDataAsync(bool sameData = true, string locale = "tr") => await _developerService.SeedFakeDataAsync(sameData, locale);
+
+    /// <summary>
     /// Initial migration operation.
     /// </summary>
     /// <returns></returns>

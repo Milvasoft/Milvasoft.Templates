@@ -534,4 +534,7 @@
   <data name="FileShouldBeUploaded" xml:space="preserve">
     <value>Please upload a file!</value>
   </data>
+  <data name="Global.Order" xml:space="preserve">
+    <value>Order</value>
+  </data>
 </root>

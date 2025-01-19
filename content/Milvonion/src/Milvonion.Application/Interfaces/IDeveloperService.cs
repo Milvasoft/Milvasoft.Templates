@@ -22,6 +22,14 @@ public interface IDeveloperService : IInterceptable
     Task<Response> SeedDevelopmentDataAsync();
 
     /// <summary>
+    /// Seeds fake data.
+    /// </summary>
+    /// <param name="sameData"></param>
+    /// <param name="locale"></param>
+    /// <returns></returns>
+    Task<Response> SeedFakeDataAsync(bool sameData = true, string locale = "tr");
+
+    /// <summary>
     /// Initial migration operation.
     /// </summary>
     /// <returns></returns>
