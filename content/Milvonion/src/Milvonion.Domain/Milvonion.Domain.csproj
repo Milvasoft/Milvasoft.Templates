@@ -5,6 +5,7 @@
 		<ImplicitUsings>enable</ImplicitUsings>
 		<GenerateDocumentationFile>True</GenerateDocumentationFile>
 		<DocumentationFile>..\Milvonion.Domain\Milvonion.Domain.xml</DocumentationFile>
+		<Configurations>Debug;Release;TemplateTest</Configurations>
 	</PropertyGroup>
 
 

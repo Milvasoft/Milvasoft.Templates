@@ -7,6 +7,7 @@
 		<DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
 		<GenerateDocumentationFile>True</GenerateDocumentationFile>
 		<DocumentationFile>..\Milvonion.Api\Milvonion.Api.xml</DocumentationFile>
+		<Configurations>Debug;Release;TemplateTest</Configurations>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)' == 'Debug'">
@@ -27,7 +28,7 @@
 		<PackageReference Include="Milvasoft.Components.Swagger" Version="9.0.17" />
 		<PackageReference Include="Asp.Versioning.Mvc.ApiExplorer" Version="8.1.0" />
 		<PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.21.0" />
-		<PackageReference Include="Scalar.AspNetCore" Version="2.0.1" />
+		<PackageReference Include="Scalar.AspNetCore" Version="2.0.2" />
 		<PackageReference Include="System.Text.Json" Version="9.0.1" />
 		<PackageReference Include="AspNetCore.HealthChecks.NpgSql" Version="9.0.0" />
 		<PackageReference Include="AspNetCore.HealthChecks.System" Version="9.0.0" />

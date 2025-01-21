@@ -46,7 +46,7 @@ public class LinkedWithFormatterTests
     }
 
     [Fact]
-    public void Format_EnumValueIsProvided_ShouldReturnLocalizedString()
+    public void Format_EnumValueIsProvided_ShouldReturnNotLocalizedStringBecauseOfLocalizationManagerIsNull()
     {
         // Arrange
         var mockLocalizer = new Mock<IMilvaLocalizer>();
@@ -57,7 +57,7 @@ public class LinkedWithFormatterTests
         var result = formatter.Format(TestEnumFixture.Value1);
 
         // Assert
-        result.Should().Be("Localized Value1");
+        result.Should().Be("Value1");
     }
 
     [Fact]

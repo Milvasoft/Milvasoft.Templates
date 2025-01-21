@@ -22,7 +22,15 @@ public class EnumFormatter<TEnum>(IMilvaLocalizer milvaLocalizer) : ILinkedWithF
         {
             var resourceKey = $"{typeof(TEnum).Name}.{enumValue}";
 
-            return _milvaLocalizer[resourceKey].ToString();
+            if (_milvaLocalizer != null)
+            {
+                var localizedValue = _milvaLocalizer[resourceKey];
+
+                if (localizedValue?.ResourceFound ?? false)
+                    return localizedValue.ToString();
+            }
+
+            return enumValue.ToString();
         }
 
         return value?.ToString();

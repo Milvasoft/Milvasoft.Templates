@@ -81,7 +81,7 @@ public class User : MilvaUser<int>, IFullAuditable<int>
     {
         var httpContextAccessor = serviceProvider.GetRequiredService<IHttpContextAccessor>();
 
-        return httpContextAccessor.HttpContext.User?.Identity?.Name ?? "Anonymous";
+        return httpContextAccessor.HttpContext?.User?.Identity?.Name ?? "Anonymous";
     }
 
     #region Projections

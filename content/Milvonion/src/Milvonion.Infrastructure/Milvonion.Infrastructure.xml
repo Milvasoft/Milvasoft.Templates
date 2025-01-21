@@ -188,9 +188,6 @@
                    This can affect performance little bit. But you want audit every record easily you must use this :( </para>
             </remarks>
         </member>
-        <member name="M:Milvonion.Infrastructure.Persistence.Context.MilvonionDbContext.OnModelCreating(Microsoft.EntityFrameworkCore.ModelBuilder)">
-            <inheritdoc/>
-        </member>
         <member name="T:Milvonion.Infrastructure.Persistence.Context.MilvonionDbContextAccessor">
             <summary>
             Milvonion scoped factory.
@@ -242,17 +239,6 @@
             Db context creation implementation.
             </summary>
             <returns></returns>
-        </member>
-        <member name="T:Milvonion.Infrastructure.Persistence.Context.ModelBuilderExtensions">
-            <summary>
-            Extension methods for MilvonionDbContexts
-            </summary>
-        </member>
-        <member name="M:Milvonion.Infrastructure.Persistence.Context.ModelBuilderExtensions.UseUtcDateTime(Microsoft.EntityFrameworkCore.ModelBuilder)">
-            <summary>
-            Use UTC for datetime types.
-            </summary>
-            <param name="modelBuilder"></param>
         </member>
         <member name="T:Milvonion.Infrastructure.Persistence.DatabaseMigrator">
             <summary>

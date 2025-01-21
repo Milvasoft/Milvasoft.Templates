@@ -17,6 +17,7 @@ using Milvonion.Application.Utils.PermissionManager;
 using Milvonion.Domain;
 using Milvonion.Domain.UI;
 using Milvonion.Infrastructure.Persistence.Context;
+using System.Net.Sockets;
 
 namespace Milvonion.Infrastructure.Persistence;
 
@@ -44,9 +45,25 @@ public class DatabaseMigrator(MilvonionDbContext milvonionDbContext)
 
         opt.ConfigureWarnings(warnings => { warnings.Log(RelationalEventId.PendingModelChangesWarning); });
 
-        using var db = new MilvonionDbContext(opt.Options);
+        try
+        {
+            using var db = new MilvonionDbContext(opt.Options);
 
-        await db.Database.MigrateAsync(cancellationToken: cancellationToken);
+            await db.Database.MigrateAsync(cancellationToken: cancellationToken);
+
+        }
+        catch (Exception ex)
+        {
+            // Retry
+            if (ex.InnerException is SocketException || ex.InnerException is IOException)
+            {
+                using var db = new MilvonionDbContext(opt.Options);
+
+                await db.Database.MigrateAsync(cancellationToken: cancellationToken);
+            }
+            else
+                throw;
+        }
 
         return Response.Success();
     }
@@ -394,7 +411,12 @@ public class DatabaseMigrator(MilvonionDbContext milvonionDbContext)
     /// <param name="permissionManager"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    public static async Task<Response<string>> MigratePermissionsAsync(IPermissionManager permissionManager, CancellationToken cancellationToken = default) => await permissionManager.MigratePermissionsAsync(cancellationToken);
+    public static async Task<string> MigratePermissionsAsync(IPermissionManager permissionManager, CancellationToken cancellationToken = default)
+    {
+        var response = await permissionManager.MigratePermissionsAsync(cancellationToken);
+
+        return response.Data;
+    }
 
     /// <summary>
     /// Initial data seed and migration operation for production.

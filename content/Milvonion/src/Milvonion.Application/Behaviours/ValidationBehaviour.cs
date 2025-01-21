@@ -58,53 +58,53 @@ public sealed class ValidationBehaviorForResponse<TRequest, TResponse>(IEnumerab
         }
         else if (typeof(TResponse).IsGenericType && typeof(TResponse).GetGenericTypeDefinition() == typeof(Response<>))
         {
-            return BuildGenericResponse(typeof(Response<>));
+            return BuildGenericResponse(typeof(Response<>), errors);
         }
         else if (typeof(TResponse).IsGenericType && typeof(TResponse).GetGenericTypeDefinition() == typeof(ListResponse<>))
         {
-            return BuildGenericResponse(typeof(ListResponse<>));
+            return BuildGenericResponse(typeof(ListResponse<>), errors);
         }
 
         var localizer = _serviceProvider.GetService<IMilvaLocalizer>();
 
         throw new MilvaUserFriendlyException(localizer[errors[0]]);
+    }
 
-        TResponse BuildGenericResponse(Type type)
+    private TResponse BuildGenericResponse(Type type, List<string> errors)
+    {
+        var responseType = typeof(TResponse).GetGenericArguments()[0];
+
+        var response = Activator.CreateInstance(type.MakeGenericType(responseType));
+
+        if (response is Response r)
         {
-            var responseType = typeof(TResponse).GetGenericArguments()[0];
+            AddMessagesToResponse(r, errors);
 
-            var response = Activator.CreateInstance(type.MakeGenericType(responseType));
+            var interceptionOptions = _serviceProvider.GetService<IResponseInterceptionOptions>();
 
-            if (response is Response r)
+            var metadataGenerator = new ResponseMetadataGenerator(interceptionOptions, _serviceProvider);
+
+            metadataGenerator.GenerateMetadata(response as IHasMetadata);
+
+            if (interceptionOptions.TranslateResultMessages && !r.Messages.IsNullOrEmpty())
             {
-                AddMessagesToResponse(r, errors);
+                var localizer = _serviceProvider.GetService<IMilvaLocalizer>();
 
-                var interceptionOptions = _serviceProvider.GetService<IResponseInterceptionOptions>();
-
-                var metadataGenerator = new ResponseMetadataGenerator(interceptionOptions, _serviceProvider);
-
-                metadataGenerator.GenerateMetadata(response as IHasMetadata);
-
-                if (interceptionOptions.TranslateResultMessages && !r.Messages.IsNullOrEmpty())
-                {
-                    var localizer = _serviceProvider.GetService<IMilvaLocalizer>();
-
-                    if (localizer != null)
-                        foreach (var message in r.Messages)
-                            message.Message = localizer[message.Message];
-                }
+                if (localizer != null)
+                    foreach (var message in r.Messages)
+                        message.Message = localizer[message.Message];
             }
-
-            return (TResponse)response;
         }
 
-        void AddMessagesToResponse(Response response, List<string> errors)
-        {
-            response.StatusCode = (int)HttpStatusCode.BadRequest;
-            response.IsSuccess = false;
+        return (TResponse)response;
+    }
 
-            foreach (var error in errors.Distinct())
-                response.AddMessage(error, MessageType.Validation);
-        }
+    private static void AddMessagesToResponse(Response response, List<string> errors)
+    {
+        response.StatusCode = (int)HttpStatusCode.BadRequest;
+        response.IsSuccess = false;
+
+        foreach (var error in errors.Distinct())
+            response.AddMessage(error, MessageType.Validation);
     }
 }

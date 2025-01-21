@@ -137,7 +137,7 @@ public static partial class PermissionCatalog
     /// Gets all permissions in the system as grouped by permission group.
     /// </summary>
     /// <returns> Permission group and group's permissions pair. </returns>
-    public static Dictionary<string, List<Permission>> GetPermissionGroups()
+    public static Dictionary<string, List<Permission>> GetPermissionsAndGroups()
     {
         var permissionGroups = new Dictionary<string, List<Permission>>();
 

@@ -111,11 +111,15 @@ public record LoginCommandHandler(IMilvonionRepositoryBase<User> UserRepository,
                 _milvaUserManager.ConfigureLockout(user, true);
 
                 if (_milvaUserManager.IsLockedOut(user))
-                    return PrepareLockoutResponse(user);
+                {
+                    response = PrepareLockoutResponse(user);
+                }
+                else
+                {
+                    var lockWarningMessage = _milvaLocalizer[MessageKey.LockWarning, _identityOptions.Lockout.MaxFailedAccessAttempts - user.AccessFailedCount];
 
-                var lockWarningMessage = _milvaLocalizer[MessageKey.LockWarning, _identityOptions.Lockout.MaxFailedAccessAttempts - user.AccessFailedCount];
-
-                response = Response<LoginResponseDto>.Error(null, lockWarningMessage);
+                    response = Response<LoginResponseDto>.Error(null, lockWarningMessage);
+                }
             }
             else
                 response = Response<LoginResponseDto>.Error(null, MessageKey.Unauthorized);

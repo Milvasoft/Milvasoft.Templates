@@ -59,6 +59,10 @@ public static class InfraServiceCollectionExtensions
                 .PostConfigureInterceptionOptions(opt =>
                 {
                     opt.Response.GenerateMetadataFunc = MilvonionExtensions.GenerateMetadata;
+                })
+                .PostConfigureTransactionInterceptionOptions(opt =>
+                {
+                    opt.DbContextType = typeof(MilvonionDbContext);
                 });
 
         return services;

@@ -121,8 +121,9 @@ public class DeveloperService(IMediator mediator,
 
             return Response.Success();
         }
-        catch (Exception)
+        catch (Exception ex)
         {
+            Console.WriteLine(ex.Message);
             return Response.Error("Already seeded!");
         }
     }

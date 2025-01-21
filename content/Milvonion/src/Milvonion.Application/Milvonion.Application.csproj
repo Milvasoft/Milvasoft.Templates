@@ -5,6 +5,7 @@
 		<ImplicitUsings>enable</ImplicitUsings>
 		<GenerateDocumentationFile>True</GenerateDocumentationFile>
 		<DocumentationFile>..\Milvonion.Application\Milvonion.Application.xml</DocumentationFile>
+		<Configurations>Debug;Release;TemplateTest</Configurations>
 	</PropertyGroup>
 	
 	<PropertyGroup Condition="'$(Configuration)' == 'Debug'">

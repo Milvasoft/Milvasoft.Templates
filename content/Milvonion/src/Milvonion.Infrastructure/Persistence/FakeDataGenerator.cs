@@ -73,7 +73,7 @@ public class RoleFaker : Faker<Role>
 
         RuleFor(u => u.Id, _ => id++)
             .RuleFor(u => u.Name, f => f.Commerce.Department())
-            .RuleFor(u => u.RolePermissionRelations, (f, r) => PermissionCatalog.GetPermissionGroups().SelectMany(p => p.Value).Select(p => new RolePermissionRelation
+            .RuleFor(u => u.RolePermissionRelations, (f, r) => PermissionCatalog.GetPermissionsAndGroups().SelectMany(p => p.Value).Select(p => new RolePermissionRelation
             {
                 RoleId = r.Id,
                 PermissionId = f.PickRandom(_permissionIdList)

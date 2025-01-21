@@ -3106,7 +3106,7 @@
         <member name="M:Milvonion.Application.Utils.LinkedWithFormatters.YesNoFormatter.Format(System.Object)">
             <inheritdoc/>
         </member>
-        <member name="M:Milvonion.Application.Utils.PermissionManager.PermissionCatalog.GetPermissionGroups">
+        <member name="M:Milvonion.Application.Utils.PermissionManager.PermissionCatalog.GetPermissionsAndGroups">
             <summary>
             Gets all permissions in the system as grouped by permission group.
             </summary>

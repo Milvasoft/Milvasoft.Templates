@@ -1,7 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Milvasoft.DataAccess.EfCore.Bulk.DbContextBase;
 using Milvasoft.DataAccess.EfCore.Configuration;
-using Milvasoft.DataAccess.EfCore.DbContextBase;
 using Milvonion.Domain;
 using Milvonion.Domain.ContentManagement;
 using Milvonion.Domain.UI;
@@ -41,17 +40,4 @@ public class MilvonionDbContext(DbContextOptions options) : MilvaBulkDbContext(o
     public DbSet<Namespace> Namespaces { get; set; }
     public DbSet<Language> Languages { get; set; }
 #pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
-
-    /// <inheritdoc/>
-    protected override void OnModelCreating(ModelBuilder modelBuilder)
-    {
-        modelBuilder.UseIndexToCreationAuditableEntities();
-        modelBuilder.UseIndexToSoftDeletableEntities();
-        modelBuilder.UseLogEntityBaseIndexes();
-
-        if (_useUtcForDateTimes)
-            modelBuilder.UseUtcDateTime();
-
-        base.OnModelCreating(modelBuilder);
-    }
 }

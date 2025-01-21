@@ -11,7 +11,7 @@ public class PermissionCatalogTests
     public void GetPermissionGroups_ShouldReturnCorrectPermissions()
     {
         // Act
-        var result = PermissionCatalog.GetPermissionGroups();
+        var result = PermissionCatalog.GetPermissionsAndGroups();
 
         // Assert
         result.Should().NotBeNull();

@@ -87,6 +87,11 @@
             <param name="services"></param>
             <param name="configuration"></param>
         </member>
+        <member name="T:Milvonion.Api.AppStartup.IApiMarker">
+            <summary>
+            Dummy class for integration test.
+            </summary>
+        </member>
         <member name="T:Milvonion.Api.Controllers.AccountController">
             <summary>
             Account endpoints.
@@ -608,6 +613,18 @@
             </summary>
             <param name="context"></param>
             <returns></returns>
+        </member>
+        <member name="T:Milvonion.Api.Migrations.InitialCreate">
+            <inheritdoc />
+        </member>
+        <member name="M:Milvonion.Api.Migrations.InitialCreate.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:Milvonion.Api.Migrations.InitialCreate.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:Milvonion.Api.Migrations.InitialCreate.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <inheritdoc />
         </member>
         <member name="T:Milvonion.Api.Migrations.MigrationHostedService">
             <summary>

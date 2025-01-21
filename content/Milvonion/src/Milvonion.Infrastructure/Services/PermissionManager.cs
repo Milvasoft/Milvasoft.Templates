@@ -45,7 +45,7 @@ public class PermissionManager(IMilvonionRepositoryBase<Permission> permissionRe
 
         var groupedPermissionsInDatabase = permissions.GroupBy(p => p.PermissionGroup).ToDictionary(g => g.Key, g => g.ToList());
 
-        var groupedStaticPermissions = PermissionCatalog.GetPermissionGroups();
+        var groupedStaticPermissions = PermissionCatalog.GetPermissionsAndGroups();
 
         List<Permission> permissionsToAdd = [];
         List<Permission> permissionsToRemove = [];

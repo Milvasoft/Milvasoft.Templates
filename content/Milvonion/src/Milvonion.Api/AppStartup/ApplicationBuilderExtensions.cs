@@ -35,7 +35,7 @@ public static partial class StartupExtensions
             c.RouteTemplate = GlobalConstant.RoutePrefix + "/docs/{documentName}/docs.json";
         });
 
-        app.MapScalarApiReference(endpointPrefix: $"/{GlobalConstant.RoutePrefix}/documentation/{{documentName}}", options =>
+        app.MapScalarApiReference(endpointPrefix: $"/{GlobalConstant.RoutePrefix}/documentation", options =>
         {
             options.WithOpenApiRoutePattern($"/{GlobalConstant.RoutePrefix}/docs/v1.0/docs.json");
             options.WithDefaultHttpClient(ScalarTarget.JavaScript, ScalarClient.Axios);
@@ -89,6 +89,12 @@ public static partial class StartupExtensions
             SupportedUICultures = supportedCultures,
             ApplyCurrentCultureToResponseHeaders = true
         };
+
+        var defaultCulture = new CultureInfo(defaultLanguageCode);
+
+        CultureInfo.CurrentCulture = defaultCulture;
+        CultureInfo.CurrentUICulture = defaultCulture;
+        CultureInfo.DefaultThreadCurrentCulture = defaultCulture;
 
         _ = new CultureSwitcher(defaultLanguageCode);
 

@@ -30,7 +30,7 @@ public record CreateBulkContentCommandHandler(IMilvonionRepositoryBase<Content> 
 
         foreach (var requestContent in request.Contents)
         {
-            var relatedResourceGroup = relatedResourceGroups.FirstOrDefault(rg => rg.Id == requestContent.ResourceGroupId);
+            var relatedResourceGroup = relatedResourceGroups.Find(rg => rg.Id == requestContent.ResourceGroupId);
 
             if (relatedResourceGroup is null)
                 continue;

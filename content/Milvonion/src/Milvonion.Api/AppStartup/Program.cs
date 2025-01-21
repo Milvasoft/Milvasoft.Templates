@@ -118,4 +118,5 @@ try
 catch (Exception ex)
 {
     Log.Logger.Error(ex, "Error ");
+    Console.WriteLine(ex.Message);
 }
