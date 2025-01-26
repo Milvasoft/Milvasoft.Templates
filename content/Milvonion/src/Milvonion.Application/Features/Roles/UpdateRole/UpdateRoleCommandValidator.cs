@@ -21,7 +21,7 @@ public sealed class UpdateRoleCommandValidator : AbstractValidator<UpdateRoleCom
             .WithMessage(localizer[MessageKey.PleaseSendCorrect, localizer[MessageKey.Role]]);
 
         RuleFor(query => query.Name)
-            .Must(name => name == null || (name.IsUpdated && !string.IsNullOrWhiteSpace(name.Value)))
-            .WithMessage(localizer[MessageKey.CannotBeEmpty, localizer[nameof(UpdateRoleCommand.Name)]]);
+            .NotNullOrEmpty(localizer, MessageKey.GlobalName)
+            .When(q => q.Name.IsUpdated);
     }
 }

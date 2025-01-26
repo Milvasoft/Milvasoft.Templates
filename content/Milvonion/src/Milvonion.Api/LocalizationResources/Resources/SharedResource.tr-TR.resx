@@ -537,4 +537,37 @@
   <data name="Global.Order" xml:space="preserve">
     <value>Sıra</value>
   </data>
+  <data name="QueryType" xml:space="preserve">
+    <value>Sorgu Tipi</value>
+  </data>
+  <data name="Query" xml:space="preserve">
+    <value>Sorgu</value>
+  </data>
+  <data name="WrongPassword" xml:space="preserve">
+    <value>Eski şifrenizi yanlış girdiniz!</value>
+  </data>
+  <data name="UserName" xml:space="preserve">
+    <value>Kullanıcı Adı</value>
+  </data>
+  <data name="NewPassword" xml:space="preserve">
+    <value>Yeni Şifre</value>
+  </data>
+  <data name="OldPassword" xml:space="preserve">
+    <value>Eski Şifre</value>
+  </data>
+  <data name="InvalidUrlAddress" xml:space="preserve">
+    <value>Lütfen geçerli bir url giriniz! Örnek: https://www.milvasoft.com</value>
+  </data>
+  <data name="Translations" xml:space="preserve">
+    <value>Çeviriler</value>
+  </data>
+  <data name="MaxLengthReached" xml:space="preserve">
+    <value>{0} {1} karakterden fazla olamaz!</value>
+  </data>
+  <data name="InvalidPhoneNumber" xml:space="preserve">
+    <value>Geçersiz bir telefon numarası girdiniz!</value>
+  </data>
+  <data name="Global.NameSurname" xml:space="preserve">
+    <value>Ad Soyad</value>
+  </data>
 </root>

@@ -1,5 +1,6 @@
 ﻿using FluentValidation;
 using Milvasoft.Core.Abstractions.Localization;
+using Milvonion.Application.Behaviours;
 using Milvonion.Application.Dtos.ContentManagementDtos.ContentDtos;
 using Milvonion.Application.Features.ContentManagement.Contents.CreateContent;
 
@@ -14,9 +15,7 @@ public sealed class CreateBulkContentCommandValidator : AbstractValidator<Create
     public CreateBulkContentCommandValidator(IMilvaLocalizer localizer)
     {
         RuleFor(query => query.Contents)
-            .NotEmpty()
-            .NotNull()
-            .WithMessage(localizer[MessageKey.CannotBeEmpty, localizer[MessageKey.Content]]);
+            .NotNullOrEmpty(localizer, MessageKey.Content);
 
         RuleForEach(query => query.Contents)
             .SetValidator(new CreateContentDtoValidator(localizer));
@@ -32,14 +31,10 @@ public class CreateContentDtoValidator : AbstractValidator<CreateContentDto>
     public CreateContentDtoValidator(IMilvaLocalizer localizer)
     {
         RuleFor(dto => dto.Key)
-            .NotEmpty()
-            .NotNull()
-            .WithMessage(localizer[MessageKey.CannotBeEmpty, localizer[nameof(CreateContentDto.Key)]]);
+            .NotNullOrEmpty(localizer, MessageKey.GlobalKey);
 
         RuleFor(dto => dto.Value)
-            .NotEmpty()
-            .NotNull()
-            .WithMessage(localizer[MessageKey.CannotBeEmpty, localizer[nameof(CreateContentDto.Value)]]);
+            .NotNullOrEmpty(localizer, MessageKey.GlobalValue);
 
         RuleFor(dto => dto.LanguageId)
             .GreaterThan(0)

@@ -1,5 +1,6 @@
 ﻿using FluentValidation;
 using Milvasoft.Core.Abstractions.Localization;
+using Milvonion.Application.Behaviours;
 
 namespace Milvonion.Application.Features.Pages.GetPageAccessibilityForCurrentUser;
 
@@ -12,7 +13,6 @@ public sealed class GetPageAccessibilityForCurrentUserQueryValidator : AbstractV
     public GetPageAccessibilityForCurrentUserQueryValidator(IMilvaLocalizer localizer)
     {
         RuleFor(query => query.PageName)
-            .Must(q => !string.IsNullOrEmpty(q))
-            .WithMessage(localizer[MessageKey.PleaseSendCorrect, localizer[MessageKey.Page]]);
+            .NotNullOrEmpty(localizer, MessageKey.Page);
     }
 }

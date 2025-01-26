@@ -411,12 +411,7 @@ public class DatabaseMigrator(MilvonionDbContext milvonionDbContext)
     /// <param name="permissionManager"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    public static async Task<string> MigratePermissionsAsync(IPermissionManager permissionManager, CancellationToken cancellationToken = default)
-    {
-        var response = await permissionManager.MigratePermissionsAsync(cancellationToken);
-
-        return response.Data;
-    }
+    public static async Task<Response<string>> MigratePermissionsAsync(IPermissionManager permissionManager, CancellationToken cancellationToken = default) => await permissionManager.MigratePermissionsAsync(cancellationToken);
 
     /// <summary>
     /// Initial data seed and migration operation for production.

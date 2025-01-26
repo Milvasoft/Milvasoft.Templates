@@ -17,6 +17,10 @@ using Milvonion.Infrastructure.Logging;
 
 try
 {
+#if DEBUG
+    MissingResxKeyFinder.FindAndPrintToConsole();
+#endif
+
     var builder = WebApplication.CreateBuilder(args);
 
     var assemblies = new Assembly[] { ApplicationAssembly.Assembly, InfrastructureAssembly.Assembly, DomainAssembly.Assembly, PresentationAssembly.Assembly };

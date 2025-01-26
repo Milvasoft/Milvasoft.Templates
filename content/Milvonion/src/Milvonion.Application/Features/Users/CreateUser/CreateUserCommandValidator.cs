@@ -1,5 +1,6 @@
 ﻿using FluentValidation;
 using Milvasoft.Core.Abstractions.Localization;
+using Milvonion.Application.Behaviours;
 
 namespace Milvonion.Application.Features.Users.CreateUser;
 
@@ -12,13 +13,28 @@ public sealed class CreateUserCommandValidator : AbstractValidator<CreateUserCom
     public CreateUserCommandValidator(IMilvaLocalizer localizer)
     {
         RuleFor(query => query.UserName)
-            .NotEmpty()
-            .NotNull()
-            .WithMessage(localizer[MessageKey.CannotBeEmpty, localizer[nameof(CreateUserCommand.UserName)]]);
+            .NotNullOrEmpty(localizer, MessageKey.GlobalUsername);
 
         RuleFor(query => query.Password)
-            .NotEmpty()
-            .NotNull()
-            .WithMessage(localizer[MessageKey.CannotBeEmpty, localizer[nameof(CreateUserCommand.Password)]]);
+            .NotNullOrEmpty(localizer, MessageKey.GlobalPassword);
+
+        RuleFor(query => query.Name)
+            .MaximumLength(70)
+            .WithMessage(localizer[MessageKey.MaxLengthReached, localizer[MessageKey.GlobalName], 70]);
+
+        RuleFor(query => query.Surname)
+            .MaximumLength(70)
+            .WithMessage(localizer[MessageKey.MaxLengthReached, localizer[MessageKey.GlobalName], 70]);
+
+        RuleFor(query => query.UserType)
+            .IsInEnum()
+            .WithMessage(localizer[MessageKey.PleaseSendCorrect, localizer[MessageKey.GlobalUserType]]);
+
+        RuleFor(query => query.RoleIdList)
+            .NotNullOrEmpty(localizer, MessageKey.Role);
+
+        RuleForEach(query => query.RoleIdList)
+            .GreaterThan(0)
+            .WithMessage(localizer[MessageKey.PleaseSendCorrect, localizer[MessageKey.Role]]);
     }
 }

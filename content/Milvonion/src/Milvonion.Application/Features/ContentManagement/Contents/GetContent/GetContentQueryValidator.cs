@@ -22,7 +22,7 @@ public sealed class GetContentQueryValidator : AbstractValidator<GetContentQuery
             .WithMessage(localizer[MessageKey.PleaseSendCorrect, localizer[MessageKey.Query]]);
 
         RuleFor(query => query.QueryType)
-            .Must(query => Enum.IsDefined(query))
+            .IsInEnum()
             .WithMessage(localizer[MessageKey.PleaseSendCorrect, localizer[MessageKey.QueryType]]);
     }
 }

@@ -1,5 +1,6 @@
 ﻿using FluentValidation;
 using Milvasoft.Core.Abstractions.Localization;
+using Milvonion.Application.Behaviours;
 
 namespace Milvonion.Application.Features.Roles.CreateRole;
 
@@ -12,8 +13,6 @@ public sealed class CreateRoleCommandValidator : AbstractValidator<CreateRoleCom
     public CreateRoleCommandValidator(IMilvaLocalizer localizer)
     {
         RuleFor(query => query.Name)
-            .NotEmpty()
-            .NotNull()
-            .WithMessage(localizer[MessageKey.CannotBeEmpty, localizer[nameof(CreateRoleCommand.Name)]]);
+            .NotNullOrEmpty(localizer, MessageKey.GlobalName);
     }
 }

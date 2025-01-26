@@ -21,7 +21,7 @@ public sealed class UpdateNamespaceCommandValidator : AbstractValidator<UpdateNa
             .WithMessage(localizer[MessageKey.PleaseSendCorrect, localizer[MessageKey.Namespace]]);
 
         RuleFor(query => query.Name)
-            .Must(name => name == null || (name.IsUpdated && !string.IsNullOrWhiteSpace(name.Value)))
-            .WithMessage(localizer[MessageKey.CannotBeEmpty, localizer[nameof(UpdateNamespaceCommand.Name)]]);
+            .NotNullOrEmpty(localizer, MessageKey.GlobalName)
+            .When(query => query.Name.IsUpdated);
     }
 }

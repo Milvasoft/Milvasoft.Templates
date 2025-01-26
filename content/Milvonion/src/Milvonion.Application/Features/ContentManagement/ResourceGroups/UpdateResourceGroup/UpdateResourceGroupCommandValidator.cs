@@ -21,7 +21,7 @@ public sealed class UpdateResourceGroupCommandValidator : AbstractValidator<Upda
             .WithMessage(localizer[MessageKey.PleaseSendCorrect, localizer[MessageKey.ResourceGroup]]);
 
         RuleFor(query => query.Name)
-            .Must(name => name == null || (name.IsUpdated && !string.IsNullOrWhiteSpace(name.Value)))
-            .WithMessage(localizer[MessageKey.CannotBeEmpty, localizer[nameof(UpdateResourceGroupCommand.Name)]]);
+            .NotNullOrEmpty(localizer, MessageKey.GlobalName)
+            .When(query => query.Name.IsUpdated);
     }
 }

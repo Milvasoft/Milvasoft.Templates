@@ -1,5 +1,6 @@
 ﻿using FluentValidation;
 using Milvasoft.Core.Abstractions.Localization;
+using Milvonion.Application.Behaviours;
 
 namespace Milvonion.Application.Features.ContentManagement.Contents.DeleteContents;
 
@@ -12,9 +13,7 @@ public sealed class DeleteContentsCommandValidator : AbstractValidator<DeleteCon
     public DeleteContentsCommandValidator(IMilvaLocalizer localizer)
     {
         RuleFor(query => query.ContentIdList)
-            .NotEmpty()
-            .NotNull()
-            .WithMessage(localizer[MessageKey.PleaseSendCorrect, localizer[MessageKey.Content]]);
+            .NotNullOrEmpty(localizer, MessageKey.Content);
 
         RuleForEach(query => query.ContentIdList)
             .GreaterThan(0)

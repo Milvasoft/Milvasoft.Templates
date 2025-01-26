@@ -97,14 +97,14 @@
   ],
   "sources": [
     {
-      "source": "./", // Root dizinden kaynakları alır
-      "target": "./", // Root dizine kopyalar
+      "source": "./", // get from root fodler
+      "target": "./", // copy to root folder
       "modifiers": [
         {
-          "exclude": [ "**/.vs/**", ".template_config/**" ] // Gereksiz dosyaları hariç tutar
+          "exclude": [ "**/.vs/**", ".template_config/**" ] // exclude unnecessary files
         }
       ],
-      "flatten": true // Klasör yapısını düzleştirir, alt dizinlere kopyalamaz
+      "flatten": true // Flatten folder structure, do not copy sub folders  
     }
   ]
 }

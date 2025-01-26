@@ -1,5 +1,6 @@
 ﻿using FluentValidation;
 using Milvasoft.Core.Abstractions.Localization;
+using Milvonion.Application.Behaviours;
 using Milvonion.Application.Features.ContentManagement.Contents.CreateBulkContent;
 
 namespace Milvonion.Application.Features.ContentManagement.Contents.UpdateContent;
@@ -17,12 +18,11 @@ public sealed class UpdateContentCommandValidator : AbstractValidator<UpdateCont
             .WithMessage(localizer[MessageKey.PleaseSendCorrect, localizer[MessageKey.Content]]);
 
         RuleFor(query => query.Value)
-            .Must(name => name == null || (name.IsUpdated && !string.IsNullOrWhiteSpace(name.Value)))
-            .WithMessage(localizer[MessageKey.CannotBeEmpty, localizer[nameof(UpdateContentCommand.Value)]]);
+            .NotNullOrEmpty(localizer, MessageKey.GlobalValue)
+            .When(q => q.Value.IsUpdated);
 
         RuleForEach(query => query.Medias.Value)
-            .NotEmpty()
-            .NotNull()
+            .NotNullOrEmpty(localizer, MessageKey.Media)
             .When(query => query.Value != null && query.Value.IsUpdated)
             .SetValidator(new UpsertMediaValidator(localizer));
     }

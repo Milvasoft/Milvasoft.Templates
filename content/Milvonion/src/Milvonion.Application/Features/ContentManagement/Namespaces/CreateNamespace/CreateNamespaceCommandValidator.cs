@@ -1,5 +1,6 @@
 ﻿using FluentValidation;
 using Milvasoft.Core.Abstractions.Localization;
+using Milvonion.Application.Behaviours;
 
 namespace Milvonion.Application.Features.ContentManagement.Namespaces.CreateNamespace;
 
@@ -12,8 +13,6 @@ public sealed class CreateNamespaceCommandValidator : AbstractValidator<CreateNa
     public CreateNamespaceCommandValidator(IMilvaLocalizer localizer)
     {
         RuleFor(query => query.Name)
-            .NotEmpty()
-            .NotNull()
-            .WithMessage(localizer[MessageKey.CannotBeEmpty, localizer[nameof(CreateNamespaceCommand.Name)]]);
+            .NotNullOrEmpty(localizer, MessageKey.GlobalName);
     }
 }

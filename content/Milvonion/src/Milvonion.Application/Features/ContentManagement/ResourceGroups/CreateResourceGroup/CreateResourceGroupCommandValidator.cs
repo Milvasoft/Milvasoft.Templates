@@ -1,5 +1,6 @@
 ﻿using FluentValidation;
 using Milvasoft.Core.Abstractions.Localization;
+using Milvonion.Application.Behaviours;
 using Milvonion.Application.Features.ContentManagement.Namespaces.CreateNamespace;
 
 namespace Milvonion.Application.Features.ContentManagement.ResourceGroups.CreateResourceGroup;
@@ -13,8 +14,6 @@ public sealed class CreateResourceGroupCommandValidator : AbstractValidator<Crea
     public CreateResourceGroupCommandValidator(IMilvaLocalizer localizer)
     {
         RuleFor(query => query.Name)
-            .NotEmpty()
-            .NotNull()
-            .WithMessage(localizer[MessageKey.CannotBeEmpty, localizer[nameof(CreateNamespaceCommand.Name)]]);
+            .NotNullOrEmpty(localizer, MessageKey.GlobalName);
     }
 }

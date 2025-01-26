@@ -19,5 +19,15 @@ public sealed class UpdateUserCommandValidator : AbstractValidator<UpdateUserCom
         RuleFor(query => query.Id)
             .GreaterThan(0)
             .WithMessage(localizer[MessageKey.PleaseSendCorrect, localizer[MessageKey.User]]);
+
+        RuleFor(query => query.Name.Value)
+            .MaximumLength(100)
+            .WithMessage(localizer[MessageKey.MaxLengthReached, localizer[MessageKey.GlobalNameSurname], 100])
+            .When(q => q.Name.IsUpdated);
+
+        RuleFor(query => query.Surname.Value)
+            .MaximumLength(100)
+            .WithMessage(localizer[MessageKey.MaxLengthReached, localizer[MessageKey.GlobalNameSurname], 100])
+            .When(q => q.Surname.IsUpdated);
     }
 }
