@@ -196,7 +196,7 @@ public static partial class StartupExtensions
         var urls = Environment.GetEnvironmentVariable("ASPNETCORE_URLS");
         var endpoint = string.IsNullOrEmpty(urls) ? configuration.GetSection("ApiHost:HttpUrl").Get<string>() : urls.Split(';')[0];
 
-        endpoint = endpoint.Replace("+", "localhost").Replace("*", "localhost");
+        endpoint = endpoint.Replace("+", Dns.GetHostName()).Replace("*", Dns.GetHostName()).Replace("::", Dns.GetHostName());
 
         services.AddHealthChecksUI(setup =>
         {

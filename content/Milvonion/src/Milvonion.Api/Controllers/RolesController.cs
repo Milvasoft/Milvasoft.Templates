@@ -31,44 +31,49 @@ public class RolesController(IMediator mediator) : ControllerBase
     /// Gets roles.
     /// </summary>
     /// <param name="request"></param>
+    /// <param name="cancellation"></param>
     /// <returns></returns>
     [Auth(PermissionCatalog.RoleManagement.List)]
     [HttpPatch]
-    public async Task<ListResponse<RoleListDto>> GetRolesAsync(GetRoleListQuery request) => await _mediator.Send(request);
+    public async Task<ListResponse<RoleListDto>> GetRolesAsync(GetRoleListQuery request, CancellationToken cancellation) => await _mediator.Send(request, cancellation);
 
     /// <summary>
     /// Get role according to role id.
     /// </summary>
     /// <param name="request"></param>
+    /// <param name="cancellation"></param>
     /// <returns></returns>
     [Auth(PermissionCatalog.RoleManagement.Detail)]
     [HttpGet("role")]
-    public async Task<Response<RoleDetailDto>> GetRoleAsync([FromQuery] GetRoleDetailQuery request) => await _mediator.Send(request);
+    public async Task<Response<RoleDetailDto>> GetRoleAsync([FromQuery] GetRoleDetailQuery request, CancellationToken cancellation) => await _mediator.Send(request, cancellation);
 
     /// <summary>
     /// Adds role.
     /// </summary>
     /// <param name="request"></param>
+    /// <param name="cancellation"></param>
     /// <returns></returns>
     [Auth(PermissionCatalog.RoleManagement.Create)]
     [HttpPost("role")]
-    public async Task<Response<int>> AddRoleAsync(CreateRoleCommand request) => await _mediator.Send(request);
+    public async Task<Response<int>> AddRoleAsync(CreateRoleCommand request, CancellationToken cancellation) => await _mediator.Send(request, cancellation);
 
     /// <summary>
     /// Updates role. Only the fields that are sent as isUpdated true are updated.
     /// </summary>
     /// <param name="request"></param>
+    /// <param name="cancellation"></param>
     /// <returns></returns>
     [Auth(PermissionCatalog.RoleManagement.Update)]
     [HttpPut("role")]
-    public async Task<Response<int>> UpdateRoleAsync(UpdateRoleCommand request) => await _mediator.Send(request);
+    public async Task<Response<int>> UpdateRoleAsync(UpdateRoleCommand request, CancellationToken cancellation) => await _mediator.Send(request, cancellation);
 
     /// <summary>
     /// Removes role.
     /// </summary>
     /// <param name="request"></param>
+    /// <param name="cancellation"></param>
     /// <returns></returns>
     [Auth(PermissionCatalog.RoleManagement.Delete)]
     [HttpDelete("role")]
-    public async Task<Response<int>> RemoveRoleAsync([FromQuery] DeleteRoleCommand request) => await _mediator.Send(request);
+    public async Task<Response<int>> RemoveRoleAsync([FromQuery] DeleteRoleCommand request, CancellationToken cancellation) => await _mediator.Send(request, cancellation);
 }

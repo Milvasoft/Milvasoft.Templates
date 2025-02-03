@@ -127,10 +127,10 @@ public static partial class PermissionCatalog
     public static class LanguageManagement
     {
         [Description("Language list permission.")]
-        public const string List = "Language.List";
+        public const string List = "LanguageManagement.List";
 
         [Description("Language update permission.")]
-        public const string Update = "Language.Update";
+        public const string Update = "LanguageManagement.Update";
     }
 
     /// <summary>

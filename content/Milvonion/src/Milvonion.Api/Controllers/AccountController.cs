@@ -30,47 +30,52 @@ public class AccountController(IMediator mediator) : ControllerBase
     /// User login operation.
     /// </summary>
     /// <param name="request"></param>
+    /// <param name="cancellation"></param>
     /// <returns>Token information</returns>
     [HttpPost("login")]
     [AllowAnonymous]
-    public async Task<Response<LoginResponseDto>> LoginAsync(LoginCommand request) => await _mediator.Send(request);
+    public async Task<Response<LoginResponseDto>> LoginAsync(LoginCommand request, CancellationToken cancellation) => await _mediator.Send(request, cancellation);
 
     /// <summary>
     /// User refresh login operation.
     /// </summary>
     /// <param name="request"></param>
+    /// <param name="cancellation"></param>
     /// <returns></returns>
     [HttpPost("login/refresh")]
     [AllowAnonymous]
-    public async Task<Response<LoginResponseDto>> RefreshLoginAsync(RefreshLoginCommand request) => await _mediator.Send(request);
+    public async Task<Response<LoginResponseDto>> RefreshLoginAsync(RefreshLoginCommand request, CancellationToken cancellation) => await _mediator.Send(request, cancellation);
 
     /// <summary>
     /// User logout operation.
     /// </summary>
     /// <param name="request"></param>
+    /// <param name="cancellation"></param>
     /// <returns></returns>
     [Auth]
     [UserTypeAuth(UserType.Manager | UserType.AppUser)]
     [HttpPost("logout")]
-    public async Task<Response> LogoutAsync(LogoutCommand request) => await _mediator.Send(request);
+    public async Task<Response> LogoutAsync(LogoutCommand request, CancellationToken cancellation) => await _mediator.Send(request, cancellation);
 
     /// <summary>
     /// User's own password change operation.
     /// </summary>
     /// <param name="request"></param>
+    /// <param name="cancellation"></param>
     /// <returns></returns>
     [Auth]
     [HttpPut("password/change")]
     [UserTypeAuth(UserType.Manager | UserType.AppUser)]
-    public async Task<Response> ChangePasswordAsync(ChangePasswordCommand request) => await _mediator.Send(request);
+    public async Task<Response> ChangePasswordAsync(ChangePasswordCommand request, CancellationToken cancellation) => await _mediator.Send(request, cancellation);
 
     /// <summary>
     /// User can access his/her account information through this endpoint. If the logged in user and the sent id information do not match, the request will fail.
     /// </summary>
     /// <param name="request"></param>
+    /// <param name="cancellation"></param>
     /// <returns></returns>
     [Auth]
     [HttpGet("detail")]
     [UserTypeAuth(UserType.Manager | UserType.AppUser)]
-    public async Task<Response<AccountDetailDto>> AccountDetailsAsync([FromQuery] AccountDetailQuery request) => await _mediator.Send(request);
+    public async Task<Response<AccountDetailDto>> AccountDetailsAsync([FromQuery] AccountDetailQuery request, CancellationToken cancellation) => await _mediator.Send(request, cancellation);
 }

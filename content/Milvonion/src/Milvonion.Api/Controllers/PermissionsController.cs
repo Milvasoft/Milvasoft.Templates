@@ -27,10 +27,11 @@ public class PermissionsController(IMediator mediator, IPermissionManager permis
     /// Get permissions in the system.
     /// </summary>
     /// <param name="request"></param>
+    /// <param name="cancellation"></param>
     /// <returns></returns>
     [Auth(PermissionCatalog.PermissionManagement.List)]
     [HttpPatch]
-    public async Task<ListResponse<PermissionListDto>> GetPermissionsAsync(GetPermissionListQuery request) => await _mediator.Send(request);
+    public async Task<ListResponse<PermissionListDto>> GetPermissionsAsync(GetPermissionListQuery request, CancellationToken cancellation) => await _mediator.Send(request, cancellation);
 
     /// <summary>
     /// Migrates permissions to database.

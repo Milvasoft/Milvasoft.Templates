@@ -35,19 +35,6 @@
             <param name="assemblies"></param>
             <returns></returns>
         </member>
-        <member name="T:Milvonion.Application.Behaviours.CustomValidators">
-            <summary>
-            Custom validators.
-            </summary>
-        </member>
-        <member name="M:Milvonion.Application.Behaviours.CustomValidators.NotBeDefaultData``1(FluentValidation.IRuleBuilder{``0,System.Int32})">
-            <summary>
-            Checks whether the value is greater than or equal to 21.
-            </summary>
-            <typeparam name="T"></typeparam>
-            <param name="ruleBuilder"></param>
-            <returns></returns>
-        </member>
         <member name="T:Milvonion.Application.Behaviours.DefaultDataValidator`1">
             <summary>
             Default data validator.
@@ -61,6 +48,139 @@
         </member>
         <member name="M:Milvonion.Application.Behaviours.DefaultDataValidator`1.IsValid(FluentValidation.ValidationContext{`0},System.Int32)">
             <inheritdoc/>
+        </member>
+        <member name="T:Milvonion.Application.Behaviours.NameDescriptionTranslationDtoValidator">
+            <summary>
+            Feature query validations. 
+            </summary>
+        </member>
+        <member name="M:Milvonion.Application.Behaviours.NameDescriptionTranslationDtoValidator.#ctor(Milvasoft.Core.Abstractions.Localization.IMilvaLocalizer)">
+            <inheritdoc cref="T:Milvonion.Application.Behaviours.NameDescriptionTranslationDtoValidator"/>
+        </member>
+        <member name="T:Milvonion.Application.Behaviours.UpdateNameDescriptionTranslationDtoValidator">
+            <summary>
+            Feature query validations. 
+            </summary>
+        </member>
+        <member name="M:Milvonion.Application.Behaviours.UpdateNameDescriptionTranslationDtoValidator.#ctor(Milvasoft.Core.Abstractions.Localization.IMilvaLocalizer)">
+            <inheritdoc cref="T:Milvonion.Application.Behaviours.UpdateNameDescriptionTranslationDtoValidator"/>
+        </member>
+        <member name="T:Milvonion.Application.Behaviours.RuleBuilderOptionsExtensions">
+            <summary>
+            Custom validators.
+            </summary>
+        </member>
+        <member name="M:Milvonion.Application.Behaviours.RuleBuilderOptionsExtensions.NotBeDefaultData``1(FluentValidation.IRuleBuilder{``0,System.Int32})">
+            <summary>
+            Checks whether the value is greater than or equal to 21.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="ruleBuilder"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Milvonion.Application.Behaviours.RuleBuilderOptionsExtensions.NotBeDefaultData``1(FluentValidation.IRuleBuilderOptions{``0,System.Int32})">
+            <summary>
+            Checks whether the value is greater than or equal to 21.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="ruleBuilder"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Milvonion.Application.Behaviours.RuleBuilderOptionsExtensions.Email``1(FluentValidation.IRuleBuilder{``0,System.String},Milvasoft.Core.Abstractions.Localization.IMilvaLocalizer)">
+            <summary>
+            Checks whether the value is valid email address.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="ruleBuilder"></param>
+            <param name="localizer"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Milvonion.Application.Behaviours.RuleBuilderOptionsExtensions.Email``1(FluentValidation.IRuleBuilderOptions{``0,System.String},Milvasoft.Core.Abstractions.Localization.IMilvaLocalizer)">
+            <summary>
+            Checks whether the value is valid email address.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="ruleBuilder"></param>
+            <param name="localizer"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Milvonion.Application.Behaviours.RuleBuilderOptionsExtensions.PhoneNumber``1(FluentValidation.IRuleBuilder{``0,System.String},Milvasoft.Core.Abstractions.Localization.IMilvaLocalizer)">
+            <summary>
+            Checks whether the value is valid phone number.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="ruleBuilder"></param>
+            <param name="localizer"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Milvonion.Application.Behaviours.RuleBuilderOptionsExtensions.PhoneNumber``1(FluentValidation.IRuleBuilderOptions{``0,System.String},Milvasoft.Core.Abstractions.Localization.IMilvaLocalizer)">
+            <summary>
+            Checks whether the value is valid phone number.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="ruleBuilder"></param>
+            <param name="localizer"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Milvonion.Application.Behaviours.RuleBuilderOptionsExtensions.UrlAddress``1(FluentValidation.IRuleBuilder{``0,System.String},Milvasoft.Core.Abstractions.Localization.IMilvaLocalizer)">
+            <summary>
+            Checks whether the value is valid website address.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="ruleBuilder"></param>
+            <param name="localizer"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Milvonion.Application.Behaviours.RuleBuilderOptionsExtensions.UrlAddress``1(FluentValidation.IRuleBuilderOptions{``0,System.String},Milvasoft.Core.Abstractions.Localization.IMilvaLocalizer)">
+            <summary>
+            Checks whether the value is valid website address.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="ruleBuilder"></param>
+            <param name="localizer"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Milvonion.Application.Behaviours.RuleBuilderOptionsExtensions.NotNullOrEmpty``1(FluentValidation.IRuleBuilder{``0,System.String},Milvasoft.Core.Abstractions.Localization.IMilvaLocalizer,System.String)">
+            <summary>
+            Checks whether the value is valid website address.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="ruleBuilder"></param>
+            <param name="localizer"></param>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Milvonion.Application.Behaviours.RuleBuilderOptionsExtensions.NotNullOrEmpty``1(FluentValidation.IRuleBuilderOptions{``0,System.String},Milvasoft.Core.Abstractions.Localization.IMilvaLocalizer,System.String)">
+            <summary>
+            Checks whether the value is valid website address.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="ruleBuilder"></param>
+            <param name="localizer"></param>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Milvonion.Application.Behaviours.RuleBuilderOptionsExtensions.NotNullOrEmpty``2(FluentValidation.IRuleBuilder{``0,``1},Milvasoft.Core.Abstractions.Localization.IMilvaLocalizer,System.String)">
+            <summary>
+            Checks whether the value is valid website address.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <typeparam name="TProperty"></typeparam>
+            <param name="ruleBuilder"></param>
+            <param name="localizer"></param>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Milvonion.Application.Behaviours.RuleBuilderOptionsExtensions.NotNullOrEmpty``2(FluentValidation.IRuleBuilderOptions{``0,``1},Milvasoft.Core.Abstractions.Localization.IMilvaLocalizer,System.String)">
+            <summary>
+            Checks whether the value is valid website address.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <typeparam name="TProperty"></typeparam>
+            <param name="ruleBuilder"></param>
+            <param name="localizer"></param>
+            <param name="key"></param>
+            <returns></returns>
         </member>
         <member name="T:Milvonion.Application.Behaviours.ValidationBehaviorForResponse`2">
             <summary>
@@ -752,6 +872,26 @@
         <member name="P:Milvonion.Application.Dtos.RoleDtos.RoleListDto.Projection">
             <summary>
             Projection expression for mapping Role entity to RoleListDto.
+            </summary>
+        </member>
+        <member name="T:Milvonion.Application.Dtos.TranslationDtos.NameDescriptionTranslationDto">
+            <summary>
+            Common translation dto.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Dtos.TranslationDtos.NameDescriptionTranslationDto.Name">
+            <summary>
+            Translation of name.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Dtos.TranslationDtos.NameDescriptionTranslationDto.Description">
+            <summary>
+            Translation of description.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Dtos.TranslationDtos.NameDescriptionTranslationDto.LanguageId">
+            <summary>
+            Id of language.
             </summary>
         </member>
         <member name="T:Milvonion.Application.Dtos.UIDtos.LocalizedContentDto">

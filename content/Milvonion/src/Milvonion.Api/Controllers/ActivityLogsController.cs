@@ -27,8 +27,9 @@ public class ActivityLogsController(IMediator mediator) : ControllerBase
     /// Gets user activities.
     /// </summary>
     /// <param name="request"></param>
+    /// <param name="cancellation"></param>
     /// <returns></returns>
     [Auth(PermissionCatalog.ActivityLogManagement.List)]
     [HttpPatch]
-    public async Task<ListResponse<ActivityLogListDto>> GetRolesAsync(GetActivityLogListQuery request) => await _mediator.Send(request);
+    public async Task<ListResponse<ActivityLogListDto>> GetRolesAsync(GetActivityLogListQuery request, CancellationToken cancellation) => await _mediator.Send(request, cancellation);
 }

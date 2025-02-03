@@ -42,4 +42,10 @@
 	  <ProjectReference Include="..\Milvonion.Infrastructure\Milvonion.Infrastructure.csproj" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <None Update="StaticFiles\SQL\create_triggers.sql">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </None>
+	</ItemGroup>
+
 </Project>
