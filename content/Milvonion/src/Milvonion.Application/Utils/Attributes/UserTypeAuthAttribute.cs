@@ -1,8 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc.Filters;
-using System.Net;
-#if !DEBUG
-using Milvasoft.Core.Exceptions;
-#endif
 
 namespace Milvonion.Application.Utils.Attributes;
 
@@ -22,9 +18,8 @@ public class UserTypeAuthAttribute(UserType userType) : Attribute, IAuthorizatio
 
         if (currentUserType == null || (_userType & currentUserType) != currentUserType)
         {
-            context.HttpContext.Response.StatusCode = (int)HttpStatusCode.Forbidden;
 #if !DEBUG
-            throw new MilvaUserFriendlyException();
+            context.HttpContext.Response.ThrowWithForbidden();
 #endif
         }
     }

@@ -1,6 +1,7 @@
 ﻿using FluentValidation;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
+using Milvasoft.Core.Exceptions;
 using Milvasoft.Core.Utils.Constants;
 using Milvasoft.Identity.Abstract;
 using System.Globalization;
@@ -217,6 +218,59 @@ public static partial class MilvonionExtensions
         var array = Convert.FromBase64String(base64String);
 
         return array;
+    }
+
+    /// <summary>
+    /// Throws an exception if the current user does not have the required permissions.
+    /// </summary>
+    /// <param name="httpContext"></param>
+    /// <param name="permissions"></param>
+    /// <returns></returns>
+    public static void ThrowIfCurrentUserNotAuthorized(this HttpContext httpContext, params List<string> permissions)
+    {
+        var currentUserPermissonExists = httpContext.Items.TryGetValue(httpContext.GetCurrentUserPermissions(), out object contextItem);
+
+        if (!currentUserPermissonExists)
+            httpContext.Response.ThrowWithForbidden();
+
+        var currentUserPermissons = (IEnumerable<string>)contextItem;
+
+        permissions.Add(PermissionCatalog.App.SuperAdmin);
+
+        var hasPermission = currentUserPermissons.Any(permissions.Contains);
+
+        if (!hasPermission)
+            httpContext.Response.ThrowWithForbidden();
+    }
+
+    /// <summary>
+    /// Sets the status code of the response to 401.
+    /// </summary>
+    /// <param name="response"></param>
+    public static void ThrowWithUnauthorized(this HttpResponse response)
+    {
+        response.StatusCode = StatusCodes.Status401Unauthorized;
+        throw new MilvaUserFriendlyException();
+    }
+
+    /// <summary>
+    /// Sets the status code of the response to 403.
+    /// </summary>
+    /// <param name="response"></param>
+    public static void ThrowWithForbidden(this HttpResponse response)
+    {
+        response.StatusCode = StatusCodes.Status403Forbidden;
+        throw new MilvaUserFriendlyException();
+    }
+
+    /// <summary>
+    /// Sets the status code of the response to 419.
+    /// </summary>
+    /// <param name="response"></param>
+    public static void ThrowWithSessionTimeout(this HttpResponse response)
+    {
+        response.StatusCode = StatusCodes.Status419AuthenticationTimeout;
+        throw new MilvaUserFriendlyException();
     }
 
     [GeneratedRegex(@"^data:(?<mediatype>[\w/+.-]+);base64,(?<data>[a-zA-Z0-9+/]+={0,2})$")]

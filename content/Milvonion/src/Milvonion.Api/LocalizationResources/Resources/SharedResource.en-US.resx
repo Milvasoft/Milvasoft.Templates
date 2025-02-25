@@ -570,4 +570,10 @@
   <data name="Global.NameSurname" xml:space="preserve">
     <value>Name Surname</value>
   </data>
+  <data name="NoDataToExport" xml:space="preserve">
+    <value>No data found for export!</value>
+  </data>
+  <data name="ExportType.User" xml:space="preserve">
+    <value>users</value>
+  </data>
 </root>

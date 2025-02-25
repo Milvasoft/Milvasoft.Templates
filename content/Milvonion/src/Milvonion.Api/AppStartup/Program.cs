@@ -67,6 +67,8 @@ try
 
     services.AddLinkedWithFormatters(assemblies);
 
+    services.AddFetchers();
+
     services.Configure<RouteOptions>(options =>
     {
         options.LowercaseUrls = true;

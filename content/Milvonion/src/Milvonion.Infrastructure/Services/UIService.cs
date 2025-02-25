@@ -48,11 +48,11 @@ public class UIService(IMultiLanguageManager multiLanguageManager,
     {
         var menuItems = await _menuItemRepository.GetAllAsync(projection: MenuItem.Projections.AccessibleMenuItems, cancellationToken: cancellationToken);
 
-        menuItems = menuItems.Where(mi => mi.PermissionOrGroupNames.Exists(p => userPermissions.Exists(up => up.PermissionGroup == p || up.FormatPermissionAndGroup() == p))).ToList();
+        menuItems = [.. menuItems.Where(mi => mi.PermissionOrGroupNames.Exists(p => userPermissions.Exists(up => up.PermissionGroup == p || up.FormatPermissionAndGroup() == p)))];
 
         var hierarchedMenuItems = BuildHierarchy(menuItems);
 
-        return hierarchedMenuItems.Select(MenuItemDto.Projection(_multiLanguageManager)).ToList();
+        return [.. hierarchedMenuItems.Select(MenuItemDto.Projection(_multiLanguageManager))];
     }
 
     /// <summary>
@@ -70,12 +70,11 @@ public class UIService(IMultiLanguageManager multiLanguageManager,
 
         var userPermissions = user.RoleRelations.SelectMany(i => i.Role.RolePermissionRelations.Select(i => i.Permission)).ToList();
 
-        menuItems = menuItems.Where(mi => mi.PermissionOrGroupNames.Exists(p => userPermissions.Exists(up => up.PermissionGroup == p || up.FormatPermissionAndGroup() == p)))
-                             .ToList();
+        menuItems = [.. menuItems.Where(mi => mi.PermissionOrGroupNames.Exists(p => userPermissions.Exists(up => up.PermissionGroup == p || up.FormatPermissionAndGroup() == p)))];
 
         var hierarchedMenuItems = BuildHierarchy(menuItems);
 
-        return Response<List<MenuItemDto>>.Success(hierarchedMenuItems.Select(MenuItemDto.Projection(_multiLanguageManager)).ToList());
+        return Response<List<MenuItemDto>>.Success([.. hierarchedMenuItems.Select(MenuItemDto.Projection(_multiLanguageManager))]);
     }
 
     #endregion
@@ -97,7 +96,7 @@ public class UIService(IMultiLanguageManager multiLanguageManager,
 
         var currentUserPermissions = _httpContextAccessor.HttpContext.GetCurrentUserPermissions().ToList();
 
-        page.AdditionalActions = page.AdditionalActions.Where(pa => currentUserPermissions.Exists(pa.Permissions.Contains)).ToList();
+        page.AdditionalActions = [.. page.AdditionalActions.Where(pa => currentUserPermissions.Exists(pa.Permissions.Contains))];
 
         var pageDto = PageDto.Projection(_multiLanguageManager).Invoke(page);
 
@@ -126,7 +125,7 @@ public class UIService(IMultiLanguageManager multiLanguageManager,
 
         foreach (var page in pages)
         {
-            page.AdditionalActions = page.AdditionalActions.Where(pa => userPermissions.Exists(pa.Permissions.Contains)).ToList();
+            page.AdditionalActions = [.. page.AdditionalActions.Where(pa => userPermissions.Exists(pa.Permissions.Contains))];
 
             var pageDto = PageDto.Projection(_multiLanguageManager).Invoke(page);
 
@@ -171,7 +170,7 @@ public class UIService(IMultiLanguageManager multiLanguageManager,
             Value = lv.Value
         });
 
-        return Response<List<LocalizedContentDto>>.Success(uiLocalizedValues.ToList());
+        return Response<List<LocalizedContentDto>>.Success([.. uiLocalizedValues]);
     }
 
     /// <summary>

@@ -103,7 +103,7 @@ public class AccountManager(IMilvonionRepositoryBase<UserSession> userSessionRep
             return [];
 
         // According to expired date and duplicate device id, find the sessions to remove.
-        List<UserSession> sessionsToRemove = userSessions.Where(s => s.DeviceId == deviceId || s.ExpiryDate < DateTime.UtcNow).ToList();
+        List<UserSession> sessionsToRemove = [.. userSessions.Where(s => s.DeviceId == deviceId || s.ExpiryDate < DateTime.UtcNow)];
 
         if (userSessions.Count - sessionsToRemove.Count > 4)
             sessionsToRemove.AddRange(userSessions.OrderBy(s => s.CreationDate).Take(1));

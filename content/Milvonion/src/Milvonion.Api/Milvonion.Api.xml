@@ -419,6 +419,24 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="T:Milvonion.Api.Controllers.ExportsController">
+            <summary>
+            Export endpoints.
+            </summary>
+        </member>
+        <member name="M:Milvonion.Api.Controllers.ExportsController.#ctor(Milvonion.Application.Interfaces.IExportService)">
+            <summary>
+            Export endpoints.
+            </summary>
+        </member>
+        <member name="M:Milvonion.Api.Controllers.ExportsController.ExportProductsToExcelAsync(Milvonion.Application.Dtos.ExportDtos.ExportRequest,System.Threading.CancellationToken)">
+            <summary>
+            Dynamically creates an excel file according to the export type.
+            </summary>
+            <param name="request"></param>
+            <param name="cancellation"></param>
+            <returns></returns>
+        </member>
         <member name="T:Milvonion.Api.Controllers.HealthCheckController">
             <summary>
             Health check endpoints.

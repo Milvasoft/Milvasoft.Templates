@@ -41,6 +41,7 @@ public static class InfraServiceCollectionExtensions
         services.AddScoped<ILookupService, LookupService>();
         services.AddScoped<IUIService, UIService>();
         services.AddScoped<IDeveloperService, DeveloperService>();
+        services.AddScoped<IExportService, ExportService>();
 
         services.AddTransient(typeof(Lazy<>), typeof(MilvonionLazy<>));
 

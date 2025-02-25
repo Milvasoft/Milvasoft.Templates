@@ -59,5 +59,6 @@ public static class MessageKey
     public const string Translations = nameof(Translations);
     public const string InvalidPhoneNumber = nameof(InvalidPhoneNumber);
     public const string InvalidUrlAddress = nameof(InvalidUrlAddress);
+    public const string NoDataToExport = nameof(NoDataToExport);
 #pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 }

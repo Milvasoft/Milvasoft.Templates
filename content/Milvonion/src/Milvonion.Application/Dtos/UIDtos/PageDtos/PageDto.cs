@@ -77,6 +77,6 @@ public class PageDto : MilvonionBaseDto<int>
         HasDetail = p.HasDetail,
         HasEdit = p.HasEdit,
         HasDelete = p.HasDelete,
-        AdditionalActions = p.AdditionalActions.Select(PageActionDto.Projection(multiLanguageManager)).ToList()
+        AdditionalActions = [.. p.AdditionalActions.Select(PageActionDto.Projection(multiLanguageManager))]
     };
 }

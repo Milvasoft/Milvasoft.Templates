@@ -570,4 +570,10 @@
   <data name="Global.NameSurname" xml:space="preserve">
     <value>Ad Soyad</value>
   </data>
+  <data name="NoDataToExport" xml:space="preserve">
+    <value>Dışarı aktarılacak veri bulunamadı!</value>
+  </data>
+  <data name="ExportType.User" xml:space="preserve">
+    <value>kullanicilar</value>
+  </data>
 </root>

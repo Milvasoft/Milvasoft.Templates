@@ -11,6 +11,7 @@ using Milvasoft.Identity.Builder;
 using Milvasoft.Localization.Builder;
 using Milvasoft.Localization.Resx;
 using Milvonion.Application.Utils.Constants;
+using Milvonion.Application.Utils.Extensions;
 using Milvonion.Domain;
 using Milvonion.Infrastructure.Utils.Swagger;
 using System.IO.Compression;
@@ -62,8 +63,7 @@ public static partial class StartupExtensions
                     if (!(context.Response.StatusCode == 403 || context.Response.StatusCode == 401))
                     {
                         // Since this scenario will work when a token is not sent to an endpoint that requires authorization, I set the response to 401.
-                        context.Response.StatusCode = 401;
-                        throw new MilvaUserFriendlyException();
+                        context.Response.ThrowWithUnauthorized();
                     }
 
                     return Task.CompletedTask;
@@ -76,6 +76,7 @@ public static partial class StartupExtensions
                 },
                 OnAuthenticationFailed = context =>
                 {
+                    context.Response.ThrowWithUnauthorized();
                     // Invalid token
                     context.Response.StatusCode = 401;
                     throw new MilvaUserFriendlyException();

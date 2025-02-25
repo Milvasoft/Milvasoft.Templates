@@ -1,4 +1,5 @@
 ﻿using Milvasoft.Components.Rest.MilvaResponse;
+using Milvasoft.Core.Helpers;
 using Milvasoft.Interception.Ef.Transaction;
 using Milvonion.Application.Interfaces;
 using Milvonion.Application.Utils.PermissionManager;
@@ -66,6 +67,13 @@ public class PermissionManager(IMilvonionRepositoryBase<Permission> permissionRe
 
                 permissionsToRemove.AddRange(permissionsInDatabase.ExceptBy(staticPermissionsInGroup.Select(i => i.NormalizedName), i => i.NormalizedName));
             }
+        }
+
+        if (!groupedPermissionsInDatabase.IsNullOrEmpty())
+        {
+            var notExistsGroups = groupedPermissionsInDatabase.ExceptBy(groupedStaticPermissions.Keys, i => i.Key);
+
+            permissionsToRemove.AddRange(notExistsGroups.SelectMany(i => i.Value));
         }
 
         // Add the permissions to the database

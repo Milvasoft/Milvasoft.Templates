@@ -789,6 +789,79 @@
             Enum localized name.
             </summary>
         </member>
+        <member name="T:Milvonion.Application.Dtos.ExportDtos.ExportType">
+            <summary>
+            Export types.
+            </summary>
+        </member>
+        <member name="F:Milvonion.Application.Dtos.ExportDtos.ExportType.Product">
+            <summary>
+            Product list export.
+            </summary>
+        </member>
+        <member name="F:Milvonion.Application.Dtos.ExportDtos.ExportType.ExpenseRevenue">
+            <summary>
+            Expense revenue list export.
+            </summary>
+        </member>
+        <member name="F:Milvonion.Application.Dtos.ExportDtos.ExportType.User">
+            <summary>
+            User list export.
+            </summary>
+        </member>
+        <member name="T:Milvonion.Application.Dtos.ExportDtos.ExportRequest">
+            <summary>
+            Export request.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Dtos.ExportDtos.ExportRequest.ExportType">
+            <summary>
+            Determines whether which data to export.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Dtos.ExportDtos.ExportRequest.ListRequest">
+            <summary>
+            Export specifications.
+            </summary>
+        </member>
+        <member name="M:Milvonion.Application.Dtos.ExportDtos.ExportRequest.GetQueryType">
+            <summary>
+            Gets query type according to export type.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Milvonion.Application.Dtos.ExportDtos.ExportRequest.GetRequiredPermissions">
+            <summary>
+            Gets required permissions according to export type.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Milvonion.Application.Dtos.ExportDtos.ExportRequest.IsValid">
+            <summary>
+            Validates request.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Milvonion.Application.Dtos.ExportDtos.ExportResult">
+            <summary>
+            Data transfer object for export.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Dtos.ExportDtos.ExportResult.FileStream">
+            <summary>
+            File stream.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Dtos.ExportDtos.ExportResult.MimeType">
+            <summary>
+            File extension.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Dtos.ExportDtos.ExportResult.FileName">
+            <summary>
+            File extension.
+            </summary>
+        </member>
         <member name="T:Milvonion.Application.Dtos.NameIntNavigationDto">
             <summary>
             It can be used to obtain Id-Name pair information for any domain.
@@ -2680,6 +2753,36 @@
             <param name="listRequest"></param>
             <returns></returns>
         </member>
+        <member name="T:Milvonion.Application.Interfaces.IExportService">
+            <summary>
+            Used to export data. 
+            </summary>
+        </member>
+        <member name="M:Milvonion.Application.Interfaces.IExportService.DynamicExportToExcelAsync(Milvonion.Application.Dtos.ExportDtos.ExportRequest,System.Threading.CancellationToken)">
+            <summary>
+            Dynamically creates an excel file according to the export type.
+            </summary>
+            <param name="request"></param>
+            <param name="cancellationToken"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Milvonion.Application.Interfaces.IExportService.ExportToExcel``1(Milvasoft.Components.Rest.MilvaResponse.ListResponse{``0},System.String)">
+            <summary>
+            Exports the data to excel.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="response"></param>
+            <param name="pageName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Milvonion.Application.Interfaces.IExportService.ExportToExcel(Milvasoft.Components.Rest.MilvaResponse.IHasMetadata,System.String)">
+            <summary>
+            Exports the data to excel.
+            </summary>
+            <param name="hasMetadataResponse"></param>
+            <param name="pageName"></param>
+            <returns></returns>
+        </member>
         <member name="T:Milvonion.Application.Interfaces.ILookupService">
             <summary>
             Lookup service for getting dynamic entity fetch.
@@ -3101,6 +3204,32 @@
             <param name="dataUriBase64"></param>
             <returns></returns>
         </member>
+        <member name="M:Milvonion.Application.Utils.Extensions.MilvonionExtensions.ThrowIfCurrentUserNotAuthorized(Microsoft.AspNetCore.Http.HttpContext,System.Collections.Generic.List{System.String})">
+            <summary>
+            Throws an exception if the current user does not have the required permissions.
+            </summary>
+            <param name="httpContext"></param>
+            <param name="permissions"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Milvonion.Application.Utils.Extensions.MilvonionExtensions.ThrowWithUnauthorized(Microsoft.AspNetCore.Http.HttpResponse)">
+            <summary>
+            Sets the status code of the response to 401.
+            </summary>
+            <param name="response"></param>
+        </member>
+        <member name="M:Milvonion.Application.Utils.Extensions.MilvonionExtensions.ThrowWithForbidden(Microsoft.AspNetCore.Http.HttpResponse)">
+            <summary>
+            Sets the status code of the response to 403.
+            </summary>
+            <param name="response"></param>
+        </member>
+        <member name="M:Milvonion.Application.Utils.Extensions.MilvonionExtensions.ThrowWithSessionTimeout(Microsoft.AspNetCore.Http.HttpResponse)">
+            <summary>
+            Sets the status code of the response to 419.
+            </summary>
+            <param name="response"></param>
+        </member>
         <member name="M:Milvonion.Application.Utils.Extensions.MilvonionExtensions.DataUriRegex">
             <remarks>
             Pattern:<br/>
@@ -3128,6 +3257,102 @@
             ○ Match a whitespace character atomically at least once.<br/>
             </code>
             </remarks>
+        </member>
+        <member name="T:Milvonion.Application.Utils.Extensions.FileHelper">
+            <summary>
+            File helpers.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Utils.Extensions.FileHelper.FileSignatures">
+            <summary>
+            Source: https://en.wikipedia.org/wiki/List_of_file_signatures
+            To read the first bytes of a file you can use the following command on UNIX systems: od -t x1 -N 10 filename
+            </summary>
+        </member>
+        <member name="F:Milvonion.Application.Utils.Extensions.FileHelper.IpaExtension">
+            <summary>
+            ipa file extension.
+            </summary>
+        </member>
+        <member name="F:Milvonion.Application.Utils.Extensions.FileHelper.ApkExtension">
+            <summary>
+            apk file extension.
+            </summary>
+        </member>
+        <member name="M:Milvonion.Application.Utils.Extensions.FileHelper.GetBoundary(Microsoft.Net.Http.Headers.MediaTypeHeaderValue,System.Int32)">
+            <summary>
+            Gets boundary from content type.
+            </summary>
+            <param name="contentType"></param>
+            <param name="lengthLimit"></param>
+            <returns></returns>
+            <exception cref="T:System.IO.InvalidDataException"></exception>
+        </member>
+        <member name="M:Milvonion.Application.Utils.Extensions.FileHelper.GetEncoding(Microsoft.AspNetCore.WebUtilities.MultipartSection)">
+            <summary>
+            Gets encoding from section.
+            </summary>
+            <param name="section"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Milvonion.Application.Utils.Extensions.FileHelper.HasFileContentDisposition(Microsoft.Net.Http.Headers.ContentDispositionHeaderValue)">
+            <summary>
+            Checks if content disposition has file.
+            </summary>
+            <param name="contentDisposition"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Milvonion.Application.Utils.Extensions.FileHelper.HasFormDataContentDisposition(Microsoft.Net.Http.Headers.ContentDispositionHeaderValue)">
+            <summary>
+            Cheks form data has content disposition.
+            </summary>
+            <param name="contentDisposition"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Milvonion.Application.Utils.Extensions.FileHelper.GetFileExtension(System.String)">
+            <summary>
+            Gets file extension from file path.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Milvonion.Application.Utils.Extensions.FileHelper.GetFileNameWithoutExtension(System.String)">
+            <summary>
+            Gets file name without extension from file path.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Milvonion.Application.Utils.Extensions.FileHelper.GetFileName(System.String)">
+            <summary>
+            Gets file name with extension from file path.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Milvonion.Application.Utils.Extensions.FileHelper.MimeTypeHelper">
+            <summary>
+            Mime type helper
+            </summary>
+        </member>
+        <member name="F:Milvonion.Application.Utils.Extensions.FileHelper.MimeTypeHelper.ApplicationApk">
+            <summary>
+            .apk mime type.
+            </summary>
+        </member>
+        <member name="F:Milvonion.Application.Utils.Extensions.FileHelper.MimeTypeHelper.ApplicationIpa">
+            <summary>
+            .ipa mime type.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Utils.Extensions.FileHelper.MimeTypeHelper.ExtensionMimeTypePairs">
+            <summary>
+            File extension mime type pairs.
+            </summary>
+        </member>
+        <member name="M:Milvonion.Application.Utils.Extensions.FileHelper.MimeTypeHelper.GetMimeType(System.String)">
+            <summary>
+            Gets mime type from file extension.
+            </summary>
+            <param name="fileExtension"></param>
+            <returns></returns>
         </member>
         <member name="T:Milvonion.Application.Utils.LinkedWithFormatters.ByteArrayToBase64Formatter">
             <summary>
@@ -3191,6 +3416,13 @@
             <param name="assemblies"></param>
             <returns></returns>
         </member>
+        <member name="M:Milvonion.Application.Utils.LinkedWithFormatters.FormatterServiceCollectionExtensions.AddFetchers(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            Add linked with formatters to service collection.
+            </summary>
+            <param name="services"></param>
+            <returns></returns>
+        </member>
         <member name="M:Milvonion.Application.Utils.LinkedWithFormatters.FormatterServiceCollectionExtensions.AddEnumFormatters(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Reflection.Assembly[])">
             <summary>
             Finds enums in assemblies and adds their enum formatters to the service collection.
@@ -3208,6 +3440,30 @@
             <inheritdoc/>
         </member>
         <member name="M:Milvonion.Application.Utils.LinkedWithFormatters.LanguageIdNameFormatter.Format(System.Object)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Milvonion.Application.Utils.LinkedWithFormatters.LookupFetcher">
+            <summary>
+            Lookup options fetcher.
+            </summary>
+            <param name="serviceProvider"></param>
+        </member>
+        <member name="M:Milvonion.Application.Utils.LinkedWithFormatters.LookupFetcher.#ctor(System.IServiceProvider)">
+            <summary>
+            Lookup options fetcher.
+            </summary>
+            <param name="serviceProvider"></param>
+        </member>
+        <member name="F:Milvonion.Application.Utils.LinkedWithFormatters.LookupFetcher.FetcherName">
+            <inheritdoc/>
+        </member>
+        <member name="P:Milvonion.Application.Utils.LinkedWithFormatters.LookupFetcher.IsAsync">
+            <inheritdoc/>
+        </member>
+        <member name="M:Milvonion.Application.Utils.LinkedWithFormatters.LookupFetcher.Fetch(System.Object)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Milvonion.Application.Utils.LinkedWithFormatters.LookupFetcher.FetchAsync(System.Object)">
             <inheritdoc/>
         </member>
         <member name="T:Milvonion.Application.Utils.LinkedWithFormatters.PageNameTranslateFormatter">

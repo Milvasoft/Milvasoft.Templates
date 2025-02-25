@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Milvasoft.Attributes.Annotations;
+using Milvasoft.Components.Rest.OptionsDataFetcher.EnumValueFetcher;
 using System.Reflection;
 
 namespace Milvonion.Application.Utils.LinkedWithFormatters;
@@ -23,6 +24,20 @@ public static class FormatterServiceCollectionExtensions
         services.AddKeyedScoped<ILinkedWithFormatter, ExistsNotFormatter>(ExistsNotFormatter.FormatterName);
         services.AddKeyedScoped<ILinkedWithFormatter, PageNameTranslateFormatter>(PageNameTranslateFormatter.FormatterName);
         services.AddKeyedScoped<ILinkedWithFormatter, LanguageIdNameFormatter>(LanguageIdNameFormatter.FormatterName);
+
+        return services;
+    }
+
+    /// <summary>
+    /// Add linked with formatters to service collection.
+    /// </summary>
+    /// <param name="services"></param>
+    /// <returns></returns>
+    public static IServiceCollection AddFetchers(this IServiceCollection services)
+    {
+        services.AddKeyedScoped<IOptionsDataFetcher, EnumLocalizedValueFetcher>(EnumLocalizedValueFetcher.FetcherName);
+        services.AddKeyedScoped<IOptionsDataFetcher, BoolLocalizedValueFetcher>(BoolLocalizedValueFetcher.FetcherName);
+        services.AddKeyedScoped<IOptionsDataFetcher, LookupFetcher>(LookupFetcher.FetcherName);
 
         return services;
     }
