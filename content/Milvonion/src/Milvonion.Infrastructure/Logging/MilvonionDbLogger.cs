@@ -37,7 +37,7 @@ public class MilvonionDbLogger(ILoggerFactory loggerFactory) : IMilvaLogger
     }
 
     /// <inheritdoc/>
-    public async Task LogAsync(string logEntry)
+    public Task LogAsync(string logEntry)
     {
         var logObject = JsonSerializer.Deserialize<MethodLog>(logEntry);
 
@@ -54,7 +54,7 @@ public class MilvonionDbLogger(ILoggerFactory loggerFactory) : IMilvaLogger
                                    logObject.Exception,
                                    logObject.IsSuccess);
 
-        await Task.CompletedTask;
+        return Task.CompletedTask;
     }
 
     /// <inheritdoc/>

@@ -31,7 +31,7 @@ public class PermissionsController(IMediator mediator, IPermissionManager permis
     /// <returns></returns>
     [Auth(PermissionCatalog.PermissionManagement.List)]
     [HttpPatch]
-    public async Task<ListResponse<PermissionListDto>> GetPermissionsAsync(GetPermissionListQuery request, CancellationToken cancellation) => await _mediator.Send(request, cancellation);
+    public Task<ListResponse<PermissionListDto>> GetPermissionsAsync(GetPermissionListQuery request, CancellationToken cancellation) => _mediator.Send(request, cancellation);
 
     /// <summary>
     /// Migrates permissions to database.
@@ -39,5 +39,5 @@ public class PermissionsController(IMediator mediator, IPermissionManager permis
     /// <returns></returns>
     [Auth(PermissionCatalog.App.SuperAdmin)]
     [HttpPut("migrate")]
-    public async Task<Response<string>> MigratePermissionsAsync() => await _permissionManager.MigratePermissionsAsync(default);
+    public Task<Response<string>> MigratePermissionsAsync() => _permissionManager.MigratePermissionsAsync(default);
 }

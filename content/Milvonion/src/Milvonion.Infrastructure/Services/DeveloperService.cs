@@ -44,7 +44,7 @@ public class DeveloperService(IMediator mediator,
     /// Remove, recreates and seed database for development purposes.
     /// </summary>
     /// <returns></returns>
-    public async Task<Response> ResetDatabaseAsync() => await _databaseMigrator.ResetDatabaseAsync(_configuration, default);
+    public Task<Response> ResetDatabaseAsync() => _databaseMigrator.ResetDatabaseAsync(_configuration, default);
 
     /// <summary>
     /// Seeds data for development purposes.
@@ -146,19 +146,19 @@ public class DeveloperService(IMediator mediator,
     /// </summary>
     /// <returns></returns>
     [ExcludeFromMetadata]
-    public async Task<Response<string>> InitDatabaseAsync() => await _databaseMigrator.InitDatabaseAsync(_permissionManager, default);
+    public Task<Response<string>> InitDatabaseAsync() => _databaseMigrator.InitDatabaseAsync(_permissionManager, default);
 
     /// <summary>
     /// Gets method logs.
     /// </summary>
     /// <param name="listRequest"></param>
     /// <returns></returns>
-    public async Task<ListResponse<MethodLog>> GetMethodLogsAsync(ListRequest listRequest) => await _methodLogRepository.GetAllAsync(listRequest);
+    public Task<ListResponse<MethodLog>> GetMethodLogsAsync(ListRequest listRequest) => _methodLogRepository.GetAllAsync(listRequest);
 
     /// <summary>
     /// Gets api logs.
     /// </summary>
     /// <param name="listRequest"></param>
     /// <returns></returns>
-    public async Task<ListResponse<ApiLog>> GetApiLogsAsync(ListRequest listRequest) => await _apiLogRepository.GetAllAsync(listRequest);
+    public Task<ListResponse<ApiLog>> GetApiLogsAsync(ListRequest listRequest) => _apiLogRepository.GetAllAsync(listRequest);
 }

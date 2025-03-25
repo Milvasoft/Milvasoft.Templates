@@ -18,6 +18,10 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+		<PackageReference Include="AsyncFixer" Version="1.6.0">
+		  <PrivateAssets>all</PrivateAssets>
+		  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
 		<PackageReference Include="Azure.Identity" Version="1.13.2" />
 		<PackageReference Include="Bogus" Version="35.6.2" />
 		<PackageReference Include="FluentAssertions" Version="[7.0.0]" />

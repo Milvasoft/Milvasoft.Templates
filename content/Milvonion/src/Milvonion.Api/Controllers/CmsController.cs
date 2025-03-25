@@ -52,7 +52,7 @@ public class CmsController(IMediator mediator) : ControllerBase
     /// <returns></returns>
     [Auth(PermissionCatalog.NamespaceManagement.List)]
     [HttpPatch("namespaces")]
-    public async Task<ListResponse<NamespaceListDto>> GetNamespacesAsync(GetNamespaceListQuery request, CancellationToken cancellation) => await _mediator.Send(request, cancellation);
+    public Task<ListResponse<NamespaceListDto>> GetNamespacesAsync(GetNamespaceListQuery request, CancellationToken cancellation) => _mediator.Send(request, cancellation);
 
     /// <summary>
     /// Get namespace according to namespace id.
@@ -62,7 +62,7 @@ public class CmsController(IMediator mediator) : ControllerBase
     /// <returns></returns>
     [Auth(PermissionCatalog.NamespaceManagement.Detail)]
     [HttpGet("namespaces/namespace")]
-    public async Task<Response<NamespaceDetailDto>> GetNamespaceAsync([FromQuery] GetNamespaceDetailQuery request, CancellationToken cancellation) => await _mediator.Send(request, cancellation);
+    public Task<Response<NamespaceDetailDto>> GetNamespaceAsync([FromQuery] GetNamespaceDetailQuery request, CancellationToken cancellation) => _mediator.Send(request, cancellation);
 
     /// <summary>
     /// Adds namespace.
@@ -72,7 +72,7 @@ public class CmsController(IMediator mediator) : ControllerBase
     /// <returns></returns>
     [Auth(PermissionCatalog.NamespaceManagement.Create)]
     [HttpPost("namespaces/namespace")]
-    public async Task<Response<int>> AddNamespaceAsync(CreateNamespaceCommand request, CancellationToken cancellation) => await _mediator.Send(request, cancellation);
+    public Task<Response<int>> AddNamespaceAsync(CreateNamespaceCommand request, CancellationToken cancellation) => _mediator.Send(request, cancellation);
 
     /// <summary>
     /// Updates namespace. Only the fields that are sent as isUpdated true are updated.
@@ -82,7 +82,7 @@ public class CmsController(IMediator mediator) : ControllerBase
     /// <returns></returns>
     [Auth(PermissionCatalog.NamespaceManagement.Update)]
     [HttpPut("namespaces/namespace")]
-    public async Task<Response<int>> UpdateNamespaceAsync(UpdateNamespaceCommand request, CancellationToken cancellation) => await _mediator.Send(request, cancellation);
+    public Task<Response<int>> UpdateNamespaceAsync(UpdateNamespaceCommand request, CancellationToken cancellation) => _mediator.Send(request, cancellation);
 
     /// <summary>
     /// Removes namespace.
@@ -92,7 +92,7 @@ public class CmsController(IMediator mediator) : ControllerBase
     /// <returns></returns>
     [Auth(PermissionCatalog.NamespaceManagement.Delete)]
     [HttpDelete("namespaces/namespace")]
-    public async Task<Response<int>> RemoveNamespaceAsync([FromQuery] DeleteNamespaceCommand request, CancellationToken cancellation) => await _mediator.Send(request, cancellation);
+    public Task<Response<int>> RemoveNamespaceAsync([FromQuery] DeleteNamespaceCommand request, CancellationToken cancellation) => _mediator.Send(request, cancellation);
 
     #endregion
 
@@ -106,7 +106,7 @@ public class CmsController(IMediator mediator) : ControllerBase
     /// <returns></returns>
     [Auth(PermissionCatalog.ResourceGroupManagement.List)]
     [HttpPatch("resourceGroups")]
-    public async Task<ListResponse<ResourceGroupListDto>> GetResourceGroupsAsync(GetResourceGroupListQuery request, CancellationToken cancellation) => await _mediator.Send(request, cancellation);
+    public Task<ListResponse<ResourceGroupListDto>> GetResourceGroupsAsync(GetResourceGroupListQuery request, CancellationToken cancellation) => _mediator.Send(request, cancellation);
 
     /// <summary>
     /// Get resource group according to resourceGroup id.
@@ -116,7 +116,7 @@ public class CmsController(IMediator mediator) : ControllerBase
     /// <returns></returns>
     [Auth(PermissionCatalog.ResourceGroupManagement.Detail)]
     [HttpGet("resourceGroups/resourceGroup")]
-    public async Task<Response<ResourceGroupDetailDto>> GetResourceGroupAsync([FromQuery] GetResourceGroupDetailQuery request, CancellationToken cancellation) => await _mediator.Send(request, cancellation);
+    public Task<Response<ResourceGroupDetailDto>> GetResourceGroupAsync([FromQuery] GetResourceGroupDetailQuery request, CancellationToken cancellation) => _mediator.Send(request, cancellation);
 
     /// <summary>
     /// Adds resource group.
@@ -126,7 +126,7 @@ public class CmsController(IMediator mediator) : ControllerBase
     /// <returns></returns>
     [Auth(PermissionCatalog.ResourceGroupManagement.Create)]
     [HttpPost("resourceGroups/resourceGroup")]
-    public async Task<Response<int>> AddResourceGroupAsync(CreateResourceGroupCommand request, CancellationToken cancellation) => await _mediator.Send(request, cancellation);
+    public Task<Response<int>> AddResourceGroupAsync(CreateResourceGroupCommand request, CancellationToken cancellation) => _mediator.Send(request, cancellation);
 
     /// <summary>
     /// Updates resource group. Only the fields that are sent as isUpdated true are updated.
@@ -136,7 +136,7 @@ public class CmsController(IMediator mediator) : ControllerBase
     /// <returns></returns>
     [Auth(PermissionCatalog.ResourceGroupManagement.Update)]
     [HttpPut("resourceGroups/resourceGroup")]
-    public async Task<Response<int>> UpdateResourceGroupAsync(UpdateResourceGroupCommand request, CancellationToken cancellation) => await _mediator.Send(request, cancellation);
+    public Task<Response<int>> UpdateResourceGroupAsync(UpdateResourceGroupCommand request, CancellationToken cancellation) => _mediator.Send(request, cancellation);
 
     /// <summary>
     /// Removes resource group.
@@ -146,7 +146,7 @@ public class CmsController(IMediator mediator) : ControllerBase
     /// <returns></returns>
     [Auth(PermissionCatalog.ResourceGroupManagement.Delete)]
     [HttpDelete("resourceGroups/resourceGroup")]
-    public async Task<Response<int>> RemoveResourceGroupAsync([FromQuery] DeleteResourceGroupCommand request, CancellationToken cancellation) => await _mediator.Send(request, cancellation);
+    public Task<Response<int>> RemoveResourceGroupAsync([FromQuery] DeleteResourceGroupCommand request, CancellationToken cancellation) => _mediator.Send(request, cancellation);
 
     #endregion
 
@@ -159,7 +159,7 @@ public class CmsController(IMediator mediator) : ControllerBase
     /// <param name="cancellation"></param>
     /// <returns></returns>
     [HttpPatch("contents/query")]
-    public async Task<Response<List<ContentDto>>> GetContentAsync(GetContentQuery request, CancellationToken cancellation) => await _mediator.Send(request, cancellation);
+    public Task<Response<List<ContentDto>>> GetContentAsync(GetContentQuery request, CancellationToken cancellation) => _mediator.Send(request, cancellation);
 
     /// <summary>
     /// Gets contents.
@@ -169,7 +169,7 @@ public class CmsController(IMediator mediator) : ControllerBase
     /// <returns></returns>
     [Auth(PermissionCatalog.ContentManagement.List)]
     [HttpPatch("contents")]
-    public async Task<ListResponse<ContentListDto>> GetContentsAsync(GetContentListQuery request, CancellationToken cancellation) => await _mediator.Send(request, cancellation);
+    public Task<ListResponse<ContentListDto>> GetContentsAsync(GetContentListQuery request, CancellationToken cancellation) => _mediator.Send(request, cancellation);
 
     /// <summary>
     /// Gets contents as grouped by key.
@@ -179,7 +179,7 @@ public class CmsController(IMediator mediator) : ControllerBase
     /// <returns></returns>
     [Auth(PermissionCatalog.ContentManagement.List)]
     [HttpPatch("contents/by/key")]
-    public async Task<ListResponse<GroupedContentListDto>> GetGroupedContentsAsync(GetGroupedContentListQuery request, CancellationToken cancellation) => await _mediator.Send(request, cancellation);
+    public Task<ListResponse<GroupedContentListDto>> GetGroupedContentsAsync(GetGroupedContentListQuery request, CancellationToken cancellation) => _mediator.Send(request, cancellation);
 
     /// <summary>
     /// Get content according to content id.
@@ -189,7 +189,7 @@ public class CmsController(IMediator mediator) : ControllerBase
     /// <returns></returns>
     [Auth(PermissionCatalog.ContentManagement.Detail)]
     [HttpGet("contents/content")]
-    public async Task<Response<ContentDetailDto>> GetContentDetailAsync([FromQuery] GetContentDetailQuery request, CancellationToken cancellation) => await _mediator.Send(request, cancellation);
+    public Task<Response<ContentDetailDto>> GetContentDetailAsync([FromQuery] GetContentDetailQuery request, CancellationToken cancellation) => _mediator.Send(request, cancellation);
 
     /// <summary>
     /// Adds content.
@@ -199,7 +199,7 @@ public class CmsController(IMediator mediator) : ControllerBase
     /// <returns></returns>
     [Auth(PermissionCatalog.ContentManagement.Create)]
     [HttpPost("contents/content")]
-    public async Task<Response<int>> AddContentAsync(CreateContentCommand request, CancellationToken cancellation) => await _mediator.Send(request, cancellation);
+    public Task<Response<int>> AddContentAsync(CreateContentCommand request, CancellationToken cancellation) => _mediator.Send(request, cancellation);
 
     /// <summary>
     /// Adds contents with bulk method.
@@ -209,7 +209,7 @@ public class CmsController(IMediator mediator) : ControllerBase
     /// <returns></returns>
     [Auth(PermissionCatalog.ContentManagement.Create)]
     [HttpPost("contents")]
-    public async Task<Response> AddContentsAsync(CreateBulkContentCommand request, CancellationToken cancellation) => await _mediator.Send(request, cancellation);
+    public Task<Response> AddContentsAsync(CreateBulkContentCommand request, CancellationToken cancellation) => _mediator.Send(request, cancellation);
 
     /// <summary>
     /// Updates content. Only the fields that are sent as isUpdated true are updated.
@@ -219,7 +219,7 @@ public class CmsController(IMediator mediator) : ControllerBase
     /// <returns></returns>
     [Auth(PermissionCatalog.ContentManagement.Update)]
     [HttpPut("contents/content")]
-    public async Task<Response<int>> UpdateContentAsync(UpdateContentCommand request, CancellationToken cancellation) => await _mediator.Send(request, cancellation);
+    public Task<Response<int>> UpdateContentAsync(UpdateContentCommand request, CancellationToken cancellation) => _mediator.Send(request, cancellation);
 
     /// <summary>
     /// Removes content.
@@ -229,7 +229,7 @@ public class CmsController(IMediator mediator) : ControllerBase
     /// <returns></returns>
     [Auth(PermissionCatalog.ContentManagement.Delete)]
     [HttpDelete("contents")]
-    public async Task<Response<List<int>>> RemoveContentsAsync(DeleteContentsCommand request, CancellationToken cancellation) => await _mediator.Send(request, cancellation);
+    public Task<Response<List<int>>> RemoveContentsAsync(DeleteContentsCommand request, CancellationToken cancellation) => _mediator.Send(request, cancellation);
 
     #endregion
 }

@@ -67,7 +67,7 @@ public class ExceptionMiddleware(RequestDelegate next, ILoggerFactory loggerFact
         }
     }
 
-    private static async Task HandlePostgresException(HttpContext context, PostgresException ex)
+    private static Task HandlePostgresException(HttpContext context, PostgresException ex)
     {
         string messageKey;
 
@@ -80,7 +80,7 @@ public class ExceptionMiddleware(RequestDelegate next, ILoggerFactory loggerFact
         else
             messageKey = MessageKey.PostgreBasedException;
 
-        await RewriteResponseAsync(context, messageKey, (int)HttpStatusCode.OK, MessageType.Warning);
+        return RewriteResponseAsync(context, messageKey, (int)HttpStatusCode.OK, MessageType.Warning);
     }
 
     /// <summary>

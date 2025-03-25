@@ -16,9 +16,8 @@ public class EnumSchemaFilter : ISchemaFilter
         {
             schema.Enum.Clear();
 
-            Enum.GetNames(context.Type)
-                .ToList()
-                .ForEach(name => schema.Enum.Add(new OpenApiString($"{Convert.ToInt64(Enum.Parse(context.Type, name))} -> {name}")));
+            foreach (var name in Enum.GetNames(context.Type))
+                schema.Enum.Add(new OpenApiString($"{Convert.ToInt64(Enum.Parse(context.Type, name))} -> {name}"));
         }
     }
 }

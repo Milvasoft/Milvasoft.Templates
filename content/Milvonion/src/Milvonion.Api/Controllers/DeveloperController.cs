@@ -24,40 +24,40 @@ public class DeveloperController(IDeveloperService developerService) : Controlle
     /// </summary>
     /// <returns></returns>
     [HttpPost("database/reset")]
-    public async Task<Response> MigrateAsync() => await _developerService.ResetDatabaseAsync();
+    public Task<Response> MigrateAsync() => _developerService.ResetDatabaseAsync();
 
     /// <summary>
     /// Seeds data for development purposes.
     /// </summary>
     /// <returns></returns>
     [HttpPost("database/seed")]
-    public async Task<Response> SeedDataAsync() => await _developerService.SeedDevelopmentDataAsync();
+    public Task<Response> SeedDataAsync() => _developerService.SeedDevelopmentDataAsync();
 
     /// <summary>
     /// Seeds fake data for development purposes.
     /// </summary>
     /// <returns></returns>
     [HttpPost("database/seed/fake")]
-    public async Task<Response> SeedFakeDataAsync(bool sameData = true, string locale = "tr") => await _developerService.SeedFakeDataAsync(sameData, locale);
+    public Task<Response> SeedFakeDataAsync(bool sameData = true, string locale = "tr") => _developerService.SeedFakeDataAsync(sameData, locale);
 
     /// <summary>
     /// Initial migration operation.
     /// </summary>
     /// <returns></returns>
     [HttpPost("database/init")]
-    public async Task<Response<string>> InitDatabaseAsync() => await _developerService.InitDatabaseAsync();
+    public Task<Response<string>> InitDatabaseAsync() => _developerService.InitDatabaseAsync();
 
     /// <summary>
     /// Gets api logs.
     /// </summary>
     /// <returns></returns>
     [HttpPatch("apilogs")]
-    public async Task<ListResponse<ApiLog>> GetApiLogsAsync(ListRequest listRequest) => await _developerService.GetApiLogsAsync(listRequest);
+    public Task<ListResponse<ApiLog>> GetApiLogsAsync(ListRequest listRequest) => _developerService.GetApiLogsAsync(listRequest);
 
     /// <summary>
     /// Gets method logs.
     /// </summary>
     /// <returns></returns>
     [HttpPatch("methodlogs")]
-    public async Task<ListResponse<MethodLog>> GetMethodLogsAsync(ListRequest listRequest) => await _developerService.GetMethodLogsAsync(listRequest);
+    public Task<ListResponse<MethodLog>> GetMethodLogsAsync(ListRequest listRequest) => _developerService.GetMethodLogsAsync(listRequest);
 }

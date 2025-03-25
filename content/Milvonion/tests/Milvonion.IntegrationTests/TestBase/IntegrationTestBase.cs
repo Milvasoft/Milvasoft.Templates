@@ -17,9 +17,9 @@ public abstract class IntegrationTestBase(CustomWebApplicationFactory factory) :
     protected IServiceProvider _serviceProvider;
     protected IServiceScope _serviceScope;
 
-    public virtual async Task InitializeAsync() => await InitializeAsync(null, null);
+    public virtual Task InitializeAsync() => InitializeAsync(null, null);
 
-    public virtual async Task InitializeAsync(Action<IServiceCollection> configureServices = null, Action<IApplicationBuilder> configureApp = null)
+    public virtual Task InitializeAsync(Action<IServiceCollection> configureServices = null, Action<IApplicationBuilder> configureApp = null)
     {
         Environment.SetEnvironmentVariable("ConnectionStrings:DefaultConnectionString", _factory.GetConnectionString());
 
@@ -38,10 +38,10 @@ public abstract class IntegrationTestBase(CustomWebApplicationFactory factory) :
 
         _serviceProvider = waf.Services.CreateScope().ServiceProvider;
 
-        await _factory.CreateRespawner();
+        return _factory.CreateRespawner();
     }
 
-    public virtual async Task DisposeAsync() => await _factory.ResetDatabase();
+    public virtual Task DisposeAsync() => _factory.ResetDatabase();
 
     public virtual async Task<User> SeedRootUserAndSuperAdminRoleAsync(string rootPassword = "defaultpass")
     {

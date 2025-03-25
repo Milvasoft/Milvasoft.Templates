@@ -29,21 +29,21 @@ public class UIController(IMediator mediator, IUIService uiService) : Controller
     /// </summary>
     /// <returns></returns>
     [HttpGet("menuItems")]
-    public async Task<Response<List<MenuItemDto>>> GetAccessibleMenuItemsAsync(CancellationToken cancellation) => await uiService.GetAccessibleMenuItemsForCurrentUserAsync(cancellation);
+    public Task<Response<List<MenuItemDto>>> GetAccessibleMenuItemsAsync(CancellationToken cancellation) => uiService.GetAccessibleMenuItemsForCurrentUserAsync(cancellation);
 
     /// <summary>
     /// Gets page information of current user.
     /// </summary>
     /// <returns></returns>
     [HttpGet("pages/page")]
-    public async Task<Response<PageDto>> GetPageAccessibilityForCurrentUserAsync([FromQuery] GetPageAccessibilityForCurrentUserQuery reqeust, CancellationToken cancellation) => await mediator.Send(reqeust, cancellation);
+    public Task<Response<PageDto>> GetPageAccessibilityForCurrentUserAsync([FromQuery] GetPageAccessibilityForCurrentUserQuery reqeust, CancellationToken cancellation) => mediator.Send(reqeust, cancellation);
 
     /// <summary>
     /// Gets page information of current user.
     /// </summary>
     /// <returns></returns>
     [HttpGet("pages")]
-    public async Task<Response<List<PageDto>>> GetPageAccessibilityForCurrentUserAsync(CancellationToken cancellation) => await uiService.GetCurrentUserPagesAccessibilityAsync(cancellation);
+    public Task<Response<List<PageDto>>> GetPageAccessibilityForCurrentUserAsync(CancellationToken cancellation) => uiService.GetCurrentUserPagesAccessibilityAsync(cancellation);
 
     /// <summary>
     /// Gets localized contents related with UI.
