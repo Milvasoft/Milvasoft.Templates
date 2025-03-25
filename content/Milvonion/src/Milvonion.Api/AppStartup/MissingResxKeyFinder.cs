@@ -1,4 +1,5 @@
-﻿using Milvonion.Application.Utils.Constants;
+﻿using Milvasoft.Core.Helpers;
+using Milvonion.Application.Utils.Constants;
 using System.Reflection;
 using System.Text.RegularExpressions;
 using System.Xml.Linq;
@@ -37,9 +38,9 @@ public static partial class MissingResxKeyFinder
 
         var resxKeys = GetResxKeys(resxFolderPath);
 
-        var missingKeys = constantKeys.Concat(keysInNameOfReferences).Except(resxKeys).ToList();
+        var missingKeys = constantKeys.Concat(keysInNameOfReferences).Except(resxKeys);
 
-        if (missingKeys.Count > 0)
+        if (!missingKeys.IsNullOrEmpty())
         {
             var warnMessage = "(Milva Framework Warning) Missing resx keys! The following key values were not found in any of the resx files:";
             Console.ForegroundColor = ConsoleColor.Yellow;

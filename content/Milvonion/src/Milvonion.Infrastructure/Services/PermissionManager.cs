@@ -85,8 +85,7 @@ public class PermissionManager(IMilvonionRepositoryBase<Permission> permissionRe
             // Remove the permissions role relations from the database
             var roleRelations = permissionsToRemove.SelectMany(i => i.RolePermissionRelations).ToList();
 
-            if (roleRelations.Count > 0)
-                await _rolePermissionRelationRepository.BulkDeleteAsync(roleRelations, cancellationToken: cancellationToken);
+            await _rolePermissionRelationRepository.BulkDeleteAsync(roleRelations, cancellationToken: cancellationToken);
 
             await _permissionRepository.BulkDeleteAsync(permissionsToRemove, cancellationToken: cancellationToken);
         }

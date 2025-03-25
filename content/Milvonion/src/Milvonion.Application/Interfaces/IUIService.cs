@@ -17,7 +17,7 @@ public interface IUIService : IInterceptable
     /// <param name="userPermissions"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    Task<List<MenuItemDto>> GetAccessibleMenuItemsAsync(List<Permission> userPermissions, CancellationToken cancellationToken = default);
+    Task<List<MenuItemDto>> GetAccessibleMenuItemsAsync(IEnumerable<Permission> userPermissions, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Gets accessible menu items according to current user permissions.
@@ -40,7 +40,7 @@ public interface IUIService : IInterceptable
     /// <param name="userPermissions"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    Task<List<PageDto>> GetPagesAccessibilityAsync(List<string> userPermissions, CancellationToken cancellationToken = default);
+    Task<List<PageDto>> GetPagesAccessibilityAsync(IEnumerable<string> userPermissions, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Gets pages information for current user. 

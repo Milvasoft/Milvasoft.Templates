@@ -2835,7 +2835,7 @@
             Service for UI operations.
             </summary>
         </member>
-        <member name="M:Milvonion.Application.Interfaces.IUIService.GetAccessibleMenuItemsAsync(System.Collections.Generic.List{Milvonion.Domain.Permission},System.Threading.CancellationToken)">
+        <member name="M:Milvonion.Application.Interfaces.IUIService.GetAccessibleMenuItemsAsync(System.Collections.Generic.IEnumerable{Milvonion.Domain.Permission},System.Threading.CancellationToken)">
             <summary>
             Gets accessible menu items according to <paramref name="userPermissions"/>.
             </summary>
@@ -2858,7 +2858,7 @@
             <param name="cancellationToken"></param>
             <returns></returns>
         </member>
-        <member name="M:Milvonion.Application.Interfaces.IUIService.GetPagesAccessibilityAsync(System.Collections.Generic.List{System.String},System.Threading.CancellationToken)">
+        <member name="M:Milvonion.Application.Interfaces.IUIService.GetPagesAccessibilityAsync(System.Collections.Generic.IEnumerable{System.String},System.Threading.CancellationToken)">
             <summary>
             Gets pages information. 
             </summary>

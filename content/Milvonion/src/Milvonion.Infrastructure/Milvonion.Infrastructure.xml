@@ -557,7 +557,7 @@
             <param name="httpContextAccessor"></param>
             <param name="milvaLocalizer"></param>
         </member>
-        <member name="M:Milvonion.Infrastructure.Services.UIService.GetAccessibleMenuItemsAsync(System.Collections.Generic.List{Milvonion.Domain.Permission},System.Threading.CancellationToken)">
+        <member name="M:Milvonion.Infrastructure.Services.UIService.GetAccessibleMenuItemsAsync(System.Collections.Generic.IEnumerable{Milvonion.Domain.Permission},System.Threading.CancellationToken)">
             <summary>
             Gets accessible menu items according to <paramref name="userPermissions"/>.
             </summary>
@@ -580,7 +580,7 @@
             <param name="cancellationToken"></param>
             <returns></returns>
         </member>
-        <member name="M:Milvonion.Infrastructure.Services.UIService.GetPagesAccessibilityAsync(System.Collections.Generic.List{System.String},System.Threading.CancellationToken)">
+        <member name="M:Milvonion.Infrastructure.Services.UIService.GetPagesAccessibilityAsync(System.Collections.Generic.IEnumerable{System.String},System.Threading.CancellationToken)">
             <summary>
             Gets pages information according to <paramref name="userPermissions"/>. 
             </summary>
@@ -601,7 +601,7 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Milvonion.Infrastructure.Services.UIService.BuildHierarchy(System.Collections.Generic.List{Milvonion.Domain.UI.MenuItem})">
+        <member name="M:Milvonion.Infrastructure.Services.UIService.BuildHierarchy(System.Collections.Generic.IEnumerable{Milvonion.Domain.UI.MenuItem})">
             <summary>
             Builds parent-child hierarchy for menu items.
             </summary>

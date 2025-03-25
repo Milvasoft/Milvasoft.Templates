@@ -90,7 +90,8 @@ public partial class ExportService(IServiceProvider serviceProvider) : IExportSe
         using var workbook = new XLWorkbook();
         var worksheet = workbook.AddWorksheet(pageName ?? "Sheet1");
 
-        _httpContextAccessor.HttpContext.Request.Headers.Append(GlobalConstant.GenerateMetadataHeaderKey, "true");
+        _httpContextAccessor.HttpContext.Request.Headers.Remove(GlobalConstant.GenerateMetadataHeaderKey);
+        _httpContextAccessor.HttpContext.Request.Headers.TryAdd(GlobalConstant.GenerateMetadataHeaderKey, "true");
 
         var generator = new ResponseMetadataGenerator(_responseInterceptionOptions, _serviceProvider);
         generator.GenerateMetadata(hasMetadataResponse);
@@ -108,8 +109,8 @@ public partial class ExportService(IServiceProvider serviceProvider) : IExportSe
 
         var properties = actualType.GetProperties(BindingFlags.IgnoreCase | BindingFlags.Public | BindingFlags.Instance);
 
-        var visibleMetadata = metadatas.Where(m => m.Display).ToList();
-        var visibleProperties = properties.Where(p => visibleMetadata.Exists(v => v.Name.Equals(p.Name, StringComparison.OrdinalIgnoreCase))).ToList();
+        var visibleMetadata = metadatas.Where(m => m.Display);
+        var visibleProperties = properties.Where(p => visibleMetadata.Any(v => v.Name.Equals(p.Name, StringComparison.OrdinalIgnoreCase))).ToList();
 
         visibleProperties.RemoveAll(i => i.Name == EntityPropertyNames.Id);
 
@@ -117,7 +118,7 @@ public partial class ExportService(IServiceProvider serviceProvider) : IExportSe
         for (var i = 0; i < visibleProperties.Count; i++)
         {
             var property = visibleProperties[i];
-            var relatedMetadata = visibleMetadata.Find(m => m.Name.Equals(property.Name, StringComparison.OrdinalIgnoreCase));
+            var relatedMetadata = visibleMetadata.FirstOrDefault(m => m.Name.Equals(property.Name, StringComparison.OrdinalIgnoreCase));
 
             var headerCell = worksheet.Cell(1, i + 1);
             headerCell.Value = relatedMetadata?.LocalizedName ?? property.Name;
@@ -133,7 +134,7 @@ public partial class ExportService(IServiceProvider serviceProvider) : IExportSe
             for (var colIndex = 0; colIndex < visibleProperties.Count; colIndex++)
             {
                 var property = visibleProperties[colIndex];
-                var relatedMetadata = visibleMetadata.Find(m => m.Name.Equals(property.Name, StringComparison.OrdinalIgnoreCase));
+                var relatedMetadata = visibleMetadata.FirstOrDefault(m => m.Name.Equals(property.Name, StringComparison.OrdinalIgnoreCase));
 
                 if (!string.IsNullOrWhiteSpace(relatedMetadata?.DisplayFormat) && property.PropertyType != typeof(decimal) && property.PropertyType != typeof(decimal?))
                 {
@@ -165,11 +166,10 @@ public partial class ExportService(IServiceProvider serviceProvider) : IExportSe
         }
 
         // DateTime format
-        var dateColumnIndexes = FindDateTimeColumns(visibleProperties).ToList();
-        dateColumnIndexes.ForEach(i =>
-        {
-            worksheet.Column(i + 1).Cells().Style.NumberFormat.Format = "yyyy-MM-dd HH:mm:ss";
-        });
+        var dateColumnIndexes = FindDateTimeColumns(visibleProperties);
+
+        foreach (var item in dateColumnIndexes)
+            worksheet.Column(item + 1).Cells().Style.NumberFormat.Format = "yyyy-MM-dd HH:mm:ss";
 
         worksheet.Columns().AdjustToContents();
 

@@ -31,7 +31,7 @@ public class AccountManager(IMilvonionRepositoryBase<UserSession> userSessionRep
     /// <returns></returns>
     public async Task<MilvaToken> LoginAsync(User user, string deviceId, CancellationToken cancellationToken = default)
     {
-        var permissions = user.RoleRelations.SelectMany(i => i.Role.RolePermissionRelations.Select(i => i.Permission)).ToList();
+        var permissions = user.RoleRelations.SelectMany(i => i.Role.RolePermissionRelations.Select(i => i.Permission));
 
         List<Claim> claims = [new(ClaimTypes.Name, user.UserName)];
 
@@ -77,7 +77,7 @@ public class AccountManager(IMilvonionRepositoryBase<UserSession> userSessionRep
     /// <returns></returns>
     public string GenerateToken(User user, DateTime? expiryDate = null)
     {
-        var permissions = user.RoleRelations.SelectMany(i => i.Role.RolePermissionRelations.Select(i => i.Permission)).ToList();
+        var permissions = user.RoleRelations.SelectMany(i => i.Role.RolePermissionRelations.Select(i => i.Permission));
 
         List<Claim> claims = [new(ClaimTypes.Name, user.UserName)];
 
@@ -111,7 +111,7 @@ public class AccountManager(IMilvonionRepositoryBase<UserSession> userSessionRep
         return sessionsToRemove;
     }
 
-    private static IEnumerable<Claim> BuildRoleClaims(List<Permission> permissions) => permissions?.Select(p => new Claim(ClaimTypes.Role, p.FormatPermissionAndGroup())) ?? [];
+    private static IEnumerable<Claim> BuildRoleClaims(IEnumerable<Permission> permissions) => permissions?.Select(p => new Claim(ClaimTypes.Role, p.FormatPermissionAndGroup())) ?? [];
 
     private static Claim BuildUserTypeClaim(User user) => new(GlobalConstant.UserTypeClaimName, user.UserType.ToString());
 }

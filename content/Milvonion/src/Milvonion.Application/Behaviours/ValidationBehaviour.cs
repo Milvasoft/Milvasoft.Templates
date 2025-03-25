@@ -35,10 +35,9 @@ public sealed class ValidationBehaviorForResponse<TRequest, TResponse>(IEnumerab
 
         var errors = validationFailures.Where(validationResult => !validationResult.IsValid)
                                        .SelectMany(validationResult => validationResult.Errors)
-                                       .Select(e => e.ErrorMessage)
-                                       .ToList();
+                                       .Select(e => e.ErrorMessage);
 
-        if (errors.Count != 0)
+        if (!errors.IsNullOrEmpty())
             return CreateFailureResponse(errors);
 
         var response = await next();
@@ -46,7 +45,7 @@ public sealed class ValidationBehaviorForResponse<TRequest, TResponse>(IEnumerab
         return response;
     }
 
-    private TResponse CreateFailureResponse(List<string> errors)
+    private TResponse CreateFailureResponse(IEnumerable<string> errors)
     {
         if (typeof(TResponse) == typeof(Response))
         {
@@ -67,10 +66,10 @@ public sealed class ValidationBehaviorForResponse<TRequest, TResponse>(IEnumerab
 
         var localizer = _serviceProvider.GetService<IMilvaLocalizer>();
 
-        throw new MilvaUserFriendlyException(localizer[errors[0]]);
+        throw new MilvaUserFriendlyException(localizer[errors.FirstOrDefault()]);
     }
 
-    private TResponse BuildGenericResponse(Type type, List<string> errors)
+    private TResponse BuildGenericResponse(Type type, IEnumerable<string> errors)
     {
         var responseType = typeof(TResponse).GetGenericArguments()[0];
 
@@ -99,7 +98,7 @@ public sealed class ValidationBehaviorForResponse<TRequest, TResponse>(IEnumerab
         return (TResponse)response;
     }
 
-    private static void AddMessagesToResponse(Response response, List<string> errors)
+    private static void AddMessagesToResponse(Response response, IEnumerable<string> errors)
     {
         response.StatusCode = (int)HttpStatusCode.BadRequest;
         response.IsSuccess = false;

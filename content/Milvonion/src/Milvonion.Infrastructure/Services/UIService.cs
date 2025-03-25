@@ -44,13 +44,11 @@ public class UIService(IMultiLanguageManager multiLanguageManager,
     /// <param name="userPermissions"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    public async Task<List<MenuItemDto>> GetAccessibleMenuItemsAsync(List<Permission> userPermissions, CancellationToken cancellationToken = default)
+    public async Task<List<MenuItemDto>> GetAccessibleMenuItemsAsync(IEnumerable<Permission> userPermissions, CancellationToken cancellationToken = default)
     {
         var menuItems = await _menuItemRepository.GetAllAsync(projection: MenuItem.Projections.AccessibleMenuItems, cancellationToken: cancellationToken);
 
-        menuItems = [.. menuItems.Where(mi => mi.PermissionOrGroupNames.Exists(p => userPermissions.Exists(up => up.PermissionGroup == p || up.FormatPermissionAndGroup() == p)))];
-
-        var hierarchedMenuItems = BuildHierarchy(menuItems);
+        var hierarchedMenuItems = BuildHierarchy(menuItems.Where(mi => mi.PermissionOrGroupNames.Exists(p => userPermissions.Any(up => up.PermissionGroup == p || up.FormatPermissionAndGroup() == p))));
 
         return [.. hierarchedMenuItems.Select(MenuItemDto.Projection(_multiLanguageManager))];
     }
@@ -68,11 +66,9 @@ public class UIService(IMultiLanguageManager multiLanguageManager,
 
         var user = await _userRepository.GetFirstOrDefaultAsync(i => i.UserName == userName, User.Projections.Permissions, cancellationToken: cancellationToken);
 
-        var userPermissions = user.RoleRelations.SelectMany(i => i.Role.RolePermissionRelations.Select(i => i.Permission)).ToList();
+        var userPermissions = user.RoleRelations.SelectMany(i => i.Role.RolePermissionRelations.Select(i => i.Permission));
 
-        menuItems = [.. menuItems.Where(mi => mi.PermissionOrGroupNames.Exists(p => userPermissions.Exists(up => up.PermissionGroup == p || up.FormatPermissionAndGroup() == p)))];
-
-        var hierarchedMenuItems = BuildHierarchy(menuItems);
+        var hierarchedMenuItems = BuildHierarchy(menuItems.Where(mi => mi.PermissionOrGroupNames.Exists(p => userPermissions.Any(up => up.PermissionGroup == p || up.FormatPermissionAndGroup() == p))));
 
         return Response<List<MenuItemDto>>.Success([.. hierarchedMenuItems.Select(MenuItemDto.Projection(_multiLanguageManager))]);
     }
@@ -94,16 +90,16 @@ public class UIService(IMultiLanguageManager multiLanguageManager,
         if (page == null)
             return null;
 
-        var currentUserPermissions = _httpContextAccessor.HttpContext.GetCurrentUserPermissions().ToList();
+        var currentUserPermissions = _httpContextAccessor.HttpContext.GetCurrentUserPermissions();
 
-        page.AdditionalActions = [.. page.AdditionalActions.Where(pa => currentUserPermissions.Exists(pa.Permissions.Contains))];
+        page.AdditionalActions = [.. page.AdditionalActions.Where(pa => currentUserPermissions.Any(pa.Permissions.Contains))];
 
         var pageDto = PageDto.Projection(_multiLanguageManager).Invoke(page);
 
-        pageDto.UserCanCreate = pageDto.HasCreate && currentUserPermissions.Exists(cup => page.CreatePermissions?.Contains(cup) ?? false);
-        pageDto.UserCanDetail = pageDto.HasDetail && currentUserPermissions.Exists(cup => page.DetailPermissions?.Contains(cup) ?? false);
-        pageDto.UserCanEdit = pageDto.HasEdit && currentUserPermissions.Exists(cup => page.EditPermissions?.Contains(cup) ?? false);
-        pageDto.UserCanDelete = pageDto.HasDelete && currentUserPermissions.Exists(cup => page.DeletePermissions?.Contains(cup) ?? false);
+        pageDto.UserCanCreate = pageDto.HasCreate && currentUserPermissions.Any(cup => page.CreatePermissions?.Contains(cup) ?? false);
+        pageDto.UserCanDetail = pageDto.HasDetail && currentUserPermissions.Any(cup => page.DetailPermissions?.Contains(cup) ?? false);
+        pageDto.UserCanEdit = pageDto.HasEdit && currentUserPermissions.Any(cup => page.EditPermissions?.Contains(cup) ?? false);
+        pageDto.UserCanDelete = pageDto.HasDelete && currentUserPermissions.Any(cup => page.DeletePermissions?.Contains(cup) ?? false);
 
         return pageDto;
     }
@@ -114,7 +110,7 @@ public class UIService(IMultiLanguageManager multiLanguageManager,
     /// <param name="userPermissions"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    public async Task<List<PageDto>> GetPagesAccessibilityAsync(List<string> userPermissions, CancellationToken cancellationToken = default)
+    public async Task<List<PageDto>> GetPagesAccessibilityAsync(IEnumerable<string> userPermissions, CancellationToken cancellationToken = default)
     {
         var pages = await _pageRepository.GetAllAsync(projection: Page.Projections.PageInfo, cancellationToken: cancellationToken);
 
@@ -125,14 +121,14 @@ public class UIService(IMultiLanguageManager multiLanguageManager,
 
         foreach (var page in pages)
         {
-            page.AdditionalActions = [.. page.AdditionalActions.Where(pa => userPermissions.Exists(pa.Permissions.Contains))];
+            page.AdditionalActions = [.. page.AdditionalActions.Where(pa => userPermissions.Any(pa.Permissions.Contains))];
 
             var pageDto = PageDto.Projection(_multiLanguageManager).Invoke(page);
 
-            pageDto.UserCanCreate = pageDto.HasCreate && userPermissions.Exists(cup => page.CreatePermissions?.Contains(cup) ?? false);
-            pageDto.UserCanDetail = pageDto.HasDetail && userPermissions.Exists(cup => page.DetailPermissions?.Contains(cup) ?? false);
-            pageDto.UserCanEdit = pageDto.HasEdit && userPermissions.Exists(cup => page.EditPermissions?.Contains(cup) ?? false);
-            pageDto.UserCanDelete = pageDto.HasDelete && userPermissions.Exists(cup => page.DeletePermissions?.Contains(cup) ?? false);
+            pageDto.UserCanCreate = pageDto.HasCreate && userPermissions.Any(cup => page.CreatePermissions?.Contains(cup) ?? false);
+            pageDto.UserCanDetail = pageDto.HasDetail && userPermissions.Any(cup => page.DetailPermissions?.Contains(cup) ?? false);
+            pageDto.UserCanEdit = pageDto.HasEdit && userPermissions.Any(cup => page.EditPermissions?.Contains(cup) ?? false);
+            pageDto.UserCanDelete = pageDto.HasDelete && userPermissions.Any(cup => page.DeletePermissions?.Contains(cup) ?? false);
 
             pageDto.LocalizedName = _milvaLocalizer[$"UI.{page.Name}"];
 
@@ -149,7 +145,7 @@ public class UIService(IMultiLanguageManager multiLanguageManager,
     /// <returns></returns>
     public async Task<Response<List<PageDto>>> GetCurrentUserPagesAccessibilityAsync(CancellationToken cancellationToken = default)
     {
-        var currentUserPermissions = _httpContextAccessor.HttpContext.GetCurrentUserPermissions().ToList();
+        var currentUserPermissions = _httpContextAccessor.HttpContext.GetCurrentUserPermissions();
 
         return Response<List<PageDto>>.Success(await GetPagesAccessibilityAsync(currentUserPermissions, cancellationToken));
     }
@@ -178,7 +174,7 @@ public class UIService(IMultiLanguageManager multiLanguageManager,
     /// </summary>
     /// <param name="menuItems"></param>
     /// <returns></returns>
-    private static List<MenuItem> BuildHierarchy(List<MenuItem> menuItems)
+    private static List<MenuItem> BuildHierarchy(IEnumerable<MenuItem> menuItems)
     {
         if (menuItems.IsNullOrEmpty())
             return [];

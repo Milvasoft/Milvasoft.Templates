@@ -78,7 +78,7 @@ public static partial class StartupExtensions
     /// <returns></returns>
     public static IApplicationBuilder UseRequestLocalization(this WebApplication app)
     {
-        var supportedCultures = LanguagesSeed.Seed.Select(i => new CultureInfo(i.Code)).ToList();
+        var supportedCultures = LanguagesSeed.Seed.Select(i => new CultureInfo(i.Code)).ToArray();
 
         var defaultLanguageCode = LanguagesSeed.Seed.First(l => l.IsDefault).Code;
 

@@ -55,10 +55,10 @@ public record LoginCommandHandler(IMilvonionRepositoryBase<User> UserRepository,
             Token = tokenModel
         };
 
-        var permissions = user.RoleRelations.SelectMany(i => i.Role.RolePermissionRelations.Select(i => i.Permission)).ToList();
+        var permissions = user.RoleRelations.SelectMany(i => i.Role.RolePermissionRelations.Select(i => i.Permission));
 
         loginResponse.AccessibleMenuItems = await _uiService.GetAccessibleMenuItemsAsync(permissions, cancellationToken);
-        loginResponse.PageInformations = await _uiService.GetPagesAccessibilityAsync([.. permissions.Select(p => p.FormatPermissionAndGroup())], cancellationToken);
+        loginResponse.PageInformations = await _uiService.GetPagesAccessibilityAsync(permissions.Select(p => p.FormatPermissionAndGroup()), cancellationToken);
 
         return Response<LoginResponseDto>.Success(loginResponse);
     }
