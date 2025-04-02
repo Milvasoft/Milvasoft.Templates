@@ -1,5 +1,6 @@
 ﻿using MediatR;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using Milvasoft.Attributes.Annotations;
 using Milvasoft.Components.Rest.MilvaResponse;
 using Milvasoft.Components.Rest.Request;
@@ -19,26 +20,16 @@ namespace Milvonion.Infrastructure.Services;
 /// <summary>
 /// Developer service.
 /// </summary>
-/// <param name="mediator"></param>
-/// <param name="permissionManager"></param>
-/// <param name="milvonionDbContext"></param>
-/// <param name="methodLogRepository"></param>
-/// <param name="apiLogRepository"></param>
-/// <param name="configuration"></param>
-public class DeveloperService(IMediator mediator,
-                              IPermissionManager permissionManager,
-                              MilvonionDbContext milvonionDbContext,
-                              IMilvonionRepositoryBase<MethodLog> methodLogRepository,
-                              IMilvonionRepositoryBase<ApiLog> apiLogRepository,
-                              IConfiguration configuration) : IDeveloperService
+/// <param name="serviceProvider"></param>
+public class DeveloperService(IServiceProvider serviceProvider) : IDeveloperService
 {
-    private readonly IMediator _mediator = mediator;
-    private readonly IPermissionManager _permissionManager = permissionManager;
-    private readonly IMilvonionRepositoryBase<MethodLog> _methodLogRepository = methodLogRepository;
-    private readonly IMilvonionRepositoryBase<ApiLog> _apiLogRepository = apiLogRepository;
-    private readonly IConfiguration _configuration = configuration;
-    private readonly MilvonionDbContext _milvonionDbContext = milvonionDbContext;
-    private readonly DatabaseMigrator _databaseMigrator = new(milvonionDbContext);
+    private readonly IMediator _mediator = serviceProvider.GetService<IMediator>();
+    private readonly IPermissionManager _permissionManager = serviceProvider.GetService<IPermissionManager>();
+    private readonly IMilvonionRepositoryBase<MethodLog> _methodLogRepository = serviceProvider.GetService<IMilvonionRepositoryBase<MethodLog>>();
+    private readonly IMilvonionRepositoryBase<ApiLog> _apiLogRepository = serviceProvider.GetService<IMilvonionRepositoryBase<ApiLog>>();
+    private readonly IConfiguration _configuration = serviceProvider.GetService<IConfiguration>();
+    private readonly MilvonionDbContext _milvonionDbContext = serviceProvider.GetService<MilvonionDbContext>();
+    private readonly DatabaseMigrator _databaseMigrator = new(serviceProvider);
 
     /// <summary>
     /// Remove, recreates and seed database for development purposes.

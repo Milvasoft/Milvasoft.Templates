@@ -7,6 +7,8 @@ using Milvasoft.Core.Abstractions.Localization;
 using Milvasoft.Core.Exceptions;
 using Milvasoft.Core.Helpers;
 using Milvasoft.Interception.Interceptors.Response;
+using System.Collections.Concurrent;
+using System.Linq.Expressions;
 using System.Net;
 
 namespace Milvonion.Application.Behaviours;
@@ -25,6 +27,7 @@ public sealed class ValidationBehaviorForResponse<TRequest, TResponse>(IEnumerab
 {
     private readonly IEnumerable<IValidator<TRequest>> _validators = validators;
     private readonly IServiceProvider _serviceProvider = serviceProvider;
+    private static readonly ConcurrentDictionary<Type, Func<object>> _typeFactoryCache = new();
 
     /// <inheritdoc/>
     public async Task<TResponse> Handle(TRequest request, RequestHandlerDelegate<TResponse> next, CancellationToken cancellationToken)
@@ -73,7 +76,7 @@ public sealed class ValidationBehaviorForResponse<TRequest, TResponse>(IEnumerab
     {
         var responseType = typeof(TResponse).GetGenericArguments()[0];
 
-        var response = Activator.CreateInstance(type.MakeGenericType(responseType));
+        var response = CreateInstance(type.MakeGenericType(responseType));
 
         if (response is Response r)
         {
@@ -106,4 +109,13 @@ public sealed class ValidationBehaviorForResponse<TRequest, TResponse>(IEnumerab
         foreach (var error in errors.Distinct())
             response.AddMessage(error, MessageType.Validation);
     }
+
+    private static object CreateInstance(Type type) => _typeFactoryCache.GetOrAdd(type, t =>
+    {
+        var ctor = Expression.New(t);
+
+        var lambda = Expression.Lambda<Func<object>>(ctor);
+
+        return lambda.Compile();
+    })();
 }

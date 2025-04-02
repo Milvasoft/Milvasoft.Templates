@@ -808,14 +808,19 @@
             Id of migration
             </summary>
         </member>
-        <member name="P:Milvonion.Domain.MigrationHistory.ProductVersion">
-            <summary>
-            Version of migration tool
-            </summary>
-        </member>
         <member name="P:Milvonion.Domain.MigrationHistory.MigrationCompleted">
             <summary>
             Migration fully completed or not.
+            </summary>
+        </member>
+        <member name="T:Milvonion.Domain.EfMigrationHistory">
+            <summary>
+            Entity of the MigrationHistory table.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Domain.EfMigrationHistory.MigrationId">
+            <summary>
+            Id of migration
             </summary>
         </member>
     </members>

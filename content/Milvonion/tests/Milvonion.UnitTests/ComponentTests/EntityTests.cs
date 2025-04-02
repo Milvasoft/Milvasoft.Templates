@@ -35,7 +35,7 @@ public class EntityTests
         TableNames.Medias.Should().Be("Medias");
         TableNames.Namespaces.Should().Be("Namespaces");
         TableNames.ResourceGroups.Should().Be("ResourceGroups");
-        TableNames.MigrationHistory.Should().Be("_MigrationHistory");
+        TableNames.EfMigrationHistory.Should().Be("_MigrationHistory");
     }
 
     [Fact]
@@ -50,13 +50,11 @@ public class EntityTests
         var migrationHistory = new MigrationHistory
         {
             MigrationId = migrationId,
-            ProductVersion = productVersion,
             MigrationCompleted = migrationCompleted
         };
 
         // Assert
         migrationHistory.MigrationId.Should().Be(migrationId);
-        migrationHistory.ProductVersion.Should().Be(productVersion);
         migrationHistory.MigrationCompleted.Should().Be(migrationCompleted);
     }
 

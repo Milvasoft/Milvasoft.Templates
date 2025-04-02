@@ -1,4 +1,5 @@
 ﻿using Milvasoft.Core.Helpers;
+using System.Collections.Concurrent;
 using System.ComponentModel;
 using System.Reflection;
 
@@ -7,6 +8,8 @@ namespace Milvonion.Application.Utils.PermissionManager;
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 public static partial class PermissionCatalog
 {
+    public static ConcurrentBag<Permission> Permissions { get; internal set; } = [];
+
     [Description("Application-wide permissions")]
     public static class App
     {

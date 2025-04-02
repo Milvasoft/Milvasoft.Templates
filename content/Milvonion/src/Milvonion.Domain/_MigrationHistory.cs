@@ -16,12 +16,21 @@ public class MigrationHistory
     public string MigrationId { get; set; }
 
     /// <summary>
-    /// Version of migration tool
-    /// </summary>
-    public string ProductVersion { get; set; }
-
-    /// <summary>
     /// Migration fully completed or not.
     /// </summary>
     public bool MigrationCompleted { get; set; }
+}
+
+/// <summary>
+/// Entity of the MigrationHistory table.
+/// </summary>
+[Table(TableNames.EfMigrationHistory)]
+[NotMapped]
+public class EfMigrationHistory
+{
+    /// <summary>
+    /// Id of migration
+    /// </summary>
+    [Key]
+    public string MigrationId { get; set; }
 }

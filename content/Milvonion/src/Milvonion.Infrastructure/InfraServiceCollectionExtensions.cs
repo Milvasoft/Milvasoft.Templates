@@ -4,6 +4,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Milvasoft.Caching.Builder;
 using Milvasoft.Caching.InMemory;
+using Milvasoft.Caching.InMemory.Accessor;
 using Milvasoft.Core.Abstractions;
 using Milvasoft.DataAccess.EfCore;
 using Milvasoft.Interception.Decorator;
@@ -60,6 +61,7 @@ public static class InfraServiceCollectionExtensions
                 .PostConfigureInterceptionOptions(opt =>
                 {
                     opt.Response.GenerateMetadataFunc = MilvonionExtensions.GenerateMetadata;
+                    opt.Cache.CacheAccessorType = typeof(IMemoryCacheAccessor);
                 })
                 .PostConfigureTransactionInterceptionOptions(opt =>
                 {
@@ -92,7 +94,7 @@ public static class InfraServiceCollectionExtensions
         {
             options.ConfigureWarnings(warnings => { warnings.Log(RelationalEventId.PendingModelChangesWarning); });
 
-            options.UseNpgsql(dataSource, b => b.MigrationsHistoryTable(TableNames.MigrationHistory).MigrationsAssembly("Milvonion.Api").EnableRetryOnFailure())
+            options.UseNpgsql(dataSource, b => b.MigrationsHistoryTable(TableNames.EfMigrationHistory).MigrationsAssembly("Milvonion.Api").EnableRetryOnFailure())
                    .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTrackingWithIdentityResolution);
         });
 

@@ -244,13 +244,13 @@
             <summary>
             Data seed methods.
             </summary>
-            <param name="milvonionDbContext"></param>
+            <param name="serviceProvider"></param>
         </member>
-        <member name="M:Milvonion.Infrastructure.Persistence.DatabaseMigrator.#ctor(Milvonion.Infrastructure.Persistence.Context.MilvonionDbContext)">
+        <member name="M:Milvonion.Infrastructure.Persistence.DatabaseMigrator.#ctor(System.IServiceProvider)">
             <summary>
             Data seed methods.
             </summary>
-            <param name="milvonionDbContext"></param>
+            <param name="serviceProvider"></param>
         </member>
         <member name="M:Milvonion.Infrastructure.Persistence.DatabaseMigrator.ResetDatabaseAsync(Microsoft.Extensions.Configuration.IConfiguration,System.Threading.CancellationToken)">
             <summary>
@@ -377,23 +377,13 @@
             <summary>
             Developer service.
             </summary>
-            <param name="mediator"></param>
-            <param name="permissionManager"></param>
-            <param name="milvonionDbContext"></param>
-            <param name="methodLogRepository"></param>
-            <param name="apiLogRepository"></param>
-            <param name="configuration"></param>
+            <param name="serviceProvider"></param>
         </member>
-        <member name="M:Milvonion.Infrastructure.Services.DeveloperService.#ctor(MediatR.IMediator,Milvonion.Application.Interfaces.IPermissionManager,Milvonion.Infrastructure.Persistence.Context.MilvonionDbContext,Milvonion.Application.Interfaces.IMilvonionRepositoryBase{Milvonion.Domain.MethodLog},Milvonion.Application.Interfaces.IMilvonionRepositoryBase{Milvonion.Domain.ApiLog},Microsoft.Extensions.Configuration.IConfiguration)">
+        <member name="M:Milvonion.Infrastructure.Services.DeveloperService.#ctor(System.IServiceProvider)">
             <summary>
             Developer service.
             </summary>
-            <param name="mediator"></param>
-            <param name="permissionManager"></param>
-            <param name="milvonionDbContext"></param>
-            <param name="methodLogRepository"></param>
-            <param name="apiLogRepository"></param>
-            <param name="configuration"></param>
+            <param name="serviceProvider"></param>
         </member>
         <member name="M:Milvonion.Infrastructure.Services.DeveloperService.ResetDatabaseAsync">
             <summary>

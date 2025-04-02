@@ -24,5 +24,6 @@ public static class TableNames
     public const string Namespaces = nameof(Namespaces);
     public const string ResourceGroups = nameof(ResourceGroups);
     public const string MigrationHistory = "_MigrationHistory";
+    public const string EfMigrationHistory = "_EFMigrationHistory";
 }
 #pragma warning restore CS1591 // Missing XML comment for publicly visible type or member

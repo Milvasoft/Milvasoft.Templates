@@ -2824,6 +2824,12 @@
             Permission manager for managing system permissions.
             </summary>
         </member>
+        <member name="M:Milvonion.Application.Interfaces.IPermissionManager.GetAllPermissionsAsync(System.Threading.CancellationToken)">
+            <summary>
+            Get all permissions as entity.
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:Milvonion.Application.Interfaces.IPermissionManager.MigratePermissionsAsync(System.Threading.CancellationToken)">
             <summary>
             Migrate permissions to the database.

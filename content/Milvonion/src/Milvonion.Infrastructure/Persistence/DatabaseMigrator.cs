@@ -24,10 +24,10 @@ namespace Milvonion.Infrastructure.Persistence;
 /// <summary>
 /// Data seed methods.
 /// </summary>
-/// <param name="milvonionDbContext"></param>
-public class DatabaseMigrator(MilvonionDbContext milvonionDbContext)
+/// <param name="serviceProvider"></param>
+public class DatabaseMigrator(IServiceProvider serviceProvider)
 {
-    private readonly MilvonionDbContext _milvonionDbContext = milvonionDbContext;
+    private readonly MilvonionDbContext _milvonionDbContext = serviceProvider.GetService<MilvonionDbContext>();
 
     /// <summary>
     /// Remove, recreates and seed database for development purposes.
@@ -40,7 +40,7 @@ public class DatabaseMigrator(MilvonionDbContext milvonionDbContext)
         var connectionString = configuration.GetConnectionString("DefaultConnectionString");
 
         var opt = new DbContextOptionsBuilder<MilvonionDbContext>()
-                    .UseNpgsql(connectionString, b => b.MigrationsHistoryTable(TableNames.MigrationHistory).MigrationsAssembly("Milvonion.Api").EnableRetryOnFailure())
+                    .UseNpgsql(connectionString, b => b.MigrationsHistoryTable(TableNames.EfMigrationHistory).MigrationsAssembly("Milvonion.Api").EnableRetryOnFailure())
                     .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTrackingWithIdentityResolution);
 
         opt.ConfigureWarnings(warnings => { warnings.Log(RelationalEventId.PendingModelChangesWarning); });
@@ -422,12 +422,16 @@ public class DatabaseMigrator(MilvonionDbContext milvonionDbContext)
     {
         try
         {
-            var initialMigration = await _milvonionDbContext.MigrationHistory.FirstOrDefaultAsync(m => m.MigrationId.EndsWith("InitialCreate"), cancellationToken: cancellationToken);
+            var initialMigrationSql = await File.ReadAllTextAsync(Path.Combine(GlobalConstant.SqlFilesPath, "initial_migration_fetch.sql"), cancellationToken);
+
+            var initialMigration = await _milvonionDbContext.Database.SqlQueryRaw<EfMigrationHistory>(initialMigrationSql).FirstOrDefaultAsync(cancellationToken);
 
             if (initialMigration == null)
                 return Response<string>.Error("Initial migration cannot found!");
 
-            if (initialMigration.MigrationCompleted)
+            var migrationLog = await _milvonionDbContext.MigrationHistory.FirstOrDefaultAsync(m => m.MigrationId == initialMigration.MigrationId, cancellationToken: cancellationToken);
+
+            if (migrationLog?.MigrationCompleted ?? false)
                 return Response<string>.Error("Already initialized!");
 
             await _milvonionDbContext.Database.EnsureCreatedAsync(cancellationToken);
@@ -460,10 +464,22 @@ public class DatabaseMigrator(MilvonionDbContext milvonionDbContext)
 
             await MigratePermissionsAsync(permissionManager, cancellationToken);
 
-            initialMigration.MigrationCompleted = true;
+            if (migrationLog is null)
+            {
+                migrationLog = new MigrationHistory
+                {
+                    MigrationId = initialMigration.MigrationId,
+                    MigrationCompleted = true
+                };
 
-            await _milvonionDbContext.MigrationHistory.Where(m => m.MigrationId == initialMigration.MigrationId)
-                                                      .ExecuteUpdateAsync(i => i.SetProperty(x => x.MigrationCompleted, true), cancellationToken: cancellationToken);
+                await _milvonionDbContext.MigrationHistory.AddAsync(migrationLog, cancellationToken);
+                await _milvonionDbContext.SaveChangesAsync(cancellationToken);
+            }
+            else
+            {
+                await _milvonionDbContext.MigrationHistory.Where(m => m.MigrationId == migrationLog.MigrationId)
+                                                          .ExecuteUpdateAsync(i => i.SetProperty(x => x.MigrationCompleted, true), cancellationToken: cancellationToken);
+            }
 
             return Response<string>.Success(rootPass);
         }

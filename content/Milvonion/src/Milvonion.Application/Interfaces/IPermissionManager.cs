@@ -9,6 +9,12 @@ namespace Milvonion.Application.Interfaces;
 public interface IPermissionManager : IInterceptable
 {
     /// <summary>
+    /// Get all permissions as entity.
+    /// </summary>
+    /// <returns></returns>
+    Task<List<Permission>> GetAllPermissionsAsync(CancellationToken cancellationToken);
+
+    /// <summary>
     /// Migrate permissions to the database.
     /// </summary>
     /// <returns></returns>

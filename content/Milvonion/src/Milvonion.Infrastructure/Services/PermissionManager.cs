@@ -90,6 +90,11 @@ public class PermissionManager(IMilvonionRepositoryBase<Permission> permissionRe
             await _permissionRepository.BulkDeleteAsync(permissionsToRemove, cancellationToken: cancellationToken);
         }
 
+        permissions = await GetAllPermissionsAsync(cancellationToken);
+
+        foreach (var permission in permissions)
+            PermissionCatalog.Permissions.Add(permission);
+
         return Response<string>.Success($"Added : {permissionsToAdd.Count} / Removed : {permissionsToRemove.Count}");
     }
 }
