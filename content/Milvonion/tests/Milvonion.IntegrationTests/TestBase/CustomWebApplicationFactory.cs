@@ -65,11 +65,24 @@ public class CustomWebApplicationFactory : WebApplicationFactory<IApiMarker>, IA
         }
     }
 
-    public new async Task DisposeAsync()
+    public override async ValueTask DisposeAsync()
     {
-        await _connection.CloseAsync();
-        await _dbContainer.DisposeAsync();
+        try
+        {
+            await Task.WhenAny(_connection.CloseAsync(), _dbContainer.StopAsync(), Task.Delay(3000));
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Dispose error: {ex.Message}");
+        }
+        finally
+        {
+            // Finalizer kullanılmasını engelle
+            GC.SuppressFinalize(this);
+        }
     }
+
+    async Task IAsyncLifetime.DisposeAsync() => await DisposeAsync();
 
     public string GetConnectionString() => _dbContainer.GetConnectionString();
 
