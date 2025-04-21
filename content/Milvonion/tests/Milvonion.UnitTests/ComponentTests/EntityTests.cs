@@ -43,7 +43,6 @@ public class EntityTests
     {
         // Arrange
         var migrationId = "TestMigrationId";
-        var productVersion = "1.0.0";
         var migrationCompleted = true;
 
         // Act

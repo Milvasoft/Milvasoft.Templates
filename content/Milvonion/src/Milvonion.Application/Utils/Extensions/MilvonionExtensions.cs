@@ -25,6 +25,9 @@ public static partial class MilvonionExtensions
     {
         var httpContextAccessor = serviceProvider.GetService<IHttpContextAccessor>();
 
+        if (httpContextAccessor.HttpContext is null)
+            return false;
+
         var exists = httpContextAccessor.HttpContext.Request.Headers.TryGetValue(GlobalConstant.GenerateMetadataHeaderKey, out var generateMetadata);
 
         return exists && bool.Parse(generateMetadata);

@@ -25,13 +25,13 @@
 		<PackageReference Include="FluentValidation" Version="11.11.0" />
 		<PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="11.11.0" />
 		<PackageReference Include="Mapster" Version="7.4.0" />
-		<PackageReference Include="MediatR" Version="12.4.1" />
-		<PackageReference Include="Milvasoft.Caching.InMemory" Version="9.0.36" />
-		<PackageReference Include="Milvasoft.Components.CQRS" Version="9.0.36" />
-		<PackageReference Include="Milvasoft.Interception.Ef" Version="9.0.36" />
-		<PackageReference Include="Milvasoft.Localization.Resx" Version="9.0.36" />
-		<PackageReference Include="Milvasoft.Components.Rest" Version="9.0.36" />
-		<PackageReference Include="Milvasoft.Interception" Version="9.0.36" />
+		<PackageReference Include="MediatR" Version="12.5.0" />
+		<PackageReference Include="Milvasoft.Caching.InMemory" Version="9.1.1" />
+		<PackageReference Include="Milvasoft.Components.CQRS" Version="9.1.1" />
+		<PackageReference Include="Milvasoft.Interception.Ef" Version="9.1.1" />
+		<PackageReference Include="Milvasoft.Localization.Resx" Version="9.1.1" />
+		<PackageReference Include="Milvasoft.Components.Rest" Version="9.1.1" />
+		<PackageReference Include="Milvasoft.Interception" Version="9.1.1" />
 	</ItemGroup>
 
 

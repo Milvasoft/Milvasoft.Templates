@@ -43,7 +43,7 @@ public sealed class ValidationBehaviorForResponse<TRequest, TResponse>(IEnumerab
         if (!errors.IsNullOrEmpty())
             return CreateFailureResponse(errors);
 
-        var response = await next();
+        var response = await next(cancellationToken);
 
         return response;
     }
@@ -84,7 +84,7 @@ public sealed class ValidationBehaviorForResponse<TRequest, TResponse>(IEnumerab
 
             var interceptionOptions = _serviceProvider.GetService<IResponseInterceptionOptions>();
 
-            var metadataGenerator = new ResponseMetadataGenerator(interceptionOptions, _serviceProvider);
+            var metadataGenerator = new ResponseMetadataGenerator(_serviceProvider);
 
             metadataGenerator.GenerateMetadata(response as IHasMetadata);
 
@@ -115,7 +115,6 @@ public sealed class ValidationBehaviorForResponse<TRequest, TResponse>(IEnumerab
         var ctor = Expression.New(t);
 
         var lambda = Expression.Lambda<Func<object>>(ctor);
-
         return lambda.Compile();
     })();
 }

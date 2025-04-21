@@ -31,7 +31,7 @@ public static partial class StartupExtensions
     {
         app.UseSwagger(c =>
         {
-            c.SerializeAsV2 = true;
+            c.OpenApiVersion = Microsoft.OpenApi.OpenApiSpecVersion.OpenApi3_0;
             c.RouteTemplate = GlobalConstant.RoutePrefix + "/docs/{documentName}/docs.json";
         });
 

@@ -35,7 +35,8 @@ public class DeveloperService(IServiceProvider serviceProvider) : IDeveloperServ
     /// Remove, recreates and seed database for development purposes.
     /// </summary>
     /// <returns></returns>
-    public Task<Response> ResetDatabaseAsync() => _databaseMigrator.ResetDatabaseAsync(_configuration, default);
+    [ExcludeFromMetadata]
+    public async Task<Response> ResetDatabaseAsync() => await _databaseMigrator.ResetDatabaseAsync(_configuration, default);
 
     /// <summary>
     /// Seeds data for development purposes.
@@ -137,7 +138,7 @@ public class DeveloperService(IServiceProvider serviceProvider) : IDeveloperServ
     /// </summary>
     /// <returns></returns>
     [ExcludeFromMetadata]
-    public Task<Response<string>> InitDatabaseAsync() => _databaseMigrator.InitDatabaseAsync(_permissionManager, default);
+    public async Task<Response<string>> InitDatabaseAsync() => await _databaseMigrator.InitDatabaseAsync(_permissionManager, default);
 
     /// <summary>
     /// Gets method logs.

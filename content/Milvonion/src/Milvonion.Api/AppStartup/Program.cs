@@ -5,6 +5,7 @@ using Milvonion.Api.AppStartup;
 using Milvonion.Api.Middlewares;
 using Milvonion.Api.Migrations;
 using Milvonion.Application;
+using Milvonion.Application.Utils.Constants;
 using Milvonion.Application.Utils.LinkedWithFormatters;
 using Milvonion.Domain;
 using Milvonion.Infrastructure;
@@ -21,7 +22,10 @@ try
     MissingResxKeyFinder.FindAndPrintToConsole();
 #endif
 
-    var builder = WebApplication.CreateBuilder(args);
+    var builder = WebApplication.CreateBuilder(new WebApplicationOptions
+    {
+        WebRootPath = GlobalConstant.WWWRoot
+    });
 
     var assemblies = new Assembly[] { ApplicationAssembly.Assembly, InfrastructureAssembly.Assembly, DomainAssembly.Assembly, PresentationAssembly.Assembly };
 
@@ -75,8 +79,6 @@ try
         options.LowercaseQueryStrings = true;
     });
 
-    builder.WebHost.UseWebRoot("wwwroot");
-
     builder.Services.AddHostedService<MigrationHostedService>();
 
     #endregion
@@ -100,7 +102,7 @@ try
 
     app.UseRequestLocalization();
 
-    app.UseMiddleware<RequestResponseLoggingMiddleware>();
+    //app.UseMiddleware<RequestResponseLoggingMiddleware>();
 
     app.UseMiddleware<ExceptionMiddleware>();
 

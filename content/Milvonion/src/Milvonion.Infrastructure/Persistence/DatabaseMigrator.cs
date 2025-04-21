@@ -10,6 +10,7 @@ using Milvasoft.Core.MultiLanguage.EntityBases.Abstract;
 using Milvasoft.Core.MultiLanguage.Manager;
 using Milvasoft.Identity.Abstract;
 using Milvasoft.Identity.Concrete;
+using Milvasoft.Identity.Concrete.Options;
 using Milvasoft.Interception.Ef.Transaction;
 using Milvonion.Application.Interfaces;
 using Milvonion.Application.Utils.Constants;
@@ -97,6 +98,7 @@ public class DatabaseMigrator(IServiceProvider serviceProvider)
         };
 
         await _milvonionDbContext.Permissions.AddAsync(superAdminPermission, cancellationToken);
+        await _milvonionDbContext.SaveChangesAsync(cancellationToken);
 
         var superAdminRole = new Role
         {
@@ -115,6 +117,7 @@ public class DatabaseMigrator(IServiceProvider serviceProvider)
         };
 
         await _milvonionDbContext.Roles.AddAsync(superAdminRole, cancellationToken);
+        await _milvonionDbContext.SaveChangesAsync(cancellationToken);
 
         var rootUser = new User
         {
@@ -142,7 +145,10 @@ public class DatabaseMigrator(IServiceProvider serviceProvider)
             ]
         };
 
-        rootPass ??= IdentityHelpers.GenerateRandomPassword(16, true, true, true, true);
+        rootPass ??= IdentityHelpers.GenerateRandomPassword(new MilvaRandomPaswordGenerationOption
+        {
+            Length = 16,
+        });
 
         _milvonionDbContext.ServiceProvider.GetService<IMilvaUserManager<User, int>>().SetPasswordHash(rootUser, rootPass);
 

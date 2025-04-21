@@ -26,7 +26,6 @@ public partial class ExportService(IServiceProvider serviceProvider) : IExportSe
 {
     private readonly IServiceProvider _serviceProvider = serviceProvider;
     private readonly IMilvaLocalizer _localizer = serviceProvider.GetService<IMilvaLocalizer>();
-    private readonly IResponseInterceptionOptions _responseInterceptionOptions = serviceProvider.GetService<IResponseInterceptionOptions>();
     private readonly IHttpContextAccessor _httpContextAccessor = serviceProvider.GetService<IHttpContextAccessor>();
     private readonly IMediator _mediator = serviceProvider.GetService<IMediator>();
 
@@ -93,7 +92,7 @@ public partial class ExportService(IServiceProvider serviceProvider) : IExportSe
         _httpContextAccessor.HttpContext.Request.Headers.Remove(GlobalConstant.GenerateMetadataHeaderKey);
         _httpContextAccessor.HttpContext.Request.Headers.TryAdd(GlobalConstant.GenerateMetadataHeaderKey, "true");
 
-        var generator = new ResponseMetadataGenerator(_responseInterceptionOptions, _serviceProvider);
+        var generator = new ResponseMetadataGenerator(_serviceProvider);
         generator.GenerateMetadata(hasMetadataResponse);
 
         _httpContextAccessor.HttpContext.Request.Headers.Remove(GlobalConstant.GenerateMetadataHeaderKey);
