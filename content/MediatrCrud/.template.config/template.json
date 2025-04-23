@@ -34,7 +34,7 @@
       "target": "./", // copy to root folder
       "modifiers": [
         {
-          "exclude": [ "**/.vs/**", ".template.config/**" ] // exclude unnecessary files
+          "exclude": [ "**/.vs/**", ".template.config/**", "README.md" ] // exclude unnecessary files
         }
       ],
       "flatten": true // Flatten folder structure, do not copy sub folders  
