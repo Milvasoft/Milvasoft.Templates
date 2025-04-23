@@ -40,6 +40,11 @@
             Default data validator.
             </summary>
         </member>
+        <member name="M:Milvonion.Application.Behaviours.DefaultDataValidator`1.#ctor(System.Int32,System.Int32)">
+            <summary>
+            Default data validator.
+            </summary>
+        </member>
         <member name="P:Milvonion.Application.Behaviours.DefaultDataValidator`1.Name">
             <inheritdoc/>
         </member>
@@ -70,20 +75,24 @@
             Custom validators.
             </summary>
         </member>
-        <member name="M:Milvonion.Application.Behaviours.RuleBuilderOptionsExtensions.NotBeDefaultData``1(FluentValidation.IRuleBuilder{``0,System.Int32})">
+        <member name="M:Milvonion.Application.Behaviours.RuleBuilderOptionsExtensions.NotBeDefaultData``1(FluentValidation.IRuleBuilder{``0,System.Int32},System.Int32,System.Int32)">
             <summary>
             Checks whether the value is greater than or equal to 21.
             </summary>
             <typeparam name="T"></typeparam>
             <param name="ruleBuilder"></param>
+            <param name="rangeMin"></param>
+            <param name="rangeMax"></param>
             <returns></returns>
         </member>
-        <member name="M:Milvonion.Application.Behaviours.RuleBuilderOptionsExtensions.NotBeDefaultData``1(FluentValidation.IRuleBuilderOptions{``0,System.Int32})">
+        <member name="M:Milvonion.Application.Behaviours.RuleBuilderOptionsExtensions.NotBeDefaultData``1(FluentValidation.IRuleBuilderOptions{``0,System.Int32},System.Int32,System.Int32)">
             <summary>
             Checks whether the value is greater than or equal to 21.
             </summary>
             <typeparam name="T"></typeparam>
             <param name="ruleBuilder"></param>
+            <param name="rangeMin"></param>
+            <param name="rangeMax"></param>
             <returns></returns>
         </member>
         <member name="M:Milvonion.Application.Behaviours.RuleBuilderOptionsExtensions.Email``1(FluentValidation.IRuleBuilder{``0,System.String},Milvasoft.Core.Abstractions.Localization.IMilvaLocalizer)">

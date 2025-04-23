@@ -1,0 +1,44 @@
+{
+  "$schema": "http://json.schemastore.org/template",
+  "author": "Milvasoft Corporation",
+  "classifications": [ "CRUD", "MediatR", "CQRS" ],
+  "identity": "MilvaMediatrCrud",
+  "name": "Milvasoft MediatR CRUD Operations",
+  "shortName": "mediatr-crud",
+  "sourceName": "Entity",
+  "defaultName": "Entity",
+  "description": "Creates milva crud features with mediatr.",
+  "tags": {
+    "language": "C#",
+    "type": "item"
+  },
+  "symbols": {
+    "projectName": {
+      "type": "parameter",
+      "datatype": "text",
+      "description": "Root namespace or project name",
+      "replaces": "projectName",
+      "defaultValue": "MyApp"
+    },
+    "pluralName": {
+      "type": "parameter",
+      "datatype": "text",
+      "description": "Plural form of the entity",
+      "replaces": "pluralName",
+      "defaultValue": "Entities"
+    }
+  },
+  "sources": [
+    {
+      "source": "./", // get from root fodler
+      "target": "./", // copy to root folder
+      "modifiers": [
+        {
+          "exclude": [ "**/.vs/**", ".template.config/**" ] // exclude unnecessary files
+        }
+      ],
+      "flatten": true // Flatten folder structure, do not copy sub folders  
+    }
+  ]
+}
+  

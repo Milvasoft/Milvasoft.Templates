@@ -9,7 +9,7 @@ namespace Milvonion.Application.Behaviours;
 /// <summary>
 /// Default data validator.
 /// </summary>
-public class DefaultDataValidator<T> : PropertyValidator<T, int>
+public class DefaultDataValidator<T>(int rangeMin = 0, int rangeMax = 21) : PropertyValidator<T, int>
 {
     /// <inheritdoc/>
     public override string Name => "DefaultDataValidator";
@@ -18,7 +18,7 @@ public class DefaultDataValidator<T> : PropertyValidator<T, int>
     protected override string GetDefaultMessageTemplate(string errorCode) => "{PropertyName} should not less than 21.";
 
     /// <inheritdoc/>
-    public override bool IsValid(ValidationContext<T> context, int value) => value <= 0 || value >= 21;
+    public override bool IsValid(ValidationContext<T> context, int value) => value <= rangeMin || value >= rangeMax;
 }
 
 /// <summary>

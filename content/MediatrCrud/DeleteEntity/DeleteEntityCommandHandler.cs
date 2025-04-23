@@ -1,0 +1,30 @@
+﻿using Milvasoft.Components.CQRS.Command;
+using Milvasoft.Components.Rest.MilvaResponse;
+using Milvasoft.Core.Abstractions;
+using Milvasoft.Interception.Interceptors.Logging;
+
+namespace projectName.Application.Features.pluralName.DeleteEntity;
+
+/// <summary>
+/// Handles the deletion of the entity.
+/// </summary>
+/// <param name="EntityRepository"></param>
+[Log]
+[UserActivityTrack(UserActivity.DeleteEntity)]
+public record DeleteEntityCommandHandler(IprojectNameRepositoryBase<Entity> EntityRepository) : IInterceptable, ICommandHandler<DeleteEntityCommand, int>
+{
+    private readonly IprojectNameRepositoryBase<Entity> _entityRepository = EntityRepository;
+
+    /// <inheritdoc/>
+    public async Task<Response<int>> Handle(DeleteEntityCommand request, CancellationToken cancellationToken)
+    {
+        var entity = await _entityRepository.GetForDeleteAsync(request.EntityId, cancellationToken: cancellationToken);
+
+        if (entity == null)
+            return Response<int>.Error(0, MessageKey.EntityNotFound);
+
+        await _entityRepository.DeleteAsync(entity, cancellationToken: cancellationToken);
+
+        return Response<int>.Success(request.EntityId);
+    }
+}

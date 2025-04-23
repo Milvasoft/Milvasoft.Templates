@@ -14,16 +14,20 @@ public static class RuleBuilderOptionsExtensions
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <param name="ruleBuilder"></param>
+    /// <param name="rangeMin"></param>
+    /// <param name="rangeMax"></param>
     /// <returns></returns>
-    public static IRuleBuilderOptions<T, int> NotBeDefaultData<T>(this IRuleBuilder<T, int> ruleBuilder) => ruleBuilder.SetValidator(new DefaultDataValidator<T>());
+    public static IRuleBuilderOptions<T, int> NotBeDefaultData<T>(this IRuleBuilder<T, int> ruleBuilder, int rangeMin = 0, int rangeMax = 21) => ruleBuilder.SetValidator(new DefaultDataValidator<T>());
 
     /// <summary>
     /// Checks whether the value is greater than or equal to 21.
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <param name="ruleBuilder"></param>
+    /// <param name="rangeMin"></param>
+    /// <param name="rangeMax"></param>
     /// <returns></returns>
-    public static IRuleBuilderOptions<T, int> NotBeDefaultData<T>(this IRuleBuilderOptions<T, int> ruleBuilder) => ruleBuilder.SetValidator(new DefaultDataValidator<T>());
+    public static IRuleBuilderOptions<T, int> NotBeDefaultData<T>(this IRuleBuilderOptions<T, int> ruleBuilder, int rangeMin = 0, int rangeMax = 21) => ruleBuilder.SetValidator(new DefaultDataValidator<T>());
 
     /// <summary>
     /// Checks whether the value is valid email address.
