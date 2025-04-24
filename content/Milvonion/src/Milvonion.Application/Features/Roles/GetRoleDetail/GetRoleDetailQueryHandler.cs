@@ -20,7 +20,7 @@ public class GetRoleDetailQueryHandler(IMilvonionRepositoryBase<Role> roleReposi
         var role = await _roleRepository.GetByIdAsync(request.RoleId, null, RoleDetailDto.Projection, cancellationToken: cancellationToken);
 
         if (role == null)
-            return Response<RoleDetailDto>.Success(role, MessageKey.UserNotFound, MessageType.Warning);
+            return Response<RoleDetailDto>.Success(role, MessageKey.RoleNotFound, MessageType.Warning);
 
         return Response<RoleDetailDto>.Success(role);
     }

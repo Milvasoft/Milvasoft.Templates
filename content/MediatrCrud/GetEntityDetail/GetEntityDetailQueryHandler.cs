@@ -20,7 +20,7 @@ public class GetEntityDetailQueryHandler(IprojectNameRepositoryBase<Entity> enti
         var entity = await _entityRepository.GetByIdAsync(request.EntityId, null, EntityDetailDto.Projection, cancellationToken: cancellationToken);
 
         if (entity == null)
-            return Response<EntityDetailDto>.Success(entity, MessageKey.UserNotFound, MessageType.Warning);
+            return Response<EntityDetailDto>.Success(entity, MessageKey.EntityNotFound, MessageType.Warning);
 
         return Response<EntityDetailDto>.Success(entity);
     }
