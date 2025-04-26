@@ -16,7 +16,7 @@ public class GetEntityListQueryHandler(IprojectNameRepositoryBase<Entity> entity
     /// <inheritdoc/>
     public async Task<ListResponse<EntityListDto>> Handle(GetEntityListQuery request, CancellationToken cancellationToken)
     {
-        var response = await _entityRepository.GetAllAsync(request, null, EntityListDto.Projection, cancellationToken: cancellationToken);
+        var response = await _entityRepository.GetAllAsync(request, projection: EntityListDto.Projection, cancellationToken: cancellationToken);
 
         return response;
     }

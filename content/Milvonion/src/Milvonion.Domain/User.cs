@@ -15,7 +15,8 @@ namespace Milvonion.Domain;
 /// Entity of the Users table.
 /// </summary>
 [Table(TableNames.Users)]
-[Index(nameof(UserName), IsUnique = true)]
+[Index(nameof(UserName), nameof(IsDeleted), nameof(DeletionDate), IsUnique = true)]
+[DontIndexCreationDate]
 public class User : MilvaUser<int>, IFullAuditable<int>
 {
     /// <summary>
@@ -155,6 +156,7 @@ public class User : MilvaUser<int>, IFullAuditable<int>
                 UserId = s.UserId,
                 DeviceId = s.DeviceId,
                 CreationDate = s.CreationDate,
+                IpAddress = s.IpAddress,
                 ExpiryDate = s.ExpiryDate,
             }).ToList(),
             IsDeleted = u.IsDeleted,
@@ -177,6 +179,7 @@ public class User : MilvaUser<int>, IFullAuditable<int>
                 UserId = s.UserId,
                 DeviceId = s.DeviceId,
                 CreationDate = s.CreationDate,
+                IpAddress = s.IpAddress,
                 ExpiryDate = s.ExpiryDate,
             }).ToList(),
             RoleRelations = u.RoleRelations.Select(r => new UserRoleRelation
@@ -242,6 +245,37 @@ public class User : MilvaUser<int>, IFullAuditable<int>
             UserName = u.UserName,
             Email = u.Email,
             PasswordHash = u.PasswordHash,
+            Sessions = u.Sessions.Select(s => new UserSession
+            {
+                Id = s.Id,
+                AccessToken = s.AccessToken,
+                RefreshToken = s.RefreshToken,
+                UserId = s.UserId,
+                DeviceId = s.DeviceId,
+                CreationDate = s.CreationDate,
+                ExpiryDate = s.ExpiryDate,
+                UserName = s.UserName,
+                IpAddress = s.IpAddress
+            }).ToList(),
+            IsDeleted = u.IsDeleted,
+        };
+
+        public static Expression<Func<User, User>> UpdateUserWithSessions { get; } = u => new User
+        {
+            Id = u.Id,
+            UserName = u.UserName,
+            Sessions = u.Sessions.Select(s => new UserSession
+            {
+                Id = s.Id,
+                AccessToken = s.AccessToken,
+                RefreshToken = s.RefreshToken,
+                UserId = s.UserId,
+                DeviceId = s.DeviceId,
+                CreationDate = s.CreationDate,
+                ExpiryDate = s.ExpiryDate,
+                UserName = s.UserName,
+                IpAddress = s.IpAddress,
+            }).ToList(),
             IsDeleted = u.IsDeleted,
         };
     }

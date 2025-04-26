@@ -17,7 +17,7 @@ public class GetRoleDetailQueryHandler(IMilvonionRepositoryBase<Role> roleReposi
     /// <inheritdoc/>
     public async Task<Response<RoleDetailDto>> Handle(GetRoleDetailQuery request, CancellationToken cancellationToken)
     {
-        var role = await _roleRepository.GetByIdAsync(request.RoleId, null, RoleDetailDto.Projection, cancellationToken: cancellationToken);
+        var role = await _roleRepository.GetByIdAsync(request.RoleId, projection: RoleDetailDto.Projection, cancellationToken: cancellationToken);
 
         if (role == null)
             return Response<RoleDetailDto>.Success(role, MessageKey.RoleNotFound, MessageType.Warning);

@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Milvasoft.Attributes.Annotations;
 using Milvasoft.Core.EntityBases.Concrete.Auditing;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq.Expressions;
@@ -10,7 +11,8 @@ namespace Milvonion.Domain;
 /// </summary>
 [Table(TableNames.UserSessions)]
 [Index(nameof(UserName), nameof(DeviceId))]
-public class UserSession : FullAuditableEntity<int>
+[DontIndexCreationDate]
+public class UserSession : AuditableEntity<long>
 {
     /// <summary>
     /// Gets or sets the user name.
@@ -36,6 +38,11 @@ public class UserSession : FullAuditableEntity<int>
     /// Gets or sets the device ID.
     /// </summary>
     public string DeviceId { get; set; }
+
+    /// <summary>
+    /// Gets or sets the Ip address.
+    /// </summary>
+    public string IpAddress { get; set; }
 
     /// <summary>
     /// Related user id.
@@ -67,6 +74,7 @@ public class UserSession : FullAuditableEntity<int>
             DeviceId = s.DeviceId,
             CreationDate = s.CreationDate,
             ExpiryDate = s.ExpiryDate,
+            IpAddress = s.IpAddress,
         };
     }
 #pragma warning restore CS1591 // Missing XML comment for publicly visible type or member

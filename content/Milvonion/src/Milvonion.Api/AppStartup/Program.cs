@@ -102,7 +102,7 @@ try
 
     app.UseRequestLocalization();
 
-    //app.UseMiddleware<RequestResponseLoggingMiddleware>();
+    app.UseMiddleware<RequestResponseLoggingMiddleware>();
 
     app.UseMiddleware<ExceptionMiddleware>();
 

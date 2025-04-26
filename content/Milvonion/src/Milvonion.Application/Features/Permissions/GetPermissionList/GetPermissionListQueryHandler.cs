@@ -19,7 +19,7 @@ public class GetPermissionListQueryHandler(IMilvonionRepositoryBase<Permission> 
     /// <inheritdoc/>
     public async Task<ListResponse<PermissionListDto>> Handle(GetPermissionListQuery request, CancellationToken cancellationToken)
     {
-        var response = await _permissionRepository.GetAllAsync(request, null, PermissionListDto.Projection, cancellationToken: cancellationToken);
+        var response = await _permissionRepository.GetAllAsync(request, projection: PermissionListDto.Projection, cancellationToken: cancellationToken);
 
         response.Data.ForEach(response =>
         {

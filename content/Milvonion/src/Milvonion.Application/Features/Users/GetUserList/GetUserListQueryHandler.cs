@@ -16,7 +16,7 @@ public class GetUserListQueryHandler(IMilvonionRepositoryBase<User> userReposito
     /// <inheritdoc/>
     public async Task<ListResponse<UserListDto>> Handle(GetUserListQuery request, CancellationToken cancellationToken)
     {
-        var response = await _userRepository.GetAllAsync(request, null, UserListDto.Projection, cancellationToken: cancellationToken);
+        var response = await _userRepository.GetAllAsync(request, projection: UserListDto.Projection, cancellationToken: cancellationToken);
 
         return response;
     }

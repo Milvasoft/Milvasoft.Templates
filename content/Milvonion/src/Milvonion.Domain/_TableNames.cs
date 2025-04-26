@@ -12,6 +12,7 @@ public static class TableNames
     public const string ApiLogs = nameof(ApiLogs);
     public const string MethodLogs = nameof(MethodLogs);
     public const string UserSessions = nameof(UserSessions);
+    public const string UserSessionHistories = nameof(UserSessionHistories);
     public const string MenuItems = nameof(MenuItems);
     public const string MenuItemTranslations = nameof(MenuItemTranslations);
     public const string MenuGroups = nameof(MenuGroups);
@@ -23,6 +24,7 @@ public static class TableNames
     public const string Medias = nameof(Medias);
     public const string Namespaces = nameof(Namespaces);
     public const string ResourceGroups = nameof(ResourceGroups);
+    public const string Languages = nameof(Languages);
     public const string MigrationHistory = "_MigrationHistory";
     public const string EfMigrationHistory = "_EFMigrationHistory";
 }

@@ -16,7 +16,7 @@ public class GetRoleListQueryHandler(IMilvonionRepositoryBase<Role> roleReposito
     /// <inheritdoc/>
     public async Task<ListResponse<RoleListDto>> Handle(GetRoleListQuery request, CancellationToken cancellationToken)
     {
-        var response = await _roleRepository.GetAllAsync(request, null, RoleListDto.Projection, cancellationToken: cancellationToken);
+        var response = await _roleRepository.GetAllAsync(request, projection: RoleListDto.Projection, cancellationToken: cancellationToken);
 
         return response;
     }

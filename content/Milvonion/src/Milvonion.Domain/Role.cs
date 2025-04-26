@@ -9,6 +9,7 @@ namespace Milvonion.Domain;
 /// Entity of the Roles table.
 /// </summary>
 [Table(TableNames.Roles)]
+[DontIndexCreationDate]
 public class Role : FullAuditableEntity<int>
 {
     /// <summary>

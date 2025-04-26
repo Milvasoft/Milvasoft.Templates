@@ -11,10 +11,12 @@ namespace Milvonion.Application.Features.Account.Logout;
 /// </summary>
 [Transaction]
 public record LogoutCommandHandler(IMilvonionRepositoryBase<UserSession> UserSessionRepository,
+                                   IMilvonionRepositoryBase<UserSessionHistory> UserSessionHistoriesRepository,
                                    IAccountManager AccountManager,
                                    IHttpContextAccessor HttpContextAccessor) : IInterceptable, ICommandHandler<LogoutCommand>
 {
     private readonly IMilvonionRepositoryBase<UserSession> _userSessionRepository = UserSessionRepository;
+    private readonly IMilvonionRepositoryBase<UserSessionHistory> _userSessionHistoriesRepository = UserSessionHistoriesRepository;
     private readonly IHttpContextAccessor _httpContextAccessor = HttpContextAccessor;
 
     /// <inheritdoc/>
@@ -30,6 +32,8 @@ public record LogoutCommandHandler(IMilvonionRepositoryBase<UserSession> UserSes
             return Response.Error(MessageKey.Unauthorized);
 
         await _userSessionRepository.DeleteAsync(currentSession, cancellationToken);
+
+        await _userSessionHistoriesRepository.AddAsync(new UserSessionHistory(currentSession), cancellationToken);
 
         return Response.Success();
     }

@@ -9,19 +9,9 @@ namespace Milvonion.Application.Dtos.ExportDtos;
 public enum ExportType : sbyte
 {
     /// <summary>
-    /// Product list export.
-    /// </summary>
-    Product = 1,
-
-    /// <summary>
-    /// Expense revenue list export.
-    /// </summary>
-    ExpenseRevenue = 2,
-
-    /// <summary>
     /// User list export.
     /// </summary>
-    User = 3,
+    User = 1
 }
 
 /// <summary>

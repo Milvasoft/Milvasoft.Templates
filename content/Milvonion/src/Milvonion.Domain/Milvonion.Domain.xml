@@ -778,6 +778,11 @@
             Gets or sets the device ID.
             </summary>
         </member>
+        <member name="P:Milvonion.Domain.UserSession.IpAddress">
+            <summary>
+            Gets or sets the Ip address.
+            </summary>
+        </member>
         <member name="P:Milvonion.Domain.UserSession.UserId">
             <summary>
             Related user id.
@@ -787,6 +792,57 @@
             <summary>
             Navigation property of user relation.
             </summary>
+        </member>
+        <member name="T:Milvonion.Domain.UserSessionHistory">
+            <summary>
+            Entity of the Users table.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Domain.UserSessionHistory.UserName">
+            <summary>
+            Gets or sets the user name.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Domain.UserSessionHistory.AccessToken">
+            <summary>
+            Gets or sets the access token.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Domain.UserSessionHistory.RefreshToken">
+            <summary>
+            Gets or sets the refresh token.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Domain.UserSessionHistory.ExpiryDate">
+            <summary>
+            Gets or sets the expiry date.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Domain.UserSessionHistory.DeviceId">
+            <summary>
+            Gets or sets the device ID.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Domain.UserSessionHistory.UserId">
+            <summary>
+            Related user id.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Domain.UserSessionHistory.IpAddress">
+            <summary>
+            Gets or sets the Ip address.
+            </summary>
+        </member>
+        <member name="M:Milvonion.Domain.UserSessionHistory.#ctor">
+            <summary>
+            Initializes new instance of <see cref="T:Milvonion.Domain.UserSessionHistory"/>.
+            </summary>
+        </member>
+        <member name="M:Milvonion.Domain.UserSessionHistory.#ctor(Milvonion.Domain.UserSession)">
+            <summary>
+            Initializes new instance of <see cref="T:Milvonion.Domain.UserSessionHistory"/> with given <paramref name="session"/>.
+            </summary>
+            <param name="session"></param>
         </member>
         <member name="T:Milvonion.Domain.DomainAssembly">
             <summary>

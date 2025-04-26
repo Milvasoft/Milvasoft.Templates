@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Milvasoft.Components.Swagger.DocumentFilters;
 using Milvasoft.Components.Swagger.OperationFilters;
@@ -10,6 +11,7 @@ using Milvasoft.Core.MultiLanguage.Builder;
 using Milvasoft.Identity.Builder;
 using Milvasoft.Localization.Builder;
 using Milvasoft.Localization.Resx;
+using Milvonion.Api.Controllers;
 using Milvonion.Application.Utils.Constants;
 using Milvonion.Application.Utils.Extensions;
 using Milvonion.Domain;
@@ -60,26 +62,36 @@ public static partial class StartupExtensions
                 {
                     // We will add this check and response rewrite when the token is not provided.
                     // At the same time, since I set the response code in the OnForbidden and OnAuthenticationFailed events, it was added in order not to rewrite the response a second time.
-                    if (!(context.Response.StatusCode == 403 || context.Response.StatusCode == 401))
+                    if (!(context.Response.StatusCode == StatusCodes.Status403Forbidden || context.Response.StatusCode == StatusCodes.Status401Unauthorized))
                     {
                         // Since this scenario will work when a token is not sent to an endpoint that requires authorization, I set the response to 401.
-                        context.Response.ThrowWithUnauthorized();
+                        context.HttpContext.Response.ThrowWithUnauthorized();
                     }
 
                     return Task.CompletedTask;
                 },
                 OnForbidden = context =>
                 {
-                    // Invalid permissions
-                    context.Response.StatusCode = 403;
-                    throw new MilvaUserFriendlyException();
+                    return Task.CompletedTask;
                 },
                 OnAuthenticationFailed = context =>
                 {
-                    context.Response.ThrowWithUnauthorized();
-                    // Invalid token
-                    context.Response.StatusCode = 401;
-                    throw new MilvaUserFriendlyException();
+                    // Following if statement is redirects OnAuthenticationFailed again on 419.
+                    if (context.Response.StatusCode is StatusCodes.Status419AuthenticationTimeout or StatusCodes.Status401Unauthorized
+                        || AccountController.LoginEndpointPaths.Exists(e => context.Request.Path.Value.EndsWith(e)))
+                        return Task.CompletedTask;
+
+                    if (context.Exception is SecurityTokenExpiredException)
+                    {
+                        context.Response.StatusCode = StatusCodes.Status419AuthenticationTimeout;
+                        throw new MilvaUserFriendlyException();
+                    }
+                    else
+                    {
+                        // Invalid token
+                        context.Response.StatusCode = StatusCodes.Status401Unauthorized;
+                        throw new MilvaUserFriendlyException();
+                    }
                 }
             };
         });

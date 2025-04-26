@@ -342,7 +342,7 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Milvonion.Infrastructure.Services.AccountManager.#ctor(Milvonion.Application.Interfaces.IMilvonionRepositoryBase{Milvonion.Domain.UserSession},Milvasoft.Identity.Abstract.IMilvaTokenManager,Milvasoft.Identity.Concrete.Options.MilvaIdentityOptions)">
+        <member name="M:Milvonion.Infrastructure.Services.AccountManager.#ctor(Milvonion.Application.Interfaces.IMilvonionRepositoryBase{Milvonion.Domain.UserSession},Milvonion.Application.Interfaces.IMilvonionRepositoryBase{Milvonion.Domain.UserSessionHistory},Milvasoft.Identity.Abstract.IMilvaTokenManager,Milvasoft.Identity.Concrete.Options.MilvaIdentityOptions,Microsoft.AspNetCore.Http.IHttpContextAccessor)">
             <summary>
             User login operation.
             It updates sessions in database.

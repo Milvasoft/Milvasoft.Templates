@@ -1,9 +1,11 @@
-﻿using Milvasoft.Core.Helpers;
+﻿using Microsoft.AspNetCore.Http;
+using Milvasoft.Core.Helpers;
 using Milvasoft.Identity.Abstract;
 using Milvasoft.Identity.Concrete;
 using Milvasoft.Identity.Concrete.Options;
 using Milvonion.Application.Interfaces;
 using Milvonion.Application.Utils.Constants;
+using Milvonion.Application.Utils.Extensions;
 using Milvonion.Domain;
 using System.Security.Claims;
 
@@ -16,12 +18,16 @@ namespace Milvonion.Infrastructure.Services;
 /// </summary>
 /// <returns></returns>
 public class AccountManager(IMilvonionRepositoryBase<UserSession> userSessionRepository,
+                            IMilvonionRepositoryBase<UserSessionHistory> userSessionHistoriesRepository,
                             IMilvaTokenManager milvaTokenManager,
-                            MilvaIdentityOptions identityOptions) : IAccountManager
+                            MilvaIdentityOptions identityOptions,
+                            IHttpContextAccessor httpContextAccessor) : IAccountManager
 {
     private readonly IMilvonionRepositoryBase<UserSession> _userSessionRepository = userSessionRepository;
+    private readonly IMilvonionRepositoryBase<UserSessionHistory> _userSessionHistoriesRepository = userSessionHistoriesRepository;
     private readonly IMilvaTokenManager _milvaTokenManager = milvaTokenManager;
     private readonly MilvaIdentityOptions _identityOptions = identityOptions;
+    private readonly IHttpContextAccessor _httpContextAccessor = httpContextAccessor;
 
     /// <summary>
     /// User login operation.
@@ -47,13 +53,19 @@ public class AccountManager(IMilvonionRepositoryBase<UserSession> userSessionRep
             Scope = "Milvonion",
             TokenType = "Bearer",
             RefreshToken = IdentityHelpers.CreateRefreshToken(),
-            RefreshTokenExpiresIn = _identityOptions.Token.ExpirationMinute * 600,
+            RefreshTokenExpiresIn = _identityOptions.Token.ExpirationMinute * 2880 // 24 hours  
         };
 
         var sessionsToRemove = FindSessionsToRemove(user.Sessions, deviceId);
 
         if (sessionsToRemove.Count > 0)
+        {
             await _userSessionRepository.BulkDeleteAsync(sessionsToRemove, cancellationToken: cancellationToken);
+
+            var sessionsToArchive = sessionsToRemove.Select(s => new UserSessionHistory(s)).ToList();
+
+            await _userSessionHistoriesRepository.BulkAddAsync(sessionsToArchive, cancellationToken: cancellationToken);
+        }
 
         var newSession = new UserSession
         {
@@ -63,6 +75,7 @@ public class AccountManager(IMilvonionRepositoryBase<UserSession> userSessionRep
             RefreshToken = milvaToken.RefreshToken,
             ExpiryDate = DateTime.UtcNow.AddSeconds(milvaToken.RefreshTokenExpiresIn),
             DeviceId = deviceId,
+            IpAddress = _httpContextAccessor.HttpContext.GetIpAddress()
         };
 
         await _userSessionRepository.AddAsync(newSession, cancellationToken: cancellationToken);

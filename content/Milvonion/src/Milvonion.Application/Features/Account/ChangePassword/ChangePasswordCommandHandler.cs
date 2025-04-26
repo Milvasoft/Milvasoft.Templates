@@ -14,6 +14,7 @@ namespace Milvonion.Application.Features.Account.ChangePassword;
 [Transaction]
 public record ChangePasswordCommandHandler(IMilvonionRepositoryBase<User> UserRepository,
                                            IMilvonionRepositoryBase<UserSession> UserSessionRepository,
+                                           IMilvonionRepositoryBase<UserSessionHistory> UserSessionHistoriesRepository,
                                            IMilvaUserManager<User, int> MilvaUserManager,
                                            IHttpContextAccessor HttpContextAccessor) : IInterceptable, ICommandHandler<ChangePasswordCommand>
 {
@@ -21,6 +22,7 @@ public record ChangePasswordCommandHandler(IMilvonionRepositoryBase<User> UserRe
     private readonly IMilvaUserManager<User, int> _milvaUserManager = MilvaUserManager;
     private readonly IHttpContextAccessor _httpContextAccessor = HttpContextAccessor;
     private readonly IMilvonionRepositoryBase<UserSession> _userSessionRepository = UserSessionRepository;
+    private readonly IMilvonionRepositoryBase<UserSessionHistory> _userSessionHistoriesRepository = UserSessionHistoriesRepository;
 
     /// <inheritdoc/>
     public async Task<Response> Handle(ChangePasswordCommand request, CancellationToken cancellationToken)
@@ -38,6 +40,8 @@ public record ChangePasswordCommandHandler(IMilvonionRepositoryBase<User> UserRe
         await _userRepository.UpdateAsync(user, cancellationToken);
 
         await _userSessionRepository.ExecuteDeleteAsync(UserSession.Conditions.DeleteAllSessions(user.UserName), cancellationToken: cancellationToken);
+
+        await _userSessionHistoriesRepository.BulkAddAsync([.. user.Sessions?.Select(s => new UserSessionHistory(s))], cancellationToken: cancellationToken);
 
         return Response.Success();
     }

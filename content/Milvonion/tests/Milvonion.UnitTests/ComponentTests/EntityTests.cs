@@ -808,6 +808,7 @@ public class EntityTests
                 RefreshToken = s.RefreshToken,
                 UserId = s.UserId,
                 DeviceId = s.DeviceId,
+                IpAddress = s.IpAddress,
                 CreationDate = s.CreationDate,
                 ExpiryDate = s.ExpiryDate,
             }).ToList(),
@@ -1018,6 +1019,7 @@ public class EntityTests
             UserName = s.UserName,
             UserId = s.UserId,
             DeviceId = s.DeviceId,
+            IpAddress = s.IpAddress,
             CreationDate = s.CreationDate,
             ExpiryDate = s.ExpiryDate,
         };

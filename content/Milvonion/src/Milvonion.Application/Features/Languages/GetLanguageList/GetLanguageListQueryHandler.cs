@@ -16,7 +16,7 @@ public class GetLanguageListQueryHandler(IMilvonionRepositoryBase<Language> lang
     /// <inheritdoc/>
     public async Task<ListResponse<LanguageDto>> Handle(GetLanguageListQuery request, CancellationToken cancellationToken)
     {
-        var response = await _languageRepository.GetAllAsync(request, null, LanguageDto.Projection, cancellationToken: cancellationToken);
+        var response = await _languageRepository.GetAllAsync(request, projection: LanguageDto.Projection, cancellationToken: cancellationToken);
 
         return response;
     }

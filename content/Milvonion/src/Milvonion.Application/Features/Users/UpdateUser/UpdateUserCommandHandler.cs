@@ -13,6 +13,8 @@ namespace Milvonion.Application.Features.Users.UpdateUser;
 /// </summary>
 /// <param name="UserRepository"></param>
 /// <param name="UserRoleRelationRepository"></param>
+/// <param name="UserSessionRepository"></param>
+/// <param name="UserSessionHistoriesRepository"></param>
 /// <param name="MilvaIdentityOptions"></param>
 /// <param name="MilvaUserManager"></param>
 /// <param name="MilvaPasswordHasher"></param>
@@ -21,12 +23,16 @@ namespace Milvonion.Application.Features.Users.UpdateUser;
 [UserActivityTrack(UserActivity.UpdateUser)]
 public record UpdateUserCommandHandler(IMilvonionRepositoryBase<User> UserRepository,
                                        IMilvonionRepositoryBase<UserRoleRelation> UserRoleRelationRepository,
+                                       IMilvonionRepositoryBase<UserSession> UserSessionRepository,
+                                       IMilvonionRepositoryBase<UserSessionHistory> UserSessionHistoriesRepository,
                                        Lazy<MilvaIdentityOptions> MilvaIdentityOptions,
                                        Lazy<IMilvaUserManager<User, int>> MilvaUserManager,
                                        Lazy<IMilvaPasswordHasher> MilvaPasswordHasher) : IInterceptable, ICommandHandler<UpdateUserCommand, int>
 {
     private readonly IMilvonionRepositoryBase<User> _userRepository = UserRepository;
     private readonly IMilvonionRepositoryBase<UserRoleRelation> _userRoleRelationRepository = UserRoleRelationRepository;
+    private readonly IMilvonionRepositoryBase<UserSession> _userSessionRepository = UserSessionRepository;
+    private readonly IMilvonionRepositoryBase<UserSessionHistory> _userSessionHistoriesRepository = UserSessionHistoriesRepository;
     private readonly Lazy<MilvaIdentityOptions> _milvaIdentityOptions = MilvaIdentityOptions;
     private readonly Lazy<IMilvaPasswordHasher> _milvaPasswordHasher = MilvaPasswordHasher;
     private readonly Lazy<IMilvaUserManager<User, int>> _milvaUserManager = MilvaUserManager;
@@ -68,6 +74,11 @@ public record UpdateUserCommandHandler(IMilvonionRepositoryBase<User> UserReposi
 
             if (addedEntities?.Count > 0)
                 await _userRoleRelationRepository.BulkAddAsync(addedEntities, null, cancellationToken);
+
+            var user = await _userRepository.GetByIdAsync(request.Id, projection: User.Projections.UpdateUserWithSessions, cancellationToken: cancellationToken);
+
+            await _userSessionRepository.ExecuteDeleteAsync(UserSession.Conditions.DeleteAllSessions(user.UserName), cancellationToken: cancellationToken);
+            await _userSessionHistoriesRepository.BulkAddAsync([.. user.Sessions?.Select(s => new UserSessionHistory(s))], cancellationToken: cancellationToken);
         }
 
         return Response<int>.Success(request.Id);

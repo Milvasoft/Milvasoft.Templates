@@ -17,7 +17,7 @@ public class GetEntityDetailQueryHandler(IprojectNameRepositoryBase<Entity> enti
     /// <inheritdoc/>
     public async Task<Response<EntityDetailDto>> Handle(GetEntityDetailQuery request, CancellationToken cancellationToken)
     {
-        var entity = await _entityRepository.GetByIdAsync(request.EntityId, null, EntityDetailDto.Projection, cancellationToken: cancellationToken);
+        var entity = await _entityRepository.GetByIdAsync(request.EntityId, projection: EntityDetailDto.Projection, cancellationToken: cancellationToken);
 
         if (entity == null)
             return Response<EntityDetailDto>.Success(entity, MessageKey.EntityNotFound, MessageType.Warning);

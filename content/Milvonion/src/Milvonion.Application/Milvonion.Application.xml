@@ -803,16 +803,6 @@
             Export types.
             </summary>
         </member>
-        <member name="F:Milvonion.Application.Dtos.ExportDtos.ExportType.Product">
-            <summary>
-            Product list export.
-            </summary>
-        </member>
-        <member name="F:Milvonion.Application.Dtos.ExportDtos.ExportType.ExpenseRevenue">
-            <summary>
-            Expense revenue list export.
-            </summary>
-        </member>
         <member name="F:Milvonion.Application.Dtos.ExportDtos.ExportType.User">
             <summary>
             User list export.
@@ -1272,7 +1262,7 @@
             Handles the change password command.
             </summary>
         </member>
-        <member name="M:Milvonion.Application.Features.Account.ChangePassword.ChangePasswordCommandHandler.#ctor(Milvonion.Application.Interfaces.IMilvonionRepositoryBase{Milvonion.Domain.User},Milvonion.Application.Interfaces.IMilvonionRepositoryBase{Milvonion.Domain.UserSession},Milvasoft.Identity.Abstract.IMilvaUserManager{Milvonion.Domain.User,System.Int32},Microsoft.AspNetCore.Http.IHttpContextAccessor)">
+        <member name="M:Milvonion.Application.Features.Account.ChangePassword.ChangePasswordCommandHandler.#ctor(Milvonion.Application.Interfaces.IMilvonionRepositoryBase{Milvonion.Domain.User},Milvonion.Application.Interfaces.IMilvonionRepositoryBase{Milvonion.Domain.UserSession},Milvonion.Application.Interfaces.IMilvonionRepositoryBase{Milvonion.Domain.UserSessionHistory},Milvasoft.Identity.Abstract.IMilvaUserManager{Milvonion.Domain.User,System.Int32},Microsoft.AspNetCore.Http.IHttpContextAccessor)">
             <summary>
             Handles the change password command.
             </summary>
@@ -1349,7 +1339,7 @@
             Handles the LogoutCommand and performs the logout operation.
             </summary>
         </member>
-        <member name="M:Milvonion.Application.Features.Account.Logout.LogoutCommandHandler.#ctor(Milvonion.Application.Interfaces.IMilvonionRepositoryBase{Milvonion.Domain.UserSession},Milvonion.Application.Interfaces.IAccountManager,Microsoft.AspNetCore.Http.IHttpContextAccessor)">
+        <member name="M:Milvonion.Application.Features.Account.Logout.LogoutCommandHandler.#ctor(Milvonion.Application.Interfaces.IMilvonionRepositoryBase{Milvonion.Domain.UserSession},Milvonion.Application.Interfaces.IMilvonionRepositoryBase{Milvonion.Domain.UserSessionHistory},Milvonion.Application.Interfaces.IAccountManager,Microsoft.AspNetCore.Http.IHttpContextAccessor)">
             <summary>
             Handles the LogoutCommand and performs the logout operation.
             </summary>
@@ -2657,16 +2647,20 @@
             </summary>
             <param name="UserRepository"></param>
             <param name="UserRoleRelationRepository"></param>
+            <param name="UserSessionRepository"></param>
+            <param name="UserSessionHistoriesRepository"></param>
             <param name="MilvaIdentityOptions"></param>
             <param name="MilvaUserManager"></param>
             <param name="MilvaPasswordHasher"></param>
         </member>
-        <member name="M:Milvonion.Application.Features.Users.UpdateUser.UpdateUserCommandHandler.#ctor(Milvonion.Application.Interfaces.IMilvonionRepositoryBase{Milvonion.Domain.User},Milvonion.Application.Interfaces.IMilvonionRepositoryBase{Milvonion.Domain.UserRoleRelation},System.Lazy{Milvasoft.Identity.Concrete.Options.MilvaIdentityOptions},System.Lazy{Milvasoft.Identity.Abstract.IMilvaUserManager{Milvonion.Domain.User,System.Int32}},System.Lazy{Milvasoft.Identity.Abstract.IMilvaPasswordHasher})">
+        <member name="M:Milvonion.Application.Features.Users.UpdateUser.UpdateUserCommandHandler.#ctor(Milvonion.Application.Interfaces.IMilvonionRepositoryBase{Milvonion.Domain.User},Milvonion.Application.Interfaces.IMilvonionRepositoryBase{Milvonion.Domain.UserRoleRelation},Milvonion.Application.Interfaces.IMilvonionRepositoryBase{Milvonion.Domain.UserSession},Milvonion.Application.Interfaces.IMilvonionRepositoryBase{Milvonion.Domain.UserSessionHistory},System.Lazy{Milvasoft.Identity.Concrete.Options.MilvaIdentityOptions},System.Lazy{Milvasoft.Identity.Abstract.IMilvaUserManager{Milvonion.Domain.User,System.Int32}},System.Lazy{Milvasoft.Identity.Abstract.IMilvaPasswordHasher})">
             <summary>
             Handles the update of the user.
             </summary>
             <param name="UserRepository"></param>
             <param name="UserRoleRelationRepository"></param>
+            <param name="UserSessionRepository"></param>
+            <param name="UserSessionHistoriesRepository"></param>
             <param name="MilvaIdentityOptions"></param>
             <param name="MilvaUserManager"></param>
             <param name="MilvaPasswordHasher"></param>
@@ -2675,6 +2669,12 @@
             <summary></summary>
         </member>
         <member name="P:Milvonion.Application.Features.Users.UpdateUser.UpdateUserCommandHandler.UserRoleRelationRepository">
+            <summary></summary>
+        </member>
+        <member name="P:Milvonion.Application.Features.Users.UpdateUser.UpdateUserCommandHandler.UserSessionRepository">
+            <summary></summary>
+        </member>
+        <member name="P:Milvonion.Application.Features.Users.UpdateUser.UpdateUserCommandHandler.UserSessionHistoriesRepository">
             <summary></summary>
         </member>
         <member name="P:Milvonion.Application.Features.Users.UpdateUser.UpdateUserCommandHandler.MilvaIdentityOptions">
@@ -3097,6 +3097,11 @@
             Url start segment.
             </summary>
         </member>
+        <member name="F:Milvonion.Application.Utils.Constants.GlobalConstant.CurrentUserPermissionsKey">
+            <summary>
+            Current user permissions http context items key.
+            </summary>
+        </member>
         <member name="P:Milvonion.Application.Utils.Constants.GlobalConstant.ContentDispositionIgnores">
             <summary>
             Ignored content disposition parts.
@@ -3124,15 +3129,11 @@
         </member>
         <member name="T:Milvonion.Application.Utils.Extensions.MilvonionExtensions">
             <summary>
+            Contains extension methods for the Opsiyon.
+            </summary>
+            <summary>
             Contains extension methods for the Milvonion.
             </summary>
-        </member>
-        <member name="M:Milvonion.Application.Utils.Extensions.MilvonionExtensions.GenerateMetadata(System.IServiceProvider)">
-            <summary>
-            Generates metadata for the request according to header.
-            </summary>
-            <param name="serviceProvider"></param>
-            <returns></returns>
         </member>
         <member name="M:Milvonion.Application.Utils.Extensions.MilvonionExtensions.GetTokenFromHeader(Microsoft.AspNetCore.Http.IHttpContextAccessor)">
             <summary>
@@ -3184,6 +3185,60 @@
             <param name="httpContext"></param>
             <returns></returns>
         </member>
+        <member name="M:Milvonion.Application.Utils.Extensions.MilvonionExtensions.ThrowIfCurrentUserNotAuthorized(Microsoft.AspNetCore.Http.HttpContext,System.Collections.Generic.List{System.String})">
+            <summary>
+            Throws an exception if the current user does not have the required permissions.
+            </summary>
+            <param name="httpContext"></param>
+            <param name="permissions"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Milvonion.Application.Utils.Extensions.MilvonionExtensions.GetIpAddress(Microsoft.AspNetCore.Http.HttpContext)">
+            <summary>
+            Gets the IP address of the client.
+            </summary>
+            <param name="httpContext"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Milvonion.Application.Utils.Extensions.MilvonionExtensions.ThrowWithUnauthorized(Microsoft.AspNetCore.Http.HttpResponse,System.String)">
+            <summary>
+            Sets the status code of the response to 401.
+            </summary>
+            <param name="response"></param>
+            <param name="messageKey"></param>
+        </member>
+        <member name="M:Milvonion.Application.Utils.Extensions.MilvonionExtensions.ThrowWithForbidden(Microsoft.AspNetCore.Http.HttpResponse,System.String)">
+            <summary>
+            Sets the status code of the response to 403.
+            </summary>
+            <param name="response"></param>
+            <param name="messageKey"></param>
+        </member>
+        <member name="M:Milvonion.Application.Utils.Extensions.MilvonionExtensions.ThrowWithSessionTimeout(Microsoft.AspNetCore.Http.HttpResponse)">
+            <summary>
+            Sets the status code of the response to 419.
+            </summary>
+            <param name="response"></param>
+        </member>
+        <member name="M:Milvonion.Application.Utils.Extensions.MilvonionExtensions.CreateRequestUrl(System.String,System.String,System.String,System.String,System.String,System.String)">
+            <summary>
+            Makes reques url from requested params.For more detailed information of URL Sections, please refer to the remarks section where the method is described.
+            </summary>
+            <param name="protocol"></param>
+            <param name="hostName"></param>
+            <param name="port"></param>
+            <param name="pathName"></param>
+            <param name="query"></param>
+            <param name="hash"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Milvonion.Application.Utils.Extensions.MilvonionExtensions.GenerateMetadata(System.IServiceProvider)">
+            <summary>
+            Generates metadata for the request according to header.
+            </summary>
+            <param name="serviceProvider"></param>
+            <returns></returns>
+        </member>
         <member name="M:Milvonion.Application.Utils.Extensions.MilvonionExtensions.ToLowerAndNonSpacingUnicode(System.String)">
             <summary>
             Converts the input string to lowercase and removes diacritics (accents) from characters.
@@ -3219,32 +3274,6 @@
             <param name="dataUriBase64"></param>
             <returns></returns>
         </member>
-        <member name="M:Milvonion.Application.Utils.Extensions.MilvonionExtensions.ThrowIfCurrentUserNotAuthorized(Microsoft.AspNetCore.Http.HttpContext,System.Collections.Generic.List{System.String})">
-            <summary>
-            Throws an exception if the current user does not have the required permissions.
-            </summary>
-            <param name="httpContext"></param>
-            <param name="permissions"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Milvonion.Application.Utils.Extensions.MilvonionExtensions.ThrowWithUnauthorized(Microsoft.AspNetCore.Http.HttpResponse)">
-            <summary>
-            Sets the status code of the response to 401.
-            </summary>
-            <param name="response"></param>
-        </member>
-        <member name="M:Milvonion.Application.Utils.Extensions.MilvonionExtensions.ThrowWithForbidden(Microsoft.AspNetCore.Http.HttpResponse)">
-            <summary>
-            Sets the status code of the response to 403.
-            </summary>
-            <param name="response"></param>
-        </member>
-        <member name="M:Milvonion.Application.Utils.Extensions.MilvonionExtensions.ThrowWithSessionTimeout(Microsoft.AspNetCore.Http.HttpResponse)">
-            <summary>
-            Sets the status code of the response to 419.
-            </summary>
-            <param name="response"></param>
-        </member>
         <member name="M:Milvonion.Application.Utils.Extensions.MilvonionExtensions.DataUriRegex">
             <remarks>
             Pattern:<br/>
@@ -3270,6 +3299,41 @@
             Explanation:<br/>
             <code>
             ○ Match a whitespace character atomically at least once.<br/>
+            </code>
+            </remarks>
+        </member>
+        <member name="M:Milvonion.Application.Utils.Extensions.MilvonionExtensions.UrlRegex">
+            <remarks>
+            Pattern:<br/>
+            <code>^(ht|f)tp(s?)\\:\\/\\/[0-9a-zA-Z]([-.\\w]*[0-9a-zA-Z])*(:(0-9)*)*(\\/?)([a-zA-Z0-9\\-\\.\\?\\,\\'\\/\\\\\\+&amp;%\\$#_]*)?$</code><br/>
+            Explanation:<br/>
+            <code>
+            ○ Match if at the beginning of the string.<br/>
+            ○ 1st capture group.<br/>
+                ○ Match with 2 alternative expressions.<br/>
+                    ○ Match the string "ht".<br/>
+                    ○ Match 'f'.<br/>
+            ○ Match the string "tp".<br/>
+            ○ 2nd capture group.<br/>
+                ○ Match 's' atomically, optionally.<br/>
+            ○ Match the string "://".<br/>
+            ○ Match a character in the set [0-9A-Za-z].<br/>
+            ○ Loop greedily any number of times.<br/>
+                ○ 3rd capture group.<br/>
+                    ○ Match a character in the set [-.\w] greedily any number of times.<br/>
+                    ○ Match a character in the set [0-9A-Za-z].<br/>
+            ○ Loop greedily any number of times.<br/>
+                ○ 4th capture group.<br/>
+                    ○ Match ':'.<br/>
+                    ○ Loop greedily any number of times.<br/>
+                        ○ 5th capture group.<br/>
+                            ○ Match the string "0-9".<br/>
+            ○ 6th capture group.<br/>
+                ○ Match '/' greedily, optionally.<br/>
+            ○ Optional (greedy).<br/>
+                ○ 7th capture group.<br/>
+                    ○ Match a character in the set [#-'+-9?A-Z\\_a-z] greedily any number of times.<br/>
+            ○ Match if at the end of the string or if before an ending newline.<br/>
             </code>
             </remarks>
         </member>
@@ -3587,6 +3651,38 @@
             <param name="inputSpan">The text being scanned by the regular expression.</param>
             <returns>true if the regular expression matches at the current position; otherwise, false.</returns>
         </member>
+        <member name="T:System.Text.RegularExpressions.Generated.UrlRegex_2">
+            <summary>Custom <see cref="T:System.Text.RegularExpressions.Regex"/>-derived type for the UrlRegex method.</summary>
+        </member>
+        <member name="F:System.Text.RegularExpressions.Generated.UrlRegex_2.Instance">
+            <summary>Cached, thread-safe singleton instance.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.UrlRegex_2.#ctor">
+            <summary>Initializes the instance.</summary>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.UrlRegex_2.RunnerFactory">
+            <summary>Provides a factory for creating <see cref="T:System.Text.RegularExpressions.RegexRunner"/> instances to be used by methods on <see cref="T:System.Text.RegularExpressions.Regex"/>.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.UrlRegex_2.RunnerFactory.CreateInstance">
+            <summary>Creates an instance of a <see cref="T:System.Text.RegularExpressions.RegexRunner"/> used by methods on <see cref="T:System.Text.RegularExpressions.Regex"/>.</summary>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.UrlRegex_2.RunnerFactory.Runner">
+            <summary>Provides the runner that contains the custom logic implementing the specified regular expression.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.UrlRegex_2.RunnerFactory.Runner.Scan(System.ReadOnlySpan{System.Char})">
+            <summary>Scan the <paramref name="inputSpan"/> starting from base.runtextstart for the next match.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.UrlRegex_2.RunnerFactory.Runner.TryFindNextPossibleStartingPosition(System.ReadOnlySpan{System.Char})">
+            <summary>Search <paramref name="inputSpan"/> starting from base.runtextpos for the next location a match could possibly start.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+            <returns>true if a possible match was found; false if no more matches are possible.</returns>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.UrlRegex_2.RunnerFactory.Runner.TryMatchAtCurrentPosition(System.ReadOnlySpan{System.Char})">
+            <summary>Determine whether <paramref name="inputSpan"/> at base.runtextpos is a match for the regular expression.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+            <returns>true if the regular expression matches at the current position; otherwise, false.</returns>
+        </member>
         <member name="T:System.Text.RegularExpressions.Generated.Utilities">
             <summary>Helper methods used by generated <see cref="T:System.Text.RegularExpressions.Regex"/>-derived implementations.</summary>
         </member>
@@ -3596,8 +3692,26 @@
         <member name="F:System.Text.RegularExpressions.Generated.Utilities.s_hasTimeout">
             <summary>Whether <see cref="F:System.Text.RegularExpressions.Generated.Utilities.s_defaultTimeout"/> is non-infinite.</summary>
         </member>
+        <member name="M:System.Text.RegularExpressions.Generated.Utilities.StackPop(System.Int32[],System.Int32@,System.Int32@,System.Int32@)">
+            <summary>Pops 2 values from the backtracking stack.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.Utilities.StackPush(System.Int32[]@,System.Int32@,System.Int32)">
+            <summary>Pushes 1 value onto the backtracking stack.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.Utilities.StackPush(System.Int32[]@,System.Int32@,System.Int32,System.Int32)">
+            <summary>Pushes 2 values onto the backtracking stack.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.Utilities.StackPush(System.Int32[]@,System.Int32@,System.Int32,System.Int32,System.Int32)">
+            <summary>Pushes 3 values onto the backtracking stack.</summary>
+        </member>
+        <member name="F:System.Text.RegularExpressions.Generated.Utilities.s_asciiLettersAndDigits">
+            <summary>Supports searching for characters in or not in "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz".</summary>
+        </member>
         <member name="F:System.Text.RegularExpressions.Generated.Utilities.s_ascii_88FF03FEFFFF07FEFFFF07">
             <summary>Supports searching for characters in or not in "+/0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz".</summary>
+        </member>
+        <member name="F:System.Text.RegularExpressions.Generated.Utilities.s_ascii_F8F8FF83FEFFFF97FEFFFF07">
+            <summary>Supports searching for characters in or not in "#$%&amp;'+,-./0123456789?ABCDEFGHIJKLMNOPQRSTUVWXYZ\\_abcdefghijklmnopqrstuvwxyz".</summary>
         </member>
         <member name="F:System.Text.RegularExpressions.Generated.Utilities.s_whitespace">
             <summary>Supports searching for characters in or not in "\t\n\v\f\r \u0085             \u2028\u2029  　".</summary>

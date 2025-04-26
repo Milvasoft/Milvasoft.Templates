@@ -19,13 +19,13 @@ public class AccountDetailQueryHandler(IMilvonionRepositoryBase<User> userReposi
     /// <inheritdoc/>
     public async Task<Response<AccountDetailDto>> Handle(AccountDetailQuery request, CancellationToken cancellationToken)
     {
-        var user = await _userRepository.GetByIdAsync(request.UserId, null, AccountDetailDto.Projection, cancellationToken: cancellationToken);
+        var user = await _userRepository.GetByIdAsync(request.UserId, projection: AccountDetailDto.Projection, cancellationToken: cancellationToken);
 
         if (user == null)
-            return Response<AccountDetailDto>.Success(null, MessageKey.UserNotFound, MessageType.Warning);
+            return Response<AccountDetailDto>.Success(default, MessageKey.UserNotFound, MessageType.Warning);
 
         if (!_httpContextAccessor.IsCurrentUser(user.UserName))
-            return Response<AccountDetailDto>.Error(null, MessageKey.Unauthorized);
+            return Response<AccountDetailDto>.Error(default, MessageKey.Unauthorized);
 
         return Response<AccountDetailDto>.Success(user);
     }

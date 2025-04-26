@@ -26,7 +26,7 @@ public class GetActivityLogListQueryHandler(IMilvonionRepositoryBase<ActivityLog
                 Type = SortType.Desc
             };
 
-        var response = await _activityLogRepository.GetAllAsync(request, null, ActivityLogListDto.Projection, cancellationToken: cancellationToken);
+        var response = await _activityLogRepository.GetAllAsync(request, projection: ActivityLogListDto.Projection, cancellationToken: cancellationToken);
 
         return response;
     }

@@ -17,7 +17,7 @@ public class GetUserDetailQueryHandler(IMilvonionRepositoryBase<User> userReposi
     /// <inheritdoc/>
     public async Task<Response<UserDetailDto>> Handle(GetUserDetailQuery request, CancellationToken cancellationToken)
     {
-        var user = await _userRepository.GetByIdAsync(request.UserId, null, UserDetailDto.Projection, cancellationToken: cancellationToken);
+        var user = await _userRepository.GetByIdAsync(request.UserId, projection: UserDetailDto.Projection, cancellationToken: cancellationToken);
 
         if (user == null)
             return Response<UserDetailDto>.Success(user, MessageKey.UserNotFound, MessageType.Warning);

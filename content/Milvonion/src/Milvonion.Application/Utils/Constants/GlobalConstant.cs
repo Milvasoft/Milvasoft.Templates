@@ -145,6 +145,11 @@ public static class GlobalConstant
     public const string UrlStartSegment = "://";
 
     /// <summary>
+    /// Current user permissions http context items key.
+    /// </summary>
+    public const string CurrentUserPermissionsKey = "CU-Permissions";
+
+    /// <summary>
     /// Ignored content disposition parts.
     /// </summary>
     public static HashSet<string> ContentDispositionIgnores { get; } =

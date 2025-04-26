@@ -24,6 +24,11 @@ namespace Milvonion.Api.Controllers;
 [ApiExplorerSettings(GroupName = "v1.0")]
 public class AccountController(IMediator mediator) : ControllerBase
 {
+    /// <summary>
+    /// Not validate token endpoint paths.
+    /// </summary>
+    public static List<string> LoginEndpointPaths { get; } = ["login", "refresh"];
+
     private readonly IMediator _mediator = mediator;
 
     /// <summary>

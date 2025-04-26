@@ -20,6 +20,8 @@ namespace Milvonion.Infrastructure.Persistence.Context;
 public class MilvonionDbContext(DbContextOptions options) : MilvaBulkDbContext(options)
 {
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
+    public DbSet<MigrationHistory> MigrationHistory { get; set; }
+    public DbSet<EfMigrationHistory> EfMigrationHistory { get; set; }
     public DbSet<ActivityLog> ActivityLogs { get; set; }
     public DbSet<ApiLog> ApiLogs { get; set; }
     public DbSet<MethodLog> MethodLogs { get; set; }
@@ -29,11 +31,11 @@ public class MilvonionDbContext(DbContextOptions options) : MilvaBulkDbContext(o
     public DbSet<User> Users { get; set; }
     public DbSet<UserRoleRelation> UserRoleRelations { get; set; }
     public DbSet<UserSession> UserSessions { get; set; }
+    public DbSet<UserSessionHistory> UserSessionHistories { get; set; }
     public DbSet<MenuItem> MenuItems { get; set; }
     public DbSet<MenuGroup> MenuGroups { get; set; }
     public DbSet<Page> Pages { get; set; }
     public DbSet<PageAction> PageActions { get; set; }
-    public DbSet<MigrationHistory> MigrationHistory { get; set; }
     public DbSet<Content> Contents { get; set; }
     public DbSet<Media> Medias { get; set; }
     public DbSet<ResourceGroup> ResourceGroups { get; set; }

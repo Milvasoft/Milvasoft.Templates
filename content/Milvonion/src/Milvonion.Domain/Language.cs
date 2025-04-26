@@ -1,11 +1,15 @@
-﻿using Milvasoft.Core.EntityBases.Concrete;
+﻿using Milvasoft.Attributes.Annotations;
+using Milvasoft.Core.EntityBases.Concrete;
 using Milvasoft.Core.MultiLanguage.EntityBases.Concrete;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Milvonion.Domain;
 
 /// <summary>
 /// Language entity.
 /// </summary>
+[Table(TableNames.Languages)]
+[DontIndexCreationDate]
 public class Language : LanguageEntity
 {
     /// <summary>

@@ -18,7 +18,7 @@ public class GetResourceGroupDetailQueryHandler(IMilvonionRepositoryBase<Resourc
     /// <inheritdoc/>
     public async Task<Response<ResourceGroupDetailDto>> Handle(GetResourceGroupDetailQuery request, CancellationToken cancellationToken)
     {
-        var resourceGroup = await _resourceGroupRepository.GetByIdAsync(request.ResourceGroupId, null, ResourceGroupDetailDto.Projection, cancellationToken: cancellationToken);
+        var resourceGroup = await _resourceGroupRepository.GetByIdAsync(request.ResourceGroupId, projection: ResourceGroupDetailDto.Projection, cancellationToken: cancellationToken);
 
         if (resourceGroup == null)
             return Response<ResourceGroupDetailDto>.Success(resourceGroup, MessageKey.ResourceGroupNotFound, MessageType.Warning);

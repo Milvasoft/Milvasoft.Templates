@@ -18,7 +18,7 @@ public class GetNamespaceDetailQueryHandler(IMilvonionRepositoryBase<Namespace> 
     /// <inheritdoc/>
     public async Task<Response<NamespaceDetailDto>> Handle(GetNamespaceDetailQuery request, CancellationToken cancellationToken)
     {
-        var contentNamespace = await _contentNamespaceRepository.GetByIdAsync(request.NamespaceId, null, NamespaceDetailDto.Projection, cancellationToken: cancellationToken);
+        var contentNamespace = await _contentNamespaceRepository.GetByIdAsync(request.NamespaceId, projection: NamespaceDetailDto.Projection, cancellationToken: cancellationToken);
 
         if (contentNamespace == null)
             return Response<NamespaceDetailDto>.Success(contentNamespace, MessageKey.NamespaceNotFound, MessageType.Warning);

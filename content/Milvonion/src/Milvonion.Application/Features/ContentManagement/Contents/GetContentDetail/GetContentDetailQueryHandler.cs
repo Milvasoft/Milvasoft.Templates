@@ -18,7 +18,7 @@ public class GetContentDetailQueryHandler(IMilvonionRepositoryBase<Content> reso
     /// <inheritdoc/>
     public async Task<Response<ContentDetailDto>> Handle(GetContentDetailQuery request, CancellationToken cancellationToken)
     {
-        var resourceGroup = await _resourceGroupRepository.GetByIdAsync(request.ContentId, null, ContentDetailDto.Projection, cancellationToken: cancellationToken);
+        var resourceGroup = await _resourceGroupRepository.GetByIdAsync(request.ContentId, projection: ContentDetailDto.Projection, cancellationToken: cancellationToken);
 
         if (resourceGroup == null)
             return Response<ContentDetailDto>.Success(resourceGroup, MessageKey.ContentNotFound, MessageType.Warning);

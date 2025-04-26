@@ -161,6 +161,11 @@
             Account endpoints.
             </summary>
         </member>
+        <member name="P:Milvonion.Api.Controllers.AccountController.LoginEndpointPaths">
+            <summary>
+            Not validate token endpoint paths.
+            </summary>
+        </member>
         <member name="M:Milvonion.Api.Controllers.AccountController.LoginAsync(Milvonion.Application.Features.Account.Login.LoginCommand,System.Threading.CancellationToken)">
             <summary>
             User login operation.
@@ -697,7 +702,7 @@
             <param name="context"></param>
             <returns></returns>
         </member>
-        <member name="M:Milvonion.Api.Middlewares.ExceptionMiddleware.RewriteResponseAsync(Microsoft.AspNetCore.Http.HttpContext,System.String,System.Int32,Milvasoft.Components.Rest.Enums.MessageType)">
+        <member name="M:Milvonion.Api.Middlewares.ExceptionMiddleware.RewriteResponseAsync(Microsoft.AspNetCore.Http.HttpContext,System.String,System.Int32,Milvasoft.Components.Rest.Enums.MessageType,System.Object)">
             <summary>
             Rewrites the response.
             </summary>
@@ -705,6 +710,7 @@
             <param name="messageKey"></param>
             <param name="statusCode"></param>
             <param name="messageType"></param>
+            <param name="exceptionObject"></param>
             <returns></returns>
         </member>
         <member name="T:Milvonion.Api.Middlewares.RequestResponseLoggingMiddleware">

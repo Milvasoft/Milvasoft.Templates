@@ -2,7 +2,11 @@
 using Milvasoft.Components.Rest.MilvaResponse;
 using Milvasoft.Core.Abstractions.Localization;
 using Milvasoft.Core.Exceptions;
+using Milvasoft.Core.Helpers;
+using Milvasoft.Interception.Interceptors.ActivityScope;
 using Milvonion.Application.Utils.Constants;
+using Milvonion.Domain;
+using Milvonion.Domain.JsonModels;
 using Npgsql;
 using System.Net;
 
@@ -44,13 +48,22 @@ public class ExceptionMiddleware(RequestDelegate next, ILoggerFactory loggerFact
         {
             context.Items.Add(nameof(Exception), ex);
 
-            if (context.Response.StatusCode == (int)HttpStatusCode.Unauthorized || context.Response.StatusCode == (int)HttpStatusCode.Forbidden)
+            if (context.Response.StatusCode == StatusCodes.Status401Unauthorized || context.Response.StatusCode == StatusCodes.Status403Forbidden)
             {
-                await RewriteResponseAsync(context, context.Response.StatusCode == (int)HttpStatusCode.Unauthorized ? MessageKey.Unauthorized : MessageKey.Forbidden, context.Response.StatusCode, MessageType.Warning);
+                var messageKey = ex.Message?.StartsWith('~') ?? false
+                    ? ex.Message.Trim('~')
+                    : (context.Response.StatusCode == StatusCodes.Status401Unauthorized ? MessageKey.Unauthorized : MessageKey.Forbidden);
+
+                await RewriteResponseAsync(context, messageKey, context.Response.StatusCode, MessageType.Warning);
+                return;
+            }
+            else if (context.Response.StatusCode == StatusCodes.Status419AuthenticationTimeout)
+            {
+                await RewriteResponseAsync(context, MessageKey.SessionTimeout, context.Response.StatusCode, MessageType.Warning);
                 return;
             }
 
-            await RewriteResponseAsync(context, ex.Message, (int)HttpStatusCode.OK, MessageType.Warning);
+            await RewriteResponseAsync(context, ex.Message, StatusCodes.Status200OK, MessageType.Warning, ex.ExceptionObject);
         }
         catch (Exception ex)
         {
@@ -60,14 +73,14 @@ public class ExceptionMiddleware(RequestDelegate next, ILoggerFactory loggerFact
                 await HandlePostgresException(context, postgresEx);
             else
             {
-                _logger.LogError(ex, MessageConstant.ExceptionLogTemplate, ex.Message);
+                LogExceptionWithRequest(context, ex);
 
                 await RewriteResponseAsync(context, MessageKey.UnhandledException, (int)HttpStatusCode.BadRequest);
             }
         }
     }
 
-    private static Task HandlePostgresException(HttpContext context, PostgresException ex)
+    private Task HandlePostgresException(HttpContext context, PostgresException ex)
     {
         string messageKey;
 
@@ -78,9 +91,13 @@ public class ExceptionMiddleware(RequestDelegate next, ILoggerFactory loggerFact
         else if (ex.SqlState.Equals(MessageConstant.ForeignKeyViolationPgCode))
             messageKey = MessageKey.PostgreBasedException;
         else
-            messageKey = MessageKey.PostgreBasedException;
+        {
+            LogExceptionWithRequest(context, ex);
 
-        return RewriteResponseAsync(context, messageKey, (int)HttpStatusCode.OK, MessageType.Warning);
+            messageKey = MessageKey.PostgreBasedException;
+        }
+
+        return RewriteResponseAsync(context, messageKey, StatusCodes.Status200OK, MessageType.Warning);
     }
 
     /// <summary>
@@ -90,19 +107,50 @@ public class ExceptionMiddleware(RequestDelegate next, ILoggerFactory loggerFact
     /// <param name="messageKey"></param>
     /// <param name="statusCode"></param>
     /// <param name="messageType"></param>
+    /// <param name="exceptionObject"></param>
     /// <returns></returns>
-    public static async Task RewriteResponseAsync(HttpContext context, string messageKey, int statusCode, MessageType messageType = MessageType.Error)
+    public static async Task RewriteResponseAsync(HttpContext context, string messageKey, int statusCode, MessageType messageType = MessageType.Error, object exceptionObject = null)
     {
         if (!context.Response.HasStarted)
         {
             var localizer = context.RequestServices.GetService<IMilvaLocalizer>();
 
-            var response = Response.Error(localizer[messageKey], messageType);
+            var message = exceptionObject is null ? localizer[messageKey] : localizer[messageKey, exceptionObject];
+
+            var response = Response.Error(message, messageType);
 
             response.StatusCode = statusCode;
             context.Response.StatusCode = statusCode;
 
             await context.Response.WriteAsJsonAsync(response);
         }
+    }
+
+    private void LogExceptionWithRequest(HttpContext context, Exception ex)
+    {
+        var requestInfo = new RequestInfo
+        {
+            Method = context.Request.Method,
+            Headers = context.Request.Headers,
+            ContentLength = context.Request.ContentLength ?? 0,
+            AbsoluteUri = string.Concat(context.Request.Scheme,
+                                    GlobalConstant.UrlStartSegment,
+                                    context.Request.Host.ToUriComponent(),
+                                    context.Request.PathBase.ToUriComponent(),
+                                    context.Request.Path.ToUriComponent(),
+                                    context.Request.QueryString.ToUriComponent()),
+            QueryString = context.Request.QueryString.ToUriComponent()
+        };
+
+        _logger.LogError(LogTemplate.ExceptionWithRequest,
+                         ex.Message,
+                         ActivityHelper.Id,
+                         LogLevel.Information.ToString(),
+                         DateTimeOffset.UtcNow,
+                         context.Request.Method,
+                         context.Request.Path,
+                         requestInfo,
+                         User.GetCurrentUser(context.RequestServices.GetService<IServiceProvider>()),
+                         ex.ToJson());
     }
 }

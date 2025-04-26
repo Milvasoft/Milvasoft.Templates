@@ -222,167 +222,360 @@ public class DatabaseMigrator(IServiceProvider serviceProvider)
         _milvonionDbContext.MenuGroups.Add(generalGroup);
 
         var menuItems = new List<MenuItem>
-            {
-                new() {
-                     Id = 21,
-                     Order = 99,
-                     GroupId = managementGroup.Id,
-                     PermissionOrGroupNames = [nameof(PermissionCatalog.App), nameof(PermissionCatalog.UserManagement), nameof(PermissionCatalog.ActivityLogManagement)],
-                     Translations =
-                     [
-                         new()
-                         {
-                             LanguageId = 1,
-                             Name = "Kullanıcı Yönetimi",
-                             EntityId = 21
-                         },
-                         new()
-                         {
-                             LanguageId = 2,
-                             Name = "User Management",
-                             EntityId = 21
-                         }
-                     ],
-                     Childrens =
-                     [
-                         new()
-                         {
-                             Id = 22,
-                             Order = 98,
-                             ParentId = 21,
-                             GroupId = managementGroup.Id,
-                             Url = "/users",
-                             PageName = nameof(PermissionCatalog.UserManagement),
-                             PermissionOrGroupNames = [PermissionCatalog.App.SuperAdmin, PermissionCatalog.UserManagement.List],
-                             Translations =
-                             [
-                                 new()
-                                 {
-                                     LanguageId = 1,
-                                     Name = "Kullanıcılar",
-                                     EntityId = 22
-                                 },
-                                 new()
-                                 {
-                                     LanguageId = 2,
-                                     Name = "Users",
-                                     EntityId = 22
-                                 }
-                             ],
-                             CreationDate = DateTime.Now,
-                             CreatorUserName = "System"
-                         },
-                         new()
-                         {
-                             Id = 23,
-                             Order = 97,
-                             ParentId = 21,
-                             GroupId = managementGroup.Id,
-                             Url = "/activityLogs",
-                             PageName = nameof(PermissionCatalog.ActivityLogManagement),
-                             PermissionOrGroupNames = [PermissionCatalog.App.SuperAdmin, PermissionCatalog.ActivityLogManagement.List],
-                             Translations =
-                             [
-                                 new()
-                                 {
-                                     LanguageId = 1,
-                                     Name = "Kullanıcı Aktiviteleri",
-                                     EntityId = 23
-                                 },
-                                 new()
-                                 {
-                                     LanguageId = 2,
-                                     Name = "User Activities",
-                                     EntityId = 23
-                                 }
-                             ],
-                             CreationDate = DateTime.Now,
-                             CreatorUserName = "System"
-                         }
-                     ],
-                     CreationDate = DateTime.Now,
-                     CreatorUserName = "System"
-                },
-                new() {
-                     Id = 25,
-                     Order = 89,
-                     GroupId = managementGroup.Id,
-                     Url = "/role",
-                     PageName = nameof(PermissionCatalog.RoleManagement),
-                     PermissionOrGroupNames = [PermissionCatalog.App.SuperAdmin, PermissionCatalog.RoleManagement.List],
-                     Translations =
-                     [
-                         new()
-                         {
-                             LanguageId = 1,
-                             Name = "Roller",
-                             EntityId = 25
-                         },
-                         new()
-                         {
-                             LanguageId = 2,
-                             Name = "Roles",
-                             EntityId = 25
-                         }
-                     ],
-                     CreationDate = DateTime.Now,
-                     CreatorUserName = "System"
-                },
-            };
+        {
+            new() {
+                 Id = 21,
+                 Order = 99,
+                 GroupId = managementGroup.Id,
+                 PermissionOrGroupNames = [nameof(PermissionCatalog.App), nameof(PermissionCatalog.UserManagement), nameof(PermissionCatalog.ActivityLogManagement)],
+                 Translations =
+                 [
+                     new()
+                     {
+                         LanguageId = 21,
+                         Name = "Kullanıcı Yönetimi",
+                         EntityId = 21
+                     },
+                     new()
+                     {
+                         LanguageId = 22,
+                         Name = "User Management",
+                         EntityId = 21
+                     }
+                 ],
+                 Childrens =
+                 [
+                     new()
+                     {
+                         Id = 22,
+                         Order = 96,
+                         ParentId = 21,
+                         GroupId = managementGroup.Id,
+                         Url = "/users",
+                         PageName = nameof(PermissionCatalog.UserManagement),
+                         PermissionOrGroupNames = [PermissionCatalog.App.SuperAdmin, PermissionCatalog.UserManagement.List],
+                         Translations =
+                         [
+                             new()
+                             {
+                                 LanguageId = 21,
+                                 Name = "Kullanıcılar",
+                                 EntityId = 22
+                             },
+                             new()
+                             {
+                                 LanguageId = 22,
+                                 Name = "Users",
+                                 EntityId = 22
+                             }
+                         ],
+                         CreationDate = DateTime.Now,
+                         CreatorUserName = "System"
+                     },
+                     new()
+                     {
+                         Id = 23,
+                         Order = 98,
+                         ParentId = 21,
+                         GroupId = managementGroup.Id,
+                         Url = "/activity-logs",
+                         PageName = nameof(PermissionCatalog.ActivityLogManagement),
+                         PermissionOrGroupNames = [PermissionCatalog.App.SuperAdmin, PermissionCatalog.ActivityLogManagement.List],
+                         Translations =
+                         [
+                             new()
+                             {
+                                 LanguageId = 21,
+                                 Name = "Kullanıcı Aktiviteleri",
+                                 EntityId = 23
+                             },
+                             new()
+                             {
+                                 LanguageId = 22,
+                                 Name = "User Activities",
+                                 EntityId = 23
+                             }
+                         ],
+                         CreationDate = DateTime.Now,
+                         CreatorUserName = "System"
+                     },
+                     new() {
+                          Id = 24,
+                          Order = 97,
+                          GroupId = managementGroup.Id,
+                          Url = "/roles",
+                          PageName = nameof(PermissionCatalog.RoleManagement),
+                          PermissionOrGroupNames = [PermissionCatalog.App.SuperAdmin, PermissionCatalog.RoleManagement.List],
+                          Translations =
+                          [
+                              new()
+                              {
+                                  LanguageId = 21,
+                                  Name = "Roller",
+                                  EntityId = 24
+                              },
+                              new()
+                              {
+                                  LanguageId = 22,
+                                  Name = "Roles",
+                                  EntityId = 24
+                              }
+                          ],
+                          CreationDate = DateTime.Now,
+                          CreatorUserName = "System"
+                     },
+                 ],
+                 CreationDate = DateTime.Now,
+                 CreatorUserName = "System"
+            },// Users, Roles, ActivityLogs 
+            new() {
+                 Id = 25,
+                 Order = 79,
+                 GroupId = managementGroup.Id,
+                 PermissionOrGroupNames = [nameof(PermissionCatalog.App), nameof(PermissionCatalog.ContentManagement), nameof(PermissionCatalog.LanguageManagement)],
+                 Translations =
+                 [
+                     new()
+                     {
+                         LanguageId = 21,
+                         Name = "Site Yönetimi",
+                         EntityId = 25
+                     },
+                     new()
+                     {
+                         LanguageId = 22,
+                         Name = "Site Management",
+                         EntityId = 25
+                     }
+                 ],
+                 Childrens =
+                 [
+                    new() {
+                         Id = 27,
+                         GroupId = managementGroup.Id,
+                         Order = 79,
+                         Url = "/languages",
+                         PageName = nameof(PermissionCatalog.LanguageManagement),
+                         PermissionOrGroupNames = [PermissionCatalog.App.SuperAdmin, PermissionCatalog.LanguageManagement.List],
+                         Translations =
+                         [
+                             new()
+                             {
+                                 LanguageId = 21,
+                                 Name = "Diller",
+                                 EntityId = 39
+                             },
+                             new()
+                             {
+                                 LanguageId = 22,
+                                 Name = "Languages",
+                                 EntityId = 39
+                             }
+                         ],
+                         CreationDate = DateTime.Now,
+                         CreatorUserName = "System"
+                    },
+                    new() {
+                         Id = 28,
+                         Order = 76,
+                         GroupId = managementGroup.Id,
+                         Url = "/namespaces",
+                         PageName = "NamespaceManagement",
+                         PermissionOrGroupNames = [PermissionCatalog.App.SuperAdmin, PermissionCatalog.ContentManagement.List],
+                         Translations =
+                         [
+                             new()
+                             {
+                                 LanguageId = 21,
+                                 Name = "Namespaceler",
+                                 EntityId = 28
+                             },
+                             new()
+                             {
+                                 LanguageId = 22,
+                                 Name = "Namespaces",
+                                 EntityId = 28
+                             }
+                         ],
+                         CreationDate = DateTime.Now,
+                         CreatorUserName = "System"
+                    },
+                    new() {
+                         Id = 29,
+                         Order = 77,
+                         GroupId = managementGroup.Id,
+                         Url = "/resourcegroups",
+                         PageName = "ResourceGroupManagement",
+                         PermissionOrGroupNames = [PermissionCatalog.App.SuperAdmin, PermissionCatalog.ContentManagement.List],
+                         Translations =
+                         [
+                             new()
+                             {
+                                 LanguageId = 21,
+                                 Name = "Resource Gruplar",
+                                 EntityId = 29
+                             },
+                             new()
+                             {
+                                 LanguageId = 22,
+                                 Name = "Resource Groups",
+                                 EntityId = 29
+                             }
+                         ],
+                         CreationDate = DateTime.Now,
+                         CreatorUserName = "System"
+                    },
+                    new() {
+                         Id = 30,
+                         Order = 75,
+                         GroupId = managementGroup.Id,
+                         Url = "/contents",
+                         PageName = nameof(PermissionCatalog.ContentManagement),
+                         PermissionOrGroupNames = [PermissionCatalog.App.SuperAdmin, PermissionCatalog.ContentManagement.List],
+                         Translations =
+                         [
+                             new()
+                             {
+                                 LanguageId = 21,
+                                 Name = "İçerikler",
+                                 EntityId = 30
+                             },
+                             new()
+                             {
+                                 LanguageId = 22,
+                                 Name = "Contents",
+                                 EntityId = 30
+                             }
+                         ],
+                         CreationDate = DateTime.Now,
+                         CreatorUserName = "System"
+                    }
+                 ],
+                 CreationDate = DateTime.Now,
+                 CreatorUserName = "System"
+            },// CMS, ContactForms
+            
+        };
 
         _milvonionDbContext.MenuItems.AddRange(menuItems);
 
         var pages = new List<Page>
-            {           
-                // Users Page
-                new()
-                {
-                    Id = 22,
-                    Name = nameof(PermissionCatalog.UserManagement),
-                    HasCreate = true,
-                    HasEdit = true,
-                    HasDetail = true,
-                    HasDelete = true,
-                    CreatePermissions = [PermissionCatalog.App.SuperAdmin, PermissionCatalog.UserManagement.Create],
-                    EditPermissions = [PermissionCatalog.App.SuperAdmin, PermissionCatalog.UserManagement.Update],
-                    DetailPermissions =  [PermissionCatalog.App.SuperAdmin, PermissionCatalog.UserManagement.Detail],
-                    DeletePermissions= [PermissionCatalog.App.SuperAdmin, PermissionCatalog.UserManagement.Delete],
-                    CreationDate = DateTime.Now,
-                    CreatorUserName = "System",
-                },
-                
-                // ActivityLogManagement Page
-                new()
-                {
-                    Id = 23,
-                    Name = nameof(PermissionCatalog.ActivityLogManagement),
-                    HasCreate = false,
-                    HasEdit = false,
-                    HasDetail = false,
-                    HasDelete = false,
-                    CreationDate = DateTime.Now,
-                    CreatorUserName = "System",
-                },
-                
-           
-                // RoleManagement Page
-                new()
-                {
-                    Id = 25,
-                    Name = nameof(PermissionCatalog.RoleManagement),
-                    HasCreate = true,
-                    HasEdit = true,
-                    HasDetail = true,
-                    HasDelete = true,
-                    CreatePermissions = [PermissionCatalog.App.SuperAdmin, PermissionCatalog.RoleManagement.Create],
-                    EditPermissions = [PermissionCatalog.App.SuperAdmin, PermissionCatalog.RoleManagement.Update],
-                    DetailPermissions = [PermissionCatalog.App.SuperAdmin, PermissionCatalog.RoleManagement.Detail],
-                    DeletePermissions= [PermissionCatalog.App.SuperAdmin, PermissionCatalog.RoleManagement.Delete],
-                    CreationDate = DateTime.Now,
-                    CreatorUserName = "System",
-                },
+        {           
+            // Users Page
+            new()
+            {
+                Id = 22,
+                Name = nameof(PermissionCatalog.UserManagement),
+                HasCreate = true,
+                HasEdit = true,
+                HasDetail = true,
+                HasDelete = true,
+                CreatePermissions = [PermissionCatalog.App.SuperAdmin, PermissionCatalog.UserManagement.Create],
+                EditPermissions = [PermissionCatalog.App.SuperAdmin, PermissionCatalog.UserManagement.Update],
+                DetailPermissions =  [PermissionCatalog.App.SuperAdmin, PermissionCatalog.UserManagement.Detail],
+                DeletePermissions= [PermissionCatalog.App.SuperAdmin, PermissionCatalog.UserManagement.Delete],
+                CreationDate = DateTime.Now,
+                CreatorUserName = "System",
+            },
+            
+            // ActivityLogManagement Page
+            new()
+            {
+                Id = 23,
+                Name = nameof(PermissionCatalog.ActivityLogManagement),
+                HasCreate = false,
+                HasEdit = false,
+                HasDetail = false,
+                HasDelete = false,
+                CreationDate = DateTime.Now,
+                CreatorUserName = "System",
+            },
+            
+        
+            // RoleManagement Page
+            new()
+            {
+                Id = 25,
+                Name = nameof(PermissionCatalog.RoleManagement),
+                HasCreate = true,
+                HasEdit = true,
+                HasDetail = true,
+                HasDelete = true,
+                CreatePermissions = [PermissionCatalog.App.SuperAdmin, PermissionCatalog.RoleManagement.Create],
+                EditPermissions = [PermissionCatalog.App.SuperAdmin, PermissionCatalog.RoleManagement.Update],
+                DetailPermissions = [PermissionCatalog.App.SuperAdmin, PermissionCatalog.RoleManagement.Detail],
+                DeletePermissions= [PermissionCatalog.App.SuperAdmin, PermissionCatalog.RoleManagement.Delete],
+                CreationDate = DateTime.Now,
+                CreatorUserName = "System",
+            },
 
-            };
+            // Language Page
+            new()
+            {
+                Id = 26,
+                Name = nameof(PermissionCatalog.LanguageManagement),
+                HasCreate = false,
+                HasEdit = true,
+                HasDetail = true,
+                HasDelete = false,
+                EditPermissions = [PermissionCatalog.App.SuperAdmin, PermissionCatalog.LanguageManagement.Update],
+                CreationDate = DateTime.Now,
+                CreatorUserName = "System",
+            },
+
+            // CMS-Namespace Page
+            new()
+            {
+                Id = 27,
+                Name = "NamespaceManagement",
+                HasCreate = true,
+                HasEdit = true,
+                HasDetail = true,
+                HasDelete = true,
+                CreatePermissions = [PermissionCatalog.App.SuperAdmin, PermissionCatalog.ContentManagement.Create],
+                EditPermissions = [PermissionCatalog.App.SuperAdmin, PermissionCatalog.ContentManagement.Update],
+                DetailPermissions = [PermissionCatalog.App.SuperAdmin, PermissionCatalog.ContentManagement.Detail],
+                DeletePermissions= [PermissionCatalog.App.SuperAdmin, PermissionCatalog.ContentManagement.Delete],
+                CreationDate = DateTime.Now,
+                CreatorUserName = "System",
+            },
+        
+            // CMS-ResourceGroup Page
+            new()
+            {
+                Id = 28,
+                Name = "ResourceGroupManagement",
+                HasCreate = true,
+                HasEdit = true,
+                HasDetail = true,
+                HasDelete = true,
+                CreatePermissions = [PermissionCatalog.App.SuperAdmin, PermissionCatalog.ContentManagement.Create],
+                EditPermissions = [PermissionCatalog.App.SuperAdmin, PermissionCatalog.ContentManagement.Update],
+                DetailPermissions = [PermissionCatalog.App.SuperAdmin, PermissionCatalog.ContentManagement.Detail],
+                DeletePermissions= [PermissionCatalog.App.SuperAdmin, PermissionCatalog.ContentManagement.Delete],
+                CreationDate = DateTime.Now,
+                CreatorUserName = "System",
+            },
+        
+            // CMS-Namespace Page
+            new()
+            {
+                Id = 29,
+                Name = nameof(PermissionCatalog.ContentManagement),
+                HasCreate = true,
+                HasEdit = true,
+                HasDetail = true,
+                HasDelete = true,
+                CreatePermissions = [PermissionCatalog.App.SuperAdmin, PermissionCatalog.ContentManagement.Create],
+                EditPermissions = [PermissionCatalog.App.SuperAdmin, PermissionCatalog.ContentManagement.Update],
+                DetailPermissions = [PermissionCatalog.App.SuperAdmin, PermissionCatalog.ContentManagement.Detail],
+                DeletePermissions= [PermissionCatalog.App.SuperAdmin, PermissionCatalog.ContentManagement.Delete],
+                CreationDate = DateTime.Now,
+                CreatorUserName = "System",
+            },
+        };
+
+        _milvonionDbContext.Pages.AddRange(pages);
 
         _milvonionDbContext.Pages.AddRange(pages);
 
