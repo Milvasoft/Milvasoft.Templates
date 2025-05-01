@@ -28,15 +28,17 @@ namespace Milvonion.Infrastructure.Persistence;
 /// <param name="serviceProvider"></param>
 public class DatabaseMigrator(IServiceProvider serviceProvider)
 {
-    private readonly MilvonionDbContext _milvonionDbContext = serviceProvider.GetService<MilvonionDbContext>();
+    private readonly MilvonionDbContext _dbContext = serviceProvider.GetService<MilvonionDbContext>();
 
     /// <summary>
     /// Remove, recreates and seed database for development purposes.
     /// </summary>
     /// <returns></returns>
-    public async Task<Response> ResetDatabaseAsync(IConfiguration configuration, CancellationToken cancellationToken = default)
+    public async Task<Response> ResetDatabaseAsync(CancellationToken cancellationToken = default)
     {
-        await _milvonionDbContext.Database.EnsureDeletedAsync(cancellationToken);
+        var configuration = serviceProvider.GetService<IConfiguration>();
+
+        await _dbContext.Database.EnsureDeletedAsync(cancellationToken);
 
         var connectionString = configuration.GetConnectionString("DefaultConnectionString");
 
@@ -78,7 +80,7 @@ public class DatabaseMigrator(IServiceProvider serviceProvider)
     {
         var createTriggerSql = await File.ReadAllTextAsync(Path.Combine(GlobalConstant.SqlFilesPath, "create_triggers.sql"), cancellationToken);
 
-        await _milvonionDbContext.Database.ExecuteSqlRawAsync(createTriggerSql, cancellationToken: cancellationToken);
+        await _dbContext.Database.ExecuteSqlRawAsync(createTriggerSql, cancellationToken: cancellationToken);
     }
 
     /// <summary>
@@ -97,8 +99,8 @@ public class DatabaseMigrator(IServiceProvider serviceProvider)
             PermissionGroupDescription = "Application-wide permissions."
         };
 
-        await _milvonionDbContext.Permissions.AddAsync(superAdminPermission, cancellationToken);
-        await _milvonionDbContext.SaveChangesAsync(cancellationToken);
+        await _dbContext.Permissions.AddAsync(superAdminPermission, cancellationToken);
+        await _dbContext.SaveChangesAsync(cancellationToken);
 
         var superAdminRole = new Role
         {
@@ -116,16 +118,16 @@ public class DatabaseMigrator(IServiceProvider serviceProvider)
             ]
         };
 
-        await _milvonionDbContext.Roles.AddAsync(superAdminRole, cancellationToken);
-        await _milvonionDbContext.SaveChangesAsync(cancellationToken);
+        await _dbContext.Roles.AddAsync(superAdminRole, cancellationToken);
+        await _dbContext.SaveChangesAsync(cancellationToken);
 
         var rootUser = new User
         {
             Id = 1,
             UserName = GlobalConstant.RootUsername,
             NormalizedUserName = "ROOTUSER",
-            Email = "rootuser@gmail.com",
-            NormalizedEmail = "ROOTUSER@GMAIL.COM",
+            Email = string.Empty,
+            NormalizedEmail = string.Empty,
             Name = "Administrator",
             Surname = "User",
             UserType = Domain.Enums.UserType.Manager,
@@ -150,11 +152,11 @@ public class DatabaseMigrator(IServiceProvider serviceProvider)
             Length = 16,
         });
 
-        _milvonionDbContext.ServiceProvider.GetService<IMilvaUserManager<User, int>>().SetPasswordHash(rootUser, rootPass);
+        _dbContext.ServiceProvider.GetService<IMilvaUserManager<User, int>>().SetPasswordHash(rootUser, rootPass);
 
-        await _milvonionDbContext.Users.AddAsync(rootUser, cancellationToken);
+        await _dbContext.Users.AddAsync(rootUser, cancellationToken);
 
-        await _milvonionDbContext.SaveChangesAsync(cancellationToken);
+        await _dbContext.SaveChangesAsync(cancellationToken);
 
         return rootPass;
     }
@@ -165,7 +167,7 @@ public class DatabaseMigrator(IServiceProvider serviceProvider)
     /// <returns></returns>
     public async Task SeedUIRelatedDataAsync(CancellationToken cancellationToken = default)
     {
-        var menuGroups = await _milvonionDbContext.MenuGroups.Select(i => i.Id).ToListAsync(cancellationToken: cancellationToken);
+        var menuGroups = await _dbContext.MenuGroups.Select(i => i.Id).ToListAsync(cancellationToken: cancellationToken);
 
         if (menuGroups.Count != 0)
             return;
@@ -218,8 +220,8 @@ public class DatabaseMigrator(IServiceProvider serviceProvider)
             CreatorUserName = "System"
         };
 
-        _milvonionDbContext.MenuGroups.Add(managementGroup);
-        _milvonionDbContext.MenuGroups.Add(generalGroup);
+        _dbContext.MenuGroups.Add(managementGroup);
+        _dbContext.MenuGroups.Add(generalGroup);
 
         var menuItems = new List<MenuItem>
         {
@@ -457,7 +459,7 @@ public class DatabaseMigrator(IServiceProvider serviceProvider)
             
         };
 
-        _milvonionDbContext.MenuItems.AddRange(menuItems);
+        _dbContext.MenuItems.AddRange(menuItems);
 
         var pages = new List<Page>
         {           
@@ -575,11 +577,11 @@ public class DatabaseMigrator(IServiceProvider serviceProvider)
             },
         };
 
-        _milvonionDbContext.Pages.AddRange(pages);
+        _dbContext.Pages.AddRange(pages);
 
-        _milvonionDbContext.Pages.AddRange(pages);
+        _dbContext.Pages.AddRange(pages);
 
-        await _milvonionDbContext.SaveChangesAsync(cancellationToken);
+        await _dbContext.SaveChangesAsync(cancellationToken);
 
         #endregion
     }
@@ -595,13 +597,13 @@ public class DatabaseMigrator(IServiceProvider serviceProvider)
 
         var roles = roleFaker.Generate(100);
 
-        await _milvonionDbContext.BulkInsertAsync(roles, cancellationToken: cancellationToken);
+        await _dbContext.BulkInsertAsync(roles, cancellationToken: cancellationToken);
 
         var userFaker = new UserFaker(sameData, locale, roles);
 
         var users = userFaker.Generate(250);
 
-        await _milvonionDbContext.BulkInsertAsync(users, cancellationToken: cancellationToken);
+        await _dbContext.BulkInsertAsync(users, cancellationToken: cancellationToken);
     }
 
     /// <summary>
@@ -623,27 +625,23 @@ public class DatabaseMigrator(IServiceProvider serviceProvider)
         {
             var initialMigrationSql = await File.ReadAllTextAsync(Path.Combine(GlobalConstant.SqlFilesPath, "initial_migration_fetch.sql"), cancellationToken);
 
-            var initialMigration = await _milvonionDbContext.Database.SqlQueryRaw<EfMigrationHistory>(initialMigrationSql).FirstOrDefaultAsync(cancellationToken);
+            var initialMigration = await _dbContext.Database.SqlQueryRaw<EfMigrationHistory>(initialMigrationSql).FirstOrDefaultAsync(cancellationToken);
 
             if (initialMigration == null)
                 return Response<string>.Error("Initial migration cannot found!");
 
-            var migrationLog = await _milvonionDbContext.MigrationHistory.FirstOrDefaultAsync(m => m.MigrationId == initialMigration.MigrationId, cancellationToken: cancellationToken);
+            var migrationLog = await _dbContext.MigrationHistory.FirstOrDefaultAsync(m => m.MigrationId == initialMigration.MigrationId, cancellationToken: cancellationToken);
 
             if (migrationLog?.MigrationCompleted ?? false)
                 return Response<string>.Error("Already initialized!");
 
-            await _milvonionDbContext.Database.EnsureCreatedAsync(cancellationToken);
-
-            await _milvonionDbContext.Database.MigrateAsync(cancellationToken);
-
-            await SeedUIRelatedDataAsync(cancellationToken);
-
             var rootPass = await SeedDefaultDataAsync(cancellationToken: cancellationToken);
 
-            await _milvonionDbContext.SaveChangesAsync(cancellationToken);
+            await _dbContext.SaveChangesAsync(cancellationToken);
 
             await CreateTriggersAsync(cancellationToken);
+
+            await SeedUIRelatedDataAsync(cancellationToken);
 
             var languages = LanguagesSeed.Seed.Select(l => new Language
             {
@@ -651,11 +649,11 @@ public class DatabaseMigrator(IServiceProvider serviceProvider)
                 Name = l.Name,
                 IsDefault = l.IsDefault,
                 Supported = l.Supported,
-            });
+            }).ToList();
 
-            await _milvonionDbContext.Languages.AddRangeAsync(languages, cancellationToken);
+            await _dbContext.Languages.AddRangeAsync(languages, cancellationToken);
 
-            await _milvonionDbContext.SaveChangesAsync(cancellationToken);
+            await _dbContext.SaveChangesAsync(cancellationToken);
 
             var languageSeed = languages.Cast<ILanguage>().ToList();
 
@@ -671,12 +669,12 @@ public class DatabaseMigrator(IServiceProvider serviceProvider)
                     MigrationCompleted = true
                 };
 
-                await _milvonionDbContext.MigrationHistory.AddAsync(migrationLog, cancellationToken);
-                await _milvonionDbContext.SaveChangesAsync(cancellationToken);
+                await _dbContext.MigrationHistory.AddAsync(migrationLog, cancellationToken);
+                await _dbContext.SaveChangesAsync(cancellationToken);
             }
             else
             {
-                await _milvonionDbContext.MigrationHistory.Where(m => m.MigrationId == migrationLog.MigrationId)
+                await _dbContext.MigrationHistory.Where(m => m.MigrationId == migrationLog.MigrationId)
                                                           .ExecuteUpdateAsync(i => i.SetProperty(x => x.MigrationCompleted, true), cancellationToken: cancellationToken);
             }
 

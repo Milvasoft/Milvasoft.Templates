@@ -60,9 +60,16 @@ public class LookupService(MilvonionDbContext dbContext, IMilvaLocalizer localiz
 
             var localizedEnumValue = _localizer[resourceKey];
 
+            string localizedValue;
+
+            if (localizedEnumValue?.ResourceFound ?? false)
+                localizedValue = localizedEnumValue.ToString();
+            else
+                localizedValue = enumValue.ToString();
+
             var enumActualValue = Convert.ChangeType(enumValue, enumUnderlyingType);
 
-            enumLookups.Add(new EnumLookupModel { Value = enumActualValue, Name = localizedEnumValue });
+            enumLookups.Add(new EnumLookupModel { Value = enumActualValue, Name = localizedValue });
         }
 
         return ListResponse<EnumLookupModel>.Success(enumLookups);

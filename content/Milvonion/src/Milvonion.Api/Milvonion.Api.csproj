@@ -4,11 +4,11 @@
 		<TargetFramework>net9.0</TargetFramework>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Ispackable>true</Ispackable>
-		<UserSecretsId>d5ffdc97-ad34-4194-b342-29d0aac4ee8f</UserSecretsId>
 		<DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
 		<GenerateDocumentationFile>True</GenerateDocumentationFile>
 		<DocumentationFile>..\Milvonion.Api\Milvonion.Api.xml</DocumentationFile>
 		<Configurations>Debug;Release;TemplateTest</Configurations>
+		<UserSecretsId>e8781644-077d-4975-8b31-00179265b6b6</UserSecretsId>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)' == 'Debug'">

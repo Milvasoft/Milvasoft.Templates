@@ -576,4 +576,219 @@
   <data name="ExportType.User" xml:space="preserve">
     <value>users</value>
   </data>
+  <data name="Global.PhoneNumber" xml:space="preserve">
+    <value>Phone Number</value>
+  </data>
+  <data name="PhoneNumber" xml:space="preserve">
+    <value>Phone Number</value>
+  </data>
+  <data name="Global.Message" xml:space="preserve">
+    <value>Message</value>
+  </data>
+  <data name="ExpenseRevenueNotFound" xml:space="preserve">
+    <value>Expense/Revenue does not exists!</value>
+  </data>
+  <data name="ExpenseRevenue" xml:space="preserve">
+    <value>Expense/Revenue</value>
+  </data>
+  <data name="ContactForm" xml:space="preserve">
+    <value>Contact Form</value>
+  </data>
+  <data name="SiteSetting" xml:space="preserve">
+    <value>Site Setting</value>
+  </data>
+  <data name="FileValidationFailed" xml:space="preserve">
+    <value>The file format or size is invalid. Please only upload files of the allowed type and size!
+
+Please only upload the following file types:
+- Images: .jpeg, .jpg, .png
+- Documents: .pdf
+
+Maximum file size:
+- For images: 10 MB
+- For documents: 30 MB</value>
+  </data>
+  <data name="Global.PublicSiteOrder" xml:space="preserve">
+    <value>Public Site Order</value>
+  </data>
+  <data name="Global.Published" xml:space="preserve">
+    <value>Published</value>
+  </data>
+  <data name="Global.CreationDate" xml:space="preserve">
+    <value>Creation Date</value>
+  </data>
+  <data name="ProductFilesNotFound" xml:space="preserve">
+    <value>Files not found for deletion!</value>
+  </data>
+  <data name="Global.ResourceGroup" xml:space="preserve">
+    <value>Resource Group</value>
+  </data>
+  <data name="Global.Description" xml:space="preserve">
+    <value>Description</value>
+  </data>
+  <data name="Global.Product" xml:space="preserve">
+    <value>Product</value>
+  </data>
+  <data name="ProductNotFound" xml:space="preserve">
+    <value>Product does not exists!</value>
+  </data>
+  <data name="Global.Category" xml:space="preserve">
+    <value>Product Category</value>
+  </data>
+  <data name="CategoryNotFound" xml:space="preserve">
+    <value>Category does not exists!</value>
+  </data>
+  <data name="Global.AdditionalInformations" xml:space="preserve">
+    <value>Additional Informations</value>
+  </data>
+  <data name="Global.MetaTag" xml:space="preserve">
+    <value>Meta Tag</value>
+  </data>
+  <data name="SiteSettingNotFound" xml:space="preserve">
+    <value>Site settings does not exists!</value>
+  </data>
+  <data name="ContactFormNotFound" xml:space="preserve">
+    <value>Contact Form does not exists!</value>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>Password</value>
+  </data>
+  <data name="UI.ProductManagement" xml:space="preserve">
+    <value>Products</value>
+  </data>
+  <data name="UI.CategoryManagement" xml:space="preserve">
+    <value>Product Categories</value>
+  </data>
+  <data name="UI.ExpenseRevenueManagement" xml:space="preserve">
+    <value>Expense &amp; Revenue</value>
+  </data>
+  <data name="UI.ContentManagement" xml:space="preserve">
+    <value>Contents</value>
+  </data>
+  <data name="Global.LanguageName" xml:space="preserve">
+    <value>Language</value>
+  </data>
+  <data name="Global.IsExpense" xml:space="preserve">
+    <value>Expense</value>
+  </data>
+  <data name="Global.Amount" xml:space="preserve">
+    <value>Amount</value>
+  </data>
+  <data name="Global.Featured" xml:space="preserve">
+    <value>Featured</value>
+  </data>
+  <data name="UI.NamespaceManagement" xml:space="preserve">
+    <value>Namespaces</value>
+  </data>
+  <data name="UI.ResourceGroupManagement" xml:space="preserve">
+    <value>Resource Groups</value>
+  </data>
+  <data name="UI.ContactFormManagement" xml:space="preserve">
+    <value>Contact Forms</value>
+  </data>
+  <data name="Global.Seen" xml:space="preserve">
+    <value>Seen</value>
+  </data>
+  <data name="UI.LanguageManagement" xml:space="preserve">
+    <value>Languages</value>
+  </data>
+  <data name="Global.Date" xml:space="preserve">
+    <value>Date</value>
+  </data>
+  <data name="PG.ContentManagement" xml:space="preserve">
+    <value>Content management permissions</value>
+  </data>
+  <data name="PG.NamespaceManagement" xml:space="preserve">
+    <value>Namespace management permissions</value>
+  </data>
+  <data name="PG.ResourceGroupManagement" xml:space="preserve">
+    <value>Resource Group management permissions</value>
+  </data>
+  <data name="PG.ActivityLogManagement" xml:space="preserve">
+    <value>Activity Log management permissions</value>
+  </data>
+  <data name="PG.LanguageManagement" xml:space="preserve">
+    <value>Language management permissions</value>
+  </data>
+  <data name="PG.ContactFormManagement" xml:space="preserve">
+    <value>Contact Form management permissions</value>
+  </data>
+  <data name="PG.ExpenseRevenueManagement" xml:space="preserve">
+    <value>Expense &amp; Revenue management permissions</value>
+  </data>
+  <data name="PG.ProductManagement" xml:space="preserve">
+    <value>Product management permissions</value>
+  </data>
+  <data name="PG.CategoryManagement" xml:space="preserve">
+    <value>Category management permissions</value>
+  </data>
+  <data name="PG.SiteSettingsManagement" xml:space="preserve">
+    <value>Site Settings management permissions</value>
+  </data>
+  <data name="UserActivity.CreateProduct" xml:space="preserve">
+    <value>Product create</value>
+  </data>
+  <data name="UserActivity.UpdateProduct" xml:space="preserve">
+    <value>Product update</value>
+  </data>
+  <data name="UserActivity.DeleteProduct" xml:space="preserve">
+    <value>Product delete</value>
+  </data>
+  <data name="UserActivity.CreateCategory" xml:space="preserve">
+    <value>Category create</value>
+  </data>
+  <data name="UserActivity.UpdateCategory" xml:space="preserve">
+    <value>Category update</value>
+  </data>
+  <data name="UserActivity.DeleteCategory" xml:space="preserve">
+    <value>Category delete</value>
+  </data>
+  <data name="UserActivity.UpdateSiteSettings" xml:space="preserve">
+    <value>Site settings update</value>
+  </data>
+  <data name="UserActivity.DeleteContactForm" xml:space="preserve">
+    <value>Contact form delete</value>
+  </data>
+  <data name="UserActivity.UpdateContactForm" xml:space="preserve">
+    <value>Contact form update</value>
+  </data>
+  <data name="UserActivity.CreateExpenseRevenue" xml:space="preserve">
+    <value>Expense&amp;Revenue create</value>
+  </data>
+  <data name="UserActivity.UpdateExpenseRevenue" xml:space="preserve">
+    <value>Expense&amp;Revenue update</value>
+  </data>
+  <data name="UserActivity.DeleteExpenseRevenue" xml:space="preserve">
+    <value>Expense&amp;Revenue delete</value>
+  </data>
+  <data name="UserActivity.UpdateLanguages" xml:space="preserve">
+    <value>Language update</value>
+  </data>
+  <data name="ContentManagement" xml:space="preserve">
+    <value>Content</value>
+  </data>
+  <data name="NamespaceManagement" xml:space="preserve">
+    <value>Namespace</value>
+  </data>
+  <data name="ResourceGroupManagement" xml:space="preserve">
+    <value>Resource Group</value>
+  </data>
+  <data name="LanguageManagement" xml:space="preserve">
+    <value>Language</value>
+  </data>
+  <data name="ContactFormManagement" xml:space="preserve">
+    <value>Contact Form</value>
+  </data>
+  <data name="ExpenseRevenueManagement" xml:space="preserve">
+    <value>Expense&amp;Revenue</value>
+  </data>
+  <data name="ProductManagement" xml:space="preserve">
+    <value>Product</value>
+  </data>
+  <data name="CategoryManagement" xml:space="preserve">
+    <value>Category</value>
+  </data>
+  <data name="SiteSettingsManagement" xml:space="preserve">
+    <value>Site Settings</value>
+  </data>
 </root>

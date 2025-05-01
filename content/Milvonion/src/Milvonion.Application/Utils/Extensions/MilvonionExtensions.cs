@@ -13,6 +13,18 @@ namespace Milvonion.Application.Utils.Extensions;
 public static partial class MilvonionExtensions
 {
     /// <summary>
+    /// Gets current environment.
+    /// </summary>
+    /// <returns></returns>
+    public static string GetCurrentEnvironment() => Environment.GetEnvironmentVariable("MILVA_ENV") ?? string.Empty;
+
+    /// <summary>
+    /// Checks if the current environment is production.
+    /// </summary>
+    /// <returns></returns>
+    public static bool IsCurrentEnvProduction() => (GetCurrentEnvironment() ?? string.Empty) == "prod";
+
+    /// <summary>
     /// Generates metadata for the request according to header.
     /// </summary>
     /// <param name="serviceProvider"></param>

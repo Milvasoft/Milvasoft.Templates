@@ -3232,6 +3232,18 @@
             <param name="hash"></param>
             <returns></returns>
         </member>
+        <member name="M:Milvonion.Application.Utils.Extensions.MilvonionExtensions.GetCurrentEnvironment">
+            <summary>
+            Gets current environment.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Milvonion.Application.Utils.Extensions.MilvonionExtensions.IsCurrentEnvProduction">
+            <summary>
+            Checks if the current environment is production.
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:Milvonion.Application.Utils.Extensions.MilvonionExtensions.GenerateMetadata(System.IServiceProvider)">
             <summary>
             Generates metadata for the request according to header.

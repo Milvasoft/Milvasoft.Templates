@@ -1,5 +1,4 @@
 ﻿using MediatR;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Milvasoft.Attributes.Annotations;
 using Milvasoft.Components.Rest.MilvaResponse;
@@ -11,6 +10,7 @@ using Milvonion.Application.Features.Roles.CreateRole;
 using Milvonion.Application.Features.Roles.UpdateRole;
 using Milvonion.Application.Features.Users.CreateUser;
 using Milvonion.Application.Interfaces;
+using Milvonion.Application.Utils.Extensions;
 using Milvonion.Domain;
 using Milvonion.Infrastructure.Persistence;
 using Milvonion.Infrastructure.Persistence.Context;
@@ -27,7 +27,6 @@ public class DeveloperService(IServiceProvider serviceProvider) : IDeveloperServ
     private readonly IPermissionManager _permissionManager = serviceProvider.GetService<IPermissionManager>();
     private readonly IMilvonionRepositoryBase<MethodLog> _methodLogRepository = serviceProvider.GetService<IMilvonionRepositoryBase<MethodLog>>();
     private readonly IMilvonionRepositoryBase<ApiLog> _apiLogRepository = serviceProvider.GetService<IMilvonionRepositoryBase<ApiLog>>();
-    private readonly IConfiguration _configuration = serviceProvider.GetService<IConfiguration>();
     private readonly MilvonionDbContext _milvonionDbContext = serviceProvider.GetService<MilvonionDbContext>();
     private readonly DatabaseMigrator _databaseMigrator = new(serviceProvider);
 
@@ -36,7 +35,13 @@ public class DeveloperService(IServiceProvider serviceProvider) : IDeveloperServ
     /// </summary>
     /// <returns></returns>
     [ExcludeFromMetadata]
-    public async Task<Response> ResetDatabaseAsync() => await _databaseMigrator.ResetDatabaseAsync(_configuration, default);
+    public async Task<Response> ResetDatabaseAsync()
+    {
+        if (MilvonionExtensions.IsCurrentEnvProduction())
+            return Response.Error();
+
+        return await _databaseMigrator.ResetDatabaseAsync(default);
+    }
 
     /// <summary>
     /// Seeds data for development purposes.
@@ -44,6 +49,9 @@ public class DeveloperService(IServiceProvider serviceProvider) : IDeveloperServ
     /// <returns></returns>
     public async Task<Response> SeedDevelopmentDataAsync()
     {
+        if (MilvonionExtensions.IsCurrentEnvProduction())
+            return Response.Error();
+
         try
         {
             await _databaseMigrator.SeedDefaultDataAsync("string");
@@ -60,7 +68,7 @@ public class DeveloperService(IServiceProvider serviceProvider) : IDeveloperServ
                 Name = l.Name,
                 IsDefault = l.IsDefault,
                 Supported = l.Supported,
-            });
+            }).ToList();
 
             await _milvonionDbContext.Languages.AddRangeAsync(languages, default);
 
@@ -128,6 +136,9 @@ public class DeveloperService(IServiceProvider serviceProvider) : IDeveloperServ
     /// <returns></returns>
     public async Task<Response> SeedFakeDataAsync(bool sameData = true, string locale = "tr")
     {
+        if (MilvonionExtensions.IsCurrentEnvProduction())
+            return Response.Error();
+
         await _databaseMigrator.SeedFakeDataAsync(sameData, locale, default);
 
         return Response.Success();
@@ -145,12 +156,24 @@ public class DeveloperService(IServiceProvider serviceProvider) : IDeveloperServ
     /// </summary>
     /// <param name="listRequest"></param>
     /// <returns></returns>
-    public Task<ListResponse<MethodLog>> GetMethodLogsAsync(ListRequest listRequest) => _methodLogRepository.GetAllAsync(listRequest);
+    public async Task<ListResponse<MethodLog>> GetMethodLogsAsync(ListRequest listRequest)
+    {
+        if (MilvonionExtensions.IsCurrentEnvProduction())
+            return ListResponse<MethodLog>.Error();
+
+        return await _methodLogRepository.GetAllAsync(listRequest);
+    }
 
     /// <summary>
     /// Gets api logs.
     /// </summary>
     /// <param name="listRequest"></param>
     /// <returns></returns>
-    public Task<ListResponse<ApiLog>> GetApiLogsAsync(ListRequest listRequest) => _apiLogRepository.GetAllAsync(listRequest);
+    public async Task<ListResponse<ApiLog>> GetApiLogsAsync(ListRequest listRequest)
+    {
+        if (MilvonionExtensions.IsCurrentEnvProduction())
+            return ListResponse<ApiLog>.Error();
+
+        return await _apiLogRepository.GetAllAsync(listRequest);
+    }
 }

@@ -252,7 +252,7 @@
             </summary>
             <param name="serviceProvider"></param>
         </member>
-        <member name="M:Milvonion.Infrastructure.Persistence.DatabaseMigrator.ResetDatabaseAsync(Microsoft.Extensions.Configuration.IConfiguration,System.Threading.CancellationToken)">
+        <member name="M:Milvonion.Infrastructure.Persistence.DatabaseMigrator.ResetDatabaseAsync(System.Threading.CancellationToken)">
             <summary>
             Remove, recreates and seed database for development purposes.
             </summary>

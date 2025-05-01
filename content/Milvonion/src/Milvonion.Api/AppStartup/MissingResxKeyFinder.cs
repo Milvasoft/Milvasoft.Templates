@@ -16,6 +16,9 @@ public static partial class MissingResxKeyFinder
     /// </summary>
     public static void FindAndPrintToConsole()
     {
+#if !DEBUG
+return;
+#endif
         string projectFolderPath = Directory.GetParent(Directory.GetCurrentDirectory()).FullName;
         string resxFolderProjectPath = Directory.GetCurrentDirectory();
         string resxFolderPath = Path.Combine(resxFolderProjectPath, "LocalizationResources", "Resources");

@@ -576,4 +576,219 @@
   <data name="ExportType.User" xml:space="preserve">
     <value>kullanicilar</value>
   </data>
+  <data name="Global.PhoneNumber" xml:space="preserve">
+    <value>Telefon Numarası</value>
+  </data>
+  <data name="PhoneNumber" xml:space="preserve">
+    <value>Telefon Numarası</value>
+  </data>
+  <data name="Global.Message" xml:space="preserve">
+    <value>Mesaj</value>
+  </data>
+  <data name="ExpenseRevenueNotFound" xml:space="preserve">
+    <value>Gelir/Gider bulunamadı!</value>
+  </data>
+  <data name="ExpenseRevenue" xml:space="preserve">
+    <value>Gelir/Gider</value>
+  </data>
+  <data name="ContactForm" xml:space="preserve">
+    <value>İletişim Formu</value>
+  </data>
+  <data name="SiteSetting" xml:space="preserve">
+    <value>Site Ayarı</value>
+  </data>
+  <data name="FileValidationFailed" xml:space="preserve">
+    <value>Dosya biçimi veya boyutu geçersiz. Lütfen sadece izin verilen tür ve boyutta dosya yükleyin!
+
+Lütfen sadece aşağıdaki dosya türlerini yükleyin:
+- Görseller: .jpeg, .jpg, .png
+- Belgeler: .pdf
+
+Maksimum dosya boyutu:
+- Görseller için: 10 MB
+- Belgeler için: 30 MB</value>
+  </data>
+  <data name="Global.PublicSiteOrder" xml:space="preserve">
+    <value>Sitedeki Sırası</value>
+  </data>
+  <data name="Global.Published" xml:space="preserve">
+    <value>Yayında</value>
+  </data>
+  <data name="Global.CreationDate" xml:space="preserve">
+    <value>Oluşturulma Tarihi</value>
+  </data>
+  <data name="ProductFilesNotFound" xml:space="preserve">
+    <value>Silmek istediğiniz dosyalar bulunamadı!</value>
+  </data>
+  <data name="Global.ResourceGroup" xml:space="preserve">
+    <value>Resource Group</value>
+  </data>
+  <data name="Global.Description" xml:space="preserve">
+    <value>Açıklama</value>
+  </data>
+  <data name="Global.Product" xml:space="preserve">
+    <value>Ürün</value>
+  </data>
+  <data name="ProductNotFound" xml:space="preserve">
+    <value>Ürün bulunamadı!</value>
+  </data>
+  <data name="Global.Category" xml:space="preserve">
+    <value>Ürün Kategorisi</value>
+  </data>
+  <data name="CategoryNotFound" xml:space="preserve">
+    <value>Kategori bulunamadı!</value>
+  </data>
+  <data name="Global.AdditionalInformations" xml:space="preserve">
+    <value>Ek Bilgiler</value>
+  </data>
+  <data name="Global.MetaTag" xml:space="preserve">
+    <value>Meta Tag</value>
+  </data>
+  <data name="SiteSettingNotFound" xml:space="preserve">
+    <value>Site ayarları bulunamadı!</value>
+  </data>
+  <data name="ContactFormNotFound" xml:space="preserve">
+    <value>İletişim Formu bulunamadı!</value>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>Şifre</value>
+  </data>
+  <data name="UI.ProductManagement" xml:space="preserve">
+    <value>Ürünler</value>
+  </data>
+  <data name="UI.CategoryManagement" xml:space="preserve">
+    <value>Ürün Kategorileri</value>
+  </data>
+  <data name="UI.ExpenseRevenueManagement" xml:space="preserve">
+    <value>Gelir &amp; Gider</value>
+  </data>
+  <data name="UI.ContentManagement" xml:space="preserve">
+    <value>İçerikler</value>
+  </data>
+  <data name="Global.LanguageName" xml:space="preserve">
+    <value>Dil</value>
+  </data>
+  <data name="Global.IsExpense" xml:space="preserve">
+    <value>Gider</value>
+  </data>
+  <data name="Global.Amount" xml:space="preserve">
+    <value>Tutar</value>
+  </data>
+  <data name="Global.Featured" xml:space="preserve">
+    <value>Öne Çıkarılmış</value>
+  </data>
+  <data name="UI.NamespaceManagement" xml:space="preserve">
+    <value>Namespaceler</value>
+  </data>
+  <data name="UI.ResourceGroupManagement" xml:space="preserve">
+    <value>Resource Grupları</value>
+  </data>
+  <data name="UI.ContactFormManagement" xml:space="preserve">
+    <value>İletişim Formları</value>
+  </data>
+  <data name="Global.Seen" xml:space="preserve">
+    <value>Görüldü</value>
+  </data>
+  <data name="UI.LanguageManagement" xml:space="preserve">
+    <value>Diller</value>
+  </data>
+  <data name="Global.Date" xml:space="preserve">
+    <value>Tarih</value>
+  </data>
+  <data name="PG.ContentManagement" xml:space="preserve">
+    <value>İçerik yönetimi izinleri</value>
+  </data>
+  <data name="PG.NamespaceManagement" xml:space="preserve">
+    <value>Namespace yönetimi izinleri</value>
+  </data>
+  <data name="PG.ResourceGroupManagement" xml:space="preserve">
+    <value>Resource Grup yönetimi izinleri</value>
+  </data>
+  <data name="PG.ActivityLogManagement" xml:space="preserve">
+    <value>Aktivite yönetimi izinleri</value>
+  </data>
+  <data name="PG.LanguageManagement" xml:space="preserve">
+    <value>Dil yönetimi izinleri</value>
+  </data>
+  <data name="PG.ContactFormManagement" xml:space="preserve">
+    <value>İletişim Formu yönetimi izinleri</value>
+  </data>
+  <data name="PG.ExpenseRevenueManagement" xml:space="preserve">
+    <value>Gelir &amp; Gider yönetimi izinleri</value>
+  </data>
+  <data name="PG.ProductManagement" xml:space="preserve">
+    <value>Ürün yönetimi izinleri</value>
+  </data>
+  <data name="PG.CategoryManagement" xml:space="preserve">
+    <value>Kategori yönetimi izinleri</value>
+  </data>
+  <data name="PG.SiteSettingsManagement" xml:space="preserve">
+    <value>Site Ayarları yönetimi izinleri</value>
+  </data>
+  <data name="UserActivity.CreateProduct" xml:space="preserve">
+    <value>Ürün ekleme</value>
+  </data>
+  <data name="UserActivity.UpdateProduct" xml:space="preserve">
+    <value>Ürün güncelleme</value>
+  </data>
+  <data name="UserActivity.DeleteProduct" xml:space="preserve">
+    <value>Ürün silme</value>
+  </data>
+  <data name="UserActivity.CreateCategory" xml:space="preserve">
+    <value>Kategori ekleme</value>
+  </data>
+  <data name="UserActivity.UpdateCategory" xml:space="preserve">
+    <value>Kategori güncelleme</value>
+  </data>
+  <data name="UserActivity.DeleteCategory" xml:space="preserve">
+    <value>Kategori silme</value>
+  </data>
+  <data name="UserActivity.UpdateSiteSettings" xml:space="preserve">
+    <value>Site ayarları güncelleme</value>
+  </data>
+  <data name="UserActivity.DeleteContactForm" xml:space="preserve">
+    <value>İletişim formu silme</value>
+  </data>
+  <data name="UserActivity.UpdateContactForm" xml:space="preserve">
+    <value>İletişim formu güncelleme</value>
+  </data>
+  <data name="UserActivity.CreateExpenseRevenue" xml:space="preserve">
+    <value>Gelir&amp;Gider ekleme</value>
+  </data>
+  <data name="UserActivity.UpdateExpenseRevenue" xml:space="preserve">
+    <value>Gelir&amp;Gider güncelleme</value>
+  </data>
+  <data name="UserActivity.DeleteExpenseRevenue" xml:space="preserve">
+    <value>Gelir&amp;Gider silme</value>
+  </data>
+  <data name="UserActivity.UpdateLanguages" xml:space="preserve">
+    <value>Dil güncelleme</value>
+  </data>
+  <data name="ContentManagement" xml:space="preserve">
+    <value>İçerik</value>
+  </data>
+  <data name="NamespaceManagement" xml:space="preserve">
+    <value>Namespace</value>
+  </data>
+  <data name="ResourceGroupManagement" xml:space="preserve">
+    <value>Resource Grup</value>
+  </data>
+  <data name="LanguageManagement" xml:space="preserve">
+    <value>Dil</value>
+  </data>
+  <data name="ContactFormManagement" xml:space="preserve">
+    <value>İletişim Formu</value>
+  </data>
+  <data name="ExpenseRevenueManagement" xml:space="preserve">
+    <value>Gelir&amp;Gider</value>
+  </data>
+  <data name="ProductManagement" xml:space="preserve">
+    <value>Ürün</value>
+  </data>
+  <data name="CategoryManagement" xml:space="preserve">
+    <value>Kategori</value>
+  </data>
+  <data name="SiteSettingsManagement" xml:space="preserve">
+    <value>Site Ayarları</value>
+  </data>
 </root>
