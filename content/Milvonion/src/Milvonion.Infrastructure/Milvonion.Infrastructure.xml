@@ -411,6 +411,12 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="M:Milvonion.Infrastructure.Services.DeveloperService.ResetUIRelatedDataAsync">
+            <summary>
+            Resets ui related data.
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:Milvonion.Infrastructure.Services.DeveloperService.GetMethodLogsAsync(Milvasoft.Components.Rest.Request.ListRequest)">
             <summary>
             Gets method logs.
@@ -423,6 +429,18 @@
             Gets api logs.
             </summary>
             <param name="listRequest"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Milvonion.Infrastructure.Services.DeveloperService.ExportExistingDataAsync">
+            <summary>
+            Exports existing data to a JSON file.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Milvonion.Infrastructure.Services.DeveloperService.ImportExistingDataAsync">
+            <summary>
+            Imports existing data.
+            </summary>
             <returns></returns>
         </member>
         <member name="T:Milvonion.Infrastructure.Services.ExportService">

@@ -412,6 +412,12 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="M:Milvonion.Api.Controllers.DeveloperController.ResetUIRelatedDataAsync">
+            <summary>
+            Resets ui related data.
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:Milvonion.Api.Controllers.DeveloperController.GetApiLogsAsync(Milvasoft.Components.Rest.Request.ListRequest)">
             <summary>
             Gets api logs.
@@ -421,6 +427,18 @@
         <member name="M:Milvonion.Api.Controllers.DeveloperController.GetMethodLogsAsync(Milvasoft.Components.Rest.Request.ListRequest)">
             <summary>
             Gets method logs.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Milvonion.Api.Controllers.DeveloperController.ExportExistingDataAsync">
+            <summary>
+            Exports product related data.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Milvonion.Api.Controllers.DeveloperController.ImportExistingDataAsync">
+            <summary>
+            Imports exported product related data. 
             </summary>
             <returns></returns>
         </member>

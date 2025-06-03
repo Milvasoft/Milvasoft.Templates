@@ -4,7 +4,7 @@ This document is a guide to what you need to know about the project.
 
 ## Tech Stack
 
-- .Net 8
+- .Net 9
 - PostgreSql
 - Docker
 

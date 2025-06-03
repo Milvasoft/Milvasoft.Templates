@@ -2748,6 +2748,12 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="M:Milvonion.Application.Interfaces.IDeveloperService.ResetUIRelatedDataAsync">
+            <summary>
+            Resets ui related data.
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:Milvonion.Application.Interfaces.IDeveloperService.GetMethodLogsAsync(Milvasoft.Components.Rest.Request.ListRequest)">
             <summary>
             Gets method logs.
@@ -2760,6 +2766,18 @@
             Gets api logs.
             </summary>
             <param name="listRequest"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Milvonion.Application.Interfaces.IDeveloperService.ExportExistingDataAsync">
+            <summary>
+            Exports existing data to a JSON file.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Milvonion.Application.Interfaces.IDeveloperService.ImportExistingDataAsync">
+            <summary>
+            Imports existing data.
+            </summary>
             <returns></returns>
         </member>
         <member name="T:Milvonion.Application.Interfaces.IExportService">
@@ -3028,6 +3046,11 @@
             </summary>
         </member>
         <member name="P:Milvonion.Application.Utils.Constants.GlobalConstant.SqlFilesPath">
+            <summary>
+            SQL folder path.  
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Utils.Constants.GlobalConstant.JsonFilesPath">
             <summary>
             SQL folder path.  
             </summary>
