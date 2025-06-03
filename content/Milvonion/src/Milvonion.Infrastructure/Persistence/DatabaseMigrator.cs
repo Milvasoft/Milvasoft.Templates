@@ -167,10 +167,10 @@ public class DatabaseMigrator(IServiceProvider serviceProvider)
     /// <returns></returns>
     public async Task SeedUIRelatedDataAsync(CancellationToken cancellationToken = default)
     {
-        var menuGroups = await _dbContext.MenuGroups.Select(i => i.Id).ToListAsync(cancellationToken: cancellationToken);
-
-        if (menuGroups.Count != 0)
-            return;
+        await _dbContext.MenuItems.ExecuteDeleteAsync(cancellationToken: cancellationToken);
+        await _dbContext.MenuGroups.ExecuteDeleteAsync(cancellationToken: cancellationToken);
+        await _dbContext.PageActions.ExecuteDeleteAsync(cancellationToken: cancellationToken);
+        await _dbContext.Pages.ExecuteDeleteAsync(cancellationToken: cancellationToken);
 
         #region UI
 
@@ -576,8 +576,6 @@ public class DatabaseMigrator(IServiceProvider serviceProvider)
                 CreatorUserName = "System",
             },
         };
-
-        _dbContext.Pages.AddRange(pages);
 
         _dbContext.Pages.AddRange(pages);
 

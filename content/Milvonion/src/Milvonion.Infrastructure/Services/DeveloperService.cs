@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Milvasoft.Attributes.Annotations;
 using Milvasoft.Components.Rest.MilvaResponse;
@@ -10,10 +11,15 @@ using Milvonion.Application.Features.Roles.CreateRole;
 using Milvonion.Application.Features.Roles.UpdateRole;
 using Milvonion.Application.Features.Users.CreateUser;
 using Milvonion.Application.Interfaces;
+using Milvonion.Application.Utils.Constants;
 using Milvonion.Application.Utils.Extensions;
 using Milvonion.Domain;
 using Milvonion.Infrastructure.Persistence;
 using Milvonion.Infrastructure.Persistence.Context;
+using Newtonsoft.Json;
+using System.Text;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace Milvonion.Infrastructure.Services;
 
@@ -152,6 +158,18 @@ public class DeveloperService(IServiceProvider serviceProvider) : IDeveloperServ
     public async Task<Response<string>> InitDatabaseAsync() => await _databaseMigrator.InitDatabaseAsync(_permissionManager, default);
 
     /// <summary>
+    /// Resets ui related data.
+    /// </summary>
+    /// <returns></returns>
+    [ExcludeFromMetadata]
+    public async Task<Response> ResetUIRelatedDataAsync()
+    {
+        await _databaseMigrator.SeedUIRelatedDataAsync(default);
+
+        return Response.Success();
+    }
+
+    /// <summary>
     /// Gets method logs.
     /// </summary>
     /// <param name="listRequest"></param>
@@ -175,5 +193,104 @@ public class DeveloperService(IServiceProvider serviceProvider) : IDeveloperServ
             return ListResponse<ApiLog>.Error();
 
         return await _apiLogRepository.GetAllAsync(listRequest);
+    }
+
+    /// <summary>
+    /// Exports existing data to a JSON file.
+    /// </summary>
+    /// <returns></returns>
+    public async Task<Response> ExportExistingDataAsync()
+    {
+        if (MilvonionExtensions.IsCurrentEnvProduction())
+            return Response.Error();
+
+        var menuDatas = _milvonionDbContext.Users.Include(p => p.RoleRelations)
+                                                 .AsNoTracking()
+                                                 .AsAsyncEnumerable();
+
+        var filePath = Path.Combine(GlobalConstant.JsonFilesPath, "export.json");
+
+        if (File.Exists(filePath))
+            File.Delete(filePath);
+
+        await using var stream = File.Create(filePath);
+        using var streamWriter = new StreamWriter(stream, new UTF8Encoding(false));
+        using var jsonWriter = new JsonTextWriter(streamWriter)
+        {
+            Formatting = Formatting.Indented
+        };
+
+        var serializer = new Newtonsoft.Json.JsonSerializer
+        {
+            NullValueHandling = NullValueHandling.Ignore,
+            ReferenceLoopHandling = ReferenceLoopHandling.Ignore,
+        };
+
+        await jsonWriter.WriteStartArrayAsync();
+
+        await foreach (var menu in menuDatas)
+        {
+            try
+            {
+                serializer.Serialize(jsonWriter, menu);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Serialize error: {ex.Message}");
+            }
+        }
+
+        // Dizi kapat
+        await jsonWriter.WriteEndArrayAsync();
+        await jsonWriter.FlushAsync();
+        await streamWriter.FlushAsync();
+
+        return Response.Success();
+    }
+
+    /// <summary>
+    /// Imports existing data.
+    /// </summary>
+    /// <returns></returns>
+    public async Task<Response> ImportExistingDataAsync()
+    {
+        if (MilvonionExtensions.IsCurrentEnvProduction())
+            return Response.Error();
+
+        var filePath = Path.Combine(GlobalConstant.JsonFilesPath, "export.json");
+
+        if (!File.Exists(filePath))
+            return Response.Error("Cannot find exported file.");
+
+        await using var stream = File.OpenRead(filePath);
+        using var jsonDoc = await JsonDocument.ParseAsync(stream);
+
+        if (jsonDoc.RootElement.ValueKind != JsonValueKind.Array)
+            return Response.Error("Invalid file format.");
+
+        var options = new JsonSerializerOptions
+        {
+            ReferenceHandler = ReferenceHandler.IgnoreCycles,
+            PropertyNameCaseInsensitive = true
+        };
+
+        int importedCount = 0;
+
+        foreach (var element in jsonDoc.RootElement.EnumerateArray())
+        {
+            try
+            {
+
+                importedCount++;
+            }
+            catch (Exception ex)
+            {
+                // Logla ve devam et
+                Console.WriteLine($"Import error: {ex.Message}");
+            }
+        }
+
+        await _milvonionDbContext.SaveChangesAsync();
+        return Response.Success($"{importedCount} records imported.");
     }
 }

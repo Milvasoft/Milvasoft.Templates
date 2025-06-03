@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Milvasoft.Components.Rest.MilvaResponse;
 using Milvasoft.Components.Rest.Request;
 using Milvonion.Application.Interfaces;
+using Milvonion.Application.Utils.Attributes;
 using Milvonion.Application.Utils.Constants;
 using Milvonion.Domain;
 
@@ -45,7 +46,15 @@ public class DeveloperController(IDeveloperService developerService) : Controlle
     /// </summary>
     /// <returns></returns>
     [HttpPost("database/init")]
-    public Task<Response<string>> InitDatabaseAsync() => _developerService.InitDatabaseAsync();
+    public async Task<Response> InitDatabaseAsync() => await _developerService.InitDatabaseAsync();
+
+    /// <summary>
+    /// Resets ui related data.
+    /// </summary>
+    /// <returns></returns>
+    [Auth]
+    [HttpPost("database/reset/ui")]
+    public async Task<Response> ResetUIRelatedDataAsync() => await _developerService.ResetUIRelatedDataAsync();
 
     /// <summary>
     /// Gets api logs.
@@ -60,4 +69,18 @@ public class DeveloperController(IDeveloperService developerService) : Controlle
     /// <returns></returns>
     [HttpPatch("methodlogs")]
     public Task<ListResponse<MethodLog>> GetMethodLogsAsync(ListRequest listRequest) => _developerService.GetMethodLogsAsync(listRequest);
+
+    /// <summary>
+    /// Exports product related data.
+    /// </summary>
+    /// <returns></returns>
+    [HttpGet("export/productRelatedData")]
+    public Task<Response> ExportExistingDataAsync() => _developerService.ExportExistingDataAsync();
+
+    /// <summary>
+    /// Imports exported product related data. 
+    /// </summary>
+    /// <returns></returns>
+    [HttpGet("import/productRelatedData")]
+    public Task<Response> ImportExistingDataAsync() => _developerService.ImportExistingDataAsync();
 }

@@ -36,6 +36,12 @@ public interface IDeveloperService : IInterceptable
     Task<Response<string>> InitDatabaseAsync();
 
     /// <summary>
+    /// Resets ui related data.
+    /// </summary>
+    /// <returns></returns>
+    Task<Response> ResetUIRelatedDataAsync();
+
+    /// <summary>
     /// Gets method logs.
     /// </summary>
     /// <param name="listRequest"></param>
@@ -48,4 +54,16 @@ public interface IDeveloperService : IInterceptable
     /// <param name="listRequest"></param>
     /// <returns></returns>
     Task<ListResponse<ApiLog>> GetApiLogsAsync(ListRequest listRequest);
+
+    /// <summary>
+    /// Exports existing data to a JSON file.
+    /// </summary>
+    /// <returns></returns>
+    Task<Response> ExportExistingDataAsync();
+
+    /// <summary>
+    /// Imports existing data.
+    /// </summary>
+    /// <returns></returns>
+    Task<Response> ImportExistingDataAsync();
 }

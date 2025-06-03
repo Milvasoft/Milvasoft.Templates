@@ -80,6 +80,11 @@ public static class GlobalConstant
     public static string SqlFilesPath { get; } = Path.Combine(RootPath, "StaticFiles", "SQL");
 
     /// <summary>
+    /// SQL folder path.  
+    /// </summary>
+    public static string JsonFilesPath { get; } = Path.Combine(RootPath, "StaticFiles", "JSON");
+
+    /// <summary>
     /// Default api version.
     /// </summary>
     public const string DefaultApiVersion = "v1.0";
