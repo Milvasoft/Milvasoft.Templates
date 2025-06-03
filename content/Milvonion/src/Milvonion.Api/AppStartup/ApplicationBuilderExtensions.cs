@@ -1,5 +1,6 @@
 using HealthChecks.UI.Client;
 using HealthChecks.UI.Configuration;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.EntityFrameworkCore;
@@ -39,9 +40,9 @@ public static partial class StartupExtensions
         {
             options.WithOpenApiRoutePattern($"/{GlobalConstant.RoutePrefix}/docs/v1.0/docs.json");
             options.WithDefaultHttpClient(ScalarTarget.JavaScript, ScalarClient.Axios);
-            options.WithApiKeyAuthentication(opt =>
+            options.AddApiKeyAuthentication(JwtBearerDefaults.AuthenticationScheme, opt =>
             {
-                opt.Token = GenerateTokenForUI(app);
+                opt.Value = GenerateTokenForUI(app);
             });
 
             //UI
@@ -49,7 +50,7 @@ public static partial class StartupExtensions
                    .WithFavicon("https://demo.milvasoft.com/api/favicon.ico")
                    .WithDownloadButton(false)
                    .WithDarkMode(true)
-                   .WithPreferredScheme("Bearer")
+                   .AddPreferredSecuritySchemes(JwtBearerDefaults.AuthenticationScheme)
                    .WithCustomCss(".darklight-reference-promo { display: none !important; } .darklight-reference { padding-bottom: 15px !important; } .open-api-client-button { display: none !important; }");
         });
 

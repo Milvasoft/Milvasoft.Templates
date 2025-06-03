@@ -3037,6 +3037,11 @@
             Default api version.
             </summary>
         </member>
+        <member name="F:Milvonion.Application.Utils.Constants.GlobalConstant.CurrentApiVersion">
+            <summary>
+            Default api version.
+            </summary>
+        </member>
         <member name="F:Milvonion.Application.Utils.Constants.GlobalConstant.CustomForbidSchema">
             <summary>
             Custom forbid scheme for super admin.
