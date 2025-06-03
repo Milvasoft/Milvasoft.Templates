@@ -16,7 +16,7 @@ namespace Milvonion.Api.Controllers;
 /// <param name="lookupService"></param>
 [ApiController]
 [Route(GlobalConstant.FullRoute)]
-[ApiVersion("1.0")]
+[ApiVersion(GlobalConstant.CurrentApiVersion)]
 [ApiExplorerSettings(GroupName = "v1.0")]
 [UserTypeAuth(UserType.Manager | UserType.AppUser)]
 public class LookupsController(ILookupService lookupService) : ControllerBase

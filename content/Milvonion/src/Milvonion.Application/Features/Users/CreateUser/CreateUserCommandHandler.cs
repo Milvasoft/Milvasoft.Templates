@@ -25,6 +25,16 @@ public record CreateUserCommandHandler(IMilvonionRepositoryBase<User> UserReposi
     {
         var user = request.Adapt<User>();
 
+        var errorMessageForUserName = _userManager.ValidateUserName(user.UserName);
+
+        if (errorMessageForUserName is not null)
+            return Response<int>.Error(default, errorMessageForUserName);
+
+        var errorMessageForPass = _userManager.ValidatePassword(request.Password);
+
+        if (errorMessageForPass is not null)
+            return Response<int>.Error(default, errorMessageForPass);
+
         _userManager.ConfigureForCreate(ref user, request.Password);
 
         _userRepository.FetchSoftDeletedEntities(true);

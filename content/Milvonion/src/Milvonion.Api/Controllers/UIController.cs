@@ -19,7 +19,7 @@ namespace Milvonion.Api.Controllers;
 [Auth]
 [ApiController]
 [Route(GlobalConstant.FullRoute)]
-[ApiVersion("1.0")]
+[ApiVersion(GlobalConstant.CurrentApiVersion)]
 [ApiExplorerSettings(GroupName = "v1.0")]
 public class UIController(IMediator mediator, IUIService uiService) : ControllerBase
 {

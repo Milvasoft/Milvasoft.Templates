@@ -16,7 +16,7 @@ namespace Milvonion.Api.Controllers;
 /// </summary>
 [ApiController]
 [Route(GlobalConstant.FullRoute)]
-[ApiVersion("1.0")]
+[ApiVersion(GlobalConstant.CurrentApiVersion)]
 [ApiExplorerSettings(GroupName = "v1.0")]
 public class PermissionsController(IMediator mediator, IPermissionManager permissionManager) : ControllerBase
 {

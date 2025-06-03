@@ -85,6 +85,11 @@ public static class GlobalConstant
     public const string DefaultApiVersion = "v1.0";
 
     /// <summary>
+    /// Default api version.
+    /// </summary>
+    public const string CurrentApiVersion = "1.0";
+
+    /// <summary>
     /// Custom forbid scheme for super admin.
     /// </summary>
     public const string CustomForbidSchema = "CustomForbidSchema";

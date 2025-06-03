@@ -37,7 +37,7 @@ public record ChangePasswordCommandHandler(IMilvonionRepositoryBase<User> UserRe
 
         _milvaUserManager.ValidateAndSetPasswordHash(user, request.NewPassword);
 
-        await _userRepository.UpdateAsync(user, cancellationToken);
+        await _userRepository.UpdateAsync(user, cancellationToken, u => u.PasswordHash);
 
         await _userSessionRepository.ExecuteDeleteAsync(UserSession.Conditions.DeleteAllSessions(user.UserName), cancellationToken: cancellationToken);
 
