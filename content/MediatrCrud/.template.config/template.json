@@ -26,6 +26,13 @@
       "description": "Plural form of the entity",
       "replaces": "pluralName",
       "defaultValue": "Entities"
+    },
+    "entityKeyType": {
+      "type": "parameter",
+      "datatype": "text",
+      "description": "Entity data type. Like int, long, Guid",
+      "replaces": "datatypefe",
+      "defaultValue": "int"
     }
   },
   "sources": [

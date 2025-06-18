@@ -12,17 +12,17 @@ namespace projectName.Application.Features.pluralName.CreateEntity;
 /// <param name="EntityRepository"></param>
 [Log]
 [UserActivityTrack(UserActivity.CreateEntity)]
-public record CreateEntityCommandHandler(IprojectNameRepositoryBase<Entity> EntityRepository) : IInterceptable, ICommandHandler<CreateEntityCommand, int>
+public record CreateEntityCommandHandler(IprojectNameRepositoryBase<Entity> EntityRepository) : IInterceptable, ICommandHandler<CreateEntityCommand, datatypefe>
 {
     private readonly IprojectNameRepositoryBase<Entity> _entityRepository = EntityRepository;
 
     /// <inheritdoc/>
-    public async Task<Response<int>> Handle(CreateEntityCommand request, CancellationToken cancellationToken)
+    public async Task<Response<datatypefe>> Handle(CreateEntityCommand request, CancellationToken cancellationToken)
     {
         var entity = request.Adapt<Entity>();
 
         await _entityRepository.AddAsync(entity, cancellationToken);
 
-        return Response<int>.Success(entity.Id);
+        return Response<datatypefe>.Success(entity.Id);
     }
 }

@@ -26,7 +26,7 @@ dotnet new install Milvasoft.Templates
 Run the following command to generate CRUD files for a given entity:
 
 ```bash
-dotnet new mediatr-crud -n Product --projectName=MyApp --pluralName=Products -o src/YourApp.Application/Features/Products
+dotnet new mediatr-crud -n Product --projectName=MyApp --pluralName=Products --entityKeyType=int -o src/YourApp.Application/Features/Products
 ```
 
 ### 🧠 Parameters

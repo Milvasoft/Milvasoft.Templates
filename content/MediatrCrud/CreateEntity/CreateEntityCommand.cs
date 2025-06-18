@@ -5,7 +5,7 @@ namespace projectName.Application.Features.pluralName.CreateEntity;
 /// <summary>
 /// Data transfer object for entity creation.
 /// </summary>
-public record CreateEntityCommand : ICommand<int>
+public record CreateEntityCommand : ICommand<datatypefe>
 {
     /// <summary>
     /// Name of entity.

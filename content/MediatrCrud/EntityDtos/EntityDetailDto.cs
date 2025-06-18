@@ -9,7 +9,7 @@ namespace projectName.Application.Dtos.EntityDtos;
 /// </summary>
 [Translate]
 [ExcludeFromMetadata]
-public class EntityDetailDto : projectNameBaseDto<int>
+public class EntityDetailDto : projectNameBaseDto<datatypefe>
 {
     /// <summary>
     /// Name of entity.
@@ -19,7 +19,7 @@ public class EntityDetailDto : projectNameBaseDto<int>
     /// <summary>
     /// Information about record audit.
     /// </summary>
-    public AuditDto<int> AuditInfo { get; set; }
+    public AuditDto<datatypefe> AuditInfo { get; set; }
 
     /// <summary>
     /// Projection expression for mapping Entity entity to EntityDetailDto.
@@ -29,6 +29,6 @@ public class EntityDetailDto : projectNameBaseDto<int>
     public static Expression<Func<Entity, EntityDetailDto>> Projection { get; } = r => new EntityDetailDto
     {
         Id = r.Id,
-        AuditInfo = new AuditDto<int>(r)
+        AuditInfo = new AuditDto<datatypefe>(r)
     };
 }

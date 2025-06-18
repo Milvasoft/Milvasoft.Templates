@@ -11,5 +11,5 @@ public record GetEntityDetailQuery : IQuery<EntityDetailDto>
     /// <summary>
     /// Entity id to access details.
     /// </summary>
-    public int EntityId { get; set; }
+    public datatypefe EntityId { get; set; }
 }

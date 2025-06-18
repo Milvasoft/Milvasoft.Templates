@@ -8,7 +8,7 @@ namespace projectName.Application.Dtos.EntityDtos;
 /// Data transfer object for entity list.
 /// </summary>
 [Translate]
-public class EntityListDto : projectNameBaseDto<int>
+public class EntityListDto : projectNameBaseDto<datatypefe>
 {
     /// <summary>
     /// Name of the entity.

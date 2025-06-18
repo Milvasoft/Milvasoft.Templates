@@ -55,7 +55,7 @@ public class pluralNameController(IMediator mediator) : ControllerBase
     /// <returns></returns>
     [Auth(PermissionCatalog.EntityManagement.Create)]
     [HttpPost("Entity")]
-    public Task<Response<int>> AddEntityAsync(CreateEntityCommand request, CancellationToken cancellation) => _mediator.Send(request, cancellation);
+    public Task<Response<datatypefe>> AddEntityAsync(CreateEntityCommand request, CancellationToken cancellation) => _mediator.Send(request, cancellation);
 
     /// <summary>
     /// Updates Entity. Only the fields that are sent as isUpdated true are updated.
@@ -65,7 +65,7 @@ public class pluralNameController(IMediator mediator) : ControllerBase
     /// <returns></returns>
     [Auth(PermissionCatalog.EntityManagement.Update)]
     [HttpPut("Entity")]
-    public Task<Response<int>> UpdateEntityAsync(UpdateEntityCommand request, CancellationToken cancellation) => _mediator.Send(request, cancellation);
+    public Task<Response<datatypefe>> UpdateEntityAsync(UpdateEntityCommand request, CancellationToken cancellation) => _mediator.Send(request, cancellation);
 
     /// <summary>
     /// Removes Entity.
@@ -75,5 +75,5 @@ public class pluralNameController(IMediator mediator) : ControllerBase
     /// <returns></returns>
     [Auth(PermissionCatalog.EntityManagement.Delete)]
     [HttpDelete("Entity")]
-    public Task<Response<int>> RemoveEntityAsync([FromQuery] DeleteEntityCommand request, CancellationToken cancellation) => _mediator.Send(request, cancellation);
+    public Task<Response<datatypefe>> RemoveEntityAsync([FromQuery] DeleteEntityCommand request, CancellationToken cancellation) => _mediator.Send(request, cancellation);
 }
