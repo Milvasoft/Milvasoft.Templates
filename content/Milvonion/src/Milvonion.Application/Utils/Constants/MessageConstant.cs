@@ -18,6 +18,8 @@ public static class MessageConstant
     public const string ExceptionLogTemplate = "Exception raised : {message}";
     public const string S3ConfigurationMissing = "Current provider type is S3 but S3 configuration missing!";
     public const string ABSConfigurationMissing = "Current provider type is ABS but ABS configuration missing!";
+    public const string CannotFindFile = "Cannot find file!";
+    public const string InvalidJsonFormat = "Invalid json format!";
     public const string SwaggerAuthMessageTip =
     """
         JWT Authorization header using the Bearer scheme.

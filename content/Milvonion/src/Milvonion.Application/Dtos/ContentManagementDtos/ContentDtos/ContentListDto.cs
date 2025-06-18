@@ -36,6 +36,7 @@ public class ContentListDto : MilvonionBaseDto<int>
     /// <summary>
     /// LanguageId of content.
     /// </summary>
+    [Browsable(false)]
     [Filterable(false)]
     [LinkedWith<LanguageIdNameFormatter>(nameof(LanguageId), LanguageIdNameFormatter.FormatterName)]
     [DefaultValue(MessageConstant.QuestionMark)]

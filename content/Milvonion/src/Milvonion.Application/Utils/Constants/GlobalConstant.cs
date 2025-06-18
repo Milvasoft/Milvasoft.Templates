@@ -125,6 +125,11 @@ public static class GlobalConstant
     public const string RootUsername = "rootuser";
 
     /// <summary>
+    /// System user name.
+    /// </summary>
+    public const string SystemUsername = "System";
+
+    /// <summary>
     /// Generate metadata header key.
     /// </summary>
     public const string GenerateMetadataHeaderKey = "M-Metadata";

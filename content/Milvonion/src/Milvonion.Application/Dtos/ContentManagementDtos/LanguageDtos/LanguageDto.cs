@@ -10,6 +10,7 @@ namespace Milvonion.Application.Dtos.ContentManagementDtos.LanguageDtos;
 /// <summary>
 /// Language model.
 /// </summary>
+[Translate]
 public class LanguageDto : ILanguage
 {
     /// <summary>

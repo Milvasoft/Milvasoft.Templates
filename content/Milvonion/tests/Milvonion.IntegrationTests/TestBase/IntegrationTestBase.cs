@@ -64,7 +64,7 @@ public abstract class IntegrationTestBase(CustomWebApplicationFactory factory) :
             Id = 1,
             Name = nameof(PermissionCatalog.App.SuperAdmin),
             CreationDate = DateTime.Now,
-            CreatorUserName = "System",
+            CreatorUserName = GlobalConstant.SystemUsername,
             RolePermissionRelations =
             [
                 new()
@@ -88,7 +88,7 @@ public abstract class IntegrationTestBase(CustomWebApplicationFactory factory) :
             Surname = "User",
             UserType = Domain.Enums.UserType.Manager,
             CreationDate = DateTime.Now,
-            CreatorUserName = "System",
+            CreatorUserName = GlobalConstant.SystemUsername,
             EmailConfirmed = true,
             PhoneNumberConfirmed = true,
             TwoFactorEnabled = false,

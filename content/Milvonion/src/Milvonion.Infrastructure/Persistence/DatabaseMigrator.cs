@@ -1,4 +1,5 @@
 ﻿using EFCore.BulkExtensions;
+using FineHub.Application.Utils.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.Extensions.Configuration;
@@ -14,11 +15,14 @@ using Milvasoft.Identity.Concrete.Options;
 using Milvasoft.Interception.Ef.Transaction;
 using Milvonion.Application.Interfaces;
 using Milvonion.Application.Utils.Constants;
+using Milvonion.Application.Utils.Extensions;
 using Milvonion.Application.Utils.PermissionManager;
 using Milvonion.Domain;
+using Milvonion.Domain.JsonModels;
 using Milvonion.Domain.UI;
 using Milvonion.Infrastructure.Persistence.Context;
 using System.Net.Sockets;
+using System.Text.Json;
 
 namespace Milvonion.Infrastructure.Persistence;
 
@@ -107,7 +111,7 @@ public class DatabaseMigrator(IServiceProvider serviceProvider)
             Id = 1,
             Name = nameof(PermissionCatalog.App.SuperAdmin),
             CreationDate = DateTime.Now,
-            CreatorUserName = "System",
+            CreatorUserName = GlobalConstant.SystemUsername,
             RolePermissionRelations =
             [
                 new()
@@ -132,7 +136,7 @@ public class DatabaseMigrator(IServiceProvider serviceProvider)
             Surname = "User",
             UserType = Domain.Enums.UserType.Manager,
             CreationDate = DateTime.Now,
-            CreatorUserName = "System",
+            CreatorUserName = GlobalConstant.SystemUsername,
             EmailConfirmed = true,
             PhoneNumberConfirmed = true,
             TwoFactorEnabled = false,
@@ -165,423 +169,123 @@ public class DatabaseMigrator(IServiceProvider serviceProvider)
     /// Seeds default ui related data.
     /// </summary>
     /// <returns></returns>
-    public async Task SeedUIRelatedDataAsync(CancellationToken cancellationToken = default)
+    public async Task<Response> SeedUIRelatedDataAsync(CancellationToken cancellationToken = default)
     {
-        await _dbContext.MenuItems.ExecuteDeleteAsync(cancellationToken: cancellationToken);
-        await _dbContext.MenuGroups.ExecuteDeleteAsync(cancellationToken: cancellationToken);
-        await _dbContext.PageActions.ExecuteDeleteAsync(cancellationToken: cancellationToken);
-        await _dbContext.Pages.ExecuteDeleteAsync(cancellationToken: cancellationToken);
+        await _dbContext.MenuItems.ExecuteDeleteAsync(cancellationToken);
+        await _dbContext.MenuGroups.ExecuteDeleteAsync(cancellationToken);
+        await _dbContext.Pages.ExecuteDeleteAsync(cancellationToken);
+        await _dbContext.PageActions.ExecuteDeleteAsync(cancellationToken);
 
-        #region UI
+        if (MilvonionExtensions.IsCurrentEnvProduction())
+            return Response.Error();
 
-        var managementGroup = new MenuGroup
+        var filePath = Path.Combine(GlobalConstant.JsonFilesPath, "ui_data.json");
+
+        if (!File.Exists(filePath))
+            return Response.Error(MessageConstant.CannotFindFile);
+
+        var json = await File.ReadAllTextAsync(filePath, cancellationToken);
+
+        var data = JsonSerializer.Deserialize<UISeedModel>(json, new JsonSerializerOptions
         {
-            Id = 21,
-            Order = 1,
-            Translations =
-            [
-                new()
-                    {
-                        LanguageId = 1,
-                        Name = "Yönetim",
-                        EntityId = 21
-                    },
-                    new()
-                    {
-                        LanguageId = 2,
-                        Name = "Management",
-                        EntityId = 21
-                    }
-            ],
-            CreationDate = DateTime.Now,
-            CreatorUserName = "System"
-        };
+            PropertyNameCaseInsensitive = true
+        });
 
-        var generalGroup = new MenuGroup
+        if (data == null)
+            return Response.Error(MessageConstant.InvalidJsonFormat);
+
+        // MenuGroups
+        foreach (var group in data.MenuGroups)
         {
-            Id = 22,
-            Order = 0,
-            Translations =
-            [
-                new()
-                    {
-                        LanguageId = 1,
-                        Name = "Genel",
-                        EntityId = 22
-                    },
-                    new()
-                    {
-                        LanguageId = 2,
-                        Name = "General",
-                        EntityId = 22
-                    }
-            ],
-            CreationDate = DateTime.Now,
-            CreatorUserName = "System"
-        };
-
-        _dbContext.MenuGroups.Add(managementGroup);
-        _dbContext.MenuGroups.Add(generalGroup);
-
-        var menuItems = new List<MenuItem>
-        {
-            new() {
-                 Id = 21,
-                 Order = 99,
-                 GroupId = managementGroup.Id,
-                 PermissionOrGroupNames = [nameof(PermissionCatalog.App), nameof(PermissionCatalog.UserManagement), nameof(PermissionCatalog.ActivityLogManagement)],
-                 Translations =
-                 [
-                     new()
-                     {
-                         LanguageId = 21,
-                         Name = "Kullanıcı Yönetimi",
-                         EntityId = 21
-                     },
-                     new()
-                     {
-                         LanguageId = 22,
-                         Name = "User Management",
-                         EntityId = 21
-                     }
-                 ],
-                 Childrens =
-                 [
-                     new()
-                     {
-                         Id = 22,
-                         Order = 96,
-                         ParentId = 21,
-                         GroupId = managementGroup.Id,
-                         Url = "/users",
-                         PageName = nameof(PermissionCatalog.UserManagement),
-                         PermissionOrGroupNames = [PermissionCatalog.App.SuperAdmin, PermissionCatalog.UserManagement.List],
-                         Translations =
-                         [
-                             new()
-                             {
-                                 LanguageId = 21,
-                                 Name = "Kullanıcılar",
-                                 EntityId = 22
-                             },
-                             new()
-                             {
-                                 LanguageId = 22,
-                                 Name = "Users",
-                                 EntityId = 22
-                             }
-                         ],
-                         CreationDate = DateTime.Now,
-                         CreatorUserName = "System"
-                     },
-                     new()
-                     {
-                         Id = 23,
-                         Order = 98,
-                         ParentId = 21,
-                         GroupId = managementGroup.Id,
-                         Url = "/activity-logs",
-                         PageName = nameof(PermissionCatalog.ActivityLogManagement),
-                         PermissionOrGroupNames = [PermissionCatalog.App.SuperAdmin, PermissionCatalog.ActivityLogManagement.List],
-                         Translations =
-                         [
-                             new()
-                             {
-                                 LanguageId = 21,
-                                 Name = "Kullanıcı Aktiviteleri",
-                                 EntityId = 23
-                             },
-                             new()
-                             {
-                                 LanguageId = 22,
-                                 Name = "User Activities",
-                                 EntityId = 23
-                             }
-                         ],
-                         CreationDate = DateTime.Now,
-                         CreatorUserName = "System"
-                     },
-                     new() {
-                          Id = 24,
-                          Order = 97,
-                          GroupId = managementGroup.Id,
-                          Url = "/roles",
-                          PageName = nameof(PermissionCatalog.RoleManagement),
-                          PermissionOrGroupNames = [PermissionCatalog.App.SuperAdmin, PermissionCatalog.RoleManagement.List],
-                          Translations =
-                          [
-                              new()
-                              {
-                                  LanguageId = 21,
-                                  Name = "Roller",
-                                  EntityId = 24
-                              },
-                              new()
-                              {
-                                  LanguageId = 22,
-                                  Name = "Roles",
-                                  EntityId = 24
-                              }
-                          ],
-                          CreationDate = DateTime.Now,
-                          CreatorUserName = "System"
-                     },
-                 ],
-                 CreationDate = DateTime.Now,
-                 CreatorUserName = "System"
-            },// Users, Roles, ActivityLogs 
-            new() {
-                 Id = 25,
-                 Order = 79,
-                 GroupId = managementGroup.Id,
-                 PermissionOrGroupNames = [nameof(PermissionCatalog.App), nameof(PermissionCatalog.ContentManagement), nameof(PermissionCatalog.LanguageManagement)],
-                 Translations =
-                 [
-                     new()
-                     {
-                         LanguageId = 21,
-                         Name = "Site Yönetimi",
-                         EntityId = 25
-                     },
-                     new()
-                     {
-                         LanguageId = 22,
-                         Name = "Site Management",
-                         EntityId = 25
-                     }
-                 ],
-                 Childrens =
-                 [
-                    new() {
-                         Id = 27,
-                         GroupId = managementGroup.Id,
-                         Order = 79,
-                         Url = "/languages",
-                         PageName = nameof(PermissionCatalog.LanguageManagement),
-                         PermissionOrGroupNames = [PermissionCatalog.App.SuperAdmin, PermissionCatalog.LanguageManagement.List],
-                         Translations =
-                         [
-                             new()
-                             {
-                                 LanguageId = 21,
-                                 Name = "Diller",
-                                 EntityId = 39
-                             },
-                             new()
-                             {
-                                 LanguageId = 22,
-                                 Name = "Languages",
-                                 EntityId = 39
-                             }
-                         ],
-                         CreationDate = DateTime.Now,
-                         CreatorUserName = "System"
-                    },
-                    new() {
-                         Id = 28,
-                         Order = 76,
-                         GroupId = managementGroup.Id,
-                         Url = "/namespaces",
-                         PageName = "NamespaceManagement",
-                         PermissionOrGroupNames = [PermissionCatalog.App.SuperAdmin, PermissionCatalog.ContentManagement.List],
-                         Translations =
-                         [
-                             new()
-                             {
-                                 LanguageId = 21,
-                                 Name = "Namespaceler",
-                                 EntityId = 28
-                             },
-                             new()
-                             {
-                                 LanguageId = 22,
-                                 Name = "Namespaces",
-                                 EntityId = 28
-                             }
-                         ],
-                         CreationDate = DateTime.Now,
-                         CreatorUserName = "System"
-                    },
-                    new() {
-                         Id = 29,
-                         Order = 77,
-                         GroupId = managementGroup.Id,
-                         Url = "/resourcegroups",
-                         PageName = "ResourceGroupManagement",
-                         PermissionOrGroupNames = [PermissionCatalog.App.SuperAdmin, PermissionCatalog.ContentManagement.List],
-                         Translations =
-                         [
-                             new()
-                             {
-                                 LanguageId = 21,
-                                 Name = "Resource Gruplar",
-                                 EntityId = 29
-                             },
-                             new()
-                             {
-                                 LanguageId = 22,
-                                 Name = "Resource Groups",
-                                 EntityId = 29
-                             }
-                         ],
-                         CreationDate = DateTime.Now,
-                         CreatorUserName = "System"
-                    },
-                    new() {
-                         Id = 30,
-                         Order = 75,
-                         GroupId = managementGroup.Id,
-                         Url = "/contents",
-                         PageName = nameof(PermissionCatalog.ContentManagement),
-                         PermissionOrGroupNames = [PermissionCatalog.App.SuperAdmin, PermissionCatalog.ContentManagement.List],
-                         Translations =
-                         [
-                             new()
-                             {
-                                 LanguageId = 21,
-                                 Name = "İçerikler",
-                                 EntityId = 30
-                             },
-                             new()
-                             {
-                                 LanguageId = 22,
-                                 Name = "Contents",
-                                 EntityId = 30
-                             }
-                         ],
-                         CreationDate = DateTime.Now,
-                         CreatorUserName = "System"
-                    }
-                 ],
-                 CreationDate = DateTime.Now,
-                 CreatorUserName = "System"
-            },// CMS, ContactForms
-            
-        };
-
-        _dbContext.MenuItems.AddRange(menuItems);
-
-        var pages = new List<Page>
-        {           
-            // Users Page
-            new()
+            var entity = new MenuGroup
             {
-                Id = 22,
-                Name = nameof(PermissionCatalog.UserManagement),
-                HasCreate = true,
-                HasEdit = true,
-                HasDetail = true,
-                HasDelete = true,
-                CreatePermissions = [PermissionCatalog.App.SuperAdmin, PermissionCatalog.UserManagement.Create],
-                EditPermissions = [PermissionCatalog.App.SuperAdmin, PermissionCatalog.UserManagement.Update],
-                DetailPermissions =  [PermissionCatalog.App.SuperAdmin, PermissionCatalog.UserManagement.Detail],
-                DeletePermissions= [PermissionCatalog.App.SuperAdmin, PermissionCatalog.UserManagement.Delete],
-                CreationDate = DateTime.Now,
-                CreatorUserName = "System",
-            },
-            
-            // ActivityLogManagement Page
-            new()
-            {
-                Id = 23,
-                Name = nameof(PermissionCatalog.ActivityLogManagement),
-                HasCreate = false,
-                HasEdit = false,
-                HasDetail = false,
-                HasDelete = false,
-                CreationDate = DateTime.Now,
-                CreatorUserName = "System",
-            },
-            
-        
-            // RoleManagement Page
-            new()
-            {
-                Id = 25,
-                Name = nameof(PermissionCatalog.RoleManagement),
-                HasCreate = true,
-                HasEdit = true,
-                HasDetail = true,
-                HasDelete = true,
-                CreatePermissions = [PermissionCatalog.App.SuperAdmin, PermissionCatalog.RoleManagement.Create],
-                EditPermissions = [PermissionCatalog.App.SuperAdmin, PermissionCatalog.RoleManagement.Update],
-                DetailPermissions = [PermissionCatalog.App.SuperAdmin, PermissionCatalog.RoleManagement.Detail],
-                DeletePermissions= [PermissionCatalog.App.SuperAdmin, PermissionCatalog.RoleManagement.Delete],
-                CreationDate = DateTime.Now,
-                CreatorUserName = "System",
-            },
-
-            // Language Page
-            new()
-            {
-                Id = 26,
-                Name = nameof(PermissionCatalog.LanguageManagement),
-                HasCreate = false,
-                HasEdit = true,
-                HasDetail = true,
-                HasDelete = false,
-                EditPermissions = [PermissionCatalog.App.SuperAdmin, PermissionCatalog.LanguageManagement.Update],
-                CreationDate = DateTime.Now,
-                CreatorUserName = "System",
-            },
-
-            // CMS-Namespace Page
-            new()
-            {
-                Id = 27,
-                Name = "NamespaceManagement",
-                HasCreate = true,
-                HasEdit = true,
-                HasDetail = true,
-                HasDelete = true,
-                CreatePermissions = [PermissionCatalog.App.SuperAdmin, PermissionCatalog.ContentManagement.Create],
-                EditPermissions = [PermissionCatalog.App.SuperAdmin, PermissionCatalog.ContentManagement.Update],
-                DetailPermissions = [PermissionCatalog.App.SuperAdmin, PermissionCatalog.ContentManagement.Detail],
-                DeletePermissions= [PermissionCatalog.App.SuperAdmin, PermissionCatalog.ContentManagement.Delete],
-                CreationDate = DateTime.Now,
-                CreatorUserName = "System",
-            },
-        
-            // CMS-ResourceGroup Page
-            new()
-            {
-                Id = 28,
-                Name = "ResourceGroupManagement",
-                HasCreate = true,
-                HasEdit = true,
-                HasDetail = true,
-                HasDelete = true,
-                CreatePermissions = [PermissionCatalog.App.SuperAdmin, PermissionCatalog.ContentManagement.Create],
-                EditPermissions = [PermissionCatalog.App.SuperAdmin, PermissionCatalog.ContentManagement.Update],
-                DetailPermissions = [PermissionCatalog.App.SuperAdmin, PermissionCatalog.ContentManagement.Detail],
-                DeletePermissions= [PermissionCatalog.App.SuperAdmin, PermissionCatalog.ContentManagement.Delete],
-                CreationDate = DateTime.Now,
-                CreatorUserName = "System",
-            },
-        
-            // CMS-Namespace Page
-            new()
-            {
-                Id = 29,
-                Name = nameof(PermissionCatalog.ContentManagement),
-                HasCreate = true,
-                HasEdit = true,
-                HasDetail = true,
-                HasDelete = true,
-                CreatePermissions = [PermissionCatalog.App.SuperAdmin, PermissionCatalog.ContentManagement.Create],
-                EditPermissions = [PermissionCatalog.App.SuperAdmin, PermissionCatalog.ContentManagement.Update],
-                DetailPermissions = [PermissionCatalog.App.SuperAdmin, PermissionCatalog.ContentManagement.Detail],
-                DeletePermissions= [PermissionCatalog.App.SuperAdmin, PermissionCatalog.ContentManagement.Delete],
-                CreationDate = DateTime.Now,
-                CreatorUserName = "System",
-            },
-        };
-
-        _dbContext.Pages.AddRange(pages);
+                Id = group.Id,
+                Order = group.Order,
+                CreationDate = DateTime.UtcNow,
+                CreatorUserName = GlobalConstant.SystemUsername,
+                Translations = group.Translations?.Select(t => new MenuGroupTranslation
+                {
+                    LanguageId = t.LanguageId,
+                    Name = t.Name,
+                    EntityId = group.Id
+                }).ToList()
+            };
+            _dbContext.MenuGroups.Add(entity);
+        }
 
         await _dbContext.SaveChangesAsync(cancellationToken);
 
-        #endregion
+        // Pages
+        foreach (var page in data.Pages)
+        {
+            _dbContext.Pages.Add(new Page
+            {
+                Id = page.Id,
+                Name = page.Name,
+                HasCreate = page.HasCreate,
+                HasEdit = page.HasEdit,
+                HasDetail = page.HasDetail,
+                HasDelete = page.HasDelete,
+                CreatePermissions = page.CreatePermissions ?? [],
+                EditPermissions = page.EditPermissions ?? [],
+                DetailPermissions = page.DetailPermissions ?? [],
+                DeletePermissions = page.DeletePermissions ?? [],
+                AdditionalActions = [.. page.AdditionalActions.Select(pa=>new PageAction
+                {
+                    Id = pa.Id,
+                    ActionName = pa.ActionName,
+                    Permissions = pa.Permissions ?? [],
+                    PageId = page.Id,
+                    CreatorUserName = GlobalConstant.SystemUsername,
+                    Translations = pa.Translations?.Select(t => new PageActionTranslation
+                    {
+                        LanguageId = t.LanguageId,
+                        Title = t.Name,
+                        EntityId = pa.Id
+                    }).ToList(),
+                })],
+                CreationDate = DateTime.UtcNow,
+                CreatorUserName = GlobalConstant.SystemUsername
+            });
+        }
+
+        // MenuItems (recursive ekleme)
+        var flatItems = data.MenuItems;
+
+        foreach (var rootItem in flatItems.Where(x => string.IsNullOrWhiteSpace(x.ParentId)))
+        {
+            var entity = MapMenuItemRecursive(rootItem, null);
+            _dbContext.MenuItems.Add(entity);
+        }
+
+        await _dbContext.SaveChangesAsync(cancellationToken);
+
+        MenuItem MapMenuItemRecursive(MenuItemModel model, int? parentId)
+        {
+            var item = new MenuItem
+            {
+                Id = model.Id,
+                Order = model.Order,
+                GroupId = model.GroupId,
+                Url = model.Url,
+                PageName = model.PageName,
+                ParentId = parentId,
+                PermissionOrGroupNames = model.PermissionOrGroupNames ?? [],
+                Translations = [.. model.Translations.Select(t => new MenuItemTranslation
+                {
+                    LanguageId = t.LanguageId,
+                    Name = t.Name,
+                    EntityId = model.Id
+                })],
+                CreationDate = DateTime.UtcNow,
+                CreatorUserName = GlobalConstant.SystemUsername,
+                Childrens = model.Children?.Select(child => MapMenuItemRecursive(child, model.Id)).ToList() ?? []
+            };
+
+            return item;
+        }
+
+        return Response.Success();
     }
 
     /// <summary>
