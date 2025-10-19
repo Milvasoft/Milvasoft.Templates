@@ -364,10 +364,10 @@
     <value>Activity Log</value>
   </data>
   <data name="UI.UserManagement" xml:space="preserve">
-    <value>User Management</value>
+    <value>Users</value>
   </data>
   <data name="UI.RoleManagement" xml:space="preserve">
-    <value>Role Management</value>
+    <value>Roles</value>
   </data>
   <data name="UI.ActivityLogManagement" xml:space="preserve">
     <value>Activity Logs</value>

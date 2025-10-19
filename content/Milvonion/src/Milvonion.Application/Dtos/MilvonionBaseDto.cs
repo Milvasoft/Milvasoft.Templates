@@ -1,7 +1,7 @@
 ﻿using Milvasoft.Attributes.Annotations;
 using Milvasoft.Core.EntityBases.Concrete;
 
-namespace Milvonion.Application.Features;
+namespace Milvonion.Application.Dtos;
 
 /// <summary>
 /// App pool base dto for attribute usage.

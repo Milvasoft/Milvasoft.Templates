@@ -20,7 +20,7 @@ namespace projectName.Api.Controllers;
 /// </summary>
 [ApiController]
 [Route(GlobalConstant.FullRoute)]
-[ApiVersion("1.0")]
+[ApiVersion(GlobalConstant.CurrentApiVersion)]
 [ApiExplorerSettings(GroupName = "v1.0")]
 [UserTypeAuth(UserType.Manager)]
 public class pluralNameController(IMediator mediator) : ControllerBase

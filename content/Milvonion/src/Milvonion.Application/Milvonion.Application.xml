@@ -861,6 +861,14 @@
             File extension.
             </summary>
         </member>
+        <member name="T:Milvonion.Application.Dtos.MilvonionBaseDto`1">
+            <summary>
+            App pool base dto for attribute usage.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Dtos.MilvonionBaseDto`1.Id">
+            <inheritdoc/>
+        </member>
         <member name="T:Milvonion.Application.Dtos.NameIntNavigationDto">
             <summary>
             It can be used to obtain Id-Name pair information for any domain.
@@ -2185,14 +2193,6 @@
         <member name="M:Milvonion.Application.Features.Languages.UpdateLanguage.UpdateLanguageCommandValidator.#ctor(Milvasoft.Core.Abstractions.Localization.IMilvaLocalizer)">
             <inheritdoc cref="T:Milvonion.Application.Features.Roles.UpdateRole.UpdateRoleCommandValidator"/>
         </member>
-        <member name="T:Milvonion.Application.Features.MilvonionBaseDto`1">
-            <summary>
-            App pool base dto for attribute usage.
-            </summary>
-        </member>
-        <member name="P:Milvonion.Application.Features.MilvonionBaseDto`1.Id">
-            <inheritdoc/>
-        </member>
         <member name="T:Milvonion.Application.Features.Pages.GetPageAccessibilityForCurrentUser.GetPageAccessibilityForCurrentUserQuery">
             <summary>
             Data transfer object for page details.
@@ -3093,6 +3093,11 @@
         <member name="F:Milvonion.Application.Utils.Constants.GlobalConstant.RootUsername">
             <summary>
             Root user name.
+            </summary>
+        </member>
+        <member name="F:Milvonion.Application.Utils.Constants.GlobalConstant.SystemUsername">
+            <summary>
+            System user name.
             </summary>
         </member>
         <member name="F:Milvonion.Application.Utils.Constants.GlobalConstant.GenerateMetadataHeaderKey">

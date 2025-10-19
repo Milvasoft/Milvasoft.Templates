@@ -364,10 +364,10 @@
     <value>Aktivite Geçmişi</value>
   </data>
   <data name="UI.UserManagement" xml:space="preserve">
-    <value>Kullanıcı Yönetimi</value>
+    <value>Kullanıcılar</value>
   </data>
   <data name="UI.RoleManagement" xml:space="preserve">
-    <value>Rol Yönetimi</value>
+    <value>Roller</value>
   </data>
   <data name="UI.ActivityLogManagement" xml:space="preserve">
     <value>Kullanıcı Aktiviteleri</value>

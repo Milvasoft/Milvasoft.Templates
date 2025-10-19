@@ -1,5 +1,9 @@
 ﻿using Milvasoft.Core.Helpers;
+using Milvonion.Application;
 using Milvonion.Application.Utils.Constants;
+using Milvonion.Application.Utils.PermissionManager;
+using Milvonion.Domain;
+using Milvonion.Domain.Enums;
 using System.Reflection;
 using System.Text.RegularExpressions;
 using System.Xml.Linq;
@@ -30,6 +34,10 @@ return;
 
         HashSet<string> keysInNameOfReferences = [];
 
+        var resxKeys = GetResxKeys(resxFolderPath);
+
+        #region Find for MessageKey.cs 
+
         foreach (var reference in nameofReferences)
         {
             var propertyName = ParseNameofExpressionAndGetPropertyName(reference);
@@ -38,9 +46,52 @@ return;
                 keysInNameOfReferences.Add(propertyName);
         }
 
-        var constantKeys = GetConstantsFromClass(typeof(MessageKey));
+        #endregion
 
-        var resxKeys = GetResxKeys(resxFolderPath);
+        #region Find for Enum types 
+
+        var enumTypes = ApplicationAssembly.Assembly.GetExportedTypes().Where(t => t.IsEnum).Concat(DomainAssembly.Assembly.GetExportedTypes().Where(t => t.IsEnum));
+
+        foreach (var enumType in enumTypes.Where(t => t != typeof(UserActivity)))
+        {
+            var enumValues = Enum.GetNames(enumType);
+
+            foreach (var enumValue in enumValues)
+            {
+                var enumKey = $"{enumType.Name}.{enumValue}";
+
+                if (!resxKeys.Contains(enumType.Name))
+                    keysInNameOfReferences.Add(enumType.Name);
+
+                if (!resxKeys.Contains(enumKey))
+                    keysInNameOfReferences.Add(enumKey);
+            }
+        }
+
+        #endregion
+
+        #region Find for PermissionCatalog sub classes
+
+        var permissionCatalogType = typeof(PermissionCatalog);
+
+        var permissionSubClasses = permissionCatalogType.GetNestedTypes().Where(t => t.IsClass && !t.IsValueType);
+
+        foreach (var subClass in permissionSubClasses)
+        {
+            var permissionGroupKey = $"PG.{subClass.Name}";
+
+            if (!resxKeys.Contains(permissionGroupKey))
+                keysInNameOfReferences.Add(permissionGroupKey);
+
+            var uiPageKey = $"UI.{subClass.Name}";
+
+            if (!resxKeys.Contains(uiPageKey))
+                keysInNameOfReferences.Add(uiPageKey);
+        }
+
+        #endregion
+
+        var constantKeys = GetConstantsFromClass(typeof(MessageKey));
 
         var missingKeys = constantKeys.Concat(keysInNameOfReferences).Except(resxKeys);
 
@@ -50,7 +101,16 @@ return;
             Console.ForegroundColor = ConsoleColor.Yellow;
             Console.WriteLine(warnMessage);
             Console.ForegroundColor = ConsoleColor.Red;
-            Console.Write(string.Join(',', missingKeys));
+            foreach (var missingKey in missingKeys)
+                Console.WriteLine(missingKey);
+            Console.ResetColor();
+            Console.WriteLine();
+        }
+        else
+        {
+            var successMessage = "(Milva Framework Info) No missing resx keys found. All good!";
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine(successMessage);
             Console.ResetColor();
             Console.WriteLine();
         }
