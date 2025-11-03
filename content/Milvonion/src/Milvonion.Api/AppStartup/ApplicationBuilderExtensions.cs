@@ -48,8 +48,8 @@ public static partial class StartupExtensions
             //UI
             options.WithTitle("Milvonion Api Reference")
                    .WithFavicon("https://demo.milvasoft.com/api/favicon.ico")
-                   .WithDownloadButton(false)
-                   .WithDarkMode(true)
+                   .EnableDarkMode()
+                   .WithDocumentDownloadType(DocumentDownloadType.None)
                    .AddPreferredSecuritySchemes(JwtBearerDefaults.AuthenticationScheme)
                    .WithCustomCss(".darklight-reference-promo { display: none !important; } .darklight-reference { padding-bottom: 15px !important; } .open-api-client-button { display: none !important; }");
         });

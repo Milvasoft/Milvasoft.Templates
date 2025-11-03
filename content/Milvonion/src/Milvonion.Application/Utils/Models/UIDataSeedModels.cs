@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace FineHub.Application.Utils.Models;
+﻿namespace Milvonion.Application.Utils.Models;
 
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 public class UISeedModel
@@ -42,7 +36,7 @@ public class PageModel
     public bool HasEdit { get; set; }
     public bool HasDetail { get; set; }
     public bool HasDelete { get; set; }
-    public List<string>  CreatePermissions { get; set; }
+    public List<string> CreatePermissions { get; set; }
     public List<string> EditPermissions { get; set; }
     public List<string> DetailPermissions { get; set; }
     public List<string> DeletePermissions { get; set; }
@@ -55,7 +49,7 @@ public class PageActionModel
 {
     public int Id { get; set; }
     public string ActionName { get; set; }
-    public List<string>  Permissions { get; set; }
+    public List<string> Permissions { get; set; }
     public List<TranslationModel> Translations { get; set; }
     public int PageId { get; set; }
 }

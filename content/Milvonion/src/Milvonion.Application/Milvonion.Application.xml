@@ -54,6 +54,25 @@
         <member name="M:Milvonion.Application.Behaviours.DefaultDataValidator`1.IsValid(FluentValidation.ValidationContext{`0},System.Int32)">
             <inheritdoc/>
         </member>
+        <member name="T:Milvonion.Application.Behaviours.DefaultDataLongValidator`1">
+            <summary>
+            Default data validator.
+            </summary>
+        </member>
+        <member name="M:Milvonion.Application.Behaviours.DefaultDataLongValidator`1.#ctor(System.Int64,System.Int64)">
+            <summary>
+            Default data validator.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Behaviours.DefaultDataLongValidator`1.Name">
+            <inheritdoc/>
+        </member>
+        <member name="M:Milvonion.Application.Behaviours.DefaultDataLongValidator`1.GetDefaultMessageTemplate(System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Milvonion.Application.Behaviours.DefaultDataLongValidator`1.IsValid(FluentValidation.ValidationContext{`0},System.Int64)">
+            <inheritdoc/>
+        </member>
         <member name="T:Milvonion.Application.Behaviours.NameDescriptionTranslationDtoValidator">
             <summary>
             Feature query validations. 
@@ -88,6 +107,26 @@
         <member name="M:Milvonion.Application.Behaviours.RuleBuilderOptionsExtensions.NotBeDefaultData``1(FluentValidation.IRuleBuilderOptions{``0,System.Int32},System.Int32,System.Int32)">
             <summary>
             Checks whether the value is greater than or equal to 21.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="ruleBuilder"></param>
+            <param name="rangeMin"></param>
+            <param name="rangeMax"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Milvonion.Application.Behaviours.RuleBuilderOptionsExtensions.NotBeDefaultData``1(FluentValidation.IRuleBuilder{``0,System.Int64},System.Int64,System.Int64)">
+            <summary>
+            Checks whether the value is greater than or <see cref="F:Milvonion.Application.Utils.Constants.GlobalConstant.AutoIncrementStart"/>..
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="ruleBuilder"></param>
+            <param name="rangeMin"></param>
+            <param name="rangeMax"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Milvonion.Application.Behaviours.RuleBuilderOptionsExtensions.NotBeDefaultData``1(FluentValidation.IRuleBuilderOptions{``0,System.Int64},System.Int64,System.Int64)">
+            <summary>
+            Checks whether the value is greater than or <see cref="F:Milvonion.Application.Utils.Constants.GlobalConstant.AutoIncrementStart"/>..
             </summary>
             <typeparam name="T"></typeparam>
             <param name="ruleBuilder"></param>
@@ -247,6 +286,175 @@
             Projection expression for mapping User entity to AccountDetailDto.
             </summary>
         </member>
+        <member name="T:Milvonion.Application.Dtos.AccountDtos.AccountNotificationDto">
+            <summary>
+            Data transfer object for internalNotification list.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Dtos.AccountDtos.AccountNotificationDto.RecipientUserName">
+            <summary>
+            The user who will receive this notification.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Dtos.AccountDtos.AccountNotificationDto.Type">
+            <summary>
+            Notification type.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Dtos.AccountDtos.AccountNotificationDto.TypeDescription">
+            <summary>
+            Notification type description.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Dtos.AccountDtos.AccountNotificationDto.SeenDate">
+            <summary>
+            Date when the user marked this notification as seen. Null if unseen.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Dtos.AccountDtos.AccountNotificationDto.Text">
+            <summary>
+            Text content of the notification. Can be null. 
+            If it is null, Data property should be used in frontend(text generated with translations in frontend) for dynamic content.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Dtos.AccountDtos.AccountNotificationDto.Data">
+            <summary>
+            JSON data payload for dynamic content or localization.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Dtos.AccountDtos.AccountNotificationDto.RelatedEntityType">
+            <summary>
+            Notification related entity.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Dtos.AccountDtos.AccountNotificationDto.RelatedEntityId">
+            <summary>
+            Related entity identifier. Can be null.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Dtos.AccountDtos.AccountNotificationDto.ActionLink">
+            <summary>
+            Client-side URL/route to navigate when the notification is clicked.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Dtos.AccountDtos.AccountNotificationDto.IsSeen">
+            <summary>
+            Determines whether the notification is seen or not.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Dtos.AccountDtos.AccountNotificationDto.IsSeenDescription">
+            <summary>
+            Determines whether the notification is seen or not.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Dtos.AccountDtos.AccountNotificationDto.Projection">
+            <summary>
+            Projection expression for mapping InternalNotification internalNotification to InternalNotificationListDto.
+            </summary>
+        </member>
+        <member name="T:Milvonion.Application.Dtos.AccountDtos.InternalNotifications.DeleteNotification.DeleteNotificationsCommand">
+            <summary>
+            Data transfer object for delete notification.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Dtos.AccountDtos.InternalNotifications.DeleteNotification.DeleteNotificationsCommand.NotificationIdList">
+            <summary>
+            Delete the notifications for the current user.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Dtos.AccountDtos.InternalNotifications.DeleteNotification.DeleteNotificationsCommand.DeleteAll">
+            <summary>
+            Delete all notifications.
+            </summary>
+        </member>
+        <member name="T:Milvonion.Application.Dtos.AccountDtos.InternalNotifications.DeleteNotification.DeleteNotificationsCommandHandler">
+            <summary>
+            Handles the RefreshLoginCommand and refreshes the user's login token.
+            </summary>
+        </member>
+        <member name="M:Milvonion.Application.Dtos.AccountDtos.InternalNotifications.DeleteNotification.DeleteNotificationsCommandHandler.#ctor(Milvonion.Application.Interfaces.INotificationService,Microsoft.AspNetCore.Http.IHttpContextAccessor)">
+            <summary>
+            Handles the RefreshLoginCommand and refreshes the user's login token.
+            </summary>
+        </member>
+        <member name="M:Milvonion.Application.Dtos.AccountDtos.InternalNotifications.DeleteNotification.DeleteNotificationsCommandHandler.Handle(Milvonion.Application.Dtos.AccountDtos.InternalNotifications.DeleteNotification.DeleteNotificationsCommand,System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Milvonion.Application.Dtos.AccountDtos.InternalNotifications.DeleteNotification.DeleteNotificationsCommandValidator">
+            <summary>
+            Query validations. 
+            </summary>
+        </member>
+        <member name="M:Milvonion.Application.Dtos.AccountDtos.InternalNotifications.DeleteNotification.DeleteNotificationsCommandValidator.#ctor(Milvasoft.Core.Abstractions.Localization.IMilvaLocalizer)">
+            <inheritdoc cref="T:Milvonion.Application.Dtos.AccountDtos.InternalNotifications.DeleteNotification.DeleteNotificationsCommandValidator"/>
+        </member>
+        <member name="T:Milvonion.Application.Dtos.AccountDtos.InternalNotifications.GetAccountNotifications.GetAccountNotificationsQuery">
+            <summary>
+            Data transfer object for account details.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Dtos.AccountDtos.InternalNotifications.GetAccountNotifications.GetAccountNotificationsQuery.UserId">
+            <summary>
+            The user Id whose account details you want to access.
+            </summary>
+        </member>
+        <member name="T:Milvonion.Application.Dtos.AccountDtos.InternalNotifications.GetAccountNotifications.GetAccountNotificationsQueryHandler">
+            <summary>
+            Handles the query for retrieving the account details.
+            </summary>
+        </member>
+        <member name="M:Milvonion.Application.Dtos.AccountDtos.InternalNotifications.GetAccountNotifications.GetAccountNotificationsQueryHandler.#ctor(Milvonion.Application.Interfaces.IMilvonionRepositoryBase{Milvonion.Domain.User},Milvonion.Application.Interfaces.IMilvonionRepositoryBase{Milvonion.Domain.InternalNotification},Microsoft.AspNetCore.Http.IHttpContextAccessor)">
+            <summary>
+            Handles the query for retrieving the account details.
+            </summary>
+        </member>
+        <member name="M:Milvonion.Application.Dtos.AccountDtos.InternalNotifications.GetAccountNotifications.GetAccountNotificationsQueryHandler.Handle(Milvonion.Application.Dtos.AccountDtos.InternalNotifications.GetAccountNotifications.GetAccountNotificationsQuery,System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Milvonion.Application.Dtos.AccountDtos.InternalNotifications.GetAccountNotifications.GetAccountNotificationsQueryValidator">
+            <summary>
+            Query validations. 
+            </summary>
+        </member>
+        <member name="M:Milvonion.Application.Dtos.AccountDtos.InternalNotifications.GetAccountNotifications.GetAccountNotificationsQueryValidator.#ctor(Milvasoft.Core.Abstractions.Localization.IMilvaLocalizer)">
+            <inheritdoc cref="T:Milvonion.Application.Dtos.AccountDtos.InternalNotifications.GetAccountNotifications.GetAccountNotificationsQueryValidator"/>
+        </member>
+        <member name="T:Milvonion.Application.Dtos.AccountDtos.InternalNotifications.MarkNotificationsAsSeen.MarkNotificationsAsSeenCommand">
+            <summary>
+            Data transfer object for mark as seen notification.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Dtos.AccountDtos.InternalNotifications.MarkNotificationsAsSeen.MarkNotificationsAsSeenCommand.NotificationIdList">
+            <summary>
+            Mark the notifications as seen for the current user.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Dtos.AccountDtos.InternalNotifications.MarkNotificationsAsSeen.MarkNotificationsAsSeenCommand.MarkAll">
+            <summary>
+            Mark all notifications as seen if true.
+            </summary>
+        </member>
+        <member name="T:Milvonion.Application.Dtos.AccountDtos.InternalNotifications.MarkNotificationsAsSeen.MarkNotificationsAsSeenCommandHandler">
+            <summary>
+            Handles the RefreshLoginCommand and refreshes the user's login token.
+            </summary>
+        </member>
+        <member name="M:Milvonion.Application.Dtos.AccountDtos.InternalNotifications.MarkNotificationsAsSeen.MarkNotificationsAsSeenCommandHandler.#ctor(Milvonion.Application.Interfaces.INotificationService,Microsoft.AspNetCore.Http.IHttpContextAccessor)">
+            <summary>
+            Handles the RefreshLoginCommand and refreshes the user's login token.
+            </summary>
+        </member>
+        <member name="M:Milvonion.Application.Dtos.AccountDtos.InternalNotifications.MarkNotificationsAsSeen.MarkNotificationsAsSeenCommandHandler.Handle(Milvonion.Application.Dtos.AccountDtos.InternalNotifications.MarkNotificationsAsSeen.MarkNotificationsAsSeenCommand,System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Milvonion.Application.Dtos.AccountDtos.InternalNotifications.MarkNotificationsAsSeen.MarkNotificationsAsSeenCommandValidator">
+            <summary>
+            Query validations. 
+            </summary>
+        </member>
+        <member name="M:Milvonion.Application.Dtos.AccountDtos.InternalNotifications.MarkNotificationsAsSeen.MarkNotificationsAsSeenCommandValidator.#ctor(Milvasoft.Core.Abstractions.Localization.IMilvaLocalizer)">
+            <inheritdoc cref="T:Milvonion.Application.Dtos.AccountDtos.InternalNotifications.MarkNotificationsAsSeen.MarkNotificationsAsSeenCommandValidator"/>
+        </member>
         <member name="T:Milvonion.Application.Dtos.AccountDtos.LoginResponseDto">
             <summary>
             Response object for login operation.
@@ -333,6 +541,12 @@
             </summary>
         </member>
         <member name="M:Milvonion.Application.Dtos.AuditDto`1.#ctor(Milvasoft.Core.EntityBases.Abstract.IAuditable{`0})">
+            <summary>
+            Assigns the values of the entity to the properties of the data transfer object.
+            </summary>
+            <param name="entity"></param>
+        </member>
+        <member name="M:Milvonion.Application.Dtos.AuditDto`1.#ctor(Milvasoft.Core.EntityBases.Abstract.ICreationAuditable{`0})">
             <summary>
             Assigns the values of the entity to the properties of the data transfer object.
             </summary>
@@ -879,6 +1093,418 @@
             Name of related domain.
             </summary>
         </member>
+        <member name="T:Milvonion.Application.Dtos.NotificationDtos.GoogleChat.GoogleChatSpace">
+            <summary>
+            Google Chat space enumeration.
+            </summary>
+        </member>
+        <member name="F:Milvonion.Application.Dtos.NotificationDtos.GoogleChat.GoogleChatSpace.HubNotifications">
+            <summary>
+            Hub Notifications space.
+            </summary>
+        </member>
+        <member name="F:Milvonion.Application.Dtos.NotificationDtos.GoogleChat.GoogleChatSpace.MonitoringAlerts">
+            <summary>
+            Monitoring Alerts space.
+            </summary>
+        </member>
+        <member name="T:Milvonion.Application.Dtos.NotificationDtos.GoogleChat.GoogleChatThread">
+            <summary>
+            Thread information for message grouping.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Dtos.NotificationDtos.GoogleChat.GoogleChatThread.ThreadKey">
+            <summary>
+            Thread key to group messages in the same thread.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Dtos.NotificationDtos.GoogleChat.GoogleChatThread.Name">
+            <summary>
+            For reply existsing thread, the name of the thread.
+            </summary>
+        </member>
+        <member name="T:Milvonion.Application.Dtos.NotificationDtos.GoogleChat.GoogleChatNotification">
+            <summary>
+            The root model for a Google Chat Card V2 message payload.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Dtos.NotificationDtos.GoogleChat.GoogleChatNotification.Space">
+            <summary>
+            Belonging Google Chat space.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Dtos.NotificationDtos.GoogleChat.GoogleChatNotification.CardMessage">
+            <summary>
+            Card message payload to be sent.
+            </summary>
+        </member>
+        <member name="T:Milvonion.Application.Dtos.NotificationDtos.GoogleChat.GoogleChatCardMessage">
+            <summary>
+            The root model for a Google Chat Card V2 message payload.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Dtos.NotificationDtos.GoogleChat.GoogleChatCardMessage.CardsV2">
+            <summary>
+            Cards V2 collection to be sent in the message.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Dtos.NotificationDtos.GoogleChat.GoogleChatCardMessage.Thread">
+            <summary>
+            Optional. Specifies the thread to which the message belongs.
+            </summary>
+        </member>
+        <member name="T:Milvonion.Application.Dtos.NotificationDtos.GoogleChat.CardContainer">
+            <summary>
+            A container wrapper for a single Card V2 object.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Dtos.NotificationDtos.GoogleChat.CardContainer.CardId">
+            <summary>
+            Card identifier.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Dtos.NotificationDtos.GoogleChat.CardContainer.Card">
+            <summary>
+            Card object containing header and sections.
+            </summary>
+        </member>
+        <member name="T:Milvonion.Application.Dtos.NotificationDtos.GoogleChat.Card">
+            <summary>
+            Defines the structure of the main Card object, including the header and sections.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Dtos.NotificationDtos.GoogleChat.Card.Header">
+            <summary>
+            Card header information.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Dtos.NotificationDtos.GoogleChat.Card.Sections">
+            <summary>
+            Sections within the card, each containing widgets.
+            </summary>
+        </member>
+        <member name="T:Milvonion.Application.Dtos.NotificationDtos.GoogleChat.CardHeader">
+            <summary>
+            Defines the header section of the card, including title, subtitle, and image details.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Dtos.NotificationDtos.GoogleChat.CardHeader.Title">
+            <summary>
+            Title of the card.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Dtos.NotificationDtos.GoogleChat.CardHeader.Subtitle">
+            <summary>
+            Subtitle of the card.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Dtos.NotificationDtos.GoogleChat.CardHeader.ImageUrl">
+            <summary>
+            Image URL for the card header.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Dtos.NotificationDtos.GoogleChat.CardHeader.ImageType">
+            <summary>
+            Image type (e.g., CIRCLE, SQUARE).
+            </summary>
+        </member>
+        <member name="T:Milvonion.Application.Dtos.NotificationDtos.GoogleChat.Section">
+            <summary>
+            Defines a section within the card, which holds a collection of widgets.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Dtos.NotificationDtos.GoogleChat.Section.Header">
+            <summary>
+            Header text for the section.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Dtos.NotificationDtos.GoogleChat.Section.Widgets">
+            <summary>
+            Widgets contained in the section.
+            </summary>
+        </member>
+        <member name="T:Milvonion.Application.Dtos.NotificationDtos.GoogleChat.Widget">
+            <summary>
+            Represents a single visual component (widget) within a card section.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Dtos.NotificationDtos.GoogleChat.Widget.DecoratedText">
+            <summary>
+            Text content with optional leading icon and formatting.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Dtos.NotificationDtos.GoogleChat.Widget.ButtonList">
+            <summary>
+            Button list for user interactions.
+            </summary>
+        </member>
+        <member name="T:Milvonion.Application.Dtos.NotificationDtos.GoogleChat.DecoratedText">
+            <summary>
+            Text content with optional leading icon and formatting.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Dtos.NotificationDtos.GoogleChat.DecoratedText.StartIcon">
+            <summary>
+            Start icon displayed before the text.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Dtos.NotificationDtos.GoogleChat.DecoratedText.Text">
+            <summary>
+            The main text content, which can include HTML formatting.
+            </summary>
+        </member>
+        <member name="T:Milvonion.Application.Dtos.NotificationDtos.GoogleChat.Icon">
+            <summary>
+            Defines a built-in icon for a widget. For known icons see https://developers.google.com/workspace/chat/format-messages#builtinicons.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Dtos.NotificationDtos.GoogleChat.Icon.KnownIcon">
+            <summary>
+            Known icon name (e.g., "STAR", "CLOCK", "MEMBERSHIP").
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Dtos.NotificationDtos.GoogleChat.Icon.MaterialIcon">
+            <summary>
+            Material icon name.
+            </summary>
+        </member>
+        <member name="T:Milvonion.Application.Dtos.NotificationDtos.GoogleChat.MaterialIcon">
+            <summary>
+            Custom icon.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Dtos.NotificationDtos.GoogleChat.MaterialIcon.Name">
+            <summary>
+            Material icon name.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Dtos.NotificationDtos.GoogleChat.MaterialIcon.Fill">
+            <summary>
+            Material icon fill.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Dtos.NotificationDtos.GoogleChat.MaterialIcon.Weight">
+            <summary>
+            Material icon weight.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Dtos.NotificationDtos.GoogleChat.MaterialIcon.Grade">
+            <summary>
+            Material icon grade.
+            </summary>
+        </member>
+        <member name="T:Milvonion.Application.Dtos.NotificationDtos.GoogleChat.ButtonList">
+            <summary>
+            A collection of buttons laid out horizontally.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Dtos.NotificationDtos.GoogleChat.ButtonList.Buttons">
+            <summary>
+            Buttons included in the button list.
+            </summary>
+        </member>
+        <member name="T:Milvonion.Application.Dtos.NotificationDtos.GoogleChat.Button">
+            <summary>
+            A clickable button with text.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Dtos.NotificationDtos.GoogleChat.Button.Text">
+            <summary>
+            The text displayed on the button.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Dtos.NotificationDtos.GoogleChat.Button.OnClick">
+            <summary>
+            OnClick action defining what happens when the button is clicked.
+            </summary>
+        </member>
+        <member name="T:Milvonion.Application.Dtos.NotificationDtos.GoogleChat.OnClick">
+            <summary>
+            Defines the action when a component is clicked.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Dtos.NotificationDtos.GoogleChat.OnClick.OpenLink">
+            <summary>
+            OpenLink action to open a URL.
+            </summary>
+        </member>
+        <member name="T:Milvonion.Application.Dtos.NotificationDtos.GoogleChat.OpenLink">
+            <summary>
+            Defines a URL to open when the link is clicked.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Dtos.NotificationDtos.GoogleChat.OpenLink.Url">
+            <summary>
+            URL to be opened.
+            </summary>
+        </member>
+        <member name="T:Milvonion.Application.Dtos.NotificationDtos.InternalNotificationDetailDto">
+            <summary>
+            Data transfer object for internalNotification details.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Dtos.NotificationDtos.InternalNotificationDetailDto.RecipientUserName">
+            <summary>
+            The user who will receive this notification.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Dtos.NotificationDtos.InternalNotificationDetailDto.Type">
+            <summary>
+            Notification type.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Dtos.NotificationDtos.InternalNotificationDetailDto.TypeDescription">
+            <summary>
+            Notification type description.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Dtos.NotificationDtos.InternalNotificationDetailDto.SeenDate">
+            <summary>
+            Date when the user marked this notification as seen. Null if unseen.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Dtos.NotificationDtos.InternalNotificationDetailDto.Text">
+            <summary>
+            Text content of the notification. Can be null. 
+            If it is null, Data property should be used in frontend(text generated with translations in frontend) for dynamic content.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Dtos.NotificationDtos.InternalNotificationDetailDto.Data">
+            <summary>
+            JSON data payload for dynamic content or localization.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Dtos.NotificationDtos.InternalNotificationDetailDto.RelatedEntityType">
+            <summary>
+            Notification related entity.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Dtos.NotificationDtos.InternalNotificationDetailDto.RelatedEntityId">
+            <summary>
+            Related entity identifier. Can be null.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Dtos.NotificationDtos.InternalNotificationDetailDto.ActionLink">
+            <summary>
+            Client-side URL/route to navigate when the notification is clicked.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Dtos.NotificationDtos.InternalNotificationDetailDto.IsSeen">
+            <summary>
+            Computed property indicating whether the notification has been read.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Dtos.NotificationDtos.InternalNotificationDetailDto.AuditInfo">
+            <summary>
+            Information about record audit.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Dtos.NotificationDtos.InternalNotificationDetailDto.Projection">
+            <summary>
+            Projection expression for mapping InternalNotification internalNotification to InternalNotificationDetailDto.
+            </summary>
+        </member>
+        <member name="T:Milvonion.Application.Dtos.NotificationDtos.InternalNotificationListDto">
+            <summary>
+            Data transfer object for internalNotification list.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Dtos.NotificationDtos.InternalNotificationListDto.RecipientUserName">
+            <summary>
+            The user who will receive this notification.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Dtos.NotificationDtos.InternalNotificationListDto.Type">
+            <summary>
+            Notification type.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Dtos.NotificationDtos.InternalNotificationListDto.TypeDescription">
+            <summary>
+            Notification type description.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Dtos.NotificationDtos.InternalNotificationListDto.SeenDate">
+            <summary>
+            Date when the user marked this notification as seen. Null if unseen.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Dtos.NotificationDtos.InternalNotificationListDto.IsSeen">
+            <summary>
+            Determines whether the notification is seen or not.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Dtos.NotificationDtos.InternalNotificationListDto.IsSeenDescription">
+            <summary>
+            Determines whether the notification is seen or not.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Dtos.NotificationDtos.InternalNotificationListDto.Projection">
+            <summary>
+            Projection expression for mapping InternalNotification internalNotification to InternalNotificationListDto.
+            </summary>
+        </member>
+        <member name="T:Milvonion.Application.Dtos.NotificationDtos.InternalNotificationRequest">
+            <summary>
+            Represents the data required to publish a new notification.
+            </summary>
+            <remarks>
+            Convenience constructor for required fields.
+            </remarks>
+        </member>
+        <member name="P:Milvonion.Application.Dtos.NotificationDtos.InternalNotificationRequest.Type">
+            <summary>
+            The type of notification (e.g., NewComment, NewFollower).
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Dtos.NotificationDtos.InternalNotificationRequest.Data">
+            <summary>
+            JSON payload for dynamic content and localization.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Dtos.NotificationDtos.InternalNotificationRequest.Text">
+            <summary>
+            Text content of the notification. Can be null. 
+            If it is null, Data property should be used in frontend(text generated with translations in frontend) for dynamic content.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Dtos.NotificationDtos.InternalNotificationRequest.ActionLink">
+            <summary>
+            Client-side URL to navigate on click.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Dtos.NotificationDtos.InternalNotificationRequest.RelatedEntity">
+            <summary>
+            Related entity type (optional).
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Dtos.NotificationDtos.InternalNotificationRequest.RelatedEntityId">
+            <summary>
+            Related entity ID (optional).
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Dtos.NotificationDtos.InternalNotificationRequest.Recipients">
+            <summary>
+            Recipients' usernames. If empty, all users are considered.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Dtos.NotificationDtos.InternalNotificationRequest.FindRecipientsFromType">
+            <summary>
+            Determines whether to find recipients based on their allowed notification types.
+            </summary>
+        </member>
+        <member name="M:Milvonion.Application.Dtos.NotificationDtos.InternalNotificationRequest.#ctor">
+            <summary>
+            Creates a new instance of InternalNotificationRequest.  
+            </summary>
+        </member>
+        <member name="M:Milvonion.Application.Dtos.NotificationDtos.InternalNotificationRequest.#ctor(Milvonion.Domain.Enums.NotificationType,System.Object)">
+            <summary>
+            Creates a new instance of InternalNotificationRequest.    
+            </summary>
+            <param name="type"></param>
+            <param name="data"></param>
+        </member>
         <member name="T:Milvonion.Application.Dtos.PermissionDtos.PermissionListDto">
             <summary>
             Data transfer object for permission list.
@@ -1174,6 +1800,11 @@
             Information about the roles the user is assigned to.
             </summary>
         </member>
+        <member name="P:Milvonion.Application.Dtos.UserDtos.UserDetailDto.AllowedNotifications">
+            <summary>
+            Allowed notification types for the user.
+            </summary>
+        </member>
         <member name="P:Milvonion.Application.Dtos.UserDtos.UserDetailDto.AuditInfo">
             <summary>
             Information about record audit.
@@ -1285,6 +1916,109 @@
         </member>
         <member name="M:Milvonion.Application.Features.Account.ChangePassword.ChangePasswordCommandValidator.#ctor(Milvasoft.Core.Abstractions.Localization.IMilvaLocalizer)">
             <inheritdoc cref="T:Milvonion.Application.Features.Account.ChangePassword.ChangePasswordCommandValidator"/>
+        </member>
+        <member name="T:Milvonion.Application.Features.Account.InternalNotifications.DeleteNotification.DeleteNotificationsCommand">
+            <summary>
+            Data transfer object for delete notification.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Features.Account.InternalNotifications.DeleteNotification.DeleteNotificationsCommand.NotificationIdList">
+            <summary>
+            Delete the notifications for the current user.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Features.Account.InternalNotifications.DeleteNotification.DeleteNotificationsCommand.DeleteAll">
+            <summary>
+            Delete all notifications.
+            </summary>
+        </member>
+        <member name="T:Milvonion.Application.Features.Account.InternalNotifications.DeleteNotification.DeleteNotificationsCommandHandler">
+            <summary>
+            Handles the RefreshLoginCommand and refreshes the user's login token.
+            </summary>
+        </member>
+        <member name="M:Milvonion.Application.Features.Account.InternalNotifications.DeleteNotification.DeleteNotificationsCommandHandler.#ctor(Milvonion.Application.Interfaces.INotificationService,Microsoft.AspNetCore.Http.IHttpContextAccessor)">
+            <summary>
+            Handles the RefreshLoginCommand and refreshes the user's login token.
+            </summary>
+        </member>
+        <member name="M:Milvonion.Application.Features.Account.InternalNotifications.DeleteNotification.DeleteNotificationsCommandHandler.Handle(Milvonion.Application.Features.Account.InternalNotifications.DeleteNotification.DeleteNotificationsCommand,System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Milvonion.Application.Features.Account.InternalNotifications.DeleteNotification.DeleteNotificationsCommandValidator">
+            <summary>
+            Query validations. 
+            </summary>
+        </member>
+        <member name="M:Milvonion.Application.Features.Account.InternalNotifications.DeleteNotification.DeleteNotificationsCommandValidator.#ctor(Milvasoft.Core.Abstractions.Localization.IMilvaLocalizer)">
+            <inheritdoc cref="T:Milvonion.Application.Features.Account.InternalNotifications.DeleteNotification.DeleteNotificationsCommandValidator"/>
+        </member>
+        <member name="T:Milvonion.Application.Features.Account.InternalNotifications.GetAccountNotifications.GetAccountNotificationsQuery">
+            <summary>
+            Data transfer object for account details.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Features.Account.InternalNotifications.GetAccountNotifications.GetAccountNotificationsQuery.UserId">
+            <summary>
+            The user Id whose account details you want to access.
+            </summary>
+        </member>
+        <member name="T:Milvonion.Application.Features.Account.InternalNotifications.GetAccountNotifications.GetAccountNotificationsQueryHandler">
+            <summary>
+            Handles the query for retrieving the account details.
+            </summary>
+        </member>
+        <member name="M:Milvonion.Application.Features.Account.InternalNotifications.GetAccountNotifications.GetAccountNotificationsQueryHandler.#ctor(Milvonion.Application.Interfaces.IMilvonionRepositoryBase{Milvonion.Domain.User},Milvonion.Application.Interfaces.IMilvonionRepositoryBase{Milvonion.Domain.InternalNotification},Microsoft.AspNetCore.Http.IHttpContextAccessor)">
+            <summary>
+            Handles the query for retrieving the account details.
+            </summary>
+        </member>
+        <member name="M:Milvonion.Application.Features.Account.InternalNotifications.GetAccountNotifications.GetAccountNotificationsQueryHandler.Handle(Milvonion.Application.Features.Account.InternalNotifications.GetAccountNotifications.GetAccountNotificationsQuery,System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Milvonion.Application.Features.Account.InternalNotifications.GetAccountNotifications.GetAccountNotificationsQueryValidator">
+            <summary>
+            Query validations. 
+            </summary>
+        </member>
+        <member name="M:Milvonion.Application.Features.Account.InternalNotifications.GetAccountNotifications.GetAccountNotificationsQueryValidator.#ctor(Milvasoft.Core.Abstractions.Localization.IMilvaLocalizer)">
+            <inheritdoc cref="T:Milvonion.Application.Features.Account.InternalNotifications.GetAccountNotifications.GetAccountNotificationsQueryValidator"/>
+        </member>
+        <member name="T:Milvonion.Application.Features.Account.InternalNotifications.MarkNotificationsAsSeen.MarkNotificationsAsSeenCommand">
+            <summary>
+            Data transfer object for mark as seen notification.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Features.Account.InternalNotifications.MarkNotificationsAsSeen.MarkNotificationsAsSeenCommand.NotificationIdList">
+            <summary>
+            Mark the notifications as seen for the current user.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Features.Account.InternalNotifications.MarkNotificationsAsSeen.MarkNotificationsAsSeenCommand.MarkAll">
+            <summary>
+            Mark all notifications as seen if true.
+            </summary>
+        </member>
+        <member name="T:Milvonion.Application.Features.Account.InternalNotifications.MarkNotificationsAsSeen.MarkNotificationsAsSeenCommandHandler">
+            <summary>
+            Handles the RefreshLoginCommand and refreshes the user's login token.
+            </summary>
+        </member>
+        <member name="M:Milvonion.Application.Features.Account.InternalNotifications.MarkNotificationsAsSeen.MarkNotificationsAsSeenCommandHandler.#ctor(Milvonion.Application.Interfaces.INotificationService,Microsoft.AspNetCore.Http.IHttpContextAccessor)">
+            <summary>
+            Handles the RefreshLoginCommand and refreshes the user's login token.
+            </summary>
+        </member>
+        <member name="M:Milvonion.Application.Features.Account.InternalNotifications.MarkNotificationsAsSeen.MarkNotificationsAsSeenCommandHandler.Handle(Milvonion.Application.Features.Account.InternalNotifications.MarkNotificationsAsSeen.MarkNotificationsAsSeenCommand,System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Milvonion.Application.Features.Account.InternalNotifications.MarkNotificationsAsSeen.MarkNotificationsAsSeenCommandValidator">
+            <summary>
+            Query validations. 
+            </summary>
+        </member>
+        <member name="M:Milvonion.Application.Features.Account.InternalNotifications.MarkNotificationsAsSeen.MarkNotificationsAsSeenCommandValidator.#ctor(Milvasoft.Core.Abstractions.Localization.IMilvaLocalizer)">
+            <inheritdoc cref="T:Milvonion.Application.Features.Account.InternalNotifications.MarkNotificationsAsSeen.MarkNotificationsAsSeenCommandValidator"/>
         </member>
         <member name="T:Milvonion.Application.Features.Account.Login.LoginCommand">
             <summary>
@@ -2124,6 +2858,208 @@
         <member name="M:Milvonion.Application.Features.ContentManagement.ResourceGroups.UpdateResourceGroup.UpdateResourceGroupCommandValidator.#ctor(Milvasoft.Core.Abstractions.Localization.IMilvaLocalizer)">
             <inheritdoc cref="T:Milvonion.Application.Features.ContentManagement.ResourceGroups.UpdateResourceGroup.UpdateResourceGroupCommandValidator"/>
         </member>
+        <member name="T:Milvonion.Application.Features.InternalNotifications.CreateInternalNotification.CreateInternalNotificationCommand">
+            <summary>
+            Data transfer object for internalNotification creation.
+            </summary>
+        </member>
+        <member name="M:Milvonion.Application.Features.InternalNotifications.CreateInternalNotification.CreateInternalNotificationCommand.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Milvonion.Application.Features.InternalNotifications.CreateInternalNotification.CreateInternalNotificationCommand"/> class.
+            </summary>
+        </member>
+        <member name="M:Milvonion.Application.Features.InternalNotifications.CreateInternalNotification.CreateInternalNotificationCommand.#ctor(Milvonion.Domain.Enums.NotificationType,System.Object)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Milvonion.Application.Features.InternalNotifications.CreateInternalNotification.CreateInternalNotificationCommand"/> class.
+            </summary>
+            <param name="type"></param>
+            <param name="data"></param>
+        </member>
+        <member name="T:Milvonion.Application.Features.InternalNotifications.CreateInternalNotification.CreateInternalNotificationCommandHandler">
+            <summary>
+            Handles the creation of the internalNotification.
+            </summary>
+            <param name="NotificationService"></param>
+        </member>
+        <member name="M:Milvonion.Application.Features.InternalNotifications.CreateInternalNotification.CreateInternalNotificationCommandHandler.#ctor(Milvonion.Application.Interfaces.INotificationService)">
+            <summary>
+            Handles the creation of the internalNotification.
+            </summary>
+            <param name="NotificationService"></param>
+        </member>
+        <member name="P:Milvonion.Application.Features.InternalNotifications.CreateInternalNotification.CreateInternalNotificationCommandHandler.NotificationService">
+            <summary></summary>
+        </member>
+        <member name="M:Milvonion.Application.Features.InternalNotifications.CreateInternalNotification.CreateInternalNotificationCommandHandler.Handle(Milvonion.Application.Features.InternalNotifications.CreateInternalNotification.CreateInternalNotificationCommand,System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Milvonion.Application.Features.InternalNotifications.CreateInternalNotification.CreateInternalNotificationCommandValidator">
+            <summary>
+            Account detail query validations. 
+            </summary>
+        </member>
+        <member name="M:Milvonion.Application.Features.InternalNotifications.CreateInternalNotification.CreateInternalNotificationCommandValidator.#ctor(Milvasoft.Core.Abstractions.Localization.IMilvaLocalizer)">
+            <inheritdoc cref="T:Milvonion.Application.Features.InternalNotifications.CreateInternalNotification.CreateInternalNotificationCommandValidator"/>
+        </member>
+        <member name="T:Milvonion.Application.Features.InternalNotifications.DeleteInternalNotification.DeleteInternalNotificationCommand">
+            <summary>
+            Data transfer object for internalNotification deletion.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Features.InternalNotifications.DeleteInternalNotification.DeleteInternalNotificationCommand.InternalNotificationId">
+            <summary>
+            Id of the internalNotification to be deleted.
+            </summary>
+        </member>
+        <member name="T:Milvonion.Application.Features.InternalNotifications.DeleteInternalNotification.DeleteInternalNotificationCommandHandler">
+            <summary>
+            Handles the deletion of the internalNotification.
+            </summary>
+            <param name="InternalNotificationRepository"></param>
+        </member>
+        <member name="M:Milvonion.Application.Features.InternalNotifications.DeleteInternalNotification.DeleteInternalNotificationCommandHandler.#ctor(Milvonion.Application.Interfaces.IMilvonionRepositoryBase{Milvonion.Domain.InternalNotification})">
+            <summary>
+            Handles the deletion of the internalNotification.
+            </summary>
+            <param name="InternalNotificationRepository"></param>
+        </member>
+        <member name="P:Milvonion.Application.Features.InternalNotifications.DeleteInternalNotification.DeleteInternalNotificationCommandHandler.InternalNotificationRepository">
+            <summary></summary>
+        </member>
+        <member name="M:Milvonion.Application.Features.InternalNotifications.DeleteInternalNotification.DeleteInternalNotificationCommandHandler.Handle(Milvonion.Application.Features.InternalNotifications.DeleteInternalNotification.DeleteInternalNotificationCommand,System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Milvonion.Application.Features.InternalNotifications.DeleteInternalNotification.DeleteInternalNotificationCommandValidator">
+            <summary>
+            Account detail query validations. 
+            </summary>
+        </member>
+        <member name="M:Milvonion.Application.Features.InternalNotifications.DeleteInternalNotification.DeleteInternalNotificationCommandValidator.#ctor(Milvasoft.Core.Abstractions.Localization.IMilvaLocalizer)">
+            <inheritdoc cref="T:Milvonion.Application.Features.InternalNotifications.DeleteInternalNotification.DeleteInternalNotificationCommandValidator"/>
+        </member>
+        <member name="T:Milvonion.Application.Features.InternalNotifications.GetInternalNotificationDetail.GetInternalNotificationDetailQuery">
+            <summary>
+            Data transfer object for internalNotification details.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Features.InternalNotifications.GetInternalNotificationDetail.GetInternalNotificationDetailQuery.InternalNotificationId">
+            <summary>
+            InternalNotification id to access details.
+            </summary>
+        </member>
+        <member name="T:Milvonion.Application.Features.InternalNotifications.GetInternalNotificationDetail.GetInternalNotificationDetailQueryHandler">
+            <summary>
+            Handles the internalNotification detail operation.
+            </summary>
+            <param name="internalnotificationRepository"></param>
+        </member>
+        <member name="M:Milvonion.Application.Features.InternalNotifications.GetInternalNotificationDetail.GetInternalNotificationDetailQueryHandler.#ctor(Milvonion.Application.Interfaces.IMilvonionRepositoryBase{Milvonion.Domain.InternalNotification})">
+            <summary>
+            Handles the internalNotification detail operation.
+            </summary>
+            <param name="internalnotificationRepository"></param>
+        </member>
+        <member name="M:Milvonion.Application.Features.InternalNotifications.GetInternalNotificationDetail.GetInternalNotificationDetailQueryHandler.Handle(Milvonion.Application.Features.InternalNotifications.GetInternalNotificationDetail.GetInternalNotificationDetailQuery,System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Milvonion.Application.Features.InternalNotifications.GetInternalNotificationDetail.GetInternalNotificationDetailQueryValidator">
+            <summary>
+            Account detail query validations. 
+            </summary>
+        </member>
+        <member name="M:Milvonion.Application.Features.InternalNotifications.GetInternalNotificationDetail.GetInternalNotificationDetailQueryValidator.#ctor(Milvasoft.Core.Abstractions.Localization.IMilvaLocalizer)">
+            <inheritdoc cref="T:Milvonion.Application.Features.InternalNotifications.GetInternalNotificationDetail.GetInternalNotificationDetailQueryValidator"/>
+        </member>
+        <member name="T:Milvonion.Application.Features.InternalNotifications.GetInternalNotificationList.GetInternalNotificationListQuery">
+            <summary>
+            Data transfer object for internalNotification list.
+            </summary>
+        </member>
+        <member name="T:Milvonion.Application.Features.InternalNotifications.GetInternalNotificationList.GetInternalNotificationListQueryHandler">
+            <summary>
+            Handles the internalNotification list operation.
+            </summary>
+            <param name="internalnotificationRepository"></param>
+        </member>
+        <member name="M:Milvonion.Application.Features.InternalNotifications.GetInternalNotificationList.GetInternalNotificationListQueryHandler.#ctor(Milvonion.Application.Interfaces.IMilvonionRepositoryBase{Milvonion.Domain.InternalNotification})">
+            <summary>
+            Handles the internalNotification list operation.
+            </summary>
+            <param name="internalnotificationRepository"></param>
+        </member>
+        <member name="M:Milvonion.Application.Features.InternalNotifications.GetInternalNotificationList.GetInternalNotificationListQueryHandler.Handle(Milvonion.Application.Features.InternalNotifications.GetInternalNotificationList.GetInternalNotificationListQuery,System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Milvonion.Application.Features.InternalNotifications.GetInternalNotificationList.GetInternalNotificationListQueryValidator">
+            <summary>
+            Account detail query validations. 
+            </summary>
+        </member>
+        <member name="M:Milvonion.Application.Features.InternalNotifications.GetInternalNotificationList.GetInternalNotificationListQueryValidator.#ctor">
+            <inheritdoc cref="T:Milvonion.Application.Features.InternalNotifications.GetInternalNotificationList.GetInternalNotificationListQueryValidator"/>
+        </member>
+        <member name="T:Milvonion.Application.Features.InternalNotifications.UpdateInternalNotification.UpdateInternalNotificationCommand">
+            <summary>
+            Data transfer object for internalNotification update.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Features.InternalNotifications.UpdateInternalNotification.UpdateInternalNotificationCommand.Type">
+            <summary>
+            The type of notification (e.g., NewComment, NewFollower).
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Features.InternalNotifications.UpdateInternalNotification.UpdateInternalNotificationCommand.Data">
+            <summary>
+            JSON payload for dynamic content and localization.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Features.InternalNotifications.UpdateInternalNotification.UpdateInternalNotificationCommand.Text">
+            <summary>
+            Text content of the notification. Can be null. 
+            If it is null, Data property should be used in frontend(text generated with translations in frontend) for dynamic content.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Features.InternalNotifications.UpdateInternalNotification.UpdateInternalNotificationCommand.ActionLink">
+            <summary>
+            Client-side URL to navigate on click.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Features.InternalNotifications.UpdateInternalNotification.UpdateInternalNotificationCommand.RelatedEntity">
+            <summary>
+            Related entity type (optional).
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Features.InternalNotifications.UpdateInternalNotification.UpdateInternalNotificationCommand.RelatedEntityId">
+            <summary>
+            Related entity ID (optional).
+            </summary>
+        </member>
+        <member name="T:Milvonion.Application.Features.InternalNotifications.UpdateInternalNotification.UpdateInternalNotificationCommandHandler">
+            <summary>
+            Handles the update of the internalNotification.
+            </summary>
+            <param name="InternalNotificationRepository"></param>
+        </member>
+        <member name="M:Milvonion.Application.Features.InternalNotifications.UpdateInternalNotification.UpdateInternalNotificationCommandHandler.#ctor(Milvonion.Application.Interfaces.IMilvonionRepositoryBase{Milvonion.Domain.InternalNotification})">
+            <summary>
+            Handles the update of the internalNotification.
+            </summary>
+            <param name="InternalNotificationRepository"></param>
+        </member>
+        <member name="P:Milvonion.Application.Features.InternalNotifications.UpdateInternalNotification.UpdateInternalNotificationCommandHandler.InternalNotificationRepository">
+            <summary></summary>
+        </member>
+        <member name="M:Milvonion.Application.Features.InternalNotifications.UpdateInternalNotification.UpdateInternalNotificationCommandHandler.Handle(Milvonion.Application.Features.InternalNotifications.UpdateInternalNotification.UpdateInternalNotificationCommand,System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Milvonion.Application.Features.InternalNotifications.UpdateInternalNotification.UpdateInternalNotificationCommandValidator">
+            <summary>
+            Account detail query validations. 
+            </summary>
+        </member>
+        <member name="M:Milvonion.Application.Features.InternalNotifications.UpdateInternalNotification.UpdateInternalNotificationCommandValidator.#ctor(Milvasoft.Core.Abstractions.Localization.IMilvaLocalizer)">
+            <inheritdoc cref="T:Milvonion.Application.Features.InternalNotifications.UpdateInternalNotification.UpdateInternalNotificationCommandValidator"/>
+        </member>
         <member name="T:Milvonion.Application.Features.Languages.GetLanguageList.GetLanguageListQuery">
             <summary>
             Data transfer object for language list.
@@ -2481,6 +3417,11 @@
             The id list of the role the user will be assigned to.
             </summary>
         </member>
+        <member name="P:Milvonion.Application.Features.Users.CreateUser.CreateUserCommand.AllowedNotifications">
+            <summary>
+            Allowed notification types for the user.
+            </summary>
+        </member>
         <member name="T:Milvonion.Application.Features.Users.CreateUser.CreateUserCommandHandler">
             <summary>
             Handles the creation of the user.
@@ -2639,6 +3580,11 @@
             <summary>
             Related entities will always be updated according to the values ​​in this list. If you send it empty, related entities will be cleared. 
             If no update has been made, please send it with isUpdated false.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Features.Users.UpdateUser.UpdateUserCommand.AllowedNotifications">
+            <summary>
+            Allowed notification types for the user.
             </summary>
         </member>
         <member name="T:Milvonion.Application.Features.Users.UpdateUser.UpdateUserCommandHandler">
@@ -2845,6 +3791,48 @@
             Base repository for Milvonion.
             </summary>
             <typeparam name="TEntity"></typeparam>
+        </member>
+        <member name="T:Milvonion.Application.Interfaces.INotificationService">
+            <summary>
+            Manages in-app notifications.
+            </summary>
+        </member>
+        <member name="M:Milvonion.Application.Interfaces.INotificationService.PublishAsync(Milvonion.Application.Dtos.NotificationDtos.InternalNotificationRequest,System.Linq.Expressions.Expression{System.Func{Milvonion.Domain.User,System.Boolean}},System.Threading.CancellationToken)">
+            <summary>
+            Publishes a notification to a group of users matching a predicate.
+            This method respects the users' 'AllowedNotifications' preferences.
+            </summary>
+            <param name="userExpression">LINQ expression to filter target users (e.g., u => u.UserType == UserType.Admin).</param>
+            <param name="cancellationToken"></param>
+            <param name="request">Notification request.</param>
+        </member>
+        <member name="M:Milvonion.Application.Interfaces.INotificationService.MarkAsSeenAsync(System.Collections.Generic.List{System.Int64},System.String,System.Threading.CancellationToken)">
+            <summary>
+            Marks a specific notification as seen.
+            </summary>
+            <param name="notificationIdList">The ID list of the notification to mark as seen.</param>
+            <param name="currentUserName">The ID of the user performing the action (must be the owner).</param>
+            <param name="cancellationToken"></param>
+        </member>
+        <member name="M:Milvonion.Application.Interfaces.INotificationService.MarkAllAsSeenAsync(System.String,System.Threading.CancellationToken)">
+            <summary>
+            Marks all unread notifications for a user as seen.
+            </summary>
+            <param name="currentUserName">The ID of the user performing the action.</param>
+            <param name="cancellationToken"></param>
+        </member>
+        <member name="M:Milvonion.Application.Interfaces.INotificationService.DeleteAsync(System.Collections.Generic.IEnumerable{System.Int64},System.String,System.Threading.CancellationToken)">
+            <summary>
+            Deletes one or more notifications for the current user.
+            </summary>
+            <param name="notificationIdList">A list of notification IDs to delete.</param>
+            <param name="currentUserName">The ID of the user performing the action (must be the owner).</param>
+            <param name="cancellationToken"></param>
+        </member>
+        <member name="M:Milvonion.Application.Interfaces.INotificationService.DeleteAllAsync(System.String,System.Threading.CancellationToken)">
+            <summary>
+            Deletes all of notifications belonging to the current user.
+            </summary>
         </member>
         <member name="T:Milvonion.Application.Interfaces.IPermissionManager">
             <summary>
@@ -3133,6 +4121,11 @@
         <member name="F:Milvonion.Application.Utils.Constants.GlobalConstant.CurrentUserPermissionsKey">
             <summary>
             Current user permissions http context items key.
+            </summary>
+        </member>
+        <member name="F:Milvonion.Application.Utils.Constants.GlobalConstant.AutoIncrementStart">
+            <summary>
+            Auto increment start value for database entities.
             </summary>
         </member>
         <member name="P:Milvonion.Application.Utils.Constants.GlobalConstant.ContentDispositionIgnores">

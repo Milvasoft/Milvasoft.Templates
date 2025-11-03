@@ -41,5 +41,6 @@ public class MilvonionDbContext(DbContextOptions options) : MilvaBulkDbContext(o
     public DbSet<ResourceGroup> ResourceGroups { get; set; }
     public DbSet<Namespace> Namespaces { get; set; }
     public DbSet<Language> Languages { get; set; }
+    public DbSet<InternalNotification> InternalNotifications { get; set; }
 #pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 }

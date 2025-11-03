@@ -206,6 +206,30 @@
             <param name="cancellation"></param>
             <returns></returns>
         </member>
+        <member name="M:Milvonion.Api.Controllers.AccountController.AccountDetailsAsync(Milvonion.Application.Dtos.AccountDtos.InternalNotifications.GetAccountNotifications.GetAccountNotificationsQuery,System.Threading.CancellationToken)">
+            <summary>
+            Gets account notifications.
+            </summary>
+            <param name="request"></param>
+            <param name="cancellation"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Milvonion.Api.Controllers.AccountController.MarkNotificationsAsSeenAsync(Milvonion.Application.Dtos.AccountDtos.InternalNotifications.MarkNotificationsAsSeen.MarkNotificationsAsSeenCommand,System.Threading.CancellationToken)">
+            <summary>
+            Marks notifications as seen.
+            </summary>
+            <param name="request"></param>
+            <param name="cancellation"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Milvonion.Api.Controllers.AccountController.DeleteNotificationsAsync(Milvonion.Application.Dtos.AccountDtos.InternalNotifications.DeleteNotification.DeleteNotificationsCommand,System.Threading.CancellationToken)">
+            <summary>
+            Deletes notifications.
+            </summary>
+            <param name="request"></param>
+            <param name="cancellation"></param>
+            <returns></returns>
+        </member>
         <member name="T:Milvonion.Api.Controllers.ActivityLogsController">
             <summary>
             Activity Log endpoints.

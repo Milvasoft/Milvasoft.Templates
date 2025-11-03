@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Cronos;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -9,11 +10,13 @@ using Milvasoft.Core.Abstractions;
 using Milvasoft.DataAccess.EfCore;
 using Milvasoft.Interception.Decorator;
 using Milvasoft.Interception.Ef;
+using Milvasoft.JobScheduling;
 using Milvonion.Application;
 using Milvonion.Application.Interfaces;
 using Milvonion.Application.Utils.Aspects.UserActivityLogAspect;
 using Milvonion.Application.Utils.Extensions;
 using Milvonion.Domain;
+using Milvonion.Infrastructure.Jobs;
 using Milvonion.Infrastructure.LazyImpl;
 using Milvonion.Infrastructure.Logging;
 using Milvonion.Infrastructure.Persistence.Context;
@@ -45,6 +48,8 @@ public static class InfraServiceCollectionExtensions
         services.AddScoped<IExportService, ExportService>();
 
         services.AddTransient(typeof(Lazy<>), typeof(MilvonionLazy<>));
+
+        services.AddInternalJobs();
 
         services.AddDataAccessServices(configurationManager);
 
@@ -103,6 +108,30 @@ public static class InfraServiceCollectionExtensions
 
         services.AddScoped(typeof(IMilvonionRepositoryBase<>), typeof(MilvonionRepositoryBase<>));
         services.AddScoped<IMilvonionDbContextAccessor, MilvonionDbContextAccessor>();
+
+        return services;
+    }
+
+    /// <summary>
+    /// Adds internal cron jobs.
+    /// </summary>
+    /// <param name="services"></param>
+    /// <returns></returns>
+    private static IServiceCollection AddInternalJobs(this IServiceCollection services)
+    {
+        services.AddMilvaCronJob<ActivityLogCleanerJob>(c =>
+        {
+            c.TimeZoneInfo = TimeZoneInfo.Utc;
+            c.CronExpression = @"0 2 */30 * *"; // At 02:00 AM, every 30 days
+            c.CronFormat = CronFormat.Standard;
+        });
+
+        services.AddMilvaCronJob<NotificationCleanerJob>(c =>
+        {
+            c.TimeZoneInfo = TimeZoneInfo.Utc;
+            c.CronExpression = @"0 3 */5 * *"; // At 03:00 AM, every 5 days
+            c.CronFormat = CronFormat.Standard;
+        });
 
         return services;
     }

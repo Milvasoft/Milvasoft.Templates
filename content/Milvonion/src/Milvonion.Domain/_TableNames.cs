@@ -3,6 +3,8 @@
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 public static class TableNames
 {
+    public const string MigrationHistory = "_MigrationHistory";
+    public const string EfMigrationHistory = "_EFMigrationHistory";
     public const string Users = nameof(Users);
     public const string Roles = nameof(Roles);
     public const string UserRoleRelations = nameof(UserRoleRelations);
@@ -25,7 +27,6 @@ public static class TableNames
     public const string Namespaces = nameof(Namespaces);
     public const string ResourceGroups = nameof(ResourceGroups);
     public const string Languages = nameof(Languages);
-    public const string MigrationHistory = "_MigrationHistory";
-    public const string EfMigrationHistory = "_EFMigrationHistory";
+    public const string InternalNotifications = nameof(InternalNotifications);
 }
 #pragma warning restore CS1591 // Missing XML comment for publicly visible type or member

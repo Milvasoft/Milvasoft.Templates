@@ -22,6 +22,21 @@ public class DefaultDataValidator<T>(int rangeMin = 0, int rangeMax = 21) : Prop
 }
 
 /// <summary>
+/// Default data validator.
+/// </summary>
+public class DefaultDataLongValidator<T>(long rangeMin = 0, long rangeMax = GlobalConstant.AutoIncrementStart) : PropertyValidator<T, long>
+{
+    /// <inheritdoc/>
+    public override string Name => "DefaultDataValidator";
+
+    /// <inheritdoc/>
+    protected override string GetDefaultMessageTemplate(string errorCode) => "{PropertyName} should not less than " + GlobalConstant.AutoIncrementStart + ".";
+
+    /// <inheritdoc/>
+    public override bool IsValid(ValidationContext<T> context, long value) => value <= rangeMin || value >= rangeMax;
+}
+
+/// <summary>
 /// Feature query validations. 
 /// </summary>
 public sealed class NameDescriptionTranslationDtoValidator : AbstractValidator<NameDescriptionTranslationDto>

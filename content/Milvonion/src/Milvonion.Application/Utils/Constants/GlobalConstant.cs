@@ -165,6 +165,11 @@ public static class GlobalConstant
     public const string CurrentUserPermissionsKey = "CU-Permissions";
 
     /// <summary>
+    /// Auto increment start value for database entities.
+    /// </summary>
+    public const int AutoIncrementStart = 21;
+
+    /// <summary>
     /// Ignored content disposition parts.
     /// </summary>
     public static HashSet<string> ContentDispositionIgnores { get; } =

@@ -1,5 +1,4 @@
 ﻿using EFCore.BulkExtensions;
-using FineHub.Application.Utils.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.Extensions.Configuration;
@@ -16,6 +15,7 @@ using Milvasoft.Interception.Ef.Transaction;
 using Milvonion.Application.Interfaces;
 using Milvonion.Application.Utils.Constants;
 using Milvonion.Application.Utils.Extensions;
+using Milvonion.Application.Utils.Models;
 using Milvonion.Application.Utils.PermissionManager;
 using Milvonion.Domain;
 using Milvonion.Domain.JsonModels;

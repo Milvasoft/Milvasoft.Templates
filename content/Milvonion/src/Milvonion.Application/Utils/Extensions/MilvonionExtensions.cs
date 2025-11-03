@@ -38,7 +38,7 @@ public static partial class MilvonionExtensions
 
         var exists = httpContextAccessor.HttpContext.Request.Headers.TryGetValue(GlobalConstant.GenerateMetadataHeaderKey, out var generateMetadata);
 
-        return exists && bool.Parse(generateMetadata);
+        return !string.IsNullOrWhiteSpace(generateMetadata) && exists && bool.Parse(generateMetadata);
     }
 
     /// <summary>

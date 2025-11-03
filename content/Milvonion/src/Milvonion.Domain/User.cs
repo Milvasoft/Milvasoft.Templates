@@ -36,6 +36,12 @@ public class User : MilvaUser<int>, IFullAuditable<int>
     /// </summary>
     public UserType UserType { get; set; } = UserType.AppUser;
 
+    /// <summary>
+    /// Allowed notification types for this user.
+    /// </summary>
+    [Column(TypeName = "jsonb")]
+    public List<NotificationType> AllowedNotifications { get; set; } = [];
+
     #region Auditing
 
     /// <inheritdoc/>
@@ -277,6 +283,19 @@ public class User : MilvaUser<int>, IFullAuditable<int>
                 IpAddress = s.IpAddress,
             }).ToList(),
             IsDeleted = u.IsDeleted,
+        };
+
+        public static Expression<Func<User, User>> CurrentUserCheck { get; } = u => new User
+        {
+            Id = u.Id,
+            UserName = u.UserName,
+        };
+
+        public static Expression<Func<User, User>> CreateNotification { get; } = u => new User
+        {
+            Id = u.Id,
+            AllowedNotifications = u.AllowedNotifications,
+            UserName = u.UserName,
         };
     }
 

@@ -25,6 +25,13 @@
             <param name="configurationManager"></param>
             <returns></returns>
         </member>
+        <member name="M:Milvonion.Infrastructure.InfraServiceCollectionExtensions.AddInternalJobs(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            Adds internal cron jobs.
+            </summary>
+            <param name="services"></param>
+            <returns></returns>
+        </member>
         <member name="T:Milvonion.Infrastructure.InfrastructureAssembly">
             <summary>
             Static class for ease of assembly access.
@@ -34,6 +41,40 @@
             <summary>
             Assembly instance.
             </summary>
+        </member>
+        <member name="T:Milvonion.Infrastructure.Jobs.ActivityLogCleanerJob">
+            <summary>
+            Truncate the activity logs table that are older than the specified date.
+            </summary>
+            <param name="scheduleConfig"></param>
+            <param name="scopeFactory"></param>
+        </member>
+        <member name="M:Milvonion.Infrastructure.Jobs.ActivityLogCleanerJob.#ctor(Milvasoft.JobScheduling.IScheduleConfig,Microsoft.Extensions.DependencyInjection.IServiceScopeFactory)">
+            <summary>
+            Truncate the activity logs table that are older than the specified date.
+            </summary>
+            <param name="scheduleConfig"></param>
+            <param name="scopeFactory"></param>
+        </member>
+        <member name="M:Milvonion.Infrastructure.Jobs.ActivityLogCleanerJob.ExecuteAsync(System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Milvonion.Infrastructure.Jobs.NotificationCleanerJob">
+            <summary>
+            Truncate the expired notifications that are older than the specified date.
+            </summary>
+            <param name="scheduleConfig"></param>
+            <param name="scopeFactory"></param>
+        </member>
+        <member name="M:Milvonion.Infrastructure.Jobs.NotificationCleanerJob.#ctor(Milvasoft.JobScheduling.IScheduleConfig,Microsoft.Extensions.DependencyInjection.IServiceScopeFactory)">
+            <summary>
+            Truncate the expired notifications that are older than the specified date.
+            </summary>
+            <param name="scheduleConfig"></param>
+            <param name="scopeFactory"></param>
+        </member>
+        <member name="M:Milvonion.Infrastructure.Jobs.NotificationCleanerJob.ExecuteAsync(System.Threading.CancellationToken)">
+            <inheritdoc/>
         </member>
         <member name="T:Milvonion.Infrastructure.LazyImpl.MilvonionLazy`1">
             <summary>
@@ -520,6 +561,58 @@
             </summary>
             <param name="enumName"></param>
             <returns></returns>
+        </member>
+        <member name="T:Milvonion.Infrastructure.Services.NotificationService">
+            <summary>
+            Provides functionality for managing and delivering notifications to users.
+            </summary>
+            <remarks>The <see cref="T:Milvonion.Infrastructure.Services.NotificationService"/> class allows for publishing notifications to users based on
+            specific criteria, marking notifications as seen, and deleting notifications. It supports both targeted
+            notifications to specific users and notifications based on user-defined predicates. This service is designed to work
+            with a repository pattern for data access and assumes the use of dependency injection for its
+            dependencies.</remarks>
+            <param name="notificationRepository"></param>
+            <param name="userRepository"></param>
+            <param name="logger"></param>
+        </member>
+        <member name="M:Milvonion.Infrastructure.Services.NotificationService.#ctor(Milvonion.Application.Interfaces.IMilvonionRepositoryBase{Milvonion.Domain.InternalNotification},Milvonion.Application.Interfaces.IMilvonionRepositoryBase{Milvonion.Domain.User},System.Lazy{Milvasoft.Core.Abstractions.IMilvaLogger})">
+            <summary>
+            Provides functionality for managing and delivering notifications to users.
+            </summary>
+            <remarks>The <see cref="T:Milvonion.Infrastructure.Services.NotificationService"/> class allows for publishing notifications to users based on
+            specific criteria, marking notifications as seen, and deleting notifications. It supports both targeted
+            notifications to specific users and notifications based on user-defined predicates. This service is designed to work
+            with a repository pattern for data access and assumes the use of dependency injection for its
+            dependencies.</remarks>
+            <param name="notificationRepository"></param>
+            <param name="userRepository"></param>
+            <param name="logger"></param>
+        </member>
+        <member name="M:Milvonion.Infrastructure.Services.NotificationService.PublishAsync(Milvonion.Application.Dtos.NotificationDtos.InternalNotificationRequest,System.Linq.Expressions.Expression{System.Func{Milvonion.Domain.User,System.Boolean}},System.Threading.CancellationToken)">
+            <summary>
+            Publishes a notification based on a user predicate.
+            This is the core publishing method.
+            </summary>
+        </member>
+        <member name="M:Milvonion.Infrastructure.Services.NotificationService.MarkAsSeenAsync(System.Collections.Generic.List{System.Int64},System.String,System.Threading.CancellationToken)">
+            <summary>
+            Marks a single notification as seen.
+            </summary>
+        </member>
+        <member name="M:Milvonion.Infrastructure.Services.NotificationService.MarkAllAsSeenAsync(System.String,System.Threading.CancellationToken)">
+            <summary>
+            Marks all of a user's notifications as seen.
+            </summary>
+        </member>
+        <member name="M:Milvonion.Infrastructure.Services.NotificationService.DeleteAsync(System.Collections.Generic.IEnumerable{System.Int64},System.String,System.Threading.CancellationToken)">
+            <summary>
+            Deletes a list of notifications belonging to the current user.
+            </summary>
+        </member>
+        <member name="M:Milvonion.Infrastructure.Services.NotificationService.DeleteAllAsync(System.String,System.Threading.CancellationToken)">
+            <summary>
+            Deletes all of notifications belonging to the current user.
+            </summary>
         </member>
         <member name="T:Milvonion.Infrastructure.Services.PermissionManager">
             <summary>

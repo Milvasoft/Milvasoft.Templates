@@ -41,4 +41,9 @@ public record CreateUserCommand : ICommand<int>
     /// The id list of the role the user will be assigned to.
     /// </summary>
     public List<int> RoleIdList { get; set; }
+
+    /// <summary>
+    /// Allowed notification types for the user.
+    /// </summary>
+    public List<NotificationType> AllowedNotifications { get; set; }
 }

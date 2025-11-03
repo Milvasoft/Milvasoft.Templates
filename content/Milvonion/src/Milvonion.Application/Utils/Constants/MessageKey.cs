@@ -30,6 +30,7 @@ public static class MessageKey
     public const string GlobalDescription = "Global.Description";
     public const string GlobalPassword = "Global.Password";
     public const string GlobalEmail = "Global.Email";
+    public const string InternalNotification = "Global.InternalNotification";
     public const string SlugExplaniton = nameof(SlugExplaniton);
     public const string InvalidParameterException = nameof(InvalidParameterException);
     public const string UnhandledException = nameof(UnhandledException);
@@ -60,5 +61,6 @@ public static class MessageKey
     public const string InvalidPhoneNumber = nameof(InvalidPhoneNumber);
     public const string InvalidUrlAddress = nameof(InvalidUrlAddress);
     public const string NoDataToExport = nameof(NoDataToExport);
+    public const string InternalNotificationNotFound = nameof(InternalNotificationNotFound);
 #pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 }

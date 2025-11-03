@@ -1,0 +1,1 @@
+﻿DELETE FROM "ActivityLogs" WHERE "ActivityDate" < now() - interval '60 days'

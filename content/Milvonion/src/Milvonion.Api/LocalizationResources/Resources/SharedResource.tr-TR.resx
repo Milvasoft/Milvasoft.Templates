@@ -791,4 +791,10 @@ Maksimum dosya boyutu:
   <data name="SiteSettingsManagement" xml:space="preserve">
     <value>Site Ayarları</value>
   </data>
+  <data name="InternalNotificationNotFound" xml:space="preserve">
+    <value>Bildirim bulunamadı!</value>
+  </data>
+  <data name="Global.InternalNotification" xml:space="preserve">
+    <value>Bildirim</value>
+  </data>
 </root>

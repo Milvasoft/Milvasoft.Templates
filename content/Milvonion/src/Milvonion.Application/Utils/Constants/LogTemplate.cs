@@ -10,5 +10,7 @@ public static class LogTemplate
     public const string Exception = "Exception raised : {message}";
     public const string ExceptionWithRequest = "Exception : {message} {TransactionId}{Severity}{Timestamp}{Method}{Path}{@RequestInfoJson}{UserName}{@Exception}";
     public const string RequestResponse = "{TransactionId}{Severity}{Timestamp}{Path}{@RequestInfoJson}{@ResponseInfoJson}{ElapsedMs}{IpAddress}{UserName}{@Exception}";
+    public const string JobException = "Exception occured in {JobName}. {message}";
+    public const string JobExecuted = "{JobName} executed successfully! Affected rows : {RowCount}";
 #pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 }

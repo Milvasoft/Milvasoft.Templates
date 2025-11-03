@@ -136,6 +136,25 @@ public static partial class PermissionCatalog
         public const string Update = "LanguageManagement.Update";
     }
 
+    [Description("Internal Notification Management")]
+    public static class InternalNotificationManagement
+    {
+        [Description("Internal Notification list permission.")]
+        public const string List = "InternalNotificationManagement.List";
+
+        [Description("Internal Notification detail view permission")]
+        public const string Detail = "InternalNotificationManagement.Detail";
+
+        [Description("Internal Notification create permission")]
+        public const string Create = "InternalNotificationManagement.Create";
+
+        [Description("Internal Notification update permission")]
+        public const string Update = "InternalNotificationManagement.Update";
+
+        [Description("Internal Notification delete permission")]
+        public const string Delete = "InternalNotificationManagement.Delete";
+    }
+
     /// <summary>
     /// Gets all permissions in the system as grouped by permission group.
     /// </summary>

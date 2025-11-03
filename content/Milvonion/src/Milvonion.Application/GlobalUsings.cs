@@ -1,5 +1,4 @@
 ﻿global using Milvonion.Application.Dtos;
-global using Milvonion.Application.Features;
 global using Milvonion.Application.Interfaces;
 global using Milvonion.Application.Utils.Aspects.UserActivityLogAspect;
 global using Milvonion.Application.Utils.Attributes;

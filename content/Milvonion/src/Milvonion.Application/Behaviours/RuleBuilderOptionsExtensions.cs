@@ -30,6 +30,26 @@ public static class RuleBuilderOptionsExtensions
     public static IRuleBuilderOptions<T, int> NotBeDefaultData<T>(this IRuleBuilderOptions<T, int> ruleBuilder, int rangeMin = 0, int rangeMax = 21) => ruleBuilder.SetValidator(new DefaultDataValidator<T>(rangeMin, rangeMax));
 
     /// <summary>
+    /// Checks whether the value is greater than or <see cref="GlobalConstant.AutoIncrementStart"/>..
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="ruleBuilder"></param>
+    /// <param name="rangeMin"></param>
+    /// <param name="rangeMax"></param>
+    /// <returns></returns>
+    public static IRuleBuilderOptions<T, long> NotBeDefaultData<T>(this IRuleBuilder<T, long> ruleBuilder, long rangeMin = 0, long rangeMax = GlobalConstant.AutoIncrementStart) => ruleBuilder.SetValidator(new DefaultDataLongValidator<T>(rangeMin, rangeMax));
+
+    /// <summary>
+    /// Checks whether the value is greater than or <see cref="GlobalConstant.AutoIncrementStart"/>..
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="ruleBuilder"></param>
+    /// <param name="rangeMin"></param>
+    /// <param name="rangeMax"></param>
+    /// <returns></returns>
+    public static IRuleBuilderOptions<T, long> NotBeDefaultData<T>(this IRuleBuilderOptions<T, long> ruleBuilder, long rangeMin = 0, long rangeMax = GlobalConstant.AutoIncrementStart) => ruleBuilder.SetValidator(new DefaultDataLongValidator<T>(rangeMin, rangeMax));
+
+    /// <summary>
     /// Checks whether the value is valid email address.
     /// </summary>
     /// <typeparam name="T"></typeparam>

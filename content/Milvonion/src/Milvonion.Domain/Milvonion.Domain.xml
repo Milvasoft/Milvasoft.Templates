@@ -235,6 +235,16 @@
             Navigation property to the contents.
             </summary>
         </member>
+        <member name="T:Milvonion.Domain.Enums.NotificationEntity">
+            <summary>
+            Notication related entity types.
+            </summary>
+        </member>
+        <member name="T:Milvonion.Domain.Enums.NotificationType">
+            <summary>
+            Notication types.
+            </summary>
+        </member>
         <member name="T:Milvonion.Domain.Enums.UserActivity">
             <summary>
             User activity types.
@@ -253,6 +263,63 @@
         <member name="F:Milvonion.Domain.Enums.UserType.AppUser">
             <summary>
             Can see user profile and view screens.
+            </summary>
+        </member>
+        <member name="T:Milvonion.Domain.InternalNotification">
+            <summary>
+            Internal generic notification entity. Unseen notifications are deleted in 60 days, seen notifications in 30 days.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Domain.InternalNotification.RecipientUserName">
+            <summary>
+            The user who will receive this notification.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Domain.InternalNotification.RecipientUserId">
+            <summary>
+            Recipient user identifier.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Domain.InternalNotification.Type">
+            <summary>
+            Notification type.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Domain.InternalNotification.SeenDate">
+            <summary>
+            Date when the user marked this notification as seen.
+            Null if unseen.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Domain.InternalNotification.Text">
+            <summary>
+            Text content of the notification. Can be null. 
+            If it is null, Data property should be used in frontend(text generated with translations in frontend) for dynamic content.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Domain.InternalNotification.Data">
+            <summary>
+            JSON data payload for dynamic content or localization.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Domain.InternalNotification.RelatedEntityType">
+            <summary>
+            Notification related entity.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Domain.InternalNotification.RelatedEntityId">
+            <summary>
+            Related entity identifier. Can be null.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Domain.InternalNotification.ActionLink">
+            <summary>
+            Client-side URL/route to navigate when the notification is clicked.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Domain.InternalNotification.IsSeen">
+            <summary>
+            Computed property indicating whether the notification has been read.
             </summary>
         </member>
         <member name="T:Milvonion.Domain.JsonModels.MenuGroupTranslation">
@@ -683,6 +750,11 @@
         <member name="P:Milvonion.Domain.User.UserType">
             <summary>
             Last name of the user.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Domain.User.AllowedNotifications">
+            <summary>
+            Allowed notification types for this user.
             </summary>
         </member>
         <member name="P:Milvonion.Domain.User.LastModificationDate">

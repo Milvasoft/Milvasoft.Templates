@@ -34,4 +34,9 @@ public class UpdateUserCommand : MilvonionBaseDto<int>, ICommand<int>
     /// If no update has been made, please send it with isUpdated false.
     /// </summary>
     public UpdateProperty<List<int>> RoleIdList { get; set; }
+
+    /// <summary>
+    /// Allowed notification types for the user.
+    /// </summary>
+    public UpdateProperty<List<NotificationType>> AllowedNotifications { get; set; }
 }

@@ -4,6 +4,9 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Milvasoft.Components.Rest.MilvaResponse;
 using Milvonion.Application.Dtos.AccountDtos;
+using Milvonion.Application.Dtos.AccountDtos.InternalNotifications.DeleteNotification;
+using Milvonion.Application.Dtos.AccountDtos.InternalNotifications.GetAccountNotifications;
+using Milvonion.Application.Dtos.AccountDtos.InternalNotifications.MarkNotificationsAsSeen;
 using Milvonion.Application.Features.Account.AccountDetail;
 using Milvonion.Application.Features.Account.ChangePassword;
 using Milvonion.Application.Features.Account.Login;
@@ -83,4 +86,37 @@ public class AccountController(IMediator mediator) : ControllerBase
     [HttpGet("detail")]
     [UserTypeAuth(UserType.Manager | UserType.AppUser)]
     public Task<Response<AccountDetailDto>> AccountDetailsAsync([FromQuery] AccountDetailQuery request, CancellationToken cancellation) => _mediator.Send(request, cancellation);
+
+    /// <summary>
+    /// Gets account notifications.
+    /// </summary>
+    /// <param name="request"></param>
+    /// <param name="cancellation"></param>
+    /// <returns></returns>
+    [Auth]
+    [HttpPatch("notifications")]
+    [UserTypeAuth(UserType.Manager | UserType.AppUser)]
+    public Task<ListResponse<AccountNotificationDto>> AccountDetailsAsync(GetAccountNotificationsQuery request, CancellationToken cancellation) => _mediator.Send(request, cancellation);
+
+    /// <summary>
+    /// Marks notifications as seen.
+    /// </summary>
+    /// <param name="request"></param>
+    /// <param name="cancellation"></param>
+    /// <returns></returns>
+    [Auth]
+    [HttpPut("notifications/seen")]
+    [UserTypeAuth(UserType.Manager | UserType.AppUser)]
+    public Task<Response> MarkNotificationsAsSeenAsync(MarkNotificationsAsSeenCommand request, CancellationToken cancellation) => _mediator.Send(request, cancellation);
+
+    /// <summary>
+    /// Deletes notifications.
+    /// </summary>
+    /// <param name="request"></param>
+    /// <param name="cancellation"></param>
+    /// <returns></returns>
+    [Auth]
+    [HttpDelete("notifications")]
+    [UserTypeAuth(UserType.Manager | UserType.AppUser)]
+    public Task<Response> DeleteNotificationsAsync(DeleteNotificationsCommand request, CancellationToken cancellation) => _mediator.Send(request, cancellation);
 }

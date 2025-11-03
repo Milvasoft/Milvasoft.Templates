@@ -37,6 +37,11 @@ public class UserDetailDto : MilvonionBaseDto<int>
     public List<NameIntNavigationDto> Roles { get; set; }
 
     /// <summary>
+    /// Allowed notification types for the user.
+    /// </summary>
+    public List<NotificationType> AllowedNotifications { get; set; }
+
+    /// <summary>
     /// Information about record audit.
     /// </summary>
     public AuditDto<int> AuditInfo { get; set; }
@@ -54,6 +59,7 @@ public class UserDetailDto : MilvonionBaseDto<int>
         Name = u.Name,
         Surname = u.Surname,
         Roles = u.RoleRelations.Select(rr => new NameIntNavigationDto { Id = rr.Role.Id, Name = rr.Role.Name }).ToList(),
+        AllowedNotifications = u.AllowedNotifications,
         AuditInfo = new AuditDto<int>(u)
     };
 }

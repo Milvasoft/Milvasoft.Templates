@@ -38,4 +38,14 @@ public record AuditDto<TKey> where TKey : struct, IEquatable<TKey>
         LastModifierUserName = entity.LastModifierUserName;
         LastModificationDate = entity.LastModificationDate;
     }
+
+    /// <summary>
+    /// Assigns the values of the entity to the properties of the data transfer object.
+    /// </summary>
+    /// <param name="entity"></param>
+    public AuditDto(ICreationAuditable<TKey> entity)
+    {
+        CreatorUserName = entity.CreatorUserName;
+        CreationDate = entity.CreationDate;
+    }
 }
