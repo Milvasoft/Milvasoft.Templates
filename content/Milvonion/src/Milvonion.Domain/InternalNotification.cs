@@ -58,9 +58,4 @@ public class InternalNotification : CreationAuditableEntity<long>
     /// Client-side URL/route to navigate when the notification is clicked.
     /// </summary>
     public string ActionLink { get; set; }
-
-    /// <summary>
-    /// Computed property indicating whether the notification has been read.
-    /// </summary>
-    public bool IsSeen => SeenDate.HasValue;
 }

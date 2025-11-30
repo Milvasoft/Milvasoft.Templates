@@ -31,6 +31,28 @@
   ],
   "menuItems": [
     {
+      "id": 32,
+      "groupId": 21,
+      "permissionOrGroupNames": [
+        "App.SuperAdmin",
+        "NotificationManagement.List"
+      ],
+      "translations": [
+        {
+          "languageId": 21,
+          "name": "Bildirim Yönetimi"
+        },
+        {
+          "languageId": 22,
+          "name": "Notification Management"
+        }
+      ],
+      "url": "/notifications",
+      "pageName": "NotificationManagement",
+      "order": 1,
+      "children": []
+    },
+    {
       "order": 99,
       "groupId": 21,
       "permissionOrGroupNames": [
@@ -51,8 +73,8 @@
       "children": [
         {
           "order": 96,
-          "url": "/users",
-          "pageName": "UserManagement",
+          "url": "/notifications",
+          "pageName": "NotificationManagement",
           "permissionOrGroupNames": [
             "App.SuperAdmin",
             "UserManagement.List"
@@ -60,11 +82,11 @@
           "translations": [
             {
               "languageId": 21,
-              "name": "Kullanıcılar"
+              "name": "Bildirim Yönetimi"
             },
             {
               "languageId": 22,
-              "name": "Users"
+              "name": "Notification Management"
             }
           ],
           "id": 32,
@@ -229,6 +251,33 @@
     }
   ],
   "pages": [
+    {
+      "Id": 31,
+      "Name": "NotificationManagement",
+      "HasCreate": true,
+      "HasEdit": true,
+      "HasDetail": true,
+      "HasDelete": true,
+      "CreatePermissions": [
+        "App.SuperAdmin",
+        "NotificationManagement.Create"
+      ],
+      "EditPermissions": [
+        "App.SuperAdmin",
+        "NotificationManagement.Edit"
+      ],
+      "DetailPermissions": [
+        "App.SuperAdmin",
+        "NotificationManagement.Detail"
+      ],
+      "DeletePermissions": [
+        "App.SuperAdmin",
+        "NotificationManagement.Delete"
+      ],
+      "AdditionalActions": [],
+      "CreationDate": "2025-11-03T00:00:00",
+      "CreatorUserName": "System"
+    },
     {
       "Name": "UserManagement",
       "HasCreate": true,

@@ -124,7 +124,7 @@ public class NotificationService(IMilvonionRepositoryBase<InternalNotification> 
 
         propertyBuilder.SetPropertyValue(i => i.SeenDate, now);
 
-        return _notificationRepository.ExecuteUpdateAsync(n => n.RecipientUserName == currentUserName && !n.IsSeen, propertyBuilder, cancellationToken: cancellationToken);
+        return _notificationRepository.ExecuteUpdateAsync(n => n.RecipientUserName == currentUserName && !n.SeenDate.HasValue, propertyBuilder, cancellationToken: cancellationToken);
     }
 
     /// <summary>

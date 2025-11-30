@@ -317,11 +317,6 @@
             Client-side URL/route to navigate when the notification is clicked.
             </summary>
         </member>
-        <member name="P:Milvonion.Domain.InternalNotification.IsSeen">
-            <summary>
-            Computed property indicating whether the notification has been read.
-            </summary>
-        </member>
         <member name="T:Milvonion.Domain.JsonModels.MenuGroupTranslation">
             <summary>
             Json model for menu group translations.
