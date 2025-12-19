@@ -62,5 +62,8 @@ public static class MessageKey
     public const string InvalidUrlAddress = nameof(InvalidUrlAddress);
     public const string NoDataToExport = nameof(NoDataToExport);
     public const string InternalNotificationNotFound = nameof(InternalNotificationNotFound);
+    public const string UserActivityCreateMessage = nameof(UserActivityCreateMessage);
+    public const string UserActivityUpdateMessage = nameof(UserActivityUpdateMessage);
+    public const string UserActivityDeleteMessage = nameof(UserActivityDeleteMessage);
 #pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 }

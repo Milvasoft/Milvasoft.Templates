@@ -97,7 +97,7 @@ public class ConstantsTests
         MessageConstant.ExceptionLogTemplate.Should().Be("Exception raised : {message}");
         MessageConstant.S3ConfigurationMissing.Should().Be("Current provider type is S3 but S3 configuration missing!");
         MessageConstant.ABSConfigurationMissing.Should().Be("Current provider type is ABS but ABS configuration missing!");
-        MessageConstant.SwaggerAuthMessageTip.Should().Be(
+        MessageConstant.OpenApiAuthMessageTip.Should().Be(
             """
                 JWT Authorization header using the Bearer scheme.
                 Enter your token in the text input below without Bearer. Bearer will automatically be added.

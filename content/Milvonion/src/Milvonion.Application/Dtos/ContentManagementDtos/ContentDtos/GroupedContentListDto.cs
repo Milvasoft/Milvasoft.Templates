@@ -44,7 +44,7 @@ public class GroupedContentListDto
     /// </summary>
     [Filterable(false)]
     [DisplayFormat("{namespace.name}")]
-    [DefaultValue(MessageConstant.Hypen)]
+    [ClientDefaultValue(MessageConstant.Hypen)]
     public NameIntNavigationDto Namespace { get; set; }
 
     /// <summary>
@@ -52,7 +52,7 @@ public class GroupedContentListDto
     /// </summary>
     [Filterable(false)]
     [DisplayFormat("{resourceGroup.name}")]
-    [DefaultValue(MessageConstant.Hypen)]
+    [ClientDefaultValue(MessageConstant.Hypen)]
     public NameIntNavigationDto ResourceGroup { get; set; }
 
     /// <summary>

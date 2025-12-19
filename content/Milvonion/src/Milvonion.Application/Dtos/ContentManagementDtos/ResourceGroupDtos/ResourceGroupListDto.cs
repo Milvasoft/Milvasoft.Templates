@@ -1,6 +1,5 @@
 ﻿using Milvasoft.Attributes.Annotations;
 using Milvonion.Domain.ContentManagement;
-using System.ComponentModel;
 using System.Linq.Expressions;
 using System.Text.Json.Serialization;
 
@@ -33,7 +32,7 @@ public class ResourceGroupListDto : MilvonionBaseDto<int>
     /// </summary>
     [Filterable(false)]
     [DisplayFormat("{namespace.name}")]
-    [DefaultValue(MessageConstant.Hypen)]
+    [ClientDefaultValue(MessageConstant.Hypen)]
     public NameIntNavigationDto Namespace { get; set; }
 
     /// <summary>

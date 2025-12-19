@@ -29,7 +29,7 @@ public class RequestResponseLoggingMiddleware(RequestDelegate next, ILoggerFacto
     private readonly RequestInfo _requestInfo = new();
 
     /// <summary>
-    /// Logs request and response.  
+    /// Logs request and response.
     /// </summary>
     /// <param name="context"></param>
     /// <returns></returns>
@@ -144,18 +144,21 @@ public class RequestResponseLoggingMiddleware(RequestDelegate next, ILoggerFacto
 
             var exceptionExists = context.Items.TryGetValue(nameof(Exception), out var exception);
 
-            _logger.LogInformation(LogTemplate.RequestResponse,
-                                   ActivityHelper.Id,
-                                   LogLevel.Information.ToString(),
-                                   DateTimeOffset.UtcNow,
-                                   context.Request.Path,
-                                   _requestInfo,
-                                   responseInfo,
-                                   _sw.ElapsedMilliseconds,
-                                   requestIp,
-                                   User.GetCurrentUser(context.RequestServices.GetService<IServiceProvider>()),
-                                   exceptionExists ? exception.ToJson() : MessageConstant.NoException
-            );
+            if (_logger.IsEnabled(LogLevel.Information))
+            {
+                _logger.LogInformation(LogTemplate.RequestResponse,
+                                       ActivityHelper.Id,
+                                       LogLevel.Information.ToString(),
+                                       DateTimeOffset.UtcNow,
+                                       context.Request.Path,
+                                       _requestInfo,
+                                       responseInfo,
+                                       _sw.ElapsedMilliseconds,
+                                       requestIp,
+                                       User.GetCurrentUser(context.RequestServices.GetService<IServiceProvider>()),
+                                       exceptionExists ? exception.ToJson() : MessageConstant.NoException
+                );
+            }
 
             await emptyResponseBody.CopyToAsync(originalBodyStream);
         }

@@ -1,4 +1,5 @@
-﻿using Milvasoft.Core.Helpers;
+﻿using Bogus.DataSets;
+using Milvasoft.Core.Helpers;
 using Milvonion.Application;
 using Milvonion.Application.Utils.Constants;
 using Milvonion.Application.Utils.PermissionManager;
@@ -36,7 +37,7 @@ return;
 
         var resxKeys = GetResxKeys(resxFolderPath);
 
-        #region Find for MessageKey.cs 
+        #region Find for MessageKey.cs
 
         foreach (var reference in nameofReferences)
         {
@@ -48,11 +49,11 @@ return;
 
         #endregion
 
-        #region Find for Enum types 
+        #region Find for Enum types
 
         var enumTypes = ApplicationAssembly.Assembly.GetExportedTypes().Where(t => t.IsEnum).Concat(DomainAssembly.Assembly.GetExportedTypes().Where(t => t.IsEnum));
 
-        foreach (var enumType in enumTypes.Where(t => t != typeof(UserActivity)))
+        foreach (var enumType in enumTypes.Where(t => t != typeof(Currency) && t != typeof(UserActivity)))
         {
             var enumValues = Enum.GetNames(enumType);
 
@@ -82,11 +83,21 @@ return;
 
             if (!resxKeys.Contains(permissionGroupKey))
                 keysInNameOfReferences.Add(permissionGroupKey);
+        }
 
-            var uiPageKey = $"UI.{subClass.Name}";
+        #endregion
 
-            if (!resxKeys.Contains(uiPageKey))
-                keysInNameOfReferences.Add(uiPageKey);
+        #region Find for Domain Entities
+
+        var entityTypes = DomainAssembly.Assembly.GetExportedTypes()
+            .Where(t => t.IsClass && !t.IsAbstract && t.GetCustomAttribute<System.ComponentModel.DataAnnotations.Schema.TableAttribute>() != null);
+
+        foreach (var entityType in entityTypes)
+        {
+            var entityKey = $"Global.{entityType.Name}";
+
+            if (!resxKeys.Contains(entityKey))
+                keysInNameOfReferences.Add(entityKey);
         }
 
         #endregion

@@ -39,7 +39,7 @@ public class ContentListDto : MilvonionBaseDto<int>
     [Browsable(false)]
     [Filterable(false)]
     [LinkedWith<LanguageIdNameFormatter>(nameof(LanguageId), LanguageIdNameFormatter.FormatterName)]
-    [DefaultValue(MessageConstant.QuestionMark)]
+    [ClientDefaultValue(MessageConstant.QuestionMark)]
     public string LanguageName { get; set; }
 
     /// <summary>
@@ -57,7 +57,7 @@ public class ContentListDto : MilvonionBaseDto<int>
     /// </summary>
     [Filterable(false)]
     [DisplayFormat("{namespace.name}")]
-    [DefaultValue(MessageConstant.Hypen)]
+    [ClientDefaultValue(MessageConstant.Hypen)]
     public NameIntNavigationDto Namespace { get; set; }
 
     /// <summary>
@@ -65,7 +65,7 @@ public class ContentListDto : MilvonionBaseDto<int>
     /// </summary>
     [Filterable(false)]
     [DisplayFormat("{resourceGroup.name}")]
-    [DefaultValue(MessageConstant.Hypen)]
+    [ClientDefaultValue(MessageConstant.Hypen)]
     public NameIntNavigationDto ResourceGroup { get; set; }
 
     /// <summary>

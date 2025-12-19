@@ -5,6 +5,7 @@ using Milvonion.Application.Utils.Constants;
 using System.Net.Http.Json;
 
 namespace Milvonion.IntegrationTests.TestBase;
+
 public static class TestExtensions
 {
     public static async Task<HttpClient> LoginAsync(this HttpClient client, string username = "rootuser", string password = "defaultpass", string deviceId = "device-id")

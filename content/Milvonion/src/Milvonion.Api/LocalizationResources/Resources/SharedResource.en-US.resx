@@ -797,4 +797,13 @@ Maximum file size:
   <data name="Global.InternalNotification" xml:space="preserve">
     <value>Notification</value>
   </data>
+  <data name="UserActivityCreateMessage" xml:space="preserve">
+    <value>{0} create</value>
+  </data>
+  <data name="UserActivityUpdateMessage" xml:space="preserve">
+    <value>{0} update</value>
+  </data>
+  <data name="UserActivityDeleteMessage" xml:space="preserve">
+    <value>{0} delete</value>
+  </data>
 </root>

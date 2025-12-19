@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFramework>net9.0</TargetFramework>
+		<TargetFramework>net10.0</TargetFramework>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<GenerateDocumentationFile>True</GenerateDocumentationFile>
 		<DocumentationFile>..\Milvonion.Infrastructure\Milvonion.Infrastructure.xml</DocumentationFile>
@@ -17,7 +17,7 @@
 		<Nullable>xnullablexx</Nullable>
 	</PropertyGroup>
 
-	
+
 	<ItemGroup>
 		<PackageReference Include="AsyncFixer" Version="1.6.0">
 		  <PrivateAssets>all</PrivateAssets>
@@ -25,20 +25,20 @@
 		</PackageReference>
 		<PackageReference Include="Bogus" Version="35.6.5" />
 		<PackageReference Include="ClosedXML" Version="0.105.0" />
-		<PackageReference Include="Milvasoft.Caching.InMemory" Version="9.3.8" />
-		<PackageReference Include="Milvasoft.JobScheduling" Version="9.3.8" />
+		<PackageReference Include="Milvasoft.Caching.InMemory" Version="10.0.0-rc2.0.2" />
+		<PackageReference Include="Milvasoft.JobScheduling" Version="10.0.0-rc2.0.2" />
 		<PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
-		<PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="9.0.4" />
-		<PackageReference Include="Serilog.AspNetCore" Version="9.0.0" />
-		<PackageReference Include="Serilog.Expressions" Version="5.0.0" />
+		<PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="10.0.0" />
+		<PackageReference Include="Serilog.AspNetCore" Version="10.0.0" />
+		<PackageReference Include="Serilog.Expressions" Version="5.1.0-dev-02309" />
 		<PackageReference Include="Serilog.Sinks.Postgresql.Alternative" Version="4.2.0" />
-		<PackageReference Include="Swashbuckle.AspNetCore" Version="9.0.6" />
-		<PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="8.14.0" />
-		<PackageReference Include="System.Text.Json" Version="9.0.10" />
+		<PackageReference Include="Swashbuckle.AspNetCore" Version="10.1.0" />
+		<PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="8.15.0" />
 		<PackageReference Include="Microsoft.IO.RecyclableMemoryStream" Version="3.0.1" />
+		<PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="10.0.1" />
 	</ItemGroup>
 
-	
+
 	<ItemGroup>
 	  <ProjectReference Include="..\Milvonion.Application\Milvonion.Application.csproj" />
 	</ItemGroup>

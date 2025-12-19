@@ -20,7 +20,7 @@ public static class MessageConstant
     public const string ABSConfigurationMissing = "Current provider type is ABS but ABS configuration missing!";
     public const string CannotFindFile = "Cannot find file!";
     public const string InvalidJsonFormat = "Invalid json format!";
-    public const string SwaggerAuthMessageTip =
+    public const string OpenApiAuthMessageTip =
     """
         JWT Authorization header using the Bearer scheme.
         Enter your token in the text input below without Bearer. Bearer will automatically be added.

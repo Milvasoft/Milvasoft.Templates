@@ -3,9 +3,8 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Microsoft.IdentityModel.Tokens;
-using Microsoft.OpenApi.Models;
-using Milvasoft.Components.Swagger.DocumentFilters;
-using Milvasoft.Components.Swagger.OperationFilters;
+using Microsoft.OpenApi;
+using Milvasoft.Components.OpenApi;
 using Milvasoft.Core.Exceptions;
 using Milvasoft.Core.MultiLanguage.Builder;
 using Milvasoft.Identity.Builder;
@@ -15,7 +14,7 @@ using Milvonion.Api.Controllers;
 using Milvonion.Application.Utils.Constants;
 using Milvonion.Application.Utils.Extensions;
 using Milvonion.Domain;
-using Milvonion.Infrastructure.Utils.Swagger;
+using Milvonion.Infrastructure.Utils.OpenApi;
 using System.IO.Compression;
 using System.Net;
 using System.Reflection;
@@ -124,65 +123,23 @@ public static partial class StartupExtensions
     }
 
     /// <summary>
-    /// Adds swagger services.
+    /// Adds openapi services.
     /// </summary>
     /// <param name="services"></param>
     /// <param name="assemblies"></param>
     /// <returns></returns>
-    public static IServiceCollection AddSwagger(this IServiceCollection services, Assembly[] assemblies)
+    public static IServiceCollection AddOpenApi(this IServiceCollection services, Assembly[] assemblies)
     {
-        services.AddSwaggerGen(options =>
+        services.AddXmlComponentsForOpenApi(assemblies);
+
+        services.AddOpenApi(GlobalConstant.DefaultApiVersion, options =>
         {
-            options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
-            {
-                Description = MessageConstant.SwaggerAuthMessageTip,
-                Name = nameof(Authorization),
-                In = ParameterLocation.Header,
-                Type = SecuritySchemeType.ApiKey,
-                Scheme = JwtBearerDefaults.AuthenticationScheme
-            });
+            // Specify the OpenAPI version to use
+            options.OpenApiVersion = OpenApiSpecVersion.OpenApi3_0;
+            options.AddDocumentTransformer<ApiInfoTransformer>();
+            options.AddSchemaTransformer<ExampleSchemaTransformer>();
 
-            options.AddSecurityRequirement(new OpenApiSecurityRequirement()
-            {
-                {
-                    new OpenApiSecurityScheme
-                    {
-                        Reference = new OpenApiReference
-                        {
-                            Type = ReferenceType.SecurityScheme,
-                            Id = JwtBearerDefaults.AuthenticationScheme
-                        },
-                        Scheme = GlobalConstant.Http,
-                        Name = JwtBearerDefaults.AuthenticationScheme,
-                        In = ParameterLocation.Header,
-                    },
-                    new List<string>()
-                }
-            });
-
-            options.SwaggerDoc(GlobalConstant.DefaultApiVersion, new OpenApiInfo
-            {
-                Version = GlobalConstant.DefaultApiVersion,
-                Title = "Milvonion Api",
-                Description = "Milvonion api.",
-                TermsOfService = new Uri("https://www.milvasoft.com"),
-                Contact = new OpenApiContact { Name = "Milvonion", Email = "info@milvasoft.com", Url = new Uri("https://www.milvasoft.com") },
-                License = new OpenApiLicense { Name = "MIT", Url = new Uri("https://opensource.org/licenses/MIT") }
-            });
-
-            foreach (var assembly in assemblies)
-            {
-                var xmlFile = $"{assembly.GetName().Name}.xml";
-                var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
-                options.IncludeXmlComments(xmlPath);
-            }
-
-            options.OperationFilter<ReApplyOptionalRouteParameterOperationFilter>();
-            options.DocumentFilter<ReplaceVersionWithExactValueInPathFilter>();
-            options.OperationFilter<SwaggerFileOperationFilter>();
-            options.OperationFilter<RequestHeaderFilter>();
-            options.SchemaFilter<ExampleSchemaFilter>();
-            options.SchemaFilter<EnumSchemaFilter>();
+            options.AddMilvaTransformers();
         });
 
         return services;

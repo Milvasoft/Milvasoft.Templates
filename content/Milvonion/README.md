@@ -4,7 +4,7 @@ This document is a guide to what you need to know about the project.
 
 ## Tech Stack
 
-- .Net 9
+- .Net 10
 - PostgreSql
 - Docker
 
@@ -195,7 +195,7 @@ src
     - Asp.Versioning.Mvc.ApiExplorer
     - Swashbuckle.AspNetCore
     - Milvasoft.Components.Rest
-    - Milvasoft.Components.Swagger
+    - Milvasoft.Components.OpenApi
     - Milvasoft.Interception
 - **Json SerDe**
     - System.Text.Json

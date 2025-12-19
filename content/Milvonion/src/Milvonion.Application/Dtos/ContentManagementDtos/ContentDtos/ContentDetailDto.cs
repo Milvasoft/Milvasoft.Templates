@@ -1,6 +1,5 @@
 ﻿using Milvasoft.Attributes.Annotations;
 using Milvonion.Domain.ContentManagement;
-using System.ComponentModel;
 using System.Linq.Expressions;
 using System.Text.Json.Serialization;
 
@@ -31,7 +30,7 @@ public class ContentDetailDto : MilvonionBaseDto<int>
     /// </summary>
     [Filterable(false)]
     [LinkedWith<LanguageIdNameFormatter>(nameof(LanguageId), LanguageIdNameFormatter.FormatterName)]
-    [DefaultValue(MessageConstant.QuestionMark)]
+    [ClientDefaultValue(MessageConstant.QuestionMark)]
     public string LanguageName { get; set; }
 
     /// <summary>

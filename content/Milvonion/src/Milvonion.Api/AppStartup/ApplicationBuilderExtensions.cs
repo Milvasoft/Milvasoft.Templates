@@ -9,6 +9,7 @@ using Milvasoft.Identity.Concrete.Options;
 using Milvasoft.Identity.TokenProvider.AuthToken;
 using Milvasoft.Localization;
 using Milvonion.Application.Utils.Constants;
+using Milvonion.Application.Utils.Extensions;
 using Milvonion.Application.Utils.PermissionManager;
 using Milvonion.Domain.Enums;
 using Milvonion.Infrastructure.Persistence.Context;
@@ -28,30 +29,29 @@ public static partial class StartupExtensions
     /// </summary>
     /// <param name="app"></param>
     /// <returns></returns>
-    public static IApplicationBuilder UseSwagger(this WebApplication app)
+    public static IApplicationBuilder UseScalarWithOpenApi(this WebApplication app)
     {
-        app.UseSwagger(c =>
-        {
-            c.OpenApiVersion = Microsoft.OpenApi.OpenApiSpecVersion.OpenApi3_0;
-            c.RouteTemplate = GlobalConstant.RoutePrefix + "/docs/{documentName}/docs.json";
-        });
+        if (MilvonionExtensions.IsCurrentEnvProduction())
+            return app;
+
+        app.MapOpenApi(GlobalConstant.RoutePrefix + "/docs/{documentName}/docs.json");
 
         app.MapScalarApiReference(endpointPrefix: $"/{GlobalConstant.RoutePrefix}/documentation", options =>
         {
             options.WithOpenApiRoutePattern($"/{GlobalConstant.RoutePrefix}/docs/v1.0/docs.json");
             options.WithDefaultHttpClient(ScalarTarget.JavaScript, ScalarClient.Axios);
-            options.AddApiKeyAuthentication(JwtBearerDefaults.AuthenticationScheme, opt =>
+            options.AddHttpAuthentication("Bearer", auth =>
             {
-                opt.Value = GenerateTokenForUI(app);
+                auth.Token = GenerateTokenForUI(app);
             });
 
             //UI
             options.WithTitle("Milvonion Api Reference")
-                   .WithFavicon("https://demo.milvasoft.com/api/favicon.ico")
-                   .EnableDarkMode()
-                   .WithDocumentDownloadType(DocumentDownloadType.None)
-                   .AddPreferredSecuritySchemes(JwtBearerDefaults.AuthenticationScheme)
-                   .WithCustomCss(".darklight-reference-promo { display: none !important; } .darklight-reference { padding-bottom: 15px !important; } .open-api-client-button { display: none !important; }");
+                       .WithFavicon("https://demo.milvasoft.com/api/favicon.ico")
+                       .WithDocumentDownloadType(DocumentDownloadType.None)
+                       .EnableDarkMode()
+                       .AddPreferredSecuritySchemes(JwtBearerDefaults.AuthenticationScheme)
+                       .WithCustomCss(".darklight-reference-promo { display: none !important; } .darklight-reference { padding-bottom: 15px !important; } .open-api-client-button { display: none !important; }");
         });
 
         return app;
@@ -68,7 +68,7 @@ public static partial class StartupExtensions
 
             var accessToken = tokenManager.GenerateToken(expired: DateTime.UtcNow.AddYears(1), issuer: null, userClaim, roleClaim, userTypeClaim);
 
-            return "Bearer " + accessToken;
+            return accessToken;
         }
     }
 
@@ -143,7 +143,7 @@ public static partial class StartupExtensions
     }
 
     /// <summary>
-    /// Creates database if not exists. 
+    /// Creates database if not exists.
     /// </summary>
     /// <param name="app">The <see cref="IApplicationBuilder"/> instance.</param>
     /// <returns>The <see cref="IApplicationBuilder"/> instance.</returns>

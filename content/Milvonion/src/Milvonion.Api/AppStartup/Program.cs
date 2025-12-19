@@ -49,7 +49,7 @@ try
 
     services.AddVersioning();
 
-    services.AddSwagger(assemblies);
+    services.AddOpenApi(assemblies);
 
 #if !DEBUG
     services.AddHealthCheck(builder.Configuration);
@@ -112,7 +112,7 @@ try
 
     app.MapControllers();
 
-    app.UseSwagger();
+    app.UseScalarWithOpenApi();
 
 #if !DEBUG
     app.UseHealthCheck();

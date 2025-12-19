@@ -2148,12 +2148,14 @@
             Get all activity logs.
             </summary>
             <param name="activityLogRepository"></param>
+            <param name="milvaLocalizer"></param>
         </member>
-        <member name="M:Milvonion.Application.Features.ActivityLogs.GetActivityLogList.GetActivityLogListQueryHandler.#ctor(Milvonion.Application.Interfaces.IMilvonionRepositoryBase{Milvonion.Domain.ActivityLog})">
+        <member name="M:Milvonion.Application.Features.ActivityLogs.GetActivityLogList.GetActivityLogListQueryHandler.#ctor(Milvonion.Application.Interfaces.IMilvonionRepositoryBase{Milvonion.Domain.ActivityLog},Milvasoft.Core.Abstractions.Localization.IMilvaLocalizer)">
             <summary>
             Get all activity logs.
             </summary>
             <param name="activityLogRepository"></param>
+            <param name="milvaLocalizer"></param>
         </member>
         <member name="M:Milvonion.Application.Features.ActivityLogs.GetActivityLogList.GetActivityLogListQueryHandler.Handle(Milvonion.Application.Features.ActivityLogs.GetActivityLogList.GetActivityLogListQuery,System.Threading.CancellationToken)">
             <inheritdoc/>
@@ -4321,7 +4323,7 @@
             ○ Match if at the beginning of the string.<br/>
             ○ Match the string "data:".<br/>
             ○ "mediatype" capture group.<br/>
-                ○ Match a character in the set [+--/\w] atomically at least once.<br/>
+                ○ Match a character in the set [+\--/\w] atomically at least once.<br/>
             ○ Match the string ";base64,".<br/>
             ○ "data" capture group.<br/>
                 ○ Match a character in the set [+/-9A-Za-z] atomically at least once.<br/>
@@ -4355,11 +4357,11 @@
             ○ 2nd capture group.<br/>
                 ○ Match 's' atomically, optionally.<br/>
             ○ Match the string "://".<br/>
-            ○ Match a character in the set [0-9A-Za-z].<br/>
+            ○ Match an ASCII letter or digit.<br/>
             ○ Loop greedily any number of times.<br/>
                 ○ 3rd capture group.<br/>
-                    ○ Match a character in the set [-.\w] greedily any number of times.<br/>
-                    ○ Match a character in the set [0-9A-Za-z].<br/>
+                    ○ Match a character in the set [\-.\w] greedily any number of times.<br/>
+                    ○ Match an ASCII letter or digit.<br/>
             ○ Loop greedily any number of times.<br/>
                 ○ 4th capture group.<br/>
                     ○ Match ':'.<br/>
@@ -4370,7 +4372,7 @@
                 ○ Match '/' greedily, optionally.<br/>
             ○ Optional (greedy).<br/>
                 ○ 7th capture group.<br/>
-                    ○ Match a character in the set [#-'+-9?A-Z\\_a-z] greedily any number of times.<br/>
+                    ○ Match a character in the set [#-'+-9?A-Z\\_a-z] atomically any number of times.<br/>
             ○ Match if at the end of the string or if before an ending newline.<br/>
             </code>
             </remarks>

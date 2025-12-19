@@ -20,112 +20,264 @@ public class MilvonionDbLogger(ILoggerFactory loggerFactory) : IMilvaLogger
     /// <inheritdoc/>
     public void Log(string logEntry)
     {
+        if (!_logger.IsEnabled(LogLevel.Information))
+            return;
+
+        // Move expensive operation inside the IsEnabled check
         var logObject = JsonSerializer.Deserialize<MethodLog>(logEntry);
 
         _logger.LogInformation("{TransactionId}{Namespace}{ClassName}{MethodName}{MethodParams}{MethodResult}{ElapsedMs}{UtcLogTime}{CacheInfo}{Exception}{IsSuccess}",
-                                   logObject.TransactionId,
-                                   logObject.Namespace,
-                                   logObject.ClassName,
-                                   logObject.MethodName,
-                                   logObject.MethodParams,
-                                   logObject.MethodResult,
-                                   logObject.ElapsedMs,
-                                   logObject.UtcLogTime,
-                                   logObject.CacheInfo,
-                                   logObject.Exception,
-                                   logObject.IsSuccess);
+                               logObject.TransactionId,
+                               logObject.Namespace,
+                               logObject.ClassName,
+                               logObject.MethodName,
+                               logObject.MethodParams,
+                               logObject.MethodResult,
+                               logObject.ElapsedMs,
+                               logObject.UtcLogTime,
+                               logObject.CacheInfo,
+                               logObject.Exception,
+                               logObject.IsSuccess);
     }
 
     /// <inheritdoc/>
     public Task LogAsync(string logEntry)
     {
+        if (!_logger.IsEnabled(LogLevel.Information))
+            return Task.CompletedTask;
+
+        // Move expensive operation inside the IsEnabled check
         var logObject = JsonSerializer.Deserialize<MethodLog>(logEntry);
 
         _logger.LogInformation("{TransactionId}{Namespace}{ClassName}{MethodName}{MethodParams}{MethodResult}{ElapsedMs}{UtcLogTime}{CacheInfo}{Exception}{IsSuccess}",
-                                   logObject.TransactionId,
-                                   logObject.Namespace,
-                                   logObject.ClassName,
-                                   logObject.MethodName,
-                                   logObject.MethodParams,
-                                   logObject.MethodResult,
-                                   logObject.ElapsedMs,
-                                   logObject.UtcLogTime,
-                                   logObject.CacheInfo,
-                                   logObject.Exception,
-                                   logObject.IsSuccess);
+                               logObject.TransactionId,
+                               logObject.Namespace,
+                               logObject.ClassName,
+                               logObject.MethodName,
+                               logObject.MethodParams,
+                               logObject.MethodResult,
+                               logObject.ElapsedMs,
+                               logObject.UtcLogTime,
+                               logObject.CacheInfo,
+                               logObject.Exception,
+                               logObject.IsSuccess);
 
         return Task.CompletedTask;
     }
 
     /// <inheritdoc/>
-    public void Debug(string message) => _logger.LogDebug("{Message}", message);
+    public void Debug(string message)
+    {
+        if (!_logger.IsEnabled(LogLevel.Debug))
+            return;
+
+        _logger.LogDebug("{Message}", message);
+    }
 
     /// <inheritdoc/>
-    public void Debug(string messageTemplate, params object[] propertyValues) => _logger.LogDebug(messageTemplate, propertyValues);
+    public void Debug(string messageTemplate, params object[] propertyValues)
+    {
+        if (!_logger.IsEnabled(LogLevel.Debug))
+            return;
+
+        _logger.LogDebug(messageTemplate, propertyValues);
+    }
 
     /// <inheritdoc/>
-    public void Debug(Exception exception, string messageTemplate) => _logger.LogDebug("Exception : {Message} ", exception.Message);
+    public void Debug(Exception exception, string messageTemplate)
+    {
+        if (!_logger.IsEnabled(LogLevel.Debug))
+            return;
+
+        _logger.LogDebug("Exception : {Message} ", exception.Message);
+    }
 
     /// <inheritdoc/>
-    public void Debug(Exception exception, string messageTemplate, params object[] propertyValues) => _logger.LogDebug("Exception : {Message} {Values} ", exception.Message, propertyValues);
+    public void Debug(Exception exception, string messageTemplate, params object[] propertyValues)
+    {
+        if (!_logger.IsEnabled(LogLevel.Debug))
+            return;
+
+        _logger.LogDebug("Exception : {Message} {Values} ", exception.Message, propertyValues);
+    }
 
     /// <inheritdoc/>
-    public void Error(string message) => _logger.LogError("{Message}", message);
+    public void Error(string message)
+    {
+        if (!_logger.IsEnabled(LogLevel.Error))
+            return;
+
+        _logger.LogError("{Message}", message);
+    }
 
     /// <inheritdoc/>
-    public void Error(string messageTemplate, params object[] propertyValues) => _logger.LogError(messageTemplate, propertyValues);
+    public void Error(string messageTemplate, params object[] propertyValues)
+    {
+        if (!_logger.IsEnabled(LogLevel.Error))
+            return;
+
+        _logger.LogError(messageTemplate, propertyValues);
+    }
 
     /// <inheritdoc/>
-    public void Error(Exception exception, string messageTemplate) => _logger.LogError("Exception : {Message} ", exception.Message);
+    public void Error(Exception exception, string messageTemplate)
+    {
+        if (!_logger.IsEnabled(LogLevel.Error))
+            return;
+
+        _logger.LogError("Exception : {Message} ", exception.Message);
+    }
 
     /// <inheritdoc/>
-    public void Error(Exception exception, string messageTemplate, params object[] propertyValues) => _logger.LogError("Exception : {Message} {Values} ", exception.Message, propertyValues);
+    public void Error(Exception exception, string messageTemplate, params object[] propertyValues)
+    {
+        if (!_logger.IsEnabled(LogLevel.Error))
+            return;
+
+        _logger.LogError("Exception : {Message} {Values} ", exception.Message, propertyValues);
+    }
 
     /// <inheritdoc/>
-    public void Fatal(string message) => _logger.LogCritical("{Message}", message);
+    public void Fatal(string message)
+    {
+        if (!_logger.IsEnabled(LogLevel.Critical))
+            return;
+
+        _logger.LogCritical("{Message}", message);
+    }
 
     /// <inheritdoc/>
-    public void Fatal(string messageTemplate, params object[] propertyValues) => _logger.LogCritical(messageTemplate, propertyValues);
+    public void Fatal(string messageTemplate, params object[] propertyValues)
+    {
+        if (!_logger.IsEnabled(LogLevel.Critical))
+            return;
+
+        _logger.LogCritical(messageTemplate, propertyValues);
+    }
 
     /// <inheritdoc/>
-    public void Fatal(Exception exception, string messageTemplate) => _logger.LogCritical("Exception : {Message} ", exception.Message);
+    public void Fatal(Exception exception, string messageTemplate)
+    {
+        if (!_logger.IsEnabled(LogLevel.Critical))
+            return;
+
+        _logger.LogCritical("Exception : {Message} ", exception.Message);
+    }
 
     /// <inheritdoc/>
-    public void Fatal(Exception exception, string messageTemplate, params object[] propertyValues) => _logger.LogCritical("Exception : {Message} {Values} ", exception.Message, propertyValues);
+    public void Fatal(Exception exception, string messageTemplate, params object[] propertyValues)
+    {
+        if (!_logger.IsEnabled(LogLevel.Critical))
+            return;
+
+        _logger.LogCritical("Exception : {Message} {Values} ", exception.Message, propertyValues);
+    }
 
     /// <inheritdoc/>
-    public void Information(string message) => _logger.LogInformation("{Message}", message);
+    public void Information(string message)
+    {
+        if (!_logger.IsEnabled(LogLevel.Information))
+            return;
+
+        _logger.LogInformation("{Message}", message);
+    }
 
     /// <inheritdoc/>
-    public void Information(string messageTemplate, params object[] propertyValues) => _logger.LogInformation(messageTemplate, propertyValues);
+    public void Information(string messageTemplate, params object[] propertyValues)
+    {
+        if (!_logger.IsEnabled(LogLevel.Information))
+            return;
+
+        _logger.LogInformation(messageTemplate, propertyValues);
+    }
 
     /// <inheritdoc/>
-    public void Information(Exception exception, string messageTemplate) => _logger.LogInformation("Exception : {Message} ", exception.Message);
+    public void Information(Exception exception, string messageTemplate)
+    {
+        if (!_logger.IsEnabled(LogLevel.Information))
+            return;
+
+        _logger.LogInformation("Exception : {Message} ", exception.Message);
+    }
 
     /// <inheritdoc/>
-    public void Information(Exception exception, string messageTemplate, params object[] propertyValues) => _logger.LogInformation("Exception : {Message} {Values} ", exception.Message, propertyValues);
+    public void Information(Exception exception, string messageTemplate, params object[] propertyValues)
+    {
+        if (!_logger.IsEnabled(LogLevel.Information))
+            return;
+
+        _logger.LogInformation("Exception : {Message} {Values} ", exception.Message, propertyValues);
+    }
 
     /// <inheritdoc/>
-    public void Verbose(string message) => _logger.LogTrace("{Message}", message);
+    public void Verbose(string message)
+    {
+        if (!_logger.IsEnabled(LogLevel.Trace))
+            return;
+
+        _logger.LogTrace("{Message}", message);
+    }
 
     /// <inheritdoc/>
-    public void Verbose(string messageTemplate, params object[] propertyValues) => _logger.LogTrace(messageTemplate, propertyValues);
+    public void Verbose(string messageTemplate, params object[] propertyValues)
+    {
+        if (!_logger.IsEnabled(LogLevel.Trace))
+            return;
+
+        _logger.LogTrace(messageTemplate, propertyValues);
+    }
 
     /// <inheritdoc/>
-    public void Verbose(Exception exception, string messageTemplate) => _logger.LogTrace("Exception : {Message} ", exception.Message);
+    public void Verbose(Exception exception, string messageTemplate)
+    {
+        if (!_logger.IsEnabled(LogLevel.Trace))
+            return;
+
+        _logger.LogTrace("Exception : {Message} ", exception.Message);
+    }
 
     /// <inheritdoc/>
-    public void Verbose(Exception exception, string messageTemplate, params object[] propertyValues) => _logger.LogTrace("Exception : {Message} {Values} ", exception.Message, propertyValues);
+    public void Verbose(Exception exception, string messageTemplate, params object[] propertyValues)
+    {
+        if (!_logger.IsEnabled(LogLevel.Trace))
+            return;
+
+        _logger.LogTrace("Exception : {Message} {Values} ", exception.Message, propertyValues);
+    }
 
     /// <inheritdoc/>
-    public void Warning(string message) => _logger.LogWarning("{Message}", message);
+    public void Warning(string message)
+    {
+        if (!_logger.IsEnabled(LogLevel.Warning))
+            return;
+
+        _logger.LogWarning("{Message}", message);
+    }
 
     /// <inheritdoc/>
-    public void Warning(string messageTemplate, params object[] propertyValues) => _logger.LogWarning(messageTemplate, propertyValues);
+    public void Warning(string messageTemplate, params object[] propertyValues)
+    {
+        if (!_logger.IsEnabled(LogLevel.Warning))
+            return;
+
+        _logger.LogWarning(messageTemplate, propertyValues);
+    }
 
     /// <inheritdoc/>
-    public void Warning(Exception exception, string messageTemplate) => _logger.LogWarning("Exception : {Message} ", exception.Message);
+    public void Warning(Exception exception, string messageTemplate)
+    {
+        if (!_logger.IsEnabled(LogLevel.Warning))
+            return;
+
+        _logger.LogWarning("Exception : {Message} ", exception.Message);
+    }
 
     /// <inheritdoc/>
-    public void Warning(Exception exception, string messageTemplate, params object[] propertyValues) => _logger.LogWarning("Exception : {Message} {Values} ", exception.Message, propertyValues);
+    public void Warning(Exception exception, string messageTemplate, params object[] propertyValues)
+    {
+        if (!_logger.IsEnabled(LogLevel.Warning))
+            return;
+
+        _logger.LogWarning("Exception : {Message} {Values} ", exception.Message, propertyValues);
+    }
 }

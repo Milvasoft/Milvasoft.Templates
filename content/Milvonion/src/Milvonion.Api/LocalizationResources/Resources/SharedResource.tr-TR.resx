@@ -797,4 +797,13 @@ Maksimum dosya boyutu:
   <data name="Global.InternalNotification" xml:space="preserve">
     <value>Bildirim</value>
   </data>
+  <data name="UserActivityCreateMessage" xml:space="preserve">
+    <value>{0} ekleme</value>
+  </data>
+  <data name="UserActivityUpdateMessage" xml:space="preserve">
+    <value>{0} güncelleme</value>
+  </data>
+  <data name="UserActivityDeleteMessage" xml:space="preserve">
+    <value>{0} silme</value>
+  </data>
 </root>

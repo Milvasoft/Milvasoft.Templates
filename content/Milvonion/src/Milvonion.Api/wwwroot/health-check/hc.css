@@ -1,8 +1,0 @@
-﻿:root {
-    --primaryColor: #202124 !important;
-    --secondaryColor: #DBD56E !important;
-    --bgMenuActive: #e09520 !important;
-    --bgButton: #7D7C84 !important;
-    --logoImageUrl: url('/xrouteprefixx/favicon.ico');
-    --bgAside: var(--primaryColor) !important;
-}

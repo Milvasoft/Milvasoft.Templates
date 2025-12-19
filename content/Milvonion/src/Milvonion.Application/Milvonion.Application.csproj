@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFramework>net9.0</TargetFramework>
+		<TargetFramework>net10.0</TargetFramework>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<GenerateDocumentationFile>True</GenerateDocumentationFile>
 		<DocumentationFile>..\Milvonion.Application\Milvonion.Application.xml</DocumentationFile>
@@ -22,16 +22,16 @@
 		  <PrivateAssets>all</PrivateAssets>
 		  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
-		<PackageReference Include="FluentValidation" Version="12.1.0" />
-		<PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="12.1.0" />
-		<PackageReference Include="Mapster" Version="7.4.0" />
+		<PackageReference Include="FluentValidation" Version="12.1.1" />
+		<PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="12.1.1" />
+		<PackageReference Include="Mapster" Version="9.0.0-pre01" />
 		<PackageReference Include="MediatR" Version="[12.5.0]" />
-		<PackageReference Include="Milvasoft.Caching.InMemory" Version="9.3.8" />
-		<PackageReference Include="Milvasoft.Components.CQRS" Version="9.3.8" />
-		<PackageReference Include="Milvasoft.Interception.Ef" Version="9.3.8" />
-		<PackageReference Include="Milvasoft.Localization.Resx" Version="9.3.8" />
-		<PackageReference Include="Milvasoft.Components.Rest" Version="9.3.8" />
-		<PackageReference Include="Milvasoft.Interception" Version="9.3.8" />
+		<PackageReference Include="Milvasoft.Caching.InMemory" Version="10.0.0-rc2.0.2" />
+		<PackageReference Include="Milvasoft.Components.CQRS" Version="10.0.0-rc2.0.2" />
+		<PackageReference Include="Milvasoft.Interception.Ef" Version="10.0.0-rc2.0.2" />
+		<PackageReference Include="Milvasoft.Localization.Resx" Version="10.0.0-rc2.0.2" />
+		<PackageReference Include="Milvasoft.Components.Rest" Version="10.0.0-rc2.0.2" />
+		<PackageReference Include="Milvasoft.Interception" Version="10.0.0-rc2.0.2" />
 	</ItemGroup>
 
 

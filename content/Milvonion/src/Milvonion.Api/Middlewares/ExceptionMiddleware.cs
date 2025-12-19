@@ -128,6 +128,9 @@ public class ExceptionMiddleware(RequestDelegate next, ILoggerFactory loggerFact
 
     private void LogExceptionWithRequest(HttpContext context, Exception ex)
     {
+        if (!_logger.IsEnabled(LogLevel.Error))
+            return;
+
         var requestInfo = new RequestInfo
         {
             Method = context.Request.Method,

@@ -33,7 +33,7 @@ public class AccountNotificationDto : MilvonionBaseDto<long>
     /// <summary>
     /// Date when the user marked this notification as seen. Null if unseen.
     /// </summary>
-    [DefaultValue(MessageConstant.Hypen)]
+    [ClientDefaultValue(MessageConstant.Hypen)]
     public DateTime? SeenDate { get; set; }
 
     /// <summary>
