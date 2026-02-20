@@ -11,12 +11,11 @@ public class CustomWebApplicationFactory : WebApplicationFactory<IApiMarker>, IA
 {
     private Respawner _respawner;
     private NpgsqlConnection _connection;
-    private readonly PostgreSqlContainer _dbContainer = new PostgreSqlBuilder().WithImage("postgres:latest")
-                                                                               .WithDatabase("testDb")
-                                                                               .WithUsername("root")
-                                                                               .WithPassword("postgres")
-                                                                               .WithCleanUp(true)
-                                                                               .Build();
+    private readonly PostgreSqlContainer _dbContainer = new PostgreSqlBuilder("postgres:latest").WithDatabase("testDb")
+                                                                                                .WithUsername("root")
+                                                                                                .WithPassword("postgres")
+                                                                                                .WithCleanUp(true)
+                                                                                                .Build();
 
     private const string _resetAutoIncrementQuery = @"
                 DO $$
@@ -65,25 +64,6 @@ public class CustomWebApplicationFactory : WebApplicationFactory<IApiMarker>, IA
         }
     }
 
-    public override async ValueTask DisposeAsync()
-    {
-        try
-        {
-            await Task.WhenAny(_connection.CloseAsync(), _dbContainer.StopAsync(), Task.Delay(3000));
-        }
-        catch (Exception ex)
-        {
-            Console.WriteLine($"Dispose error: {ex.Message}");
-        }
-        finally
-        {
-            // Finalizer kullanılmasını engelle
-            GC.SuppressFinalize(this);
-        }
-    }
-
-    async Task IAsyncLifetime.DisposeAsync() => await DisposeAsync();
-
     public string GetConnectionString() => _dbContainer.GetConnectionString();
 
     public virtual HttpClient CreateClientWithHeaders(params KeyValuePair<string, string>[] headers)
@@ -106,4 +86,23 @@ public class CustomWebApplicationFactory : WebApplicationFactory<IApiMarker>, IA
 
         return client;
     }
+
+    public override async ValueTask DisposeAsync()
+    {
+        try
+        {
+            await Task.WhenAny(_connection.CloseAsync(), _dbContainer.StopAsync(), Task.Delay(3000));
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Dispose error: {ex.Message}");
+        }
+        finally
+        {
+            // Finalizer kullanılmasını engelle
+            GC.SuppressFinalize(this);
+        }
+    }
+
+    async ValueTask IAsyncLifetime.InitializeAsync() => await InitializeAsync();
 }

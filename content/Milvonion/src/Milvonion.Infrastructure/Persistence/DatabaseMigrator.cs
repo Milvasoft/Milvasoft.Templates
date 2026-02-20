@@ -14,7 +14,6 @@ using Milvasoft.Identity.Concrete.Options;
 using Milvasoft.Interception.Ef.Transaction;
 using Milvonion.Application.Interfaces;
 using Milvonion.Application.Utils.Constants;
-using Milvonion.Application.Utils.Extensions;
 using Milvonion.Application.Utils.Models;
 using Milvonion.Application.Utils.PermissionManager;
 using Milvonion.Domain;
@@ -176,13 +175,10 @@ public class DatabaseMigrator(IServiceProvider serviceProvider)
         await _dbContext.Pages.ExecuteDeleteAsync(cancellationToken);
         await _dbContext.PageActions.ExecuteDeleteAsync(cancellationToken);
 
-        if (MilvonionExtensions.IsCurrentEnvProduction())
-            return Response.Error();
-
         var filePath = Path.Combine(GlobalConstant.JsonFilesPath, "ui_data.json");
 
         if (!File.Exists(filePath))
-            return Response.Error(MessageConstant.CannotFindFile);
+            return Response.Error("Cannot find file.");
 
         var json = await File.ReadAllTextAsync(filePath, cancellationToken);
 
@@ -192,7 +188,7 @@ public class DatabaseMigrator(IServiceProvider serviceProvider)
         });
 
         if (data == null)
-            return Response.Error(MessageConstant.InvalidJsonFormat);
+            return Response.Error("Invalid json format!");
 
         // MenuGroups
         foreach (var group in data.MenuGroups)
@@ -251,10 +247,22 @@ public class DatabaseMigrator(IServiceProvider serviceProvider)
 
         // MenuItems (recursive ekleme)
         var flatItems = data.MenuItems;
+        var allChildIds = new HashSet<int>();
 
-        foreach (var rootItem in flatItems.Where(x => string.IsNullOrWhiteSpace(x.ParentId)))
+        // Run the helper function on the top-level list
+        CollectAllChildIds(flatItems);
+
+        // Now, loop through the top-level items and skip any that are known children
+        foreach (var rootItem in flatItems)
         {
+            // If this ID is in the child set, it's already been processed (or will be)
+            // by its parent. Skip it.
+            if (allChildIds.Contains(rootItem.Id))
+                continue;
+
+            // This is a true root item, so add it and its children recursively.
             var entity = MapMenuItemRecursive(rootItem, null);
+
             _dbContext.MenuItems.Add(entity);
         }
 
@@ -283,6 +291,25 @@ public class DatabaseMigrator(IServiceProvider serviceProvider)
             };
 
             return item;
+        }
+
+        // Helper function to find all IDs that exist in a 'children' array
+        void CollectAllChildIds(IEnumerable<MenuItemModel> items)
+        {
+            if (items == null)
+                return;
+
+            foreach (var item in items)
+            {
+                if (item.Children != null && !item.Children.IsNullOrEmpty())
+                {
+                    foreach (var child in item.Children)
+                    {
+                        allChildIds.Add(child.Id);
+                        CollectAllChildIds(child.Children); // Recurse just in case
+                    }
+                }
+            }
         }
 
         return Response.Success();

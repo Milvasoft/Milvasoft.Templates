@@ -18,7 +18,7 @@
 
 
 	<ItemGroup>
-		<PackageReference Include="AsyncFixer" Version="1.6.0">
+		<PackageReference Include="AsyncFixer" Version="2.1.0">
 		  <PrivateAssets>all</PrivateAssets>
 		  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
@@ -26,12 +26,12 @@
 		<PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="12.1.1" />
 		<PackageReference Include="Mapster" Version="9.0.0-pre01" />
 		<PackageReference Include="MediatR" Version="[12.5.0]" />
-		<PackageReference Include="Milvasoft.Caching.InMemory" Version="10.0.0-rc2.0.2" />
-		<PackageReference Include="Milvasoft.Components.CQRS" Version="10.0.0-rc2.0.2" />
-		<PackageReference Include="Milvasoft.Interception.Ef" Version="10.0.0-rc2.0.2" />
-		<PackageReference Include="Milvasoft.Localization.Resx" Version="10.0.0-rc2.0.2" />
-		<PackageReference Include="Milvasoft.Components.Rest" Version="10.0.0-rc2.0.2" />
-		<PackageReference Include="Milvasoft.Interception" Version="10.0.0-rc2.0.2" />
+		<PackageReference Include="Milvasoft.Caching.InMemory" Version="10.0.1" />
+		<PackageReference Include="Milvasoft.Components.CQRS" Version="10.0.1" />
+		<PackageReference Include="Milvasoft.Interception.Ef" Version="10.0.1" />
+		<PackageReference Include="Milvasoft.Localization.Resx" Version="10.0.1" />
+		<PackageReference Include="Milvasoft.Components.Rest" Version="10.0.1" />
+		<PackageReference Include="Milvasoft.Interception" Version="10.0.1" />
 	</ItemGroup>
 
 

@@ -19,13 +19,13 @@
 
 	
 	<ItemGroup>
-		<PackageReference Include="AsyncFixer" Version="1.6.0">
+		<PackageReference Include="AsyncFixer" Version="2.1.0">
 		  <PrivateAssets>all</PrivateAssets>
 		  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
-		<PackageReference Include="Milvasoft.Core.MultiLanguage" Version="10.0.0-rc2.0.2" />
-		<PackageReference Include="Milvasoft.DataAccess.EfCore.Bulk" Version="10.0.0-rc2.0.2" />
-		<PackageReference Include="Milvasoft.Identity" Version="10.0.0-rc2.0.2" />
+		<PackageReference Include="Milvasoft.Core.MultiLanguage" Version="10.0.1" />
+		<PackageReference Include="Milvasoft.DataAccess.EfCore.Bulk" Version="10.0.1" />
+		<PackageReference Include="Milvasoft.Identity" Version="10.0.1" />
 	</ItemGroup>
 
 </Project>

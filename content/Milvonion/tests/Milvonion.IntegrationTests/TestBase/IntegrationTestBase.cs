@@ -41,8 +41,6 @@ public abstract class IntegrationTestBase(CustomWebApplicationFactory factory) :
         return _factory.CreateRespawner();
     }
 
-    public virtual Task DisposeAsync() => _factory.ResetDatabase();
-
     public virtual async Task<User> SeedRootUserAndSuperAdminRoleAsync(string rootPassword = "defaultpass")
     {
         var dbContext = _serviceProvider.GetService<MilvonionDbContext>();
@@ -110,5 +108,14 @@ public abstract class IntegrationTestBase(CustomWebApplicationFactory factory) :
         await dbContext.SaveChangesAsync();
 
         return rootUser;
+    }
+
+    public virtual Task DisposeAsync() => _factory.ResetDatabase();
+
+    async ValueTask IAsyncLifetime.InitializeAsync() => await InitializeAsync();
+    async ValueTask IAsyncDisposable.DisposeAsync()
+    {
+        await DisposeAsync();
+        GC.SuppressFinalize(this);
     }
 }

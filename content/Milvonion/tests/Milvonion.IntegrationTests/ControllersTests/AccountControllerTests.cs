@@ -33,8 +33,8 @@ public class AccountControllerTests(CustomWebApplicationFactory factory) : Integ
         };
 
         // Act
-        var httpResponse = await _factory.CreateClient().PostAsJsonAsync($"{GlobalConstant.RoutePrefix}/v1.0/account/login", request);
-        var loginResult = await httpResponse.Content.ReadFromJsonAsync<Response<LoginResponseDto>>();
+        var httpResponse = await _factory.CreateClient().PostAsJsonAsync($"{GlobalConstant.RoutePrefix}/v1.0/account/login", request, cancellationToken: TestContext.Current.CancellationToken);
+        var loginResult = await httpResponse.Content.ReadFromJsonAsync<Response<LoginResponseDto>>(cancellationToken: TestContext.Current.CancellationToken);
 
         // Arrange
         httpResponse.StatusCode.Should().Be(HttpStatusCode.OK);
@@ -65,12 +65,12 @@ public class AccountControllerTests(CustomWebApplicationFactory factory) : Integ
             PasswordHash = "AQAAAAEAACcQAAAAEJ9"
         };
 
-        await dbContext.AddAsync(user);
-        await dbContext.SaveChangesAsync();
+        await dbContext.AddAsync(user, cancellationToken: TestContext.Current.CancellationToken);
+        await dbContext.SaveChangesAsync(cancellationToken: TestContext.Current.CancellationToken);
 
         // Act
-        var httpResponse = await _factory.CreateClient().PostAsJsonAsync($"{GlobalConstant.RoutePrefix}/v1.0/account/login", request);
-        var loginResult = await httpResponse.Content.ReadFromJsonAsync<Response<LoginResponseDto>>();
+        var httpResponse = await _factory.CreateClient().PostAsJsonAsync($"{GlobalConstant.RoutePrefix}/v1.0/account/login", request, cancellationToken: TestContext.Current.CancellationToken);
+        var loginResult = await httpResponse.Content.ReadFromJsonAsync<Response<LoginResponseDto>>(cancellationToken: TestContext.Current.CancellationToken);
 
         // Arrange
         httpResponse.StatusCode.Should().Be(HttpStatusCode.OK);
@@ -103,26 +103,25 @@ public class AccountControllerTests(CustomWebApplicationFactory factory) : Integ
             AccessFailedCount = 0
         };
 
-        await dbContext.AddAsync(user);
-        await dbContext.SaveChangesAsync();
+        await dbContext.AddAsync(user, cancellationToken: TestContext.Current.CancellationToken);
+        await dbContext.SaveChangesAsync(cancellationToken: TestContext.Current.CancellationToken);
 
         // Act
         var client = _factory.CreateClientWithLanguageHeader("en-US");
-        await client.PostAsJsonAsync($"{GlobalConstant.RoutePrefix}/v1.0/account/login", request);
-        await client.PostAsJsonAsync($"{GlobalConstant.RoutePrefix}/v1.0/account/login", request);
-        await client.PostAsJsonAsync($"{GlobalConstant.RoutePrefix}/v1.0/account/login", request);
+        await client.PostAsJsonAsync($"{GlobalConstant.RoutePrefix}/v1.0/account/login", request, cancellationToken: TestContext.Current.CancellationToken);
+        await client.PostAsJsonAsync($"{GlobalConstant.RoutePrefix}/v1.0/account/login", request, cancellationToken: TestContext.Current.CancellationToken);
+        await client.PostAsJsonAsync($"{GlobalConstant.RoutePrefix}/v1.0/account/login", request, cancellationToken: TestContext.Current.CancellationToken);
 
-        var beforeLockHttpResponse = await client.PostAsJsonAsync($"{GlobalConstant.RoutePrefix}/v1.0/account/login", request);
-        var beforeLockLoginResult = await beforeLockHttpResponse.Content.ReadFromJsonAsync<Response<LoginResponseDto>>();
-        var userBeforeLockout = await dbContext.Users.FirstOrDefaultAsync();
+        var beforeLockHttpResponse = await client.PostAsJsonAsync($"{GlobalConstant.RoutePrefix}/v1.0/account/login", request, cancellationToken: TestContext.Current.CancellationToken);
+        var beforeLockLoginResult = await beforeLockHttpResponse.Content.ReadFromJsonAsync<Response<LoginResponseDto>>(cancellationToken: TestContext.Current.CancellationToken);
+        var userBeforeLockout = await dbContext.Users.FirstOrDefaultAsync(cancellationToken: TestContext.Current.CancellationToken);
 
-        var lockHttpResponse = await client.PostAsJsonAsync($"{GlobalConstant.RoutePrefix}/v1.0/account/login", request);
-        var lockLoginResult = await lockHttpResponse.Content.ReadFromJsonAsync<Response<LoginResponseDto>>();
-        var userOnLockout = await dbContext.Users.FirstOrDefaultAsync();
-
-        var afterLockHttpResponse = await client.PostAsJsonAsync($"{GlobalConstant.RoutePrefix}/v1.0/account/login", request);
-        var afterLockLoginResult = await afterLockHttpResponse.Content.ReadFromJsonAsync<Response<LoginResponseDto>>();
-        var userAfterLockout = await dbContext.Users.FirstOrDefaultAsync();
+        var lockHttpResponse = await client.PostAsJsonAsync($"{GlobalConstant.RoutePrefix}/v1.0/account/login", request, cancellationToken: TestContext.Current.CancellationToken);
+        var lockLoginResult = await lockHttpResponse.Content.ReadFromJsonAsync<Response<LoginResponseDto>>(cancellationToken: TestContext.Current.CancellationToken);
+        var userOnLockout = await dbContext.Users.FirstOrDefaultAsync(cancellationToken: TestContext.Current.CancellationToken);
+        var afterLockHttpResponse = await client.PostAsJsonAsync($"{GlobalConstant.RoutePrefix}/v1.0/account/login", request, cancellationToken: TestContext.Current.CancellationToken);
+        var afterLockLoginResult = await afterLockHttpResponse.Content.ReadFromJsonAsync<Response<LoginResponseDto>>(cancellationToken: TestContext.Current.CancellationToken);
+        var userAfterLockout = await dbContext.Users.FirstOrDefaultAsync(cancellationToken: TestContext.Current.CancellationToken);
 
         // Arrange
         beforeLockHttpResponse.StatusCode.Should().Be(HttpStatusCode.OK);
@@ -190,12 +189,12 @@ public class AccountControllerTests(CustomWebApplicationFactory factory) : Integ
             LockoutEnd = DateTime.UtcNow.AddMinutes(10)
         };
 
-        await dbContext.AddAsync(user);
-        await dbContext.SaveChangesAsync();
+        await dbContext.AddAsync(user, cancellationToken: TestContext.Current.CancellationToken);
+        await dbContext.SaveChangesAsync(cancellationToken: TestContext.Current.CancellationToken);
 
         // Act
-        var httpResponse = await _factory.CreateClient().PostAsJsonAsync($"{GlobalConstant.RoutePrefix}/v1.0/account/login", request);
-        var loginResult = await httpResponse.Content.ReadFromJsonAsync<Response<LoginResponseDto>>();
+        var httpResponse = await _factory.CreateClient().PostAsJsonAsync($"{GlobalConstant.RoutePrefix}/v1.0/account/login", request, cancellationToken: TestContext.Current.CancellationToken);
+        var loginResult = await httpResponse.Content.ReadFromJsonAsync<Response<LoginResponseDto>>(cancellationToken: TestContext.Current.CancellationToken);
 
         // Arrange
         httpResponse.StatusCode.Should().Be(HttpStatusCode.OK);
@@ -229,12 +228,12 @@ public class AccountControllerTests(CustomWebApplicationFactory factory) : Integ
             LockoutEnd = DateTime.UtcNow.AddMinutes(-1)
         };
 
-        await dbContext.AddAsync(user);
-        await dbContext.SaveChangesAsync();
+        await dbContext.AddAsync(user, cancellationToken: TestContext.Current.CancellationToken);
+        await dbContext.SaveChangesAsync(cancellationToken: TestContext.Current.CancellationToken);
 
         // Act
-        var httpResponse = await _factory.CreateClient().PostAsJsonAsync($"{GlobalConstant.RoutePrefix}/v1.0/account/login", request);
-        var loginResult = await httpResponse.Content.ReadFromJsonAsync<Response<LoginResponseDto>>();
+        var httpResponse = await _factory.CreateClient().PostAsJsonAsync($"{GlobalConstant.RoutePrefix}/v1.0/account/login", request, cancellationToken: TestContext.Current.CancellationToken);
+        var loginResult = await httpResponse.Content.ReadFromJsonAsync<Response<LoginResponseDto>>(cancellationToken: TestContext.Current.CancellationToken);
 
         // Arrange
         httpResponse.StatusCode.Should().Be(HttpStatusCode.OK);
@@ -256,7 +255,7 @@ public class AccountControllerTests(CustomWebApplicationFactory factory) : Integ
         loginResult.Metadatas.Should().BeEmpty();
         loginResult.StatusCode.Should().Be((int)HttpStatusCode.OK);
 
-        user = await dbContext.Users.FirstOrDefaultAsync();
+        user = await dbContext.Users.FirstOrDefaultAsync(cancellationToken: TestContext.Current.CancellationToken);
         user.Should().NotBeNull();
         user.LockoutEnabled.Should().BeTrue();
         user.LockoutEnd.Should().BeNull();
@@ -282,12 +281,12 @@ public class AccountControllerTests(CustomWebApplicationFactory factory) : Integ
             PasswordHash = "AQAAAAEAACcQAAAAEJ9"
         };
 
-        await dbContext.AddAsync(user);
-        await dbContext.SaveChangesAsync();
+        await dbContext.AddAsync(user, cancellationToken: TestContext.Current.CancellationToken);
+        await dbContext.SaveChangesAsync(cancellationToken: TestContext.Current.CancellationToken);
 
         // Act
-        var httpResponse = await _factory.CreateClient().PostAsJsonAsync($"{GlobalConstant.RoutePrefix}/v1.0/account/login", request);
-        var loginResult = await httpResponse.Content.ReadFromJsonAsync<Response<LoginResponseDto>>();
+        var httpResponse = await _factory.CreateClient().PostAsJsonAsync($"{GlobalConstant.RoutePrefix}/v1.0/account/login", request, cancellationToken: TestContext.Current.CancellationToken);
+        var loginResult = await httpResponse.Content.ReadFromJsonAsync<Response<LoginResponseDto>>(cancellationToken: TestContext.Current.CancellationToken);
 
         // Arrange
         httpResponse.StatusCode.Should().Be(HttpStatusCode.OK);
@@ -318,12 +317,12 @@ public class AccountControllerTests(CustomWebApplicationFactory factory) : Integ
             PasswordHash = "AQAAAAEAACcQAAAAEIMgDN79W03UXM/6VMhU4ua5i6DRRmS/kj77Jdfi1vjxSUnugS7ZF1CszYSLuhKvpw=="
         };
 
-        await dbContext.AddAsync(user);
-        await dbContext.SaveChangesAsync();
+        await dbContext.AddAsync(user, cancellationToken: TestContext.Current.CancellationToken);
+        await dbContext.SaveChangesAsync(cancellationToken: TestContext.Current.CancellationToken);
 
         // Act
-        var httpResponse = await _factory.CreateClient().PostAsJsonAsync($"{GlobalConstant.RoutePrefix}/v1.0/account/login", request);
-        var loginResult = await httpResponse.Content.ReadFromJsonAsync<Response<LoginResponseDto>>();
+        var httpResponse = await _factory.CreateClient().PostAsJsonAsync($"{GlobalConstant.RoutePrefix}/v1.0/account/login", request, cancellationToken: TestContext.Current.CancellationToken);
+        var loginResult = await httpResponse.Content.ReadFromJsonAsync<Response<LoginResponseDto>>(cancellationToken: TestContext.Current.CancellationToken);
 
         // Arrange
         httpResponse.StatusCode.Should().Be(HttpStatusCode.OK);
@@ -358,8 +357,8 @@ public class AccountControllerTests(CustomWebApplicationFactory factory) : Integ
         var client = await _factory.CreateClient().LoginAsync();
 
         // Act
-        var httpResponse = await client.GetAsync($"{GlobalConstant.RoutePrefix}/v1.0/account/detail?UserId={user.Id}");
-        var loginResult = await httpResponse.Content.ReadFromJsonAsync<Response<AccountDetailDto>>();
+        var httpResponse = await client.GetAsync($"{GlobalConstant.RoutePrefix}/v1.0/account/detail?UserId={user.Id}", cancellationToken: TestContext.Current.CancellationToken);
+        var loginResult = await httpResponse.Content.ReadFromJsonAsync<Response<AccountDetailDto>>(cancellationToken: TestContext.Current.CancellationToken);
 
         // Arrange
         httpResponse.StatusCode.Should().Be(HttpStatusCode.OK);
