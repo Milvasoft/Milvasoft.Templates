@@ -68,7 +68,7 @@ public record LoginCommandHandler(IMilvonionRepositoryBase<User> UserRepository,
         var userLocked = _milvaUserManager.IsLockedOut(user);
 
         // If the user is locked out and the unlock date has passed.
-        if (userLocked && DateTime.UtcNow > user.LockoutEnd.Value.DateTime)
+        if (userLocked && DateTimeOffset.UtcNow > user.LockoutEnd.Value)
         {
             //We reset the duration of the locked user.
             _milvaUserManager.ConfigureLockout(user, false);
@@ -83,20 +83,7 @@ public record LoginCommandHandler(IMilvonionRepositoryBase<User> UserRepository,
     }
 
     private Response<LoginResponseDto> PrepareLockoutResponse(User user)
-    {
-        var remainingLockoutEnd = user.LockoutEnd - DateTime.UtcNow;
-
-        string message;
-
-        if (remainingLockoutEnd.Value.Hours > 0)
-            message = _milvaLocalizer[MessageKey.Locked, _milvaLocalizer[MessageKey.Hours, remainingLockoutEnd.Value.Hours]];
-        else if (remainingLockoutEnd.Value.Minutes > 0)
-            message = _milvaLocalizer[MessageKey.Locked, _milvaLocalizer[MessageKey.Minutes, remainingLockoutEnd.Value.Minutes]];
-        else
-            message = _milvaLocalizer[MessageKey.Locked, _milvaLocalizer[MessageKey.Seconds, remainingLockoutEnd.Value.Seconds]];
-
-        return Response<LoginResponseDto>.Error(null, message);
-    }
+        => Response<LoginResponseDto>.Error(null, LockoutMessages.Build(_milvaLocalizer, user.LockoutEnd.Value));
 
     private async Task<Response<LoginResponseDto>> CheckPasswordAsync(User user, string password, CancellationToken cancellationToken = default)
     {

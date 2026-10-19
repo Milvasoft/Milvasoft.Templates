@@ -18,7 +18,7 @@ public class ActivityLogDtoTests
         var userName = "TestUser";
         var activity = UserActivity.CreateUser;
         var activityDescription = "User added";
-        var activityDate = DateTimeOffset.Now;
+        var activityDate = DateTimeOffset.UtcNow;
 
         // Act
         var activityLogListDto = new ActivityLogListDto
@@ -48,6 +48,8 @@ public class ActivityLogDtoTests
             UserName = a.UserName,
             Activity = a.Activity,
             ActivityDate = a.ActivityDate,
+            RelatedId = a.RelatedId,
+            RelatedData = a.RelatedData,
         };
 
         // Act

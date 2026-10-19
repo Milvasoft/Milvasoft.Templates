@@ -5,7 +5,7 @@ using Milvonion.Application.Behaviours;
 namespace Milvonion.Application.Features.ContentManagement.Contents.DeleteContents;
 
 /// <summary>
-/// Query validations. 
+/// Validations of <see cref="DeleteContentsCommand"/>.
 /// </summary>
 public sealed class DeleteContentsCommandValidator : AbstractValidator<DeleteContentsCommand>
 {

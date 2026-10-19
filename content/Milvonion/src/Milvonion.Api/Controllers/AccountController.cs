@@ -3,14 +3,15 @@ using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Milvasoft.Components.Rest.MilvaResponse;
+using Milvonion.Api.Utils;
 using Milvonion.Application.Dtos.AccountDtos;
-using Milvonion.Application.Dtos.AccountDtos.InternalNotifications.DeleteNotification;
-using Milvonion.Application.Dtos.AccountDtos.InternalNotifications.GetAccountNotifications;
-using Milvonion.Application.Dtos.AccountDtos.InternalNotifications.MarkNotificationsAsSeen;
 using Milvonion.Application.Features.Account.AccountDetail;
 using Milvonion.Application.Features.Account.ChangePassword;
+using Milvonion.Application.Features.Account.DeleteNotifications;
+using Milvonion.Application.Features.Account.GetAccountNotifications;
 using Milvonion.Application.Features.Account.Login;
 using Milvonion.Application.Features.Account.Logout;
+using Milvonion.Application.Features.Account.MarkNotificationsAsSeen;
 using Milvonion.Application.Features.Account.RefreshLogin;
 using Milvonion.Application.Utils.Attributes;
 using Milvonion.Application.Utils.Constants;
@@ -42,6 +43,7 @@ public class AccountController(IMediator mediator) : ControllerBase
     /// <returns>Token information</returns>
     [HttpPost("login")]
     [AllowAnonymous]
+    [RateLimit(10, 60, "account-login")]
     public Task<Response<LoginResponseDto>> LoginAsync(LoginCommand request, CancellationToken cancellation) => _mediator.Send(request, cancellation);
 
     /// <summary>
@@ -52,6 +54,7 @@ public class AccountController(IMediator mediator) : ControllerBase
     /// <returns></returns>
     [HttpPost("login/refresh")]
     [AllowAnonymous]
+    [RateLimit(30, 60, "account-login-refresh")]
     public Task<Response<LoginResponseDto>> RefreshLoginAsync(RefreshLoginCommand request, CancellationToken cancellation) => _mediator.Send(request, cancellation);
 
     /// <summary>
@@ -77,7 +80,7 @@ public class AccountController(IMediator mediator) : ControllerBase
     public Task<Response> ChangePasswordAsync(ChangePasswordCommand request, CancellationToken cancellation) => _mediator.Send(request, cancellation);
 
     /// <summary>
-    /// User can access his/her account information through this endpoint. If the logged in user and the sent id information do not match, the request will fail.
+    /// User can access his/her account information through this endpoint. The account is always the caller's own (taken from the token).
     /// </summary>
     /// <param name="request"></param>
     /// <param name="cancellation"></param>
@@ -96,7 +99,7 @@ public class AccountController(IMediator mediator) : ControllerBase
     [Auth]
     [HttpPatch("notifications")]
     [UserTypeAuth(UserType.Manager | UserType.AppUser)]
-    public Task<ListResponse<AccountNotificationDto>> AccountDetailsAsync(GetAccountNotificationsQuery request, CancellationToken cancellation) => _mediator.Send(request, cancellation);
+    public Task<ListResponse<AccountNotificationDto>> GetNotificationsAsync(GetAccountNotificationsQuery request, CancellationToken cancellation) => _mediator.Send(request, cancellation);
 
     /// <summary>
     /// Marks notifications as seen.

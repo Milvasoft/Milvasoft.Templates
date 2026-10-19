@@ -1,4 +1,5 @@
 ﻿using Milvasoft.Components.CQRS.Command;
+using Milvasoft.Interception.Interceptors.Logging;
 using Milvonion.Application.Dtos.AccountDtos;
 
 namespace Milvonion.Application.Features.Account.RefreshLogin;
@@ -21,5 +22,6 @@ public record RefreshLoginCommand : ICommand<LoginResponseDto>
     /// <summary>
     /// Refresh token received during login.
     /// </summary>
+    [LogMasked]
     public string RefreshToken { get; set; }
 }

@@ -1,5 +1,4 @@
 ﻿using Milvasoft.Components.Rest.MilvaResponse;
-using Milvasoft.Components.Rest.Request;
 using Milvasoft.Core.Abstractions;
 
 namespace Milvonion.Application.Interfaces;
@@ -40,20 +39,6 @@ public interface IDeveloperService : IInterceptable
     /// </summary>
     /// <returns></returns>
     Task<Response> ResetUIRelatedDataAsync();
-
-    /// <summary>
-    /// Gets method logs.
-    /// </summary>
-    /// <param name="listRequest"></param>
-    /// <returns></returns>
-    Task<ListResponse<MethodLog>> GetMethodLogsAsync(ListRequest listRequest);
-
-    /// <summary>
-    /// Gets api logs.
-    /// </summary>
-    /// <param name="listRequest"></param>
-    /// <returns></returns>
-    Task<ListResponse<ApiLog>> GetApiLogsAsync(ListRequest listRequest);
 
     /// <summary>
     /// Exports existing data to a JSON file.

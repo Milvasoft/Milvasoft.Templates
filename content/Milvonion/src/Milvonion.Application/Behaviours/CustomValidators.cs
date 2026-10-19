@@ -11,6 +11,9 @@ namespace Milvonion.Application.Behaviours;
 /// </summary>
 public class DefaultDataValidator<T>(int rangeMin = 0, int rangeMax = 21) : PropertyValidator<T, int>
 {
+    private readonly int _rangeMin = rangeMin;
+    private readonly int _rangeMax = rangeMax;
+
     /// <inheritdoc/>
     public override string Name => "DefaultDataValidator";
 
@@ -18,7 +21,7 @@ public class DefaultDataValidator<T>(int rangeMin = 0, int rangeMax = 21) : Prop
     protected override string GetDefaultMessageTemplate(string errorCode) => "{PropertyName} should not less than 21.";
 
     /// <inheritdoc/>
-    public override bool IsValid(ValidationContext<T> context, int value) => value <= rangeMin || value >= rangeMax;
+    public override bool IsValid(ValidationContext<T> context, int value) => value <= _rangeMin || value >= _rangeMax;
 }
 
 /// <summary>
@@ -26,6 +29,9 @@ public class DefaultDataValidator<T>(int rangeMin = 0, int rangeMax = 21) : Prop
 /// </summary>
 public class DefaultDataLongValidator<T>(long rangeMin = 0, long rangeMax = GlobalConstant.AutoIncrementStart) : PropertyValidator<T, long>
 {
+    private readonly long _rangeMin = rangeMin;
+    private readonly long _rangeMax = rangeMax;
+
     /// <inheritdoc/>
     public override string Name => "DefaultDataValidator";
 
@@ -33,7 +39,7 @@ public class DefaultDataLongValidator<T>(long rangeMin = 0, long rangeMax = Glob
     protected override string GetDefaultMessageTemplate(string errorCode) => "{PropertyName} should not less than " + GlobalConstant.AutoIncrementStart + ".";
 
     /// <inheritdoc/>
-    public override bool IsValid(ValidationContext<T> context, long value) => value <= rangeMin || value >= rangeMax;
+    public override bool IsValid(ValidationContext<T> context, long value) => value <= _rangeMin || value >= _rangeMax;
 }
 
 /// <summary>

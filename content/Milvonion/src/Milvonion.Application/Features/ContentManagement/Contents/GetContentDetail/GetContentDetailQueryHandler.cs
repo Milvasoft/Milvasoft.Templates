@@ -1,5 +1,4 @@
 ﻿using Milvasoft.Components.CQRS.Query;
-using Milvasoft.Components.Rest.Enums;
 using Milvasoft.Components.Rest.MilvaResponse;
 using Milvasoft.Core.Abstractions;
 using Milvonion.Application.Dtos.ContentManagementDtos.ContentDtos;
@@ -21,7 +20,7 @@ public class GetContentDetailQueryHandler(IMilvonionRepositoryBase<Content> reso
         var resourceGroup = await _resourceGroupRepository.GetByIdAsync(request.ContentId, projection: ContentDetailDto.Projection, cancellationToken: cancellationToken);
 
         if (resourceGroup == null)
-            return Response<ContentDetailDto>.Success(resourceGroup, MessageKey.ContentNotFound, MessageType.Warning);
+            return Response<ContentDetailDto>.Error(null, MessageKey.ContentNotFound);
 
         return Response<ContentDetailDto>.Success(resourceGroup);
     }

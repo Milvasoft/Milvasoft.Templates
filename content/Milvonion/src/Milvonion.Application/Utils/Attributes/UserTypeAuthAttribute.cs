@@ -1,4 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc.Filters;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Filters;
+using Microsoft.Extensions.DependencyInjection;
+using Milvasoft.Components.Rest.Enums;
+using Milvasoft.Components.Rest.MilvaResponse;
+using Milvasoft.Core.Abstractions.Localization;
 
 namespace Milvonion.Application.Utils.Attributes;
 
@@ -18,9 +24,13 @@ public class UserTypeAuthAttribute(UserType userType) : Attribute, IAuthorizatio
 
         if (currentUserType == null || (_userType & currentUserType) != currentUserType)
         {
-#if !DEBUG
-            context.HttpContext.Response.ThrowWithForbidden();
-#endif
+            // A result, not an exception: the envelope reaches the client like every other failure (403 + message).
+            var localizer = context.HttpContext.RequestServices.GetService<IMilvaLocalizer>();
+
+            var response = Response.Error(localizer != null ? localizer[MessageKey.Forbidden] : MessageKey.Forbidden, MessageType.Warning);
+            response.StatusCode = StatusCodes.Status403Forbidden;
+
+            context.Result = new ObjectResult(response) { StatusCode = StatusCodes.Status403Forbidden };
         }
     }
 }

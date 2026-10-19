@@ -32,6 +32,21 @@ public class UserDetailDto : MilvonionBaseDto<int>
     public string Surname { get; set; }
 
     /// <summary>
+    /// Type of the user.
+    /// </summary>
+    public UserType UserType { get; set; }
+
+    /// <summary>
+    /// End of the user's lockout (UTC). Null when the user was never locked or the lock was removed.
+    /// </summary>
+    public DateTimeOffset? LockoutEnd { get; set; }
+
+    /// <summary>
+    /// Whether the user is locked out now (<see cref="LockoutEnd"/> is in the future).
+    /// </summary>
+    public bool IsLocked { get; set; }
+
+    /// <summary>
     /// Information about the roles the user is assigned to.
     /// </summary>
     public List<NameIntNavigationDto> Roles { get; set; }
@@ -58,6 +73,11 @@ public class UserDetailDto : MilvonionBaseDto<int>
         Email = u.Email,
         Name = u.Name,
         Surname = u.Surname,
+        UserType = u.UserType,
+        LockoutEnd = u.LockoutEnd,
+
+        // Same rule as the login (IMilvaUserManager.IsLockedOut): lockout enabled and the end not passed yet.
+        IsLocked = u.LockoutEnabled && u.LockoutEnd != null && u.LockoutEnd >= DateTimeOffset.UtcNow,
         Roles = u.RoleRelations.Select(rr => new NameIntNavigationDto { Id = rr.Role.Id, Name = rr.Role.Name }).ToList(),
         AllowedNotifications = u.AllowedNotifications,
         AuditInfo = new AuditDto<int>(u)

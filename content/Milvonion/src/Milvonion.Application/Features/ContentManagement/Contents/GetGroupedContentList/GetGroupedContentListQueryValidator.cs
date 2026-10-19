@@ -3,7 +3,7 @@
 namespace Milvonion.Application.Features.ContentManagement.Contents.GetGroupedContentList;
 
 /// <summary>
-/// Query validations. 
+/// Validations of <see cref="GetGroupedContentListQuery"/>.
 /// </summary>
 public sealed class GetGroupedContentListQueryValidator : AbstractValidator<GetGroupedContentListQuery>
 {

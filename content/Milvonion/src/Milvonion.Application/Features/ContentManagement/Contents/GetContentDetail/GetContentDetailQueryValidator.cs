@@ -4,7 +4,7 @@ using Milvasoft.Core.Abstractions.Localization;
 namespace Milvonion.Application.Features.ContentManagement.Contents.GetContentDetail;
 
 /// <summary>
-/// Query validations. 
+/// Validations of <see cref="GetContentDetailQuery"/>.
 /// </summary>
 public sealed class GetContentDetailQueryValidator : AbstractValidator<GetContentDetailQuery>
 {

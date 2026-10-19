@@ -55,7 +55,11 @@ public class UserDtoTests
             Email = u.Email,
             Name = u.Name,
             Surname = u.Surname,
+            UserType = u.UserType,
+            LockoutEnd = u.LockoutEnd,
+            IsLocked = u.LockoutEnabled && u.LockoutEnd != null && u.LockoutEnd >= DateTimeOffset.UtcNow,
             Roles = u.RoleRelations.Select(rr => new NameIntNavigationDto { Id = rr.Role.Id, Name = rr.Role.Name }).ToList(),
+            AllowedNotifications = u.AllowedNotifications,
             AuditInfo = new AuditDto<int>(u)
         };
 
@@ -106,7 +110,10 @@ public class UserDtoTests
             UserName = u.UserName,
             Email = u.Email,
             Name = u.Name,
-            Surname = u.Surname
+            Surname = u.Surname,
+            UserType = u.UserType,
+            LockoutEnd = u.LockoutEnd,
+            IsLocked = u.LockoutEnabled && u.LockoutEnd != null && u.LockoutEnd >= DateTimeOffset.UtcNow
         };
 
         // Act

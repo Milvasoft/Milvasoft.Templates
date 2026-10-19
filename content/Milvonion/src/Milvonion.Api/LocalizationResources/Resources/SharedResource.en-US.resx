@@ -126,6 +126,12 @@
   <data name="User.ExistWithSameUsername" xml:space="preserve">
     <value>There is a user with the same username!</value>
   </data>
+  <data name="User.ExistWithSameEmail" xml:space="preserve">
+    <value>There is a user with the same email!</value>
+  </data>
+  <data name="TooManyRequests" xml:space="preserve">
+    <value>You're sending requests too quickly. Please slow down and try again.</value>
+  </data>
   <data name="Role.NotFound" xml:space="preserve">
     <value>Role not found!</value>
   </data>
@@ -275,6 +281,9 @@
   </data>
   <data name="Locked" xml:space="preserve">
     <value>Your account has been locked due to repeated unsuccessful login attempts. Try again after {0}.</value>
+  </data>
+  <data name="LockedIndefinite" xml:space="preserve">
+    <value>Your account has been locked. Please contact support.</value>
   </data>
   <data name="LockWarning" xml:space="preserve">
     <value>The session will be locked after {0} invalid attempts.</value>
@@ -585,9 +594,6 @@
   <data name="Global.Message" xml:space="preserve">
     <value>Message</value>
   </data>
-  <data name="ExpenseRevenueNotFound" xml:space="preserve">
-    <value>Expense/Revenue does not exists!</value>
-  </data>
   <data name="ExpenseRevenue" xml:space="preserve">
     <value>Expense/Revenue</value>
   </data>
@@ -617,9 +623,6 @@ Maximum file size:
   <data name="Global.CreationDate" xml:space="preserve">
     <value>Creation Date</value>
   </data>
-  <data name="ProductFilesNotFound" xml:space="preserve">
-    <value>Files not found for deletion!</value>
-  </data>
   <data name="Global.ResourceGroup" xml:space="preserve">
     <value>Resource Group</value>
   </data>
@@ -629,26 +632,14 @@ Maximum file size:
   <data name="Global.Product" xml:space="preserve">
     <value>Product</value>
   </data>
-  <data name="ProductNotFound" xml:space="preserve">
-    <value>Product does not exists!</value>
-  </data>
   <data name="Global.Category" xml:space="preserve">
     <value>Product Category</value>
-  </data>
-  <data name="CategoryNotFound" xml:space="preserve">
-    <value>Category does not exists!</value>
   </data>
   <data name="Global.AdditionalInformations" xml:space="preserve">
     <value>Additional Informations</value>
   </data>
   <data name="Global.MetaTag" xml:space="preserve">
     <value>Meta Tag</value>
-  </data>
-  <data name="SiteSettingNotFound" xml:space="preserve">
-    <value>Site settings does not exists!</value>
-  </data>
-  <data name="ContactFormNotFound" xml:space="preserve">
-    <value>Contact Form does not exists!</value>
   </data>
   <data name="Password" xml:space="preserve">
     <value>Password</value>
@@ -805,5 +796,167 @@ Maximum file size:
   </data>
   <data name="UserActivityDeleteMessage" xml:space="preserve">
     <value>{0} delete</value>
+  </data>
+  <data name="App" xml:space="preserve">
+    <value>Application</value>
+  </data>
+  <data name="ContentQueryType" xml:space="preserve">
+    <value>Content Query Type</value>
+  </data>
+  <data name="ContentQueryType.Key" xml:space="preserve">
+    <value>Key</value>
+  </data>
+  <data name="ContentQueryType.Namespace" xml:space="preserve">
+    <value>Namespace</value>
+  </data>
+  <data name="ContentQueryType.ResourceGroup" xml:space="preserve">
+    <value>Resource Group</value>
+  </data>
+  <data name="ExportType" xml:space="preserve">
+    <value>Export Type</value>
+  </data>
+  <data name="Global.ActivityLog" xml:space="preserve">
+    <value>activity log</value>
+  </data>
+  <data name="Global.EfMigrationHistory" xml:space="preserve">
+    <value>migration history</value>
+  </data>
+  <data name="Global.Languages" xml:space="preserve">
+    <value>language</value>
+  </data>
+  <data name="Global.MenuGroup" xml:space="preserve">
+    <value>menu group</value>
+  </data>
+  <data name="Global.MenuItem" xml:space="preserve">
+    <value>menu item</value>
+  </data>
+  <data name="Global.MigrationHistory" xml:space="preserve">
+    <value>migration history</value>
+  </data>
+  <data name="Global.PageAction" xml:space="preserve">
+    <value>page action</value>
+  </data>
+  <data name="Global.Permission" xml:space="preserve">
+    <value>permission</value>
+  </data>
+  <data name="Global.RolePermissionRelation" xml:space="preserve">
+    <value>role permission</value>
+  </data>
+  <data name="Global.UserRoleRelation" xml:space="preserve">
+    <value>user role</value>
+  </data>
+  <data name="Global.UserSession" xml:space="preserve">
+    <value>session</value>
+  </data>
+  <data name="Global.UserSessionHistory" xml:space="preserve">
+    <value>session history</value>
+  </data>
+  <data name="GoogleChatSpace" xml:space="preserve">
+    <value>Google Chat Space</value>
+  </data>
+  <data name="GoogleChatSpace.HubNotifications" xml:space="preserve">
+    <value>Hub notifications</value>
+  </data>
+  <data name="GoogleChatSpace.MonitoringAlerts" xml:space="preserve">
+    <value>Monitoring alerts</value>
+  </data>
+  <data name="IdentityConcurrencyFailure" xml:space="preserve">
+    <value>The record was modified by another operation, please try again.</value>
+  </data>
+  <data name="IdentityDuplicateRoleName" xml:space="preserve">
+    <value>There is another role with this name.</value>
+  </data>
+  <data name="IdentityInvalidRoleName" xml:space="preserve">
+    <value>Invalid role name.</value>
+  </data>
+  <data name="IdentityInvalidUserName" xml:space="preserve">
+    <value>Invalid username.</value>
+  </data>
+  <data name="IdentityLoginAlreadyAssociated" xml:space="preserve">
+    <value>This login is already associated with another account.</value>
+  </data>
+  <data name="IdentityRecoveryCodeRedemptionFailed" xml:space="preserve">
+    <value>The recovery code could not be redeemed.</value>
+  </data>
+  <data name="IdentityUserAlreadyHasPassword" xml:space="preserve">
+    <value>The user already has a password.</value>
+  </data>
+  <data name="IdentityUserAlreadyInRole" xml:space="preserve">
+    <value>The user is already in this role.</value>
+  </data>
+  <data name="IdentityUserNotInRole" xml:space="preserve">
+    <value>The user is not in this role.</value>
+  </data>
+  <data name="InternalNotificationManagement" xml:space="preserve">
+    <value>Internal Notification</value>
+  </data>
+  <data name="InvalidEmail" xml:space="preserve">
+    <value>Invalid e-mail address.</value>
+  </data>
+  <data name="InvalidUserName" xml:space="preserve">
+    <value>Invalid username.</value>
+  </data>
+  <data name="NotAllowed" xml:space="preserve">
+    <value>You are not allowed to do this.</value>
+  </data>
+  <data name="NotificationEntity" xml:space="preserve">
+    <value>Notification Entity</value>
+  </data>
+  <data name="NotificationEntity.None" xml:space="preserve">
+    <value>None</value>
+  </data>
+  <data name="NotificationType" xml:space="preserve">
+    <value>Notification Type</value>
+  </data>
+  <data name="NotificationType.OrderApproved" xml:space="preserve">
+    <value>Order approved</value>
+  </data>
+  <data name="PG.InternalNotificationManagement" xml:space="preserve">
+    <value>Internal notification management permissions</value>
+  </data>
+  <data name="UserType" xml:space="preserve">
+    <value>User Type</value>
+  </data>
+  <data name="UserValidationEmailLength" xml:space="preserve">
+    <value>E-mail address can be at most 70 characters long.</value>
+  </data>
+  <data name="UserValidationUserNameLength" xml:space="preserve">
+    <value>Username must be between 3 and 25 characters long.</value>
+  </data>
+  <data name="UserValidationUserNameNumberStartWith" xml:space="preserve">
+    <value>Username cannot start with a digit.</value>
+  </data>
+  <data name="InvalidIdempotencyKey" xml:space="preserve">
+    <value>Invalid Idempotency-Key header. Send at most 64 letters, digits, "-" or "_".</value>
+  </data>
+  <data name="IdempotencyKeyReused" xml:space="preserve">
+    <value>This Idempotency-Key was already used for another request.</value>
+  </data>
+  <data name="RequestInProgress" xml:space="preserve">
+    <value>The same request is still being processed. Please try again in a moment.</value>
+  </data>
+  <data name="FeatureDisabled" xml:space="preserve">
+    <value>This feature is currently unavailable. Please try again later.</value>
+  </data>
+  <data name="FeatureFlagNotFound" xml:space="preserve">
+    <value>Feature flag not found!</value>
+  </data>
+  <data name="Global.FeatureFlag" xml:space="preserve">
+    <value>feature flag</value>
+  </data>
+  <data name="Global.IdempotencyKey" xml:space="preserve">
+    <value>idempotency key</value>
+  </data>
+  <data name="FeatureFlagManagement" xml:space="preserve">
+    <value>Feature Flag</value>
+  </data>
+  <data name="PG.FeatureFlagManagement" xml:space="preserve">
+    <value>Feature flag management permissions</value>
+  </data>
+  <data name="Global.Reason" xml:space="preserve">
+    <value>Reason</value>
+  </data>
+  <data name="UI.FeatureFlagManagement" xml:space="preserve">
+    <value>Feature Flags</value>
   </data>
 </root>

@@ -1,4 +1,5 @@
 ﻿using Milvasoft.Components.CQRS.Command;
+using Milvasoft.Interception.Interceptors.Logging;
 using Milvonion.Application.Dtos.AccountDtos;
 
 namespace Milvonion.Application.Features.Account.Login;
@@ -16,6 +17,7 @@ public record LoginCommand : ICommand<LoginResponseDto>
     /// <summary>
     /// Password to log in.
     /// </summary>
+    [LogMasked]
     public string Password { get; set; }
 
     /// <summary>

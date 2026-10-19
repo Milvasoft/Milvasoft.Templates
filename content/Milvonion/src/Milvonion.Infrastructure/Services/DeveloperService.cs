@@ -3,9 +3,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Milvasoft.Attributes.Annotations;
 using Milvasoft.Components.Rest.MilvaResponse;
-using Milvasoft.Components.Rest.Request;
-using Milvasoft.Core.MultiLanguage.EntityBases.Abstract;
-using Milvasoft.Core.MultiLanguage.Manager;
 using Milvasoft.Types.Structs;
 using Milvonion.Application.Features.Roles.CreateRole;
 using Milvonion.Application.Features.Roles.UpdateRole;
@@ -13,6 +10,7 @@ using Milvonion.Application.Features.Users.CreateUser;
 using Milvonion.Application.Interfaces;
 using Milvonion.Application.Utils.Constants;
 using Milvonion.Application.Utils.Extensions;
+using Milvonion.Application.Utils.PermissionManager;
 using Milvonion.Domain;
 using Milvonion.Infrastructure.Persistence;
 using Milvonion.Infrastructure.Persistence.Context;
@@ -29,10 +27,15 @@ namespace Milvonion.Infrastructure.Services;
 /// <param name="serviceProvider"></param>
 public class DeveloperService(IServiceProvider serviceProvider) : IDeveloperService
 {
+    /// <summary>
+    /// Password of every user <see cref="SeedDevelopmentDataAsync"/> creates (the root user included). It satisfies the
+    /// default password policy (<c>Milvasoft:Identity:Password</c>); with a stricter policy the seed fails with the
+    /// validation message instead of reporting success over users that were never created.
+    /// </summary>
+    public const string DevelopmentPassword = "Dev12345!";
+
     private readonly IMediator _mediator = serviceProvider.GetService<IMediator>();
     private readonly IPermissionManager _permissionManager = serviceProvider.GetService<IPermissionManager>();
-    private readonly IMilvonionRepositoryBase<MethodLog> _methodLogRepository = serviceProvider.GetService<IMilvonionRepositoryBase<MethodLog>>();
-    private readonly IMilvonionRepositoryBase<ApiLog> _apiLogRepository = serviceProvider.GetService<IMilvonionRepositoryBase<ApiLog>>();
     private readonly MilvonionDbContext _milvonionDbContext = serviceProvider.GetService<MilvonionDbContext>();
     private readonly DatabaseMigrator _databaseMigrator = new(serviceProvider);
 
@@ -60,7 +63,7 @@ public class DeveloperService(IServiceProvider serviceProvider) : IDeveloperServ
 
         try
         {
-            await _databaseMigrator.SeedDefaultDataAsync("string");
+            await _databaseMigrator.SeedDefaultDataAsync(DevelopmentPassword);
 
             await _databaseMigrator.CreateTriggersAsync(default);
 
@@ -68,62 +71,64 @@ public class DeveloperService(IServiceProvider serviceProvider) : IDeveloperServ
 
             await DatabaseMigrator.MigratePermissionsAsync(_permissionManager, default);
 
-            var languages = LanguagesSeed.Seed.Select(l => new Language
-            {
-                Code = l.Code,
-                Name = l.Name,
-                IsDefault = l.IsDefault,
-                Supported = l.Supported,
-            }).ToList();
+            await LanguageSeeder.SeedAsync(_milvonionDbContext, default);
 
-            await _milvonionDbContext.Languages.AddRangeAsync(languages, default);
+            // Viewer role: every list permission of the catalog, looked up by name (the ids depend on the catalog order).
+            // Every step below returns its own failure (validation messages included) instead of being ignored.
+            var listPermissionIds = await _milvonionDbContext.Permissions.Where(p => p.Name == nameof(PermissionCatalog.UserManagement.List))
+                                                                         .Select(p => p.Id)
+                                                                         .ToListAsync();
 
-            await _milvonionDbContext.SaveChangesAsync(default);
-
-            var languageSeed = languages.Cast<ILanguage>().ToList();
-
-            MultiLanguageManager.UpdateLanguagesList(languageSeed);
-
-            //Role creation
             var addedRole = await _mediator.Send(new CreateRoleCommand
             {
                 Name = "Viewer"
             });
 
-            //Role creation
-            await _mediator.Send(new UpdateRoleCommand
+            if (!addedRole.IsSuccess)
+                return addedRole;
+
+            var updatedRole = await _mediator.Send(new UpdateRoleCommand
             {
                 Id = addedRole.Data,
                 PermissionIdList = new UpdateProperty<List<int>>
                 {
                     IsUpdated = true,
-                    Value = [21, 26, 31, 32]
+                    Value = listPermissionIds
                 }
             });
 
+            if (!updatedRole.IsSuccess)
+                return updatedRole;
+
             //Another Super Admin User creation
-            await _mediator.Send(new CreateUserCommand
+            var addedAdmin = await _mediator.Send(new CreateUserCommand
             {
-                Name = "Ahmet Buğra",
-                Surname = "Kösen",
+                Name = "Admin",
+                Surname = "User",
                 UserType = Domain.Enums.UserType.Manager,
-                UserName = "bugrakosen",
-                Email = "bugrakosen@gmail.com",
-                Password = "string",
+                UserName = "admin",
+                Email = "admin@example.com",
+                Password = DevelopmentPassword,
                 RoleIdList = [1]
             });
 
+            if (!addedAdmin.IsSuccess)
+                return addedAdmin;
+
             //Viewer User creation
-            await _mediator.Send(new CreateUserCommand
+            var addedViewer = await _mediator.Send(new CreateUserCommand
             {
                 Name = "Viewer",
                 Surname = "User",
                 UserName = "viewer",
                 UserType = Domain.Enums.UserType.AppUser,
-                Email = "viewer@gmail.com",
-                Password = "string",
+                Email = "viewer@example.com",
+                Password = DevelopmentPassword,
                 RoleIdList = [addedRole.Data],
             });
+
+            if (!addedViewer.IsSuccess)
+                return addedViewer;
 
             return Response.Success();
         }
@@ -155,7 +160,14 @@ public class DeveloperService(IServiceProvider serviceProvider) : IDeveloperServ
     /// </summary>
     /// <returns></returns>
     [ExcludeFromMetadata]
-    public async Task<Response<string>> InitDatabaseAsync() => await _databaseMigrator.InitDatabaseAsync(_permissionManager, default);
+    public async Task<Response<string>> InitDatabaseAsync()
+    {
+        // A production database is never initialized from an endpoint (the response carries the generated root password).
+        if (MilvonionExtensions.IsCurrentEnvProduction())
+            return Response<string>.Error(null);
+
+        return await _databaseMigrator.InitDatabaseAsync(_permissionManager, default);
+    }
 
     /// <summary>
     /// Resets ui related data.
@@ -164,35 +176,12 @@ public class DeveloperService(IServiceProvider serviceProvider) : IDeveloperServ
     [ExcludeFromMetadata]
     public async Task<Response> ResetUIRelatedDataAsync()
     {
+        if (MilvonionExtensions.IsCurrentEnvProduction())
+            return Response.Error();
+
         await _databaseMigrator.SeedUIRelatedDataAsync(default);
 
         return Response.Success();
-    }
-
-    /// <summary>
-    /// Gets method logs.
-    /// </summary>
-    /// <param name="listRequest"></param>
-    /// <returns></returns>
-    public async Task<ListResponse<MethodLog>> GetMethodLogsAsync(ListRequest listRequest)
-    {
-        if (MilvonionExtensions.IsCurrentEnvProduction())
-            return ListResponse<MethodLog>.Error();
-
-        return await _methodLogRepository.GetAllAsync(listRequest);
-    }
-
-    /// <summary>
-    /// Gets api logs.
-    /// </summary>
-    /// <param name="listRequest"></param>
-    /// <returns></returns>
-    public async Task<ListResponse<ApiLog>> GetApiLogsAsync(ListRequest listRequest)
-    {
-        if (MilvonionExtensions.IsCurrentEnvProduction())
-            return ListResponse<ApiLog>.Error();
-
-        return await _apiLogRepository.GetAllAsync(listRequest);
     }
 
     /// <summary>

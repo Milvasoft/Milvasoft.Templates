@@ -4,7 +4,7 @@ using Milvasoft.Core.Abstractions.Localization;
 namespace Milvonion.Application.Features.Roles.GetRoleDetail;
 
 /// <summary>
-/// Account detail query validations. 
+/// Validations of <see cref="GetRoleDetailQuery"/>.
 /// </summary>
 public sealed class GetRoleDetailQueryValidator : AbstractValidator<GetRoleDetailQuery>
 {

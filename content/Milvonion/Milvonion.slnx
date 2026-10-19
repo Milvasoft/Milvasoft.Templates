@@ -1,0 +1,36 @@
+<Solution>
+  <Configurations>
+    <BuildType Name="Debug" />
+    <BuildType Name="Release" />
+    <BuildType Name="TemplateTest" />
+  </Configurations>
+  <Folder Name="/build/">
+    <File Path="build/build.bat" />
+    <File Path="build/build.sh" />
+  </Folder>
+  <Folder Name="/docs/">
+    <File Path="docs/sampledoc.md" />
+  </Folder>
+  <Folder Name="/src/" />
+  <Folder Name="/src/Core/">
+    <Project Path="src/Milvonion.Application/Milvonion.Application.csproj" />
+    <Project Path="src/Milvonion.Domain/Milvonion.Domain.csproj" />
+  </Folder>
+  <Folder Name="/src/Infrastructure/">
+    <Project Path="src/Milvonion.Infrastructure/Milvonion.Infrastructure.csproj" />
+  </Folder>
+  <Folder Name="/src/Presentation/">
+    <Project Path="src/Milvonion.Api/Milvonion.Api.csproj" />
+  </Folder>
+  <Folder Name="/tests/" />
+  <Folder Name="/tests/IntegrationTests/">
+    <Project Path="tests/Milvonion.IntegrationTests/Milvonion.IntegrationTests.csproj">
+      <BuildType Solution="TemplateTest|*" Project="Release" />
+    </Project>
+  </Folder>
+  <Folder Name="/tests/UnitTests/">
+    <Project Path="tests/Milvonion.UnitTests/Milvonion.UnitTests.csproj">
+      <BuildType Solution="TemplateTest|*" Project="Release" />
+    </Project>
+  </Folder>
+</Solution>

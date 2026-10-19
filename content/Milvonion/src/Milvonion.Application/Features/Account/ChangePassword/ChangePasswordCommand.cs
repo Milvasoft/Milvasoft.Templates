@@ -1,4 +1,5 @@
 ﻿using Milvasoft.Components.CQRS.Command;
+using Milvasoft.Interception.Interceptors.Logging;
 
 namespace Milvonion.Application.Features.Account.ChangePassword;
 
@@ -15,10 +16,12 @@ public record ChangePasswordCommand : ICommand
     /// <summary>
     /// Old password of account.
     /// </summary>
+    [LogMasked]
     public string OldPassword { get; set; }
 
     /// <summary>
     /// New password.
     /// </summary>
+    [LogMasked]
     public string NewPassword { get; set; }
 }

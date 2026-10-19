@@ -23,13 +23,6 @@
             <param name="app"></param>
             <returns></returns>
         </member>
-        <member name="M:Milvonion.Api.AppStartup.StartupExtensions.UseHealthCheck(Microsoft.AspNetCore.Builder.WebApplication)">
-            <summary>
-            Adds the required middleware to use the health check. Configures the options before adding.
-            </summary>
-            <param name="app">The <see cref="T:Microsoft.AspNetCore.Builder.IApplicationBuilder"/> instance.</param>
-            <returns>The <see cref="T:Microsoft.AspNetCore.Builder.IApplicationBuilder"/> instance.</returns>
-        </member>
         <member name="M:Milvonion.Api.AppStartup.StartupExtensions.UseStaticFiles(Microsoft.AspNetCore.Builder.WebApplication)">
             <summary>
             Adds the required middleware to serve static files. Configures the options before adding.
@@ -43,6 +36,29 @@
             </summary>
             <param name="app">The <see cref="T:Microsoft.AspNetCore.Builder.IApplicationBuilder"/> instance.</param>
             <returns>The <see cref="T:Microsoft.AspNetCore.Builder.IApplicationBuilder"/> instance.</returns>
+        </member>
+        <member name="F:Milvonion.Api.AppStartup.StartupExtensions.TokenSigningKeyConfigurationKey">
+            <summary>
+            Configuration key of the access token signing key (HMAC-SHA256).
+            </summary>
+        </member>
+        <member name="F:Milvonion.Api.AppStartup.StartupExtensions.MinTokenSigningKeyLength">
+            <summary>
+            Shortest signing key HMAC-SHA256 accepts, in UTF-8 bytes (256 bits).
+            </summary>
+        </member>
+        <member name="M:Milvonion.Api.AppStartup.StartupExtensions.EnsureTokenSigningKey(Microsoft.AspNetCore.Builder.WebApplicationBuilder)">
+            <summary>
+            Makes sure the access token signing key (<see cref="F:Milvonion.Api.AppStartup.StartupExtensions.TokenSigningKeyConfigurationKey"/>) is configured before the
+            identity services read it. The key is a secret, so the appsettings files leave it empty: a shared environment sets
+            it through the environment (<c>Milvasoft__Identity__Token__SymmetricPublicKey</c>), a developer through user secrets.
+            Outside Development a missing or too short key stops the startup with a message that names the setting, instead of
+            a key length error from the token library or, worse, a key everybody knows. In Development a random key is
+            generated for this run and a warning is written, so a fresh clone (and <c>dotnet ef</c>) starts without setup; the
+            tokens issued with it stop working on the next start.
+            </summary>
+            <param name="builder"></param>
+            <returns></returns>
         </member>
         <member name="M:Milvonion.Api.AppStartup.StartupExtensions.AddAuthorization(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Extensions.Configuration.IConfigurationManager)">
             <summary>
@@ -67,13 +83,6 @@
             <param name="assemblies"></param>
             <returns></returns>
         </member>
-        <member name="M:Milvonion.Api.AppStartup.StartupExtensions.AddHealthCheck(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Extensions.Configuration.IConfiguration)">
-            <summary>
-            Adds health check services.
-            </summary>
-            <param name="services">The service collection.</param>
-            <param name="configuration">The configuration.</param>
-        </member>
         <member name="M:Milvonion.Api.AppStartup.StartupExtensions.AddAndConfigureResponseCompression(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
             <summary>
             Adds brotli and gzip response compression.
@@ -87,6 +96,27 @@
             <param name="services"></param>
             <param name="configuration"></param>
         </member>
+        <member name="M:Milvonion.Api.AppStartup.StartupExtensions.AddObservabilityAndLogging(Microsoft.AspNetCore.Builder.WebApplicationBuilder)">
+            <summary>
+            Adds Serilog logging with environment specific sinks and OpenTelemetry metrics and tracing. The environment comes
+            from <c>MILVA_ENV</c> (dev, test, prod). OpenTelemetry is registered only when <c>OpenTelemetry:CollectorUrl</c> is set
+            and Seq is written only when <c>SeqUri</c> is set, so an empty configuration still starts the application.
+            </summary>
+            <param name="builder"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Milvonion.Api.AppStartup.StartupExtensions.ApplyEnvironmentSpecificLogging(Serilog.LoggerConfiguration,System.String,System.String,System.String,System.String)">
+            <summary>
+            Adds the sinks of the current environment: dev writes to the console, test to Seq, prod to the OpenTelemetry
+            collector and Seq. An environment whose sink is not configured (or an unknown environment) falls back to the console.
+            </summary>
+            <param name="loggerConfig"></param>
+            <param name="environment"></param>
+            <param name="serviceName"></param>
+            <param name="collectorUrl"></param>
+            <param name="seqUri"></param>
+            <returns></returns>
+        </member>
         <member name="T:Milvonion.Api.AppStartup.IApiMarker">
             <summary>
             Dummy class for integration test.
@@ -94,41 +124,131 @@
         </member>
         <member name="T:Milvonion.Api.AppStartup.MissingResxKeyFinder">
             <summary>
-            Finds missing resx keys.
+            Finds localization keys that the application uses but are missing from one or more .resx files.
+            Paths are resolved from the solution root (the folder containing <see cref="F:Milvonion.Api.AppStartup.MissingResxKeyFinder._solutionFileName"/>), so it works both
+            when the API runs (working directory is the project folder) and in unit tests (working directory is the bin folder).
             </summary>
         </member>
         <member name="M:Milvonion.Api.AppStartup.MissingResxKeyFinder.FindAndPrintToConsole">
             <summary>
-            Finds missing keys in .resx files.
+            Finds missing keys in .resx files and prints them to the console. Intended for API startup in development:
+            when the source tree is not available (e.g. running inside a container) the check is skipped with a warning instead of throwing.
             </summary>
+            <returns>Missing keys grouped by .resx file name. Empty when nothing is missing or the check is skipped.</returns>
         </member>
-        <member name="M:Milvonion.Api.AppStartup.MissingResxKeyFinder.GetConstantsFromClass(System.Type[])">
+        <member name="M:Milvonion.Api.AppStartup.MissingResxKeyFinder.Find">
             <summary>
-            Gets all contanst strings from the given classes.
+            Finds missing keys in .resx files. Every file is checked on its own, so a key that exists in one culture but not in another is reported too.
             </summary>
+            <returns>Missing keys grouped by .resx file name. Only files with at least one missing key are included.</returns>
+            <exception cref="T:System.IO.DirectoryNotFoundException">The solution root or the resx folder cannot be found.</exception>
+            <exception cref="T:System.IO.FileNotFoundException">The resx folder does not contain any .resx file.</exception>
         </member>
-        <member name="M:Milvonion.Api.AppStartup.MissingResxKeyFinder.FindNameofReferencesInLocalizer(System.String)">
+        <member name="M:Milvonion.Api.AppStartup.MissingResxKeyFinder.GetRequiredKeys(System.String)">
             <summary>
-            Finds all references to `nameof` in the project with localizer.
+            Collects every key the application asks the localizer for.
             </summary>
         </member>
-        <member name="M:Milvonion.Api.AppStartup.MissingResxKeyFinder.ParseNameofExpressionAndGetPropertyName(System.String)">
+        <member name="M:Milvonion.Api.AppStartup.MissingResxKeyFinder.GetKeysFromSourceCode(System.String)">
             <summary>
-            `nameof(Class.Property)` ifadesini parçalar ve sınıf ve özelliğin adını döndürür.
+            Scans .cs files under <paramref name="sourceFolderPath"/> for localizer lookups whose key can be resolved statically:
+            string literals, nameof expressions and <see cref="T:Milvasoft.Core.Utils.Constants.LocalizerKeys"/> references.
             </summary>
         </member>
-        <member name="M:Milvonion.Api.AppStartup.MissingResxKeyFinder.NameofInLocalizerRegex">
+        <member name="M:Milvonion.Api.AppStartup.MissingResxKeyFinder.GetSourceFiles(System.String)">
+            <summary>
+            Gets .cs files under <paramref name="sourceFolderPath"/>, skipping build output folders.
+            </summary>
+        </member>
+        <member name="M:Milvonion.Api.AppStartup.MissingResxKeyFinder.GetFrameworkKeys">
+            <summary>
+            Gets <see cref="T:Milvasoft.Core.Utils.Constants.LocalizerKeys"/> values that the referenced Milvasoft assemblies actually pass to the localizer,
+            by matching them against the string literals in those assemblies' metadata.
+            Values containing whitespace are fallback sentences, not resource keys, so they are ignored.
+            </summary>
+        </member>
+        <member name="M:Milvonion.Api.AppStartup.MissingResxKeyFinder.GetReferencedMilvasoftAssemblyPaths">
+            <summary>
+            Walks the reference graph of the application assemblies and returns the file paths of every Milvasoft assembly in it.
+            </summary>
+        </member>
+        <member name="M:Milvonion.Api.AppStartup.MissingResxKeyFinder.FindSolutionRootPath">
+            <summary>
+            Finds the solution root by walking up from the application base directory and the current directory.
+            </summary>
+        </member>
+        <member name="M:Milvonion.Api.AppStartup.MissingResxKeyFinder.GetConstants(System.Type)">
+            <summary>
+            Gets all constant strings of the given class (including nested hierarchy) as name-value pairs.
+            </summary>
+        </member>
+        <member name="M:Milvonion.Api.AppStartup.MissingResxKeyFinder.PrintToConsole(System.Collections.Generic.Dictionary{System.String,System.Collections.Generic.List{System.String}})">
+            <summary>
+            Prints the result of <see cref="M:Milvonion.Api.AppStartup.MissingResxKeyFinder.Find"/> to the console.
+            </summary>
+        </member>
+        <member name="M:Milvonion.Api.AppStartup.MissingResxKeyFinder.LocalizerLiteralKeyRegex">
             <remarks>
             Pattern:<br/>
-            <code>zer\\[nameof\\(([\\w\\d_\\.]+)\\)\\]</code><br/>
-            Options:<br/>
-            <code>RegexOptions.Compiled</code><br/>
+            <code>[Ll]ocalizer\\??\\[\\s*"(?&lt;key&gt;[^"]+)"</code><br/>
             Explanation:<br/>
             <code>
-            ○ Match the string "zer[nameof(".<br/>
-            ○ 1st capture group.<br/>
-                ○ Match a character in the set [._\w\d] atomically at least once.<br/>
-            ○ Match the string ")]".<br/>
+            ○ Match a character in the set [Ll].<br/>
+            ○ Match the string "ocalizer".<br/>
+            ○ Match '?' atomically, optionally.<br/>
+            ○ Match '['.<br/>
+            ○ Match a whitespace character atomically any number of times.<br/>
+            ○ Match '"'.<br/>
+            ○ "key" capture group.<br/>
+                ○ Match a character other than '"' atomically at least once.<br/>
+            ○ Match '"'.<br/>
+            </code>
+            </remarks>
+        </member>
+        <member name="M:Milvonion.Api.AppStartup.MissingResxKeyFinder.LocalizerNameofKeyRegex">
+            <remarks>
+            Pattern:<br/>
+            <code>[Ll]ocalizer\\??\\[\\s*nameof\\((?&lt;expression&gt;[\\w\\.]+)\\)</code><br/>
+            Explanation:<br/>
+            <code>
+            ○ Match a character in the set [Ll].<br/>
+            ○ Match the string "ocalizer".<br/>
+            ○ Match '?' atomically, optionally.<br/>
+            ○ Match '['.<br/>
+            ○ Match a whitespace character atomically any number of times.<br/>
+            ○ Match the string "nameof(".<br/>
+            ○ "expression" capture group.<br/>
+                ○ Match a character in the set [.\w] atomically at least once.<br/>
+            ○ Match ')'.<br/>
+            </code>
+            </remarks>
+        </member>
+        <member name="M:Milvonion.Api.AppStartup.MissingResxKeyFinder.LocalizerKeysReferenceRegex">
+            <remarks>
+            Pattern:<br/>
+            <code>\\bLocalizerKeys\\.(?&lt;name&gt;\\w+)</code><br/>
+            Explanation:<br/>
+            <code>
+            ○ Match if at a word boundary.<br/>
+            ○ Match the string "LocalizerKeys.".<br/>
+            ○ "name" capture group.<br/>
+                ○ Match a word character atomically at least once.<br/>
+            </code>
+            </remarks>
+        </member>
+        <member name="M:Milvonion.Api.AppStartup.MissingResxKeyFinder.CommentLineRegex">
+            <remarks>
+            Pattern:<br/>
+            <code>^\\s*//.*$</code><br/>
+            Options:<br/>
+            <code>RegexOptions.Multiline</code><br/>
+            Explanation:<br/>
+            <code>
+            ○ Match if at the beginning of a line.<br/>
+            ○ Match a whitespace character atomically any number of times.<br/>
+            ○ Match the string "//".<br/>
+            ○ Match a character other than '\n' greedily any number of times.<br/>
+            ○ Match if at the end of a line.<br/>
             </code>
             </remarks>
         </member>
@@ -150,6 +270,13 @@
             </summary>
             <param name="folderPath">.resx dosyalarının bulunduğu klasör.</param>
             <returns>Anahtarların bir kümesi.</returns>
+        </member>
+        <member name="M:Milvonion.Api.AppStartup.ResxReader.GetKeysByResxFile(System.String)">
+            <summary>
+            Bir klasördeki tüm .resx dosyalarını okur ve anahtarları dosya bazında döner.
+            </summary>
+            <param name="folderPath">.resx dosyalarının bulunduğu klasör.</param>
+            <returns>Dosya adı (klasöre göre göreli yol) ve o dosyadaki anahtarlardan oluşan bir sözlük.</returns>
         </member>
         <member name="T:Milvonion.Api.Controllers.AccountController">
             <summary>
@@ -200,13 +327,13 @@
         </member>
         <member name="M:Milvonion.Api.Controllers.AccountController.AccountDetailsAsync(Milvonion.Application.Features.Account.AccountDetail.AccountDetailQuery,System.Threading.CancellationToken)">
             <summary>
-            User can access his/her account information through this endpoint. If the logged in user and the sent id information do not match, the request will fail.
+            User can access his/her account information through this endpoint. The account is always the caller's own (taken from the token).
             </summary>
             <param name="request"></param>
             <param name="cancellation"></param>
             <returns></returns>
         </member>
-        <member name="M:Milvonion.Api.Controllers.AccountController.AccountDetailsAsync(Milvonion.Application.Dtos.AccountDtos.InternalNotifications.GetAccountNotifications.GetAccountNotificationsQuery,System.Threading.CancellationToken)">
+        <member name="M:Milvonion.Api.Controllers.AccountController.GetNotificationsAsync(Milvonion.Application.Features.Account.GetAccountNotifications.GetAccountNotificationsQuery,System.Threading.CancellationToken)">
             <summary>
             Gets account notifications.
             </summary>
@@ -214,7 +341,7 @@
             <param name="cancellation"></param>
             <returns></returns>
         </member>
-        <member name="M:Milvonion.Api.Controllers.AccountController.MarkNotificationsAsSeenAsync(Milvonion.Application.Dtos.AccountDtos.InternalNotifications.MarkNotificationsAsSeen.MarkNotificationsAsSeenCommand,System.Threading.CancellationToken)">
+        <member name="M:Milvonion.Api.Controllers.AccountController.MarkNotificationsAsSeenAsync(Milvonion.Application.Features.Account.MarkNotificationsAsSeen.MarkNotificationsAsSeenCommand,System.Threading.CancellationToken)">
             <summary>
             Marks notifications as seen.
             </summary>
@@ -222,7 +349,7 @@
             <param name="cancellation"></param>
             <returns></returns>
         </member>
-        <member name="M:Milvonion.Api.Controllers.AccountController.DeleteNotificationsAsync(Milvonion.Application.Dtos.AccountDtos.InternalNotifications.DeleteNotification.DeleteNotificationsCommand,System.Threading.CancellationToken)">
+        <member name="M:Milvonion.Api.Controllers.AccountController.DeleteNotificationsAsync(Milvonion.Application.Features.Account.DeleteNotifications.DeleteNotificationsCommand,System.Threading.CancellationToken)">
             <summary>
             Deletes notifications.
             </summary>
@@ -240,7 +367,7 @@
             Activity Log endpoints.
             </summary>
         </member>
-        <member name="M:Milvonion.Api.Controllers.ActivityLogsController.GetRolesAsync(Milvonion.Application.Features.ActivityLogs.GetActivityLogList.GetActivityLogListQuery,System.Threading.CancellationToken)">
+        <member name="M:Milvonion.Api.Controllers.ActivityLogsController.GetActivityLogsAsync(Milvonion.Application.Features.ActivityLogs.GetActivityLogList.GetActivityLogListQuery,System.Threading.CancellationToken)">
             <summary>
             Gets user activities.
             </summary>
@@ -404,12 +531,12 @@
         </member>
         <member name="T:Milvonion.Api.Controllers.DeveloperController">
             <summary>
-            Developer endpoints.
+            Developer endpoints. Every endpoint requires a super admin and is disabled in production.
             </summary>
         </member>
         <member name="M:Milvonion.Api.Controllers.DeveloperController.#ctor(Milvonion.Application.Interfaces.IDeveloperService)">
             <summary>
-            Developer endpoints.
+            Developer endpoints. Every endpoint requires a super admin and is disabled in production.
             </summary>
         </member>
         <member name="M:Milvonion.Api.Controllers.DeveloperController.MigrateAsync">
@@ -420,7 +547,8 @@
         </member>
         <member name="M:Milvonion.Api.Controllers.DeveloperController.SeedDataAsync">
             <summary>
-            Seeds data for development purposes.
+            Seeds data for development purposes. Accepts the documentation token before the root user exists (no stamp check);
+            it seeds only an empty database ("Already seeded!" otherwise).
             </summary>
             <returns></returns>
         </member>
@@ -432,25 +560,14 @@
         </member>
         <member name="M:Milvonion.Api.Controllers.DeveloperController.InitDatabaseAsync">
             <summary>
-            Initial migration operation.
+            Initial migration operation. Accepts the documentation token before the root user exists (no stamp check);
+            it initializes only an uninitialized database ("Already initialized!" otherwise).
             </summary>
             <returns></returns>
         </member>
         <member name="M:Milvonion.Api.Controllers.DeveloperController.ResetUIRelatedDataAsync">
             <summary>
             Resets ui related data.
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:Milvonion.Api.Controllers.DeveloperController.GetApiLogsAsync(Milvasoft.Components.Rest.Request.ListRequest)">
-            <summary>
-            Gets api logs.
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:Milvonion.Api.Controllers.DeveloperController.GetMethodLogsAsync(Milvasoft.Components.Rest.Request.ListRequest)">
-            <summary>
-            Gets method logs.
             </summary>
             <returns></returns>
         </member>
@@ -478,7 +595,36 @@
         </member>
         <member name="M:Milvonion.Api.Controllers.ExportsController.ExportProductsToExcelAsync(Milvonion.Application.Dtos.ExportDtos.ExportRequest,System.Threading.CancellationToken)">
             <summary>
-            Dynamically creates an excel file according to the export type.
+            Dynamically creates an excel file according to the export type. Answers 503 while the
+            <see cref="F:Milvonion.Domain.FeatureFlagKeys.Export"/> switch is off.
+            </summary>
+            <param name="request"></param>
+            <param name="cancellation"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Milvonion.Api.Controllers.FeatureFlagsController">
+            <summary>
+            Admin control of the runtime kill switches (see FeatureFlagAttribute). A switched off feature answers HTTP 503 on
+            its endpoints from the next request on.
+            </summary>
+        </member>
+        <member name="M:Milvonion.Api.Controllers.FeatureFlagsController.#ctor(MediatR.IMediator)">
+            <summary>
+            Admin control of the runtime kill switches (see FeatureFlagAttribute). A switched off feature answers HTTP 503 on
+            its endpoints from the next request on.
+            </summary>
+        </member>
+        <member name="M:Milvonion.Api.Controllers.FeatureFlagsController.GetFeatureFlagsAsync(Milvonion.Application.Features.FeatureFlags.GetFeatureFlagList.GetFeatureFlagListQuery,System.Threading.CancellationToken)">
+            <summary>
+            Gets feature flags.
+            </summary>
+            <param name="request"></param>
+            <param name="cancellation"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Milvonion.Api.Controllers.FeatureFlagsController.UpdateFeatureFlagAsync(Milvonion.Application.Features.FeatureFlags.UpdateFeatureFlag.UpdateFeatureFlagCommand,System.Threading.CancellationToken)">
+            <summary>
+            Updates feature flag. Only the fields that are sent as isUpdated true are updated.
             </summary>
             <param name="request"></param>
             <param name="cancellation"></param>
@@ -486,7 +632,7 @@
         </member>
         <member name="T:Milvonion.Api.Controllers.HealthCheckController">
             <summary>
-            Health check endpoints.
+            Health check endpoints: a liveness probe and a readiness probe that checks the database and Redis.
             </summary>
         </member>
         <member name="M:Milvonion.Api.Controllers.HealthCheckController.HealthCheck">
@@ -495,12 +641,34 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Milvonion.Api.Controllers.HealthCheckController.Alert(Milvonion.Api.Utils.DefaultNotification)">
+        <member name="M:Milvonion.Api.Controllers.HealthCheckController.ReadyAsync(Microsoft.Extensions.Diagnostics.HealthChecks.HealthCheckService,System.Threading.CancellationToken)">
             <summary>
-            Alert endpoint for sending notifications.
+            Readiness probe: 200 when the database and Redis answer, 503 otherwise, with the state of each check.
             </summary>
-            <param name="defaultNotification"></param>
+            <param name="healthCheckService"></param>
+            <param name="cancellation"></param>
             <returns></returns>
+        </member>
+        <member name="T:Milvonion.Api.Controllers.ReadinessReport">
+            <summary>Result of the readiness probe.</summary>
+        </member>
+        <member name="P:Milvonion.Api.Controllers.ReadinessReport.Status">
+            <summary>Healthy, Degraded or Unhealthy.</summary>
+        </member>
+        <member name="P:Milvonion.Api.Controllers.ReadinessReport.DurationMs">
+            <summary>Total time the checks took.</summary>
+        </member>
+        <member name="P:Milvonion.Api.Controllers.ReadinessReport.Checks">
+            <summary>State of each check by name.</summary>
+        </member>
+        <member name="T:Milvonion.Api.Controllers.ReadinessCheck">
+            <summary>State of one readiness check.</summary>
+        </member>
+        <member name="P:Milvonion.Api.Controllers.ReadinessCheck.Status">
+            <summary>Healthy, Degraded or Unhealthy.</summary>
+        </member>
+        <member name="P:Milvonion.Api.Controllers.ReadinessCheck.Description">
+            <summary>Short detail (never secrets or exception text).</summary>
         </member>
         <member name="T:Milvonion.Api.Controllers.LanguagesController">
             <summary>
@@ -572,10 +740,11 @@
             <param name="cancellation"></param>
             <returns></returns>
         </member>
-        <member name="M:Milvonion.Api.Controllers.PermissionsController.MigratePermissionsAsync">
+        <member name="M:Milvonion.Api.Controllers.PermissionsController.MigratePermissionsAsync(System.Threading.CancellationToken)">
             <summary>
             Migrates permissions to database.
             </summary>
+            <param name="cancellation"></param>
             <returns></returns>
         </member>
         <member name="T:Milvonion.Api.Controllers.RolesController">
@@ -606,7 +775,8 @@
         </member>
         <member name="M:Milvonion.Api.Controllers.RolesController.AddRoleAsync(Milvonion.Application.Features.Roles.CreateRole.CreateRoleCommand,System.Threading.CancellationToken)">
             <summary>
-            Adds role.
+            Adds role. Retry safe with an <c>Idempotency-Key</c> header (roles have no unique name, so a retried request would
+            otherwise create a second role).
             </summary>
             <param name="request"></param>
             <param name="cancellation"></param>
@@ -755,36 +925,54 @@
             <param name="exceptionObject"></param>
             <returns></returns>
         </member>
-        <member name="T:Milvonion.Api.Middlewares.RequestResponseLoggingMiddleware">
+        <member name="M:Milvonion.Api.Middlewares.ExceptionMiddleware.RedactHeaders(Microsoft.AspNetCore.Http.IHeaderDictionary)">
             <summary>
-            For request response logging.
+            Copies the request headers into a plain dictionary, replacing the value of any sensitive header
+            (<see cref="F:Milvonion.Api.Middlewares.ExceptionMiddleware._sensitiveHeaders"/>) with a placeholder so credentials are never written to the log.
+            </summary>
+            <param name="headers">The incoming request headers.</param>
+            <returns>A redacted copy safe to serialize into the log.</returns>
+        </member>
+        <member name="T:Milvonion.Api.Middlewares.SecurityStampValidationMiddleware">
+            <summary>
+            Enforces token revocation. Runs after authentication: for an authenticated request it compares the token's
+            session-stamp claim against the user's current stamp (Redis, with a database fallback). A mismatch means the
+            token was revoked (password change, role change, lock, deletion) and the request is rejected with 401. A token
+            without a stamp claim is rejected as well: every token this API mints (login, refresh, long-lived, documentation)
+            carries one, so a missing claim means a foreign token that could never be revoked.
+            Endpoints marked with <see cref="T:Milvonion.Api.Utils.SkipSessionStampValidationAttribute"/> are not checked.
             </summary>
             <param name="next"></param>
-            <param name="loggerFactory"></param>
         </member>
-        <member name="M:Milvonion.Api.Middlewares.RequestResponseLoggingMiddleware.#ctor(Microsoft.AspNetCore.Http.RequestDelegate,Microsoft.Extensions.Logging.ILoggerFactory)">
+        <member name="M:Milvonion.Api.Middlewares.SecurityStampValidationMiddleware.#ctor(Microsoft.AspNetCore.Http.RequestDelegate)">
             <summary>
-            For request response logging.
+            Enforces token revocation. Runs after authentication: for an authenticated request it compares the token's
+            session-stamp claim against the user's current stamp (Redis, with a database fallback). A mismatch means the
+            token was revoked (password change, role change, lock, deletion) and the request is rejected with 401. A token
+            without a stamp claim is rejected as well: every token this API mints (login, refresh, long-lived, documentation)
+            carries one, so a missing claim means a foreign token that could never be revoked.
+            Endpoints marked with <see cref="T:Milvonion.Api.Utils.SkipSessionStampValidationAttribute"/> are not checked.
             </summary>
             <param name="next"></param>
-            <param name="loggerFactory"></param>
         </member>
-        <member name="M:Milvonion.Api.Middlewares.RequestResponseLoggingMiddleware.Invoke(Microsoft.AspNetCore.Http.HttpContext)">
+        <member name="M:Milvonion.Api.Middlewares.SecurityStampValidationMiddleware.InvokeAsync(Microsoft.AspNetCore.Http.HttpContext)">
             <summary>
-            Logs request and response.
+            Validates the session stamp of the authenticated caller, then invokes the next middleware.
             </summary>
             <param name="context"></param>
             <returns></returns>
         </member>
         <member name="T:Milvonion.Api.Migrations.MigrationHostedService">
             <summary>
-            Applies migrations when the application starts.
+            Applies migrations when the application starts, creates the missing feature flag rows, then loads the language and
+            permission lists the app reads from memory. Every step is idempotent, so it is safe on every startup.
             </summary>
             <param name="scopeFactory"></param>
         </member>
         <member name="M:Milvonion.Api.Migrations.MigrationHostedService.#ctor(Microsoft.Extensions.DependencyInjection.IServiceScopeFactory)">
             <summary>
-            Applies migrations when the application starts.
+            Applies migrations when the application starts, creates the missing feature flag rows, then loads the language and
+            permission lists the app reads from memory. Every step is idempotent, so it is safe on every startup.
             </summary>
             <param name="scopeFactory"></param>
         </member>
@@ -812,16 +1000,6 @@
             Assembly instance.
             </summary>
         </member>
-        <member name="T:Milvonion.Api.Utils.DefaultNotification">
-            <summary>
-            Model for health check alerts.
-            </summary>
-        </member>
-        <member name="P:Milvonion.Api.Utils.DefaultNotification.Message">
-            <summary>
-            Alert message.
-            </summary>
-        </member>
         <member name="T:Milvonion.Api.Utils.DisableFormValueModelBindingAttribute">
             <summary>
             Disables form value model bindings for the current request. For ram optimization.
@@ -833,39 +1011,322 @@
         <member name="M:Milvonion.Api.Utils.DisableFormValueModelBindingAttribute.OnResourceExecuted(Microsoft.AspNetCore.Mvc.Filters.ResourceExecutedContext)">
             <inheritdoc/>
         </member>
+        <member name="T:Milvonion.Api.Utils.EnvelopeAuthorizationResultHandler">
+            <summary>
+            Makes a policy/role denial ("[Auth(permission)]" on an authenticated caller) answer with the same JSON envelope
+            as every other failure (403 + Forbidden message) instead of an empty 403 body. Challenges (401) and successes are
+            delegated to the default handler, whose JWT events already write the envelope.
+            </summary>
+        </member>
+        <member name="M:Milvonion.Api.Utils.EnvelopeAuthorizationResultHandler.HandleAsync(Microsoft.AspNetCore.Http.RequestDelegate,Microsoft.AspNetCore.Http.HttpContext,Microsoft.AspNetCore.Authorization.AuthorizationPolicy,Microsoft.AspNetCore.Authorization.Policy.PolicyAuthorizationResult)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Milvonion.Api.Utils.FeatureFlagAttribute">
+            <summary>
+            Server-side kill switch for endpoints whose feature an admin can switch off (an expensive operation, a paid
+            provider). When the flag is off (see FeatureFlagsController), the request is answered with HTTP 503 before the
+            action runs, so an old client or a direct API call cannot keep using it. Fails OPEN: a missing row or a failed
+            read lets the request through (see <see cref="T:Milvonion.Application.Interfaces.IFeatureFlagService"/>).
+            </summary>
+            <param name="key">One of <see cref="T:Milvonion.Domain.FeatureFlagKeys"/>.</param>
+        </member>
+        <member name="M:Milvonion.Api.Utils.FeatureFlagAttribute.#ctor(System.String)">
+            <summary>
+            Server-side kill switch for endpoints whose feature an admin can switch off (an expensive operation, a paid
+            provider). When the flag is off (see FeatureFlagsController), the request is answered with HTTP 503 before the
+            action runs, so an old client or a direct API call cannot keep using it. Fails OPEN: a missing row or a failed
+            read lets the request through (see <see cref="T:Milvonion.Application.Interfaces.IFeatureFlagService"/>).
+            </summary>
+            <param name="key">One of <see cref="T:Milvonion.Domain.FeatureFlagKeys"/>.</param>
+        </member>
+        <member name="M:Milvonion.Api.Utils.FeatureFlagAttribute.OnActionExecutionAsync(Microsoft.AspNetCore.Mvc.Filters.ActionExecutingContext,Microsoft.AspNetCore.Mvc.Filters.ActionExecutionDelegate)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Milvonion.Api.Utils.IdempotentAttribute">
+            <summary>
+            Makes a create endpoint safe to retry. The client sends the same <c>Idempotency-Key</c> header for every
+            attempt at one user action (a double tap, a request the network lost, the single retry the HTTP layer does
+            after a token refresh); the first attempt claims the key and does the work, later attempts get that
+            attempt's response back instead of creating a second record.
+            </summary>
+            <remarks>
+            <para> Only endpoints that create a row with no natural uniqueness need this (e.g. a role: two roles may share a
+                   name). Upserts, conditional writes and creates guarded by a unique index are idempotent on their own. </para>
+            <para> Requests without the header run untouched, so an older client keeps working. </para>
+            <para> This is a resource filter, not an action filter, so the raw body is still readable: the key is pinned
+                   to a hash of the route and the body it was first used with, and the same key with a different body is
+                   rejected instead of replaying the wrong response. </para>
+            <para> Cost: one extra INSERT on the first attempt; a retry pays one read and answers without doing the work.
+                   Keys are stored per caller, so one user's key can never replay another's response. </para>
+            </remarks>
+        </member>
+        <member name="F:Milvonion.Api.Utils.IdempotentAttribute.HeaderName">
+            <summary>Header carrying the client-generated key.</summary>
+        </member>
+        <member name="F:Milvonion.Api.Utils.IdempotentAttribute.MaxKeyLength">
+            <summary>Longest accepted key (a UUID is 36 characters).</summary>
+        </member>
+        <member name="F:Milvonion.Api.Utils.IdempotentAttribute.MaxHashedBodyBytes">
+            <summary>Bytes of the request body that go into the hash; the guarded endpoints send far less.</summary>
+        </member>
+        <member name="M:Milvonion.Api.Utils.IdempotentAttribute.OnResourceExecutionAsync(Microsoft.AspNetCore.Mvc.Filters.ResourceExecutingContext,Microsoft.AspNetCore.Mvc.Filters.ResourceExecutionDelegate)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Milvonion.Api.Utils.LenientDateOnlyJsonConverter">
+            <summary>
+            Reads a calendar date (<see cref="T:System.DateOnly"/>, e.g. a date of birth) from "yyyy-MM-dd", and also from a full ISO
+            date-time by the date it was written with: "1992-01-01T00:00:00Z" and "1992-01-01T00:00:00+03:00" are both
+            1 January 1992. Reading a date-time through a time zone could move it to the day before; a date never goes through
+            a time zone. Writes "yyyy-MM-dd".
+            </summary>
+        </member>
+        <member name="M:Milvonion.Api.Utils.LenientDateOnlyJsonConverter.Read(System.Text.Json.Utf8JsonReader@,System.Type,System.Text.Json.JsonSerializerOptions)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Milvonion.Api.Utils.LenientDateOnlyJsonConverter.Write(System.Text.Json.Utf8JsonWriter,System.DateOnly,System.Text.Json.JsonSerializerOptions)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Milvonion.Api.Utils.RateLimitAttribute">
+            <summary>
+            Per-caller rate limit for a single endpoint: a light defense-in-depth layer behind the proxy's own
+            throttling. Counts requests in a fixed time window in Redis (atomic INCR + expiry, key <see cref="M:Milvonion.Application.Utils.Helpers.CacheKeys.RateLimit(System.String,System.String,System.Int64)"/>), keyed by the
+            authenticated user (falling back to the client IP for anonymous callers; always the client IP on
+            [AllowAnonymous] endpoints), and returns HTTP 429 once the limit is exceeded. Limits are meant to sit well above
+            normal human usage so they only bite abuse and scripts.
+            Fails OPEN: if Redis is unreachable or errors, the request is allowed through (availability over strictness).
+            </summary>
+            <param name="limit">Max requests allowed within the window.</param>
+            <param name="windowSeconds">Length of the fixed window, in seconds.</param>
+            <param name="name">Stable bucket name (defaults to the action). Endpoints sharing a name share one counter.</param>
+        </member>
+        <member name="M:Milvonion.Api.Utils.RateLimitAttribute.#ctor(System.Int32,System.Int32,System.String)">
+            <summary>
+            Per-caller rate limit for a single endpoint: a light defense-in-depth layer behind the proxy's own
+            throttling. Counts requests in a fixed time window in Redis (atomic INCR + expiry, key <see cref="M:Milvonion.Application.Utils.Helpers.CacheKeys.RateLimit(System.String,System.String,System.Int64)"/>), keyed by the
+            authenticated user (falling back to the client IP for anonymous callers; always the client IP on
+            [AllowAnonymous] endpoints), and returns HTTP 429 once the limit is exceeded. Limits are meant to sit well above
+            normal human usage so they only bite abuse and scripts.
+            Fails OPEN: if Redis is unreachable or errors, the request is allowed through (availability over strictness).
+            </summary>
+            <param name="limit">Max requests allowed within the window.</param>
+            <param name="windowSeconds">Length of the fixed window, in seconds.</param>
+            <param name="name">Stable bucket name (defaults to the action). Endpoints sharing a name share one counter.</param>
+        </member>
+        <member name="M:Milvonion.Api.Utils.RateLimitAttribute.OnActionExecutionAsync(Microsoft.AspNetCore.Mvc.Filters.ActionExecutingContext,Microsoft.AspNetCore.Mvc.Filters.ActionExecutionDelegate)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Milvonion.Api.Utils.ReadinessChecks">
+            <summary>
+            Readiness checks behind <c>GET HealthCheck/ready</c>: the service is ready only when its database and Redis
+            answer. The plain <c>GET HealthCheck</c> stays a liveness probe that touches nothing.
+            </summary>
+        </member>
+        <member name="F:Milvonion.Api.Utils.ReadinessChecks.ReadyTag">
+            <summary>Tag of the checks the readiness endpoint runs.</summary>
+        </member>
+        <member name="M:Milvonion.Api.Utils.ReadinessChecks.AddReadinessChecks(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            Registers the database and Redis readiness checks.
+            </summary>
+            <param name="services"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Milvonion.Api.Utils.DatabaseHealthCheck">
+            <summary>The application database accepts connections.</summary>
+            <param name="dbContextAccessor"></param>
+        </member>
+        <member name="M:Milvonion.Api.Utils.DatabaseHealthCheck.#ctor(Milvonion.Application.Interfaces.IMilvonionDbContextAccessor)">
+            <summary>The application database accepts connections.</summary>
+            <param name="dbContextAccessor"></param>
+        </member>
+        <member name="M:Milvonion.Api.Utils.DatabaseHealthCheck.CheckHealthAsync(Microsoft.Extensions.Diagnostics.HealthChecks.HealthCheckContext,System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Milvonion.Api.Utils.RedisHealthCheck">
+            <summary>Redis answers a PING.</summary>
+            <param name="redisAccessor"></param>
+        </member>
+        <member name="M:Milvonion.Api.Utils.RedisHealthCheck.#ctor(Milvasoft.Caching.Redis.Accessor.IRedisAccessor)">
+            <summary>Redis answers a PING.</summary>
+            <param name="redisAccessor"></param>
+        </member>
+        <member name="M:Milvonion.Api.Utils.RedisHealthCheck.CheckHealthAsync(Microsoft.Extensions.Diagnostics.HealthChecks.HealthCheckContext,System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Milvonion.Api.Utils.ResponseStatusCodeFilter">
+            <summary>
+            Global result filter that sends failed envelopes with a real HTTP status code instead of 200. Handlers
+            keep returning <see cref="T:Milvasoft.Components.Rest.MilvaResponse.IResponse"/> with <c>IsSuccess=false</c>; this filter reads the message key
+            (see <see cref="T:Milvonion.Api.Utils.ResponseStatusCodes"/>) and sets both the wire status and the envelope's
+            <see cref="P:Milvasoft.Components.Rest.MilvaResponse.IResponse.StatusCode"/> so the two never disagree. Results that already carry an explicit
+            non-200 status are left untouched.
+            </summary>
+        </member>
+        <member name="M:Milvonion.Api.Utils.ResponseStatusCodeFilter.OnResultExecutionAsync(Microsoft.AspNetCore.Mvc.Filters.ResultExecutingContext,Microsoft.AspNetCore.Mvc.Filters.ResultExecutionDelegate)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Milvonion.Api.Utils.ResponseStatusCodes">
+            <summary>
+            Maps the message keys handlers put on a failed <see cref="T:Milvasoft.Components.Rest.MilvaResponse.IResponse"/> to the HTTP status code the
+            response should be sent with. Handlers keep returning the envelope (<c>IsSuccess=false</c> + messages);
+            this is the single place that decides whether that failure is a 400, 401, 403, 404, 409, 429, 500 or 503 on the wire.
+            Unknown keys fall back to 400 so a new message key can never accidentally produce a 200.
+            When a new message key is added and it is not a 400, it is added to this table too.
+            </summary>
+        </member>
+        <member name="M:Milvonion.Api.Utils.ResponseStatusCodes.FromKey(System.String)">
+            <summary>
+            Resolves the HTTP status code for a single message key. Unknown or empty keys map to 400.
+            </summary>
+            <param name="messageKey"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Milvonion.Api.Utils.ResponseStatusCodes.FromResponse(Milvasoft.Components.Rest.MilvaResponse.IResponse)">
+            <summary>
+            Resolves the HTTP status code for a failed response from its messages. The first message that maps to a
+            non-400 code wins (a response never carries more than one "reason" in practice); anything else is 400.
+            Successful responses always resolve to 200 regardless of their messages.
+            </summary>
+            <param name="response"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Milvonion.Api.Utils.SkipSessionStampValidationAttribute">
+            <summary>
+            Exempts an endpoint from the token revocation check (<c>SecurityStampValidationMiddleware</c>); authentication and
+            authorization still apply. Only for the bootstrap endpoints that must work before the token's user exists: on a
+            fresh database the documentation (Scalar) token names a root user that is not seeded yet, so its stamp cannot be
+            validated. Such an endpoint must be disabled in production and harmless once the database is initialized.
+            </summary>
+        </member>
         <member name="T:Program">
             <summary>
             Auto-generated public partial Program class for top-level statement apps.
             </summary>
         </member>
-        <member name="T:System.Text.RegularExpressions.Generated.NameofInLocalizerRegex_0">
-            <summary>Custom <see cref="T:System.Text.RegularExpressions.Regex"/>-derived type for the NameofInLocalizerRegex method.</summary>
+        <member name="T:System.Text.RegularExpressions.Generated.LocalizerLiteralKeyRegex_0">
+            <summary>Custom <see cref="T:System.Text.RegularExpressions.Regex"/>-derived type for the LocalizerLiteralKeyRegex method.</summary>
         </member>
-        <member name="F:System.Text.RegularExpressions.Generated.NameofInLocalizerRegex_0.Instance">
+        <member name="F:System.Text.RegularExpressions.Generated.LocalizerLiteralKeyRegex_0.Instance">
             <summary>Cached, thread-safe singleton instance.</summary>
         </member>
-        <member name="M:System.Text.RegularExpressions.Generated.NameofInLocalizerRegex_0.#ctor">
+        <member name="M:System.Text.RegularExpressions.Generated.LocalizerLiteralKeyRegex_0.#ctor">
             <summary>Initializes the instance.</summary>
         </member>
-        <member name="T:System.Text.RegularExpressions.Generated.NameofInLocalizerRegex_0.RunnerFactory">
+        <member name="T:System.Text.RegularExpressions.Generated.LocalizerLiteralKeyRegex_0.RunnerFactory">
             <summary>Provides a factory for creating <see cref="T:System.Text.RegularExpressions.RegexRunner"/> instances to be used by methods on <see cref="T:System.Text.RegularExpressions.Regex"/>.</summary>
         </member>
-        <member name="M:System.Text.RegularExpressions.Generated.NameofInLocalizerRegex_0.RunnerFactory.CreateInstance">
+        <member name="M:System.Text.RegularExpressions.Generated.LocalizerLiteralKeyRegex_0.RunnerFactory.CreateInstance">
             <summary>Creates an instance of a <see cref="T:System.Text.RegularExpressions.RegexRunner"/> used by methods on <see cref="T:System.Text.RegularExpressions.Regex"/>.</summary>
         </member>
-        <member name="T:System.Text.RegularExpressions.Generated.NameofInLocalizerRegex_0.RunnerFactory.Runner">
+        <member name="T:System.Text.RegularExpressions.Generated.LocalizerLiteralKeyRegex_0.RunnerFactory.Runner">
             <summary>Provides the runner that contains the custom logic implementing the specified regular expression.</summary>
         </member>
-        <member name="M:System.Text.RegularExpressions.Generated.NameofInLocalizerRegex_0.RunnerFactory.Runner.Scan(System.ReadOnlySpan{System.Char})">
+        <member name="M:System.Text.RegularExpressions.Generated.LocalizerLiteralKeyRegex_0.RunnerFactory.Runner.Scan(System.ReadOnlySpan{System.Char})">
             <summary>Scan the <paramref name="inputSpan"/> starting from base.runtextstart for the next match.</summary>
             <param name="inputSpan">The text being scanned by the regular expression.</param>
         </member>
-        <member name="M:System.Text.RegularExpressions.Generated.NameofInLocalizerRegex_0.RunnerFactory.Runner.TryFindNextPossibleStartingPosition(System.ReadOnlySpan{System.Char})">
+        <member name="M:System.Text.RegularExpressions.Generated.LocalizerLiteralKeyRegex_0.RunnerFactory.Runner.TryFindNextPossibleStartingPosition(System.ReadOnlySpan{System.Char})">
             <summary>Search <paramref name="inputSpan"/> starting from base.runtextpos for the next location a match could possibly start.</summary>
             <param name="inputSpan">The text being scanned by the regular expression.</param>
             <returns>true if a possible match was found; false if no more matches are possible.</returns>
         </member>
-        <member name="M:System.Text.RegularExpressions.Generated.NameofInLocalizerRegex_0.RunnerFactory.Runner.TryMatchAtCurrentPosition(System.ReadOnlySpan{System.Char})">
+        <member name="M:System.Text.RegularExpressions.Generated.LocalizerLiteralKeyRegex_0.RunnerFactory.Runner.TryMatchAtCurrentPosition(System.ReadOnlySpan{System.Char})">
+            <summary>Determine whether <paramref name="inputSpan"/> at base.runtextpos is a match for the regular expression.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+            <returns>true if the regular expression matches at the current position; otherwise, false.</returns>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.LocalizerNameofKeyRegex_1">
+            <summary>Custom <see cref="T:System.Text.RegularExpressions.Regex"/>-derived type for the LocalizerNameofKeyRegex method.</summary>
+        </member>
+        <member name="F:System.Text.RegularExpressions.Generated.LocalizerNameofKeyRegex_1.Instance">
+            <summary>Cached, thread-safe singleton instance.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.LocalizerNameofKeyRegex_1.#ctor">
+            <summary>Initializes the instance.</summary>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.LocalizerNameofKeyRegex_1.RunnerFactory">
+            <summary>Provides a factory for creating <see cref="T:System.Text.RegularExpressions.RegexRunner"/> instances to be used by methods on <see cref="T:System.Text.RegularExpressions.Regex"/>.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.LocalizerNameofKeyRegex_1.RunnerFactory.CreateInstance">
+            <summary>Creates an instance of a <see cref="T:System.Text.RegularExpressions.RegexRunner"/> used by methods on <see cref="T:System.Text.RegularExpressions.Regex"/>.</summary>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.LocalizerNameofKeyRegex_1.RunnerFactory.Runner">
+            <summary>Provides the runner that contains the custom logic implementing the specified regular expression.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.LocalizerNameofKeyRegex_1.RunnerFactory.Runner.Scan(System.ReadOnlySpan{System.Char})">
+            <summary>Scan the <paramref name="inputSpan"/> starting from base.runtextstart for the next match.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.LocalizerNameofKeyRegex_1.RunnerFactory.Runner.TryFindNextPossibleStartingPosition(System.ReadOnlySpan{System.Char})">
+            <summary>Search <paramref name="inputSpan"/> starting from base.runtextpos for the next location a match could possibly start.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+            <returns>true if a possible match was found; false if no more matches are possible.</returns>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.LocalizerNameofKeyRegex_1.RunnerFactory.Runner.TryMatchAtCurrentPosition(System.ReadOnlySpan{System.Char})">
+            <summary>Determine whether <paramref name="inputSpan"/> at base.runtextpos is a match for the regular expression.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+            <returns>true if the regular expression matches at the current position; otherwise, false.</returns>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.LocalizerKeysReferenceRegex_2">
+            <summary>Custom <see cref="T:System.Text.RegularExpressions.Regex"/>-derived type for the LocalizerKeysReferenceRegex method.</summary>
+        </member>
+        <member name="F:System.Text.RegularExpressions.Generated.LocalizerKeysReferenceRegex_2.Instance">
+            <summary>Cached, thread-safe singleton instance.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.LocalizerKeysReferenceRegex_2.#ctor">
+            <summary>Initializes the instance.</summary>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.LocalizerKeysReferenceRegex_2.RunnerFactory">
+            <summary>Provides a factory for creating <see cref="T:System.Text.RegularExpressions.RegexRunner"/> instances to be used by methods on <see cref="T:System.Text.RegularExpressions.Regex"/>.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.LocalizerKeysReferenceRegex_2.RunnerFactory.CreateInstance">
+            <summary>Creates an instance of a <see cref="T:System.Text.RegularExpressions.RegexRunner"/> used by methods on <see cref="T:System.Text.RegularExpressions.Regex"/>.</summary>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.LocalizerKeysReferenceRegex_2.RunnerFactory.Runner">
+            <summary>Provides the runner that contains the custom logic implementing the specified regular expression.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.LocalizerKeysReferenceRegex_2.RunnerFactory.Runner.Scan(System.ReadOnlySpan{System.Char})">
+            <summary>Scan the <paramref name="inputSpan"/> starting from base.runtextstart for the next match.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.LocalizerKeysReferenceRegex_2.RunnerFactory.Runner.TryFindNextPossibleStartingPosition(System.ReadOnlySpan{System.Char})">
+            <summary>Search <paramref name="inputSpan"/> starting from base.runtextpos for the next location a match could possibly start.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+            <returns>true if a possible match was found; false if no more matches are possible.</returns>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.LocalizerKeysReferenceRegex_2.RunnerFactory.Runner.TryMatchAtCurrentPosition(System.ReadOnlySpan{System.Char})">
+            <summary>Determine whether <paramref name="inputSpan"/> at base.runtextpos is a match for the regular expression.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+            <returns>true if the regular expression matches at the current position; otherwise, false.</returns>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.CommentLineRegex_3">
+            <summary>Custom <see cref="T:System.Text.RegularExpressions.Regex"/>-derived type for the CommentLineRegex method.</summary>
+        </member>
+        <member name="F:System.Text.RegularExpressions.Generated.CommentLineRegex_3.Instance">
+            <summary>Cached, thread-safe singleton instance.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.CommentLineRegex_3.#ctor">
+            <summary>Initializes the instance.</summary>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.CommentLineRegex_3.RunnerFactory">
+            <summary>Provides a factory for creating <see cref="T:System.Text.RegularExpressions.RegexRunner"/> instances to be used by methods on <see cref="T:System.Text.RegularExpressions.Regex"/>.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.CommentLineRegex_3.RunnerFactory.CreateInstance">
+            <summary>Creates an instance of a <see cref="T:System.Text.RegularExpressions.RegexRunner"/> used by methods on <see cref="T:System.Text.RegularExpressions.Regex"/>.</summary>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.CommentLineRegex_3.RunnerFactory.Runner">
+            <summary>Provides the runner that contains the custom logic implementing the specified regular expression.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.CommentLineRegex_3.RunnerFactory.Runner.Scan(System.ReadOnlySpan{System.Char})">
+            <summary>Scan the <paramref name="inputSpan"/> starting from base.runtextstart for the next match.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.CommentLineRegex_3.RunnerFactory.Runner.TryFindNextPossibleStartingPosition(System.ReadOnlySpan{System.Char})">
+            <summary>Search <paramref name="inputSpan"/> starting from base.runtextpos for the next location a match could possibly start.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+            <returns>true if a possible match was found; false if no more matches are possible.</returns>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.CommentLineRegex_3.RunnerFactory.Runner.TryMatchAtCurrentPosition(System.ReadOnlySpan{System.Char})">
             <summary>Determine whether <paramref name="inputSpan"/> at base.runtextpos is a match for the regular expression.</summary>
             <param name="inputSpan">The text being scanned by the regular expression.</param>
             <returns>true if the regular expression matches at the current position; otherwise, false.</returns>
@@ -879,8 +1340,34 @@
         <member name="F:System.Text.RegularExpressions.Generated.Utilities.s_hasTimeout">
             <summary>Whether <see cref="F:System.Text.RegularExpressions.Generated.Utilities.s_defaultTimeout"/> is non-infinite.</summary>
         </member>
-        <member name="F:System.Text.RegularExpressions.Generated.Utilities.s_indexOfString_54CB2C70E6502A70575DA91ABAEF01E6C6FB2D500A5DB83D36B46DAFD3AB0A9B">
-            <summary>Supports searching for the string "zer[nameof(".</summary>
+        <member name="M:System.Text.RegularExpressions.Generated.Utilities.IndexOfNonAsciiOrAny_42B37B117DE1AFB70FA9DD1DDAC53ABC71F751282088ED54F0ACCDE7D1667703(System.ReadOnlySpan{System.Char})">
+            <summary>Finds the next index of any character that matches a character in the set [/\s].</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.Utilities.IsBoundaryWordChar(System.Char)">
+            <summary>Determines whether the specified index is a boundary word character.</summary>
+            <remarks>This is the same as \w plus U+200C ZERO WIDTH NON-JOINER and U+200D ZERO WIDTH JOINER.</remarks>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.Utilities.IsPreWordCharBoundary(System.ReadOnlySpan{System.Char},System.Int32)">
+            <summary>Determines whether the specified index is a boundary.</summary>
+            <remarks>This variant is only employed when the subsequent character will separately be validated as a word character.</remarks>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.Utilities.IsWordChar(System.Char)">
+            <summary>Determines whether the character is part of the [\w] set.</summary>
+        </member>
+        <member name="F:System.Text.RegularExpressions.Generated.Utilities.WordCategoriesMask">
+            <summary>Provides a mask of Unicode categories that combine to form [\w].</summary>
+        </member>
+        <member name="P:System.Text.RegularExpressions.Generated.Utilities.WordCharBitmap">
+            <summary>Gets a bitmap for whether each character 0 through 127 is in [\w]</summary>
+        </member>
+        <member name="F:System.Text.RegularExpressions.Generated.Utilities.s_ascii_FFC1FFFFFE7FFFFFFFFFFFFFFFFFFFFF">
+            <summary>Supports searching for characters in or not in "\0\u0001\u0002\u0003\u0004\u0005\u0006\a\b\u000e\u000f\u0010\u0011\u0012\u0013\u0014\u0015\u0016\u0017\u0018\u0019\u001a\u001b\u001c\u001d\u001e\u001f!\"#$%&amp;'()*+,-.0123456789:;&lt;=&gt;?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~\u007f".</summary>
+        </member>
+        <member name="F:System.Text.RegularExpressions.Generated.Utilities.s_indexOfString_AD4C0C8C28677ED4324C358755AB8859B4BADDA954114F522EB2FA453CA7AF0D">
+            <summary>Supports searching for the string "LocalizerKeys.".</summary>
+        </member>
+        <member name="F:System.Text.RegularExpressions.Generated.Utilities.s_indexOfString_ocalizer_Ordinal">
+            <summary>Supports searching for the string "ocalizer".</summary>
         </member>
         <member name="M:Microsoft.AspNetCore.OpenApi.Generated.DocumentationCommentIdHelper.CreateDocumentationId(System.Type)">
             <summary>

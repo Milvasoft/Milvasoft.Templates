@@ -1,14 +1,13 @@
 ﻿using FluentValidation;
 using Milvasoft.Core.Abstractions.Localization;
 using Milvonion.Application.Behaviours;
-using Milvonion.Application.Features.ContentManagement.Namespaces.CreateNamespace;
 
 namespace Milvonion.Application.Features.ContentManagement.ResourceGroups.CreateResourceGroup;
 
 /// <summary>
-/// Query validations. 
+/// Validations of <see cref="CreateResourceGroupCommand"/>.
 /// </summary>
-public sealed class CreateResourceGroupCommandValidator : AbstractValidator<CreateNamespaceCommand>
+public sealed class CreateResourceGroupCommandValidator : AbstractValidator<CreateResourceGroupCommand>
 {
     ///<inheritdoc cref="CreateResourceGroupCommandValidator"/>
     public CreateResourceGroupCommandValidator(IMilvaLocalizer localizer)

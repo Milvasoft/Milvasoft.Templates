@@ -5,7 +5,7 @@ using Milvonion.Application.Features.Account.Logout;
 namespace Milvonion.Application.Features.Account.RefreshLogin;
 
 /// <summary>
-/// Account detail query validations. 
+/// Validations of <see cref="RefreshLoginCommand"/>.
 /// </summary>
 public sealed class RefreshLoginCommandValidator : AbstractValidator<RefreshLoginCommand>
 {

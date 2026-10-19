@@ -38,6 +38,17 @@ public class ActivityLogListDto : MilvonionBaseDto<int>
     public DateTimeOffset ActivityDate { get; set; }
 
     /// <summary>
+    /// Id of the record the activity acted on. Null when not applicable.
+    /// </summary>
+    public string RelatedId { get; set; }
+
+    /// <summary>
+    /// Optional related detail in JSON format.
+    /// </summary>
+    [Filterable(false)]
+    public string RelatedData { get; set; }
+
+    /// <summary>
     /// Projection expression for mapping ActivityLog entity to ActivityLogListDto.
     /// </summary>
     [JsonIgnore]
@@ -48,5 +59,7 @@ public class ActivityLogListDto : MilvonionBaseDto<int>
         UserName = a.UserName,
         Activity = a.Activity,
         ActivityDate = a.ActivityDate,
+        RelatedId = a.RelatedId,
+        RelatedData = a.RelatedData,
     };
 }

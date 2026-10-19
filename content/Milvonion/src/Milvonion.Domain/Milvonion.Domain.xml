@@ -24,59 +24,14 @@
             Date and time when the activity occurred.
             </summary>
         </member>
-        <member name="T:Milvonion.Domain.ApiLog">
+        <member name="P:Milvonion.Domain.ActivityLog.RelatedId">
             <summary>
-            Entity of the ApiLogs table.
+            Id of the record the activity acted on (e.g. the user or role id), for deep-linking from the log. Null when not applicable.
             </summary>
         </member>
-        <member name="P:Milvonion.Domain.ApiLog.TransactionId">
+        <member name="P:Milvonion.Domain.ActivityLog.RelatedData">
             <summary>
-            Identifier for the API transaction.
-            </summary>
-        </member>
-        <member name="P:Milvonion.Domain.ApiLog.Severity">
-            <summary>
-            Severity level of the API request/response.
-            </summary>
-        </member>
-        <member name="P:Milvonion.Domain.ApiLog.Timestamp">
-            <summary>
-            Date and time when the API request/response occurred.
-            </summary>
-        </member>
-        <member name="P:Milvonion.Domain.ApiLog.Path">
-            <summary>
-            Path of the API endpoint.
-            </summary>
-        </member>
-        <member name="P:Milvonion.Domain.ApiLog.RequestInfoJson">
-            <summary>
-            JSON string containing request information.
-            </summary>
-        </member>
-        <member name="P:Milvonion.Domain.ApiLog.ResponseInfoJson">
-            <summary>
-            Information returned by the API in response to the request as json.
-            </summary>
-        </member>
-        <member name="P:Milvonion.Domain.ApiLog.IpAddress">
-            <summary>
-            IP address of the client making the API request.
-            </summary>
-        </member>
-        <member name="P:Milvonion.Domain.ApiLog.ElapsedMs">
-            <summary>
-            Elapsed time in ms.
-            </summary>
-        </member>
-        <member name="P:Milvonion.Domain.ApiLog.UserName">
-            <summary>
-            Username of the user associated with the API request.
-            </summary>
-        </member>
-        <member name="P:Milvonion.Domain.ApiLog.Exception">
-            <summary>
-            Exception in request if exists.
+            Optional related detail in JSON format (extra routing/display context for the related record).
             </summary>
         </member>
         <member name="T:Milvonion.Domain.ContentManagement.Content">
@@ -247,7 +202,92 @@
         </member>
         <member name="T:Milvonion.Domain.Enums.UserActivity">
             <summary>
-            User activity types.
+            User activity types. The numeric value is stored in <c>ActivityLogs</c>, so values are explicit and never reused.
+            </summary>
+        </member>
+        <member name="F:Milvonion.Domain.Enums.UserActivity.CreateUser">
+            <summary>
+            User added.
+            </summary>
+        </member>
+        <member name="F:Milvonion.Domain.Enums.UserActivity.UpdateUser">
+            <summary>
+            User updated.
+            </summary>
+        </member>
+        <member name="F:Milvonion.Domain.Enums.UserActivity.DeleteUser">
+            <summary>
+            User deleted.
+            </summary>
+        </member>
+        <member name="F:Milvonion.Domain.Enums.UserActivity.CreateRole">
+            <summary>
+            Role added.
+            </summary>
+        </member>
+        <member name="F:Milvonion.Domain.Enums.UserActivity.UpdateRole">
+            <summary>
+            Role updated.
+            </summary>
+        </member>
+        <member name="F:Milvonion.Domain.Enums.UserActivity.DeleteRole">
+            <summary>
+            Role deleted.
+            </summary>
+        </member>
+        <member name="F:Milvonion.Domain.Enums.UserActivity.CreateNamespace">
+            <summary>
+            Namespace added.
+            </summary>
+        </member>
+        <member name="F:Milvonion.Domain.Enums.UserActivity.UpdateNamespace">
+            <summary>
+            Namespace updated.
+            </summary>
+        </member>
+        <member name="F:Milvonion.Domain.Enums.UserActivity.DeleteNamespace">
+            <summary>
+            Namespace deleted.
+            </summary>
+        </member>
+        <member name="F:Milvonion.Domain.Enums.UserActivity.CreateResourceGroup">
+            <summary>
+            Resource Group added.
+            </summary>
+        </member>
+        <member name="F:Milvonion.Domain.Enums.UserActivity.UpdateResourceGroup">
+            <summary>
+            Resource Group updated.
+            </summary>
+        </member>
+        <member name="F:Milvonion.Domain.Enums.UserActivity.DeleteResourceGroup">
+            <summary>
+            Resource Group deleted.
+            </summary>
+        </member>
+        <member name="F:Milvonion.Domain.Enums.UserActivity.CreateContent">
+            <summary>
+            Content added.
+            </summary>
+        </member>
+        <member name="F:Milvonion.Domain.Enums.UserActivity.UpdateContent">
+            <summary>
+            Content updated.
+            </summary>
+        </member>
+        <member name="F:Milvonion.Domain.Enums.UserActivity.DeleteContent">
+            <summary>
+            Content deleted.
+            </summary>
+        </member>
+        <member name="F:Milvonion.Domain.Enums.UserActivity.UpdateLanguages">
+            <summary>
+            Languages updated.
+            </summary>
+        </member>
+        <member name="F:Milvonion.Domain.Enums.UserActivity.UpdateFeatureFlag">
+            <summary>
+            Feature flag updated.
             </summary>
         </member>
         <member name="T:Milvonion.Domain.Enums.UserType">
@@ -264,6 +304,70 @@
             <summary>
             Can see user profile and view screens.
             </summary>
+        </member>
+        <member name="T:Milvonion.Domain.FeatureFlag">
+            <summary>
+            A runtime kill switch an admin flips from the management endpoints. When <see cref="P:Milvonion.Domain.FeatureFlag.IsEnabled"/> is false the
+            feature behind <see cref="P:Milvonion.Domain.FeatureFlag.Key"/> is disabled for everyone: the endpoints marked with that key answer HTTP 503
+            before their action runs (e.g. an expensive or paid integration is switched off while a quota is hit).
+            Every key in <see cref="F:Milvonion.Domain.FeatureFlagKeys.All"/> gets a row on startup, and a missing row reads as enabled (fail-open).
+            </summary>
+        </member>
+        <member name="P:Milvonion.Domain.FeatureFlag.Key">
+            <summary>Stable key, one of <see cref="T:Milvonion.Domain.FeatureFlagKeys"/>. Unique.</summary>
+        </member>
+        <member name="P:Milvonion.Domain.FeatureFlag.IsEnabled">
+            <summary>Whether the feature is currently on. false = kill switch engaged (feature off for everyone).</summary>
+        </member>
+        <member name="P:Milvonion.Domain.FeatureFlag.Reason">
+            <summary>Optional short reason for the switch (e.g. "Quota"). Null when enabled or unset.</summary>
+        </member>
+        <member name="T:Milvonion.Domain.FeatureFlagKeys">
+            <summary>
+            The canonical set of feature flag keys: the single source of truth for what can be switched off. A new key is
+            added here and to <see cref="F:Milvonion.Domain.FeatureFlagKeys.All"/>; its row is created on the next startup.
+            </summary>
+        </member>
+        <member name="F:Milvonion.Domain.FeatureFlagKeys.Export">
+            <summary>Excel exports (one export reads up to the export row limit in a single request).</summary>
+        </member>
+        <member name="F:Milvonion.Domain.FeatureFlagKeys.All">
+            <summary>All known keys, in display order.</summary>
+        </member>
+        <member name="T:Milvonion.Domain.IdempotencyKey">
+            <summary>
+            One client-supplied idempotency key: "this user already sent this create request". A retry of the same
+            action (double tap, a request the network lost, the client's single retry after a token refresh) carries
+            the same <c>Idempotency-Key</c> header, hits the same row and gets the first attempt's response back
+            instead of creating a second record. Rows are short lived: <c>IdempotencyKeyCleanerJob</c> prunes them,
+            so the table stays small and hot.
+            </summary>
+            <remarks>
+            The primary key is <c>(UserId, Key)</c>: a key is only ever valid for the caller that minted it, so one
+            user can never consume another's. <see cref="P:Milvonion.Domain.IdempotencyKey.RequestHash"/> pins the key to the request it was first used
+            with; the same key with a different body is rejected instead of silently replaying the wrong response.
+            </remarks>
+        </member>
+        <member name="P:Milvonion.Domain.IdempotencyKey.UserId">
+            <summary>Caller the key belongs to (part of the primary key).</summary>
+        </member>
+        <member name="P:Milvonion.Domain.IdempotencyKey.Key">
+            <summary>The key the client sent (part of the primary key).</summary>
+        </member>
+        <member name="P:Milvonion.Domain.IdempotencyKey.Endpoint">
+            <summary>Route the key was first used on, for diagnostics.</summary>
+        </member>
+        <member name="P:Milvonion.Domain.IdempotencyKey.RequestHash">
+            <summary>SHA-256 of the route and the bound request, so the same key cannot be reused for another request.</summary>
+        </member>
+        <member name="P:Milvonion.Domain.IdempotencyKey.ResponseData">
+            <summary>The first attempt's response envelope (JSON), replayed verbatim to retries. Null while the request is still running.</summary>
+        </member>
+        <member name="P:Milvonion.Domain.IdempotencyKey.CompletedAt">
+            <summary>When the first attempt finished successfully. Null means "in progress" (or abandoned).</summary>
+        </member>
+        <member name="P:Milvonion.Domain.IdempotencyKey.CreationDate">
+            <summary>When the key was claimed. Drives both the abandoned-claim takeover and the cleanup job.</summary>
         </member>
         <member name="T:Milvonion.Domain.InternalNotification">
             <summary>
@@ -427,36 +531,6 @@
             Request body.
             </summary>
         </member>
-        <member name="T:Milvonion.Domain.JsonModels.ResponseInfo">
-            <summary>
-            Information returned by the API in response to the request.
-            </summary>
-        </member>
-        <member name="P:Milvonion.Domain.JsonModels.ResponseInfo.StatusCode">
-            <summary>
-            Status code of response.
-            </summary>
-        </member>
-        <member name="P:Milvonion.Domain.JsonModels.ResponseInfo.Headers">
-            <summary>
-            Response headers.
-            </summary>
-        </member>
-        <member name="P:Milvonion.Domain.JsonModels.ResponseInfo.Length">
-            <summary>
-            Response length.
-            </summary>
-        </member>
-        <member name="P:Milvonion.Domain.JsonModels.ResponseInfo.Body">
-            <summary>
-            Response body.
-            </summary>
-        </member>
-        <member name="P:Milvonion.Domain.JsonModels.ResponseInfo.ContentType">
-            <summary>
-            Response content type.
-            </summary>
-        </member>
         <member name="T:Milvonion.Domain.Language">
             <summary>
             Language entity.
@@ -476,7 +550,8 @@
         </member>
         <member name="T:Milvonion.Domain.MethodLog">
             <summary>
-            Entity of the MethodLogs table.
+            Shape of a method log entry produced by the <c>[Log]</c> interceptor. It is not a table: <c>MilvonionDbLogger</c>
+            deserializes the entry into it and writes it to the log pipeline (Serilog), never to the application database.
             </summary>
         </member>
         <member name="T:Milvonion.Domain.Permission">
@@ -732,6 +807,11 @@
             Entity of the Users table.
             </summary>
         </member>
+        <member name="F:Milvonion.Domain.User.NameMaxLength">
+            <summary>
+            Column length of <see cref="P:Milvonion.Domain.User.Name"/> and <see cref="P:Milvonion.Domain.User.Surname"/>; the create and update validators use the same limit.
+            </summary>
+        </member>
         <member name="P:Milvonion.Domain.User.Name">
             <summary>
             First name of the user.
@@ -744,12 +824,20 @@
         </member>
         <member name="P:Milvonion.Domain.User.UserType">
             <summary>
-            Last name of the user.
+            Type of the user.
             </summary>
         </member>
         <member name="P:Milvonion.Domain.User.AllowedNotifications">
             <summary>
             Allowed notification types for this user.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Domain.User.SessionStamp">
+            <summary>
+            Revocation stamp. Baked into the access token at login; every request compares the token's
+            stamp against the current value (cached in Redis, the database is the source of truth). Rotating it
+            (password change, role change, lock, deletion) instantly invalidates every existing access
+            token of this user. Null until the user's first token is minted (assigned lazily by the security stamp store).
             </summary>
         </member>
         <member name="P:Milvonion.Domain.User.LastModificationDate">

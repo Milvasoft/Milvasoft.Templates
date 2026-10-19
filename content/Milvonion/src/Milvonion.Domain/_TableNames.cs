@@ -11,8 +11,6 @@ public static class TableNames
     public const string Permissions = nameof(Permissions);
     public const string RolePermissionRelations = nameof(RolePermissionRelations);
     public const string ActivityLogs = nameof(ActivityLogs);
-    public const string ApiLogs = nameof(ApiLogs);
-    public const string MethodLogs = nameof(MethodLogs);
     public const string UserSessions = nameof(UserSessions);
     public const string UserSessionHistories = nameof(UserSessionHistories);
     public const string MenuItems = nameof(MenuItems);
@@ -28,5 +26,7 @@ public static class TableNames
     public const string ResourceGroups = nameof(ResourceGroups);
     public const string Languages = nameof(Languages);
     public const string InternalNotifications = nameof(InternalNotifications);
+    public const string IdempotencyKeys = nameof(IdempotencyKeys);
+    public const string FeatureFlags = nameof(FeatureFlags);
 }
 #pragma warning restore CS1591 // Missing XML comment for publicly visible type or member

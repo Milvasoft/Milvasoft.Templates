@@ -1,5 +1,4 @@
 ﻿using Milvasoft.Components.CQRS.Query;
-using Milvasoft.Components.Rest.Enums;
 using Milvasoft.Components.Rest.MilvaResponse;
 using Milvasoft.Core.Abstractions;
 using Milvonion.Application.Dtos.UserDtos;
@@ -20,7 +19,7 @@ public class GetUserDetailQueryHandler(IMilvonionRepositoryBase<User> userReposi
         var user = await _userRepository.GetByIdAsync(request.UserId, projection: UserDetailDto.Projection, cancellationToken: cancellationToken);
 
         if (user == null)
-            return Response<UserDetailDto>.Success(user, MessageKey.UserNotFound, MessageType.Warning);
+            return Response<UserDetailDto>.Error(null, MessageKey.UserNotFound);
 
         return Response<UserDetailDto>.Success(user);
     }

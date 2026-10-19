@@ -5,7 +5,7 @@ using Milvonion.Application.Behaviours;
 namespace Milvonion.Application.Features.Pages.GetPageAccessibilityForCurrentUser;
 
 /// <summary>
-/// Account detail query validations. 
+/// Validations of <see cref="GetPageAccessibilityForCurrentUserQuery"/>.
 /// </summary>
 public sealed class GetPageAccessibilityForCurrentUserQueryValidator : AbstractValidator<GetPageAccessibilityForCurrentUserQuery>
 {

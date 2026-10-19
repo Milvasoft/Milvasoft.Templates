@@ -16,23 +16,34 @@ namespace Milvonion.Domain;
 /// </summary>
 [Table(TableNames.Users)]
 [Index(nameof(UserName), nameof(IsDeleted), nameof(DeletionDate), IsUnique = true)]
+// The composite index above does not enforce uniqueness among active users: under Postgres' default NULLS DISTINCT
+// their NULL DeletionDate makes every row distinct. The plain unique index on the normalized user name both serves
+// the login/create lookups and enforces uniqueness at the database level, matching the application, which rejects a
+// name already present on ANY row (soft-deleted included). The e-mail is unique too, but only when it is set: it is
+// optional (the root user has none), so that index is filtered and configured in MilvonionDbContext.OnModelCreating.
+[Index(nameof(NormalizedUserName), IsUnique = true)]
 [DontIndexCreationDate]
 public class User : MilvaUser<int>, IFullAuditable<int>
 {
     /// <summary>
+    /// Column length of <see cref="Name"/> and <see cref="Surname"/>; the create and update validators use the same limit.
+    /// </summary>
+    public const int NameMaxLength = 100;
+
+    /// <summary>
     /// First name of the user.
     /// </summary>
-    [MaxLength(100)]
+    [MaxLength(NameMaxLength)]
     public string Name { get; set; }
 
     /// <summary>
     /// Last name of the user.
     /// </summary>
-    [MaxLength(100)]
+    [MaxLength(NameMaxLength)]
     public string Surname { get; set; }
 
     /// <summary>
-    /// Last name of the user.
+    /// Type of the user.
     /// </summary>
     public UserType UserType { get; set; } = UserType.AppUser;
 
@@ -41,6 +52,15 @@ public class User : MilvaUser<int>, IFullAuditable<int>
     /// </summary>
     [Column(TypeName = "jsonb")]
     public List<NotificationType> AllowedNotifications { get; set; } = [];
+
+    /// <summary>
+    /// Revocation stamp. Baked into the access token at login; every request compares the token's
+    /// stamp against the current value (cached in Redis, the database is the source of truth). Rotating it
+    /// (password change, role change, lock, deletion) instantly invalidates every existing access
+    /// token of this user. Null until the user's first token is minted (assigned lazily by the security stamp store).
+    /// </summary>
+    [MaxLength(64)]
+    public string SessionStamp { get; set; }
 
     #region Auditing
 

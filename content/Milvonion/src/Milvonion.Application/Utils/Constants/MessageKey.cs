@@ -8,6 +8,7 @@ public static class MessageKey
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
     public const string SessionTimeout = "SessionTimeout";
     public const string UserExists = "User.ExistWithSameUsername";
+    public const string EmailExists = "User.ExistWithSameEmail";
     public const string UserNotFound = "User.NotFound";
     public const string RoleNotFound = "Role.NotFound";
     public const string WrongPassword = "WrongPassword";
@@ -27,6 +28,7 @@ public static class MessageKey
     public const string GlobalValue = "Global.Value";
     public const string GlobalNameSurname = "Global.NameSurname";
     public const string GlobalName = "Global.Name";
+    public const string GlobalSurname = "Global.Surname";
     public const string GlobalDescription = "Global.Description";
     public const string GlobalPassword = "Global.Password";
     public const string GlobalEmail = "Global.Email";
@@ -37,6 +39,7 @@ public static class MessageKey
     public const string PostgreBasedException = nameof(PostgreBasedException);
     public const string Unauthorized = nameof(Unauthorized);
     public const string Forbidden = nameof(Forbidden);
+    public const string TooManyRequests = nameof(TooManyRequests);
     public const string DefaultValueCannotModify = nameof(DefaultValueCannotModify);
     public const string PleaseSendCorrect = nameof(PleaseSendCorrect);
     public const string IdentityInvalidUsername = nameof(IdentityInvalidUsername);
@@ -46,6 +49,7 @@ public static class MessageKey
     public const string Minutes = nameof(Minutes);
     public const string Seconds = nameof(Seconds);
     public const string Locked = nameof(Locked);
+    public const string LockedIndefinite = nameof(LockedIndefinite);
     public const string LockWarning = nameof(LockWarning);
     public const string NamespaceNotFound = nameof(NamespaceNotFound);
     public const string ResourceGroupNotFound = nameof(ResourceGroupNotFound);
@@ -65,5 +69,12 @@ public static class MessageKey
     public const string UserActivityCreateMessage = nameof(UserActivityCreateMessage);
     public const string UserActivityUpdateMessage = nameof(UserActivityUpdateMessage);
     public const string UserActivityDeleteMessage = nameof(UserActivityDeleteMessage);
+    public const string InvalidIdempotencyKey = nameof(InvalidIdempotencyKey);
+    public const string IdempotencyKeyReused = nameof(IdempotencyKeyReused);
+    public const string RequestInProgress = nameof(RequestInProgress);
+    public const string FeatureDisabled = nameof(FeatureDisabled);
+    public const string FeatureFlagNotFound = nameof(FeatureFlagNotFound);
+    public const string FeatureFlag = "Global.FeatureFlag";
+    public const string GlobalReason = "Global.Reason";
 #pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 }

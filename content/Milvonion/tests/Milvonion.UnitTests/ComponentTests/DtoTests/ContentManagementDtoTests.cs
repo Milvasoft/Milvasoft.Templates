@@ -30,7 +30,7 @@ public class ContentManagementDtoTests
         var namespaceDto = new NameIntNavigationDto { Id = 1, Name = "TestNamespace" };
         var resourceGroupDto = new NameIntNavigationDto { Id = 1, Name = "TestResourceGroup" };
         var medias = new List<MediaDto> { new() { Id = 1, Type = "image", Value = [1, 2, 3] } };
-        var auditInfo = new AuditDto<int>(new Content { CreationDate = DateTime.Now, CreatorUserName = "TestUser" });
+        var auditInfo = new AuditDto<int>(new Content { CreationDate = DateTime.UtcNow, CreatorUserName = "TestUser" });
 
         // Act
         var contentDetailDto = new ContentDetailDto

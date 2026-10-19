@@ -3,7 +3,7 @@
 namespace Milvonion.Application.Features.InternalNotifications.GetInternalNotificationList;
 
 /// <summary>
-/// Account detail query validations. 
+/// Validations of <see cref="GetInternalNotificationListQuery"/>.
 /// </summary>
 public sealed class GetInternalNotificationListQueryValidator : AbstractValidator<GetInternalNotificationListQuery>
 {

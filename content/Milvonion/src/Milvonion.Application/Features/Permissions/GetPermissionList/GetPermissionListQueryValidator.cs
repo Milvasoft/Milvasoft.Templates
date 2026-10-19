@@ -3,7 +3,7 @@
 namespace Milvonion.Application.Features.Permissions.GetPermissionList;
 
 /// <summary>
-/// Account detail query validations. 
+/// Validations of <see cref="GetPermissionListQuery"/>.
 /// </summary>
 public sealed class GetPermissionListQueryValidator : AbstractValidator<GetPermissionListQuery>
 {

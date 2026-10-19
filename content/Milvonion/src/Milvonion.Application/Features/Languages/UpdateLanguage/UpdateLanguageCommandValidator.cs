@@ -6,7 +6,7 @@ using Milvonion.Application.Features.Roles.UpdateRole;
 namespace Milvonion.Application.Features.Languages.UpdateLanguage;
 
 /// <summary>
-/// Account detail query validations. 
+/// Validations of <see cref="UpdateLanguageCommand"/>.
 /// </summary>
 public sealed class UpdateLanguageCommandValidator : AbstractValidator<UpdateLanguageCommand>
 {

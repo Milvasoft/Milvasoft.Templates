@@ -20,6 +20,9 @@ public class GetGroupedContentListQueryHandler(IMilvonionDbContextAccessor dbCon
     /// <inheritdoc/>
     public async Task<ListResponse<GroupedContentListDto>> Handle(GetGroupedContentListQuery request, CancellationToken cancellationToken)
     {
+        request.PageNumber ??= 1;
+        request.RowCount = request.RowCount.ClampRowCount(20);
+
         var query = _dbContext.Set<Content>()
                               .AsNoTrackingWithIdentityResolution()
                               .WithFiltering(request.Filtering)

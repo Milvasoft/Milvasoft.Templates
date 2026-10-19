@@ -155,6 +155,16 @@ public static partial class PermissionCatalog
         public const string Delete = "InternalNotificationManagement.Delete";
     }
 
+    [Description("Feature Flag Management")]
+    public static class FeatureFlagManagement
+    {
+        [Description("Feature flag list permission.")]
+        public const string List = "FeatureFlagManagement.List";
+
+        [Description("Feature flag update (switch a feature on or off) permission")]
+        public const string Update = "FeatureFlagManagement.Update";
+    }
+
     /// <summary>
     /// Gets all permissions in the system as grouped by permission group.
     /// </summary>

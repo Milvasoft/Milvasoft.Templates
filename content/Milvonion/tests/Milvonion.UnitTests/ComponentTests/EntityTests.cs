@@ -21,8 +21,6 @@ public class EntityTests
         TableNames.Permissions.Should().Be("Permissions");
         TableNames.RolePermissionRelations.Should().Be("RolePermissionRelations");
         TableNames.ActivityLogs.Should().Be("ActivityLogs");
-        TableNames.ApiLogs.Should().Be("ApiLogs");
-        TableNames.MethodLogs.Should().Be("MethodLogs");
         TableNames.UserSessions.Should().Be("UserSessions");
         TableNames.MenuItems.Should().Be("MenuItems");
         TableNames.MenuItemTranslations.Should().Be("MenuItemTranslations");
@@ -35,7 +33,7 @@ public class EntityTests
         TableNames.Medias.Should().Be("Medias");
         TableNames.Namespaces.Should().Be("Namespaces");
         TableNames.ResourceGroups.Should().Be("ResourceGroups");
-        TableNames.EfMigrationHistory.Should().Be("_MigrationHistory");
+        TableNames.EfMigrationHistory.Should().Be("_EFMigrationHistory");
     }
 
     [Fact]
@@ -370,7 +368,7 @@ public class EntityTests
         // Arrange
         var userName = "TestUser";
         var activity = UserActivity.CreateUser;
-        var activityDate = DateTimeOffset.Now;
+        var activityDate = DateTimeOffset.UtcNow;
 
         // Act
         var activityLog = new ActivityLog
@@ -384,64 +382,6 @@ public class EntityTests
         activityLog.UserName.Should().Be(userName);
         activityLog.Activity.Should().Be(activity);
         activityLog.ActivityDate.Should().Be(activityDate);
-    }
-
-    [Fact]
-    public void ApiLog_PropertyGetterSetter_ShouldWorkCorrectly()
-    {
-        // Arrange
-        var transactionId = "TestTransactionId";
-        var severity = "High";
-        var timestamp = DateTimeOffset.Now;
-        var path = "/api/test";
-        var requestInfoJson = new RequestInfo
-        {
-            Method = "GET",
-            AbsoluteUri = "http://localhost/api/test",
-            QueryString = "?param=value",
-            Headers = new { Header1 = "value1" },
-            ContentLength = 123,
-            Body = new { Param = "value" }
-        };
-        var responseInfoJson = new ResponseInfo
-        {
-            StatusCode = 200,
-            Headers = new { Header1 = "value1" },
-            Length = 456,
-            Body = new { Result = "success" },
-            ContentType = "application/json"
-        };
-        var ipAddress = "127.0.0.1";
-        var elapsedMs = 100;
-        var userName = "TestUser";
-        var exception = "TestException";
-
-        // Act
-        var apiLog = new ApiLog
-        {
-            TransactionId = transactionId,
-            Severity = severity,
-            Timestamp = timestamp,
-            Path = path,
-            RequestInfoJson = requestInfoJson,
-            ResponseInfoJson = responseInfoJson,
-            IpAddress = ipAddress,
-            ElapsedMs = elapsedMs,
-            UserName = userName,
-            Exception = exception
-        };
-
-        // Assert
-        apiLog.TransactionId.Should().Be(transactionId);
-        apiLog.Severity.Should().Be(severity);
-        apiLog.Timestamp.Should().Be(timestamp);
-        apiLog.Path.Should().Be(path);
-        apiLog.RequestInfoJson.Should().BeEquivalentTo(requestInfoJson);
-        apiLog.ResponseInfoJson.Should().BeEquivalentTo(responseInfoJson);
-        apiLog.IpAddress.Should().Be(ipAddress);
-        apiLog.ElapsedMs.Should().Be(elapsedMs);
-        apiLog.UserName.Should().Be(userName);
-        apiLog.Exception.Should().Be(exception);
     }
 
     [Fact]
@@ -611,11 +551,11 @@ public class EntityTests
         var userName = "TestUserName";
         var accessFailedCount = 0;
         var email = "test@example.com";
-        var creationDate = DateTime.Now;
+        var creationDate = DateTime.UtcNow;
         var creatorUserName = "CreatorUser";
-        var lastModificationDate = DateTime.Now;
+        var lastModificationDate = DateTime.UtcNow;
         var lastModifierUserName = "ModifierUser";
-        var deletionDate = DateTime.Now;
+        var deletionDate = DateTime.UtcNow;
         var deleterUserName = "DeleterUser";
         var name = "TestName";
         var surname = "TestSurname";
@@ -625,7 +565,7 @@ public class EntityTests
         var phoneNumberConfirmed = true;
         var sessions = new List<UserSession> { new() { AccessToken = "AccessToken", RefreshToken = "RefreshToken" } };
         var lockoutEnabled = true;
-        var lockoutEnd = DateTime.Now;
+        var lockoutEnd = DateTime.UtcNow;
         var normalizedEmail = "TEST@EXAMPLE.COM";
         var normalizedUserName = "TESTUSERNAME";
         var passwordHash = "PasswordHash";
@@ -774,6 +714,7 @@ public class EntityTests
                 UserId = s.UserId,
                 DeviceId = s.DeviceId,
                 CreationDate = s.CreationDate,
+                IpAddress = s.IpAddress,
                 ExpiryDate = s.ExpiryDate,
             }).ToList(),
             IsDeleted = u.IsDeleted,
@@ -808,8 +749,8 @@ public class EntityTests
                 RefreshToken = s.RefreshToken,
                 UserId = s.UserId,
                 DeviceId = s.DeviceId,
-                IpAddress = s.IpAddress,
                 CreationDate = s.CreationDate,
+                IpAddress = s.IpAddress,
                 ExpiryDate = s.ExpiryDate,
             }).ToList(),
             RoleRelations = u.RoleRelations.Select(r => new UserRoleRelation
@@ -901,6 +842,18 @@ public class EntityTests
             UserName = u.UserName,
             Email = u.Email,
             PasswordHash = u.PasswordHash,
+            Sessions = u.Sessions.Select(s => new UserSession
+            {
+                Id = s.Id,
+                AccessToken = s.AccessToken,
+                RefreshToken = s.RefreshToken,
+                UserId = s.UserId,
+                DeviceId = s.DeviceId,
+                CreationDate = s.CreationDate,
+                ExpiryDate = s.ExpiryDate,
+                UserName = s.UserName,
+                IpAddress = s.IpAddress
+            }).ToList(),
             IsDeleted = u.IsDeleted,
         };
 
@@ -945,7 +898,7 @@ public class EntityTests
         var userName = "TestUser";
         var accessToken = "TestAccessToken";
         var refreshToken = "TestRefreshToken";
-        var expiryDate = DateTime.Now.AddHours(1);
+        var expiryDate = DateTime.UtcNow.AddHours(1);
         var deviceId = "TestDeviceId";
         var userId = 1;
         var user = new User { Name = "Test", Surname = "User" };
@@ -1019,9 +972,9 @@ public class EntityTests
             UserName = s.UserName,
             UserId = s.UserId,
             DeviceId = s.DeviceId,
-            IpAddress = s.IpAddress,
             CreationDate = s.CreationDate,
             ExpiryDate = s.ExpiryDate,
+            IpAddress = s.IpAddress,
         };
 
         // Act

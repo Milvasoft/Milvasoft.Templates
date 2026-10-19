@@ -126,6 +126,12 @@
   <data name="User.ExistWithSameUsername" xml:space="preserve">
     <value>Aynı kullanıcı adı ile kullanıcı mevcut!</value>
   </data>
+  <data name="User.ExistWithSameEmail" xml:space="preserve">
+    <value>Aynı e-posta ile kullanıcı mevcut!</value>
+  </data>
+  <data name="TooManyRequests" xml:space="preserve">
+    <value>Çok fazla istek gönderdiniz. Lütfen biraz yavaşlayıp tekrar deneyin.</value>
+  </data>
   <data name="Role.NotFound" xml:space="preserve">
     <value>Rol bulunamadı!</value>
   </data>
@@ -275,6 +281,9 @@
   </data>
   <data name="Locked" xml:space="preserve">
     <value>Art arda başarısız giriş denemesi yaptığınızdan dolayı hesabınız kilitlenmiştir. {0} sonra tekrar deneyin.</value>
+  </data>
+  <data name="LockedIndefinite" xml:space="preserve">
+    <value>Hesabınız kilitlendi. Lütfen destek ile iletişime geçin.</value>
   </data>
   <data name="LockWarning" xml:space="preserve">
     <value>{0} geçersiz deneme sonucunda oturum kilitlenecektir.</value>
@@ -585,9 +594,6 @@
   <data name="Global.Message" xml:space="preserve">
     <value>Mesaj</value>
   </data>
-  <data name="ExpenseRevenueNotFound" xml:space="preserve">
-    <value>Gelir/Gider bulunamadı!</value>
-  </data>
   <data name="ExpenseRevenue" xml:space="preserve">
     <value>Gelir/Gider</value>
   </data>
@@ -617,9 +623,6 @@ Maksimum dosya boyutu:
   <data name="Global.CreationDate" xml:space="preserve">
     <value>Oluşturulma Tarihi</value>
   </data>
-  <data name="ProductFilesNotFound" xml:space="preserve">
-    <value>Silmek istediğiniz dosyalar bulunamadı!</value>
-  </data>
   <data name="Global.ResourceGroup" xml:space="preserve">
     <value>Resource Group</value>
   </data>
@@ -629,26 +632,14 @@ Maksimum dosya boyutu:
   <data name="Global.Product" xml:space="preserve">
     <value>Ürün</value>
   </data>
-  <data name="ProductNotFound" xml:space="preserve">
-    <value>Ürün bulunamadı!</value>
-  </data>
   <data name="Global.Category" xml:space="preserve">
     <value>Ürün Kategorisi</value>
-  </data>
-  <data name="CategoryNotFound" xml:space="preserve">
-    <value>Kategori bulunamadı!</value>
   </data>
   <data name="Global.AdditionalInformations" xml:space="preserve">
     <value>Ek Bilgiler</value>
   </data>
   <data name="Global.MetaTag" xml:space="preserve">
     <value>Meta Tag</value>
-  </data>
-  <data name="SiteSettingNotFound" xml:space="preserve">
-    <value>Site ayarları bulunamadı!</value>
-  </data>
-  <data name="ContactFormNotFound" xml:space="preserve">
-    <value>İletişim Formu bulunamadı!</value>
   </data>
   <data name="Password" xml:space="preserve">
     <value>Şifre</value>
@@ -805,5 +796,167 @@ Maksimum dosya boyutu:
   </data>
   <data name="UserActivityDeleteMessage" xml:space="preserve">
     <value>{0} silme</value>
+  </data>
+  <data name="App" xml:space="preserve">
+    <value>Uygulama</value>
+  </data>
+  <data name="ContentQueryType" xml:space="preserve">
+    <value>İçerik Sorgu Tipi</value>
+  </data>
+  <data name="ContentQueryType.Key" xml:space="preserve">
+    <value>Anahtar</value>
+  </data>
+  <data name="ContentQueryType.Namespace" xml:space="preserve">
+    <value>Namespace</value>
+  </data>
+  <data name="ContentQueryType.ResourceGroup" xml:space="preserve">
+    <value>Resource Grup</value>
+  </data>
+  <data name="ExportType" xml:space="preserve">
+    <value>Dışa Aktarma Türü</value>
+  </data>
+  <data name="Global.ActivityLog" xml:space="preserve">
+    <value>aktivite kaydı</value>
+  </data>
+  <data name="Global.EfMigrationHistory" xml:space="preserve">
+    <value>migration geçmişi</value>
+  </data>
+  <data name="Global.Languages" xml:space="preserve">
+    <value>dil</value>
+  </data>
+  <data name="Global.MenuGroup" xml:space="preserve">
+    <value>menü grubu</value>
+  </data>
+  <data name="Global.MenuItem" xml:space="preserve">
+    <value>menü öğesi</value>
+  </data>
+  <data name="Global.MigrationHistory" xml:space="preserve">
+    <value>migration geçmişi</value>
+  </data>
+  <data name="Global.PageAction" xml:space="preserve">
+    <value>sayfa aksiyonu</value>
+  </data>
+  <data name="Global.Permission" xml:space="preserve">
+    <value>yetki</value>
+  </data>
+  <data name="Global.RolePermissionRelation" xml:space="preserve">
+    <value>rol yetkisi</value>
+  </data>
+  <data name="Global.UserRoleRelation" xml:space="preserve">
+    <value>kullanıcı rolü</value>
+  </data>
+  <data name="Global.UserSession" xml:space="preserve">
+    <value>oturum</value>
+  </data>
+  <data name="Global.UserSessionHistory" xml:space="preserve">
+    <value>oturum geçmişi</value>
+  </data>
+  <data name="GoogleChatSpace" xml:space="preserve">
+    <value>Google Chat Alanı</value>
+  </data>
+  <data name="GoogleChatSpace.HubNotifications" xml:space="preserve">
+    <value>Hub bildirimleri</value>
+  </data>
+  <data name="GoogleChatSpace.MonitoringAlerts" xml:space="preserve">
+    <value>İzleme alarmları</value>
+  </data>
+  <data name="IdentityConcurrencyFailure" xml:space="preserve">
+    <value>Kayıt başka bir işlem tarafından değiştirildi, lütfen tekrar deneyin.</value>
+  </data>
+  <data name="IdentityDuplicateRoleName" xml:space="preserve">
+    <value>Bu isimde başka bir rol bulunuyor.</value>
+  </data>
+  <data name="IdentityInvalidRoleName" xml:space="preserve">
+    <value>Geçersiz bir rol adı girdiniz.</value>
+  </data>
+  <data name="IdentityInvalidUserName" xml:space="preserve">
+    <value>Geçersiz bir kullanıcı adı girdiniz.</value>
+  </data>
+  <data name="IdentityLoginAlreadyAssociated" xml:space="preserve">
+    <value>Bu giriş yöntemi zaten başka bir hesaba bağlı.</value>
+  </data>
+  <data name="IdentityRecoveryCodeRedemptionFailed" xml:space="preserve">
+    <value>Kurtarma kodu kullanılamadı.</value>
+  </data>
+  <data name="IdentityUserAlreadyHasPassword" xml:space="preserve">
+    <value>Kullanıcının zaten bir şifresi var.</value>
+  </data>
+  <data name="IdentityUserAlreadyInRole" xml:space="preserve">
+    <value>Kullanıcı zaten bu role sahip.</value>
+  </data>
+  <data name="IdentityUserNotInRole" xml:space="preserve">
+    <value>Kullanıcı bu role sahip değil.</value>
+  </data>
+  <data name="InternalNotificationManagement" xml:space="preserve">
+    <value>Dahili Bildirim</value>
+  </data>
+  <data name="InvalidEmail" xml:space="preserve">
+    <value>Geçersiz bir e-posta adresi girdiniz.</value>
+  </data>
+  <data name="InvalidUserName" xml:space="preserve">
+    <value>Geçersiz bir kullanıcı adı girdiniz.</value>
+  </data>
+  <data name="NotAllowed" xml:space="preserve">
+    <value>Bu işlem için izniniz yok.</value>
+  </data>
+  <data name="NotificationEntity" xml:space="preserve">
+    <value>Bildirim Kaynağı</value>
+  </data>
+  <data name="NotificationEntity.None" xml:space="preserve">
+    <value>Yok</value>
+  </data>
+  <data name="NotificationType" xml:space="preserve">
+    <value>Bildirim Türü</value>
+  </data>
+  <data name="NotificationType.OrderApproved" xml:space="preserve">
+    <value>Sipariş onaylandı</value>
+  </data>
+  <data name="PG.InternalNotificationManagement" xml:space="preserve">
+    <value>Dahili bildirim yönetimi izinleri</value>
+  </data>
+  <data name="UserType" xml:space="preserve">
+    <value>Kullanıcı Tipi</value>
+  </data>
+  <data name="UserValidationEmailLength" xml:space="preserve">
+    <value>E-posta adresi en fazla 70 karakter olabilir.</value>
+  </data>
+  <data name="UserValidationUserNameLength" xml:space="preserve">
+    <value>Kullanıcı adı 3 ile 25 karakter arasında olmalıdır.</value>
+  </data>
+  <data name="UserValidationUserNameNumberStartWith" xml:space="preserve">
+    <value>Kullanıcı adı rakamla başlayamaz.</value>
+  </data>
+  <data name="InvalidIdempotencyKey" xml:space="preserve">
+    <value>Geçersiz Idempotency-Key başlığı. En fazla 64 karakterlik harf, rakam, "-" veya "_" gönderin.</value>
+  </data>
+  <data name="IdempotencyKeyReused" xml:space="preserve">
+    <value>Bu Idempotency-Key başka bir istek için kullanıldı.</value>
+  </data>
+  <data name="RequestInProgress" xml:space="preserve">
+    <value>Aynı istek hâlâ işleniyor. Lütfen birazdan tekrar deneyin.</value>
+  </data>
+  <data name="FeatureDisabled" xml:space="preserve">
+    <value>Bu özellik şu anda kullanılamıyor. Lütfen daha sonra tekrar deneyin.</value>
+  </data>
+  <data name="FeatureFlagNotFound" xml:space="preserve">
+    <value>Özellik anahtarı bulunamadı!</value>
+  </data>
+  <data name="Global.FeatureFlag" xml:space="preserve">
+    <value>özellik anahtarı</value>
+  </data>
+  <data name="Global.IdempotencyKey" xml:space="preserve">
+    <value>idempotency anahtarı</value>
+  </data>
+  <data name="FeatureFlagManagement" xml:space="preserve">
+    <value>Özellik Anahtarı</value>
+  </data>
+  <data name="PG.FeatureFlagManagement" xml:space="preserve">
+    <value>Özellik anahtarı yönetimi izinleri</value>
+  </data>
+  <data name="Global.Reason" xml:space="preserve">
+    <value>Sebep</value>
+  </data>
+  <data name="UI.FeatureFlagManagement" xml:space="preserve">
+    <value>Özellik Anahtarları</value>
   </data>
 </root>

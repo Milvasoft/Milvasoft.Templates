@@ -5,7 +5,7 @@ using Milvonion.Application.Behaviours;
 namespace Milvonion.Application.Features.Roles.UpdateRole;
 
 /// <summary>
-/// Account detail query validations. 
+/// Validations of <see cref="UpdateRoleCommand"/>.
 /// </summary>
 public sealed class UpdateRoleCommandValidator : AbstractValidator<UpdateRoleCommand>
 {

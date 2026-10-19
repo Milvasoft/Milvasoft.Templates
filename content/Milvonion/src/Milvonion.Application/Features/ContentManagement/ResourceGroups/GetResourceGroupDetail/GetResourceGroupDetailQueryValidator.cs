@@ -4,7 +4,7 @@ using Milvasoft.Core.Abstractions.Localization;
 namespace Milvonion.Application.Features.ContentManagement.ResourceGroups.GetResourceGroupDetail;
 
 /// <summary>
-/// Query validations. 
+/// Validations of <see cref="GetResourceGroupDetailQuery"/>.
 /// </summary>
 public sealed class GetResourceGroupDetailQueryValidator : AbstractValidator<GetResourceGroupDetailQuery>
 {

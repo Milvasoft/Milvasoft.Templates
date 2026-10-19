@@ -16,6 +16,9 @@ public class GetRoleListQueryHandler(IMilvonionRepositoryBase<Role> roleReposito
     /// <inheritdoc/>
     public async Task<ListResponse<RoleListDto>> Handle(GetRoleListQuery request, CancellationToken cancellationToken)
     {
+        request.PageNumber ??= 1;
+        request.RowCount = request.RowCount.ClampRowCount(20);
+
         var response = await _roleRepository.GetAllAsync(request, projection: RoleListDto.Projection, cancellationToken: cancellationToken);
 
         return response;

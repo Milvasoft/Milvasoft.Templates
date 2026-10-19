@@ -1,4 +1,5 @@
 ﻿using Milvasoft.Components.CQRS.Command;
+using Milvasoft.Interception.Interceptors.Logging;
 
 namespace Milvonion.Application.Features.Users.CreateUser;
 
@@ -33,8 +34,9 @@ public record CreateUserCommand : ICommand<int>
     public string Surname { get; set; }
 
     /// <summary>
-    /// Password of the user.    
+    /// Password of the user.
     /// </summary>
+    [LogMasked]
     public string Password { get; set; }
 
     /// <summary>

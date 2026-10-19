@@ -1,9 +1,11 @@
 using Asp.Versioning;
 using Microsoft.AspNetCore.Mvc;
+using Milvonion.Api.Utils;
 using Milvonion.Application.Dtos.ExportDtos;
 using Milvonion.Application.Interfaces;
 using Milvonion.Application.Utils.Attributes;
 using Milvonion.Application.Utils.Constants;
+using Milvonion.Domain;
 using System.Net;
 
 namespace Milvonion.Api.Controllers;
@@ -20,13 +22,15 @@ public class ExportsController(IExportService exportService) : ControllerBase
     private readonly IExportService _exportService = exportService;
 
     /// <summary>
-    /// Dynamically creates an excel file according to the export type.
+    /// Dynamically creates an excel file according to the export type. Answers 503 while the
+    /// <see cref="FeatureFlagKeys.Export"/> switch is off.
     /// </summary>
     /// <param name="request"></param>
     /// <param name="cancellation"></param>
     /// <returns></returns>
     [Auth]
     [HttpPost("export")]
+    [FeatureFlag(FeatureFlagKeys.Export)]
     [ProducesDefaultResponseType(typeof(FileResult))]
     [ProducesResponseType(typeof(FileResult), 200)]
     [ProducesResponseType(typeof(NotFoundResult), 400)]
@@ -40,8 +44,6 @@ public class ExportsController(IExportService exportService) : ControllerBase
             return Ok(fileResponse);
         }
 
-        // Ignroing response logging for file download.
-        HttpContext.Items.Add(GlobalConstant.IgnoreResponseLoggingItemsKey, true);
         Response.ContentType = fileResponse.Data.MimeType;
         Response.StatusCode = (int)HttpStatusCode.OK;
 

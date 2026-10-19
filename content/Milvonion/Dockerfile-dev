@@ -1,0 +1,15 @@
+# Development / test image (with a shell, for debugging). Build context = the solution root (the .dockerignore applies
+# and the src/* projects are copied). Set MILVA_ENV (dev or test) and the settings listed in the production Dockerfile
+# at run time.
+FROM mcr.microsoft.com/dotnet/sdk:10.0-noble AS build
+ARG BUILD_CONFIGURATION=Release
+WORKDIR /src
+COPY . .
+RUN dotnet restore "src/Milvonion.Api/Milvonion.Api.csproj"
+RUN dotnet publish "src/Milvonion.Api/Milvonion.Api.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false --no-restore
+
+FROM mcr.microsoft.com/dotnet/aspnet:10.0-noble AS final
+WORKDIR /app
+EXPOSE 8080
+COPY --from=build /app/publish .
+ENTRYPOINT ["dotnet", "Milvonion.Api.dll"]

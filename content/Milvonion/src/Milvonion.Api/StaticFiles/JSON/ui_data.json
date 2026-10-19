@@ -31,33 +31,12 @@
   ],
   "menuItems": [
     {
-      "id": 32,
-      "groupId": 21,
-      "permissionOrGroupNames": [
-        "App.SuperAdmin",
-        "NotificationManagement.List"
-      ],
-      "translations": [
-        {
-          "languageId": 21,
-          "name": "Bildirim Yönetimi"
-        },
-        {
-          "languageId": 22,
-          "name": "Notification Management"
-        }
-      ],
-      "url": "/notifications",
-      "pageName": "NotificationManagement",
-      "order": 1,
-      "children": []
-    },
-    {
       "order": 99,
       "groupId": 21,
       "permissionOrGroupNames": [
         "App.SuperAdmin",
         "UserManagement.List",
+        "RoleManagement.List",
         "ActivityLogManagement.List"
       ],
       "translations": [
@@ -72,9 +51,9 @@
       ],
       "children": [
         {
-          "order": 96,
-          "url": "/notifications",
-          "pageName": "NotificationManagement",
+          "order": 95,
+          "url": "/users",
+          "pageName": "UserManagement",
           "permissionOrGroupNames": [
             "App.SuperAdmin",
             "UserManagement.List"
@@ -82,14 +61,14 @@
           "translations": [
             {
               "languageId": 21,
-              "name": "Bildirim Yönetimi"
+              "name": "Kullanıcılar"
             },
             {
               "languageId": 22,
-              "name": "Notification Management"
+              "name": "Users"
             }
           ],
-          "id": 32,
+          "id": 40,
           "groupId": 21,
           "children": []
         },
@@ -146,6 +125,8 @@
       "permissionOrGroupNames": [
         "App.SuperAdmin",
         "ContentManagement.List",
+        "NamespaceManagement.List",
+        "ResourceGroupManagement.List",
         "LanguageManagement.List"
       ],
       "translations": [
@@ -186,7 +167,7 @@
           "pageName": "NamespaceManagement",
           "permissionOrGroupNames": [
             "App.SuperAdmin",
-            "ContentManagement.List"
+            "NamespaceManagement.List"
           ],
           "translations": [
             {
@@ -208,7 +189,7 @@
           "pageName": "ResourceGroupManagement",
           "permissionOrGroupNames": [
             "App.SuperAdmin",
-            "ContentManagement.List"
+            "ResourceGroupManagement.List"
           ],
           "translations": [
             {
@@ -248,36 +229,31 @@
         }
       ],
       "id": 35
+    },
+    {
+      "id": 41,
+      "groupId": 21,
+      "order": 89,
+      "url": "/feature-flags",
+      "pageName": "FeatureFlagManagement",
+      "permissionOrGroupNames": [
+        "App.SuperAdmin",
+        "FeatureFlagManagement.List"
+      ],
+      "translations": [
+        {
+          "languageId": 21,
+          "name": "Özellik Anahtarları"
+        },
+        {
+          "languageId": 22,
+          "name": "Feature Flags"
+        }
+      ],
+      "children": []
     }
   ],
   "pages": [
-    {
-      "Id": 31,
-      "Name": "NotificationManagement",
-      "HasCreate": true,
-      "HasEdit": true,
-      "HasDetail": true,
-      "HasDelete": true,
-      "CreatePermissions": [
-        "App.SuperAdmin",
-        "NotificationManagement.Create"
-      ],
-      "EditPermissions": [
-        "App.SuperAdmin",
-        "NotificationManagement.Edit"
-      ],
-      "DetailPermissions": [
-        "App.SuperAdmin",
-        "NotificationManagement.Detail"
-      ],
-      "DeletePermissions": [
-        "App.SuperAdmin",
-        "NotificationManagement.Delete"
-      ],
-      "AdditionalActions": [],
-      "CreationDate": "2025-11-03T00:00:00",
-      "CreatorUserName": "System"
-    },
     {
       "Name": "UserManagement",
       "HasCreate": true,
@@ -362,19 +338,19 @@
       "HasDelete": true,
       "CreatePermissions": [
         "App.SuperAdmin",
-        "ContentManagement.Create"
+        "NamespaceManagement.Create"
       ],
       "EditPermissions": [
         "App.SuperAdmin",
-        "ContentManagement.Update"
+        "NamespaceManagement.Update"
       ],
       "DetailPermissions": [
         "App.SuperAdmin",
-        "ContentManagement.Detail"
+        "NamespaceManagement.Detail"
       ],
       "DeletePermissions": [
         "App.SuperAdmin",
-        "ContentManagement.Delete"
+        "NamespaceManagement.Delete"
       ],
       "CreationDate": "2025-06-14T00:00:00",
       "CreatorUserName": "System",
@@ -388,19 +364,19 @@
       "HasDelete": true,
       "CreatePermissions": [
         "App.SuperAdmin",
-        "ContentManagement.Create"
+        "ResourceGroupManagement.Create"
       ],
       "EditPermissions": [
         "App.SuperAdmin",
-        "ContentManagement.Update"
+        "ResourceGroupManagement.Update"
       ],
       "DetailPermissions": [
         "App.SuperAdmin",
-        "ContentManagement.Detail"
+        "ResourceGroupManagement.Detail"
       ],
       "DeletePermissions": [
         "App.SuperAdmin",
-        "ContentManagement.Delete"
+        "ResourceGroupManagement.Delete"
       ],
       "CreationDate": "2025-06-14T00:00:00",
       "CreatorUserName": "System",
@@ -429,6 +405,20 @@
         "ContentManagement.Delete"
       ],
       "CreationDate": "2025-06-14T00:00:00",
+      "CreatorUserName": "System",
+      "AdditionalActions": []
+    },
+    {
+      "Name": "FeatureFlagManagement",
+      "HasCreate": false,
+      "HasEdit": true,
+      "HasDetail": false,
+      "HasDelete": false,
+      "EditPermissions": [
+        "App.SuperAdmin",
+        "FeatureFlagManagement.Update"
+      ],
+      "CreationDate": "2026-10-19T00:00:00",
       "CreatorUserName": "System",
       "AdditionalActions": []
     }

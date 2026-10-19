@@ -1,0 +1,40 @@
+# Local development dependencies: docker compose up -d
+# Redis is required (cache, token revocation stamps, feature flags, rate limits). The application reads it from
+# Milvasoft:Caching:Redis:ConnectionString, whose default (localhost:6379) points at the service below.
+# PostgreSql is optional: point ConnectionStrings:DefaultConnectionString at it
+# (Host=localhost;Port=5432;Database=<your database>;Username=postgres;Password=postgres) or use your own server.
+# Seq is optional: the log sink of MILVA_ENV=test and prod; set SeqUri to http://localhost:5341 to use it (UI on the same url).
+services:
+  redis:
+    image: redis:7-alpine
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis-data:/data
+
+  postgres:
+    image: postgres:17-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+
+  seq:
+    image: datalust/seq:2024.3
+    restart: unless-stopped
+    environment:
+      ACCEPT_EULA: "Y"
+    ports:
+      - "5341:80"
+    volumes:
+      - seq-data:/data
+
+volumes:
+  redis-data:
+  postgres-data:
+  seq-data:

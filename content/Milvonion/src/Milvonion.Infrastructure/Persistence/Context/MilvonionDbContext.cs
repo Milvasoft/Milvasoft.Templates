@@ -23,8 +23,6 @@ public class MilvonionDbContext(DbContextOptions options) : MilvaBulkDbContext(o
     public DbSet<MigrationHistory> MigrationHistory { get; set; }
     public DbSet<EfMigrationHistory> EfMigrationHistory { get; set; }
     public DbSet<ActivityLog> ActivityLogs { get; set; }
-    public DbSet<ApiLog> ApiLogs { get; set; }
-    public DbSet<MethodLog> MethodLogs { get; set; }
     public DbSet<Permission> Permissions { get; set; }
     public DbSet<Role> Roles { get; set; }
     public DbSet<RolePermissionRelation> RolePermissionRelations { get; set; }
@@ -42,5 +40,27 @@ public class MilvonionDbContext(DbContextOptions options) : MilvaBulkDbContext(o
     public DbSet<Namespace> Namespaces { get; set; }
     public DbSet<Language> Languages { get; set; }
     public DbSet<InternalNotification> InternalNotifications { get; set; }
+    public DbSet<IdempotencyKey> IdempotencyKeys { get; set; }
+    public DbSet<FeatureFlag> FeatureFlags { get; set; }
 #pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
+
+    /// <summary>
+    /// Configures what attributes cannot express, in addition to the base Milvasoft model configuration.
+    /// </summary>
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        base.OnModelCreating(modelBuilder);
+
+        // The e-mail is optional (empty for the seeded root user), so only a set e-mail must be unique; NULLs are
+        // distinct anyway. The index name is what UserUniqueConstraintHelper maps to MessageKey.EmailExists.
+        modelBuilder.Entity<User>()
+                    .HasIndex(u => u.NormalizedEmail)
+                    .IsUnique()
+                    .HasFilter("\"NormalizedEmail\" <> ''");
+
+        // Idempotency keys are scoped to their caller: the composite key is the dedupe itself, so a retry
+        // conflicts on insert and one user can never consume another's key. No surrogate id, no navigations.
+        modelBuilder.Entity<IdempotencyKey>()
+                    .HasKey(k => new { k.UserId, k.Key });
+    }
 }

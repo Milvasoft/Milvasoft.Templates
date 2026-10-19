@@ -17,6 +17,9 @@ public class GetNamespaceListQueryHandler(IMilvonionRepositoryBase<Namespace> co
     /// <inheritdoc/>
     public async Task<ListResponse<NamespaceListDto>> Handle(GetNamespaceListQuery request, CancellationToken cancellationToken)
     {
+        request.PageNumber ??= 1;
+        request.RowCount = request.RowCount.ClampRowCount(20);
+
         var response = await _contentNamespaceRepository.GetAllAsync(request, projection: NamespaceListDto.Projection, cancellationToken: cancellationToken);
 
         return response;

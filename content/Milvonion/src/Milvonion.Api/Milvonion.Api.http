@@ -1,6 +1,13 @@
 @Milvonion.Api_HostAddress = http://localhost:xhttpportxx
 
-GET {{Milvonion.Api_HostAddress}}/healthcheck/
+# Liveness: touches nothing.
+GET {{Milvonion.Api_HostAddress}}/xrouteprefixx/v1.0/healthcheck
+Accept: application/json
+
+###
+
+# Readiness: 200 when the database and Redis answer, 503 otherwise.
+GET {{Milvonion.Api_HostAddress}}/xrouteprefixx/v1.0/healthcheck/ready
 Accept: application/json
 
 ###

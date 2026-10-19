@@ -1,5 +1,4 @@
 ﻿using Milvasoft.Components.CQRS.Query;
-using Milvasoft.Components.Rest.Enums;
 using Milvasoft.Components.Rest.MilvaResponse;
 using Milvasoft.Core.Abstractions;
 using Milvonion.Application.Dtos.UIDtos.PageDtos;
@@ -20,7 +19,7 @@ public class GetPageAccessibilityForCurrentUserQueryHandler(IUIService uiService
         var pageDto = await _uiService.GetCurrentUserPageAccessibilityAsync(request.PageName, cancellationToken);
 
         if (pageDto == null)
-            return Response<PageDto>.Success(pageDto, MessageKey.PageNotFound, MessageType.Warning);
+            return Response<PageDto>.Error(null, MessageKey.PageNotFound);
 
         return Response<PageDto>.Success(pageDto);
     }

@@ -1,6 +1,7 @@
 ﻿using FluentValidation;
 using Milvasoft.Core.Abstractions.Localization;
 using Milvasoft.Core.Utils.Constants;
+using Milvasoft.Identity.Abstract;
 
 namespace Milvonion.Application.Behaviours;
 
@@ -9,6 +10,12 @@ namespace Milvonion.Application.Behaviours;
 /// </summary>
 public static class RuleBuilderOptionsExtensions
 {
+    /// <summary>
+    /// E.164 form every phone number sent to the API must match: a "+", the country code and the subscriber number,
+    /// digits only (at most 15).
+    /// </summary>
+    public const string E164PhoneNumberPattern = @"^\+[1-9]\d{6,14}$";
+
     /// <summary>
     /// Checks whether the value is greater than or equal to 21.
     /// </summary>
@@ -70,24 +77,50 @@ public static class RuleBuilderOptionsExtensions
         => ruleBuilder.EmailAddress().WithMessage(localizer[LocalizerKeys.IdentityInvalidEmail]);
 
     /// <summary>
-    /// Checks whether the value is valid phone number.
+    /// Checks whether the value is a valid phone number in the E.164 form (<see cref="E164PhoneNumberPattern"/>).
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <param name="ruleBuilder"></param>
     /// <param name="localizer"></param>
     /// <returns></returns>
     public static IRuleBuilderOptions<T, string> PhoneNumber<T>(this IRuleBuilder<T, string> ruleBuilder, IMilvaLocalizer localizer)
-        => ruleBuilder.Matches(@"^\+90\d{10}$").WithMessage(localizer[MessageKey.InvalidPhoneNumber]);
+        => ruleBuilder.Matches(E164PhoneNumberPattern).WithMessage(localizer[MessageKey.InvalidPhoneNumber]);
 
     /// <summary>
-    /// Checks whether the value is valid phone number.
+    /// Checks whether the value is a valid phone number in the E.164 form (<see cref="E164PhoneNumberPattern"/>).
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <param name="ruleBuilder"></param>
     /// <param name="localizer"></param>
     /// <returns></returns>
     public static IRuleBuilderOptions<T, string> PhoneNumber<T>(this IRuleBuilderOptions<T, string> ruleBuilder, IMilvaLocalizer localizer)
-        => ruleBuilder.Matches(@"^\+90\d{10}$").WithMessage(localizer[MessageKey.InvalidPhoneNumber]);
+        => ruleBuilder.Matches(E164PhoneNumberPattern).WithMessage(localizer[MessageKey.InvalidPhoneNumber]);
+
+    /// <summary>
+    /// Checks the value against the configured Identity password policy (length, digit, casing, symbol), so the
+    /// request is rejected with the localized policy message before any token or database work.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="ruleBuilder"></param>
+    /// <param name="userManager"></param>
+    /// <param name="localizer"></param>
+    /// <returns></returns>
+    public static IRuleBuilderOptions<T, string> IdentityPassword<T>(this IRuleBuilder<T, string> ruleBuilder, IMilvaUserManager<User, int> userManager, IMilvaLocalizer localizer)
+        => ruleBuilder.Must(password => userManager.ValidatePassword(password) is null)
+                      .WithMessage((_, password) => localizer[userManager.ValidatePassword(password)]);
+
+    /// <summary>
+    /// Checks the value against the configured Identity password policy (length, digit, casing, symbol), so the
+    /// request is rejected with the localized policy message before any token or database work.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="ruleBuilder"></param>
+    /// <param name="userManager"></param>
+    /// <param name="localizer"></param>
+    /// <returns></returns>
+    public static IRuleBuilderOptions<T, string> IdentityPassword<T>(this IRuleBuilderOptions<T, string> ruleBuilder, IMilvaUserManager<User, int> userManager, IMilvaLocalizer localizer)
+        => ruleBuilder.Must(password => userManager.ValidatePassword(password) is null)
+                      .WithMessage((_, password) => localizer[userManager.ValidatePassword(password)]);
 
     /// <summary>
     /// Checks whether the value is valid website address.

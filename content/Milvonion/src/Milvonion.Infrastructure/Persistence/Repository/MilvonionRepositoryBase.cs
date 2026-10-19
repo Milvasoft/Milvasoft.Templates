@@ -6,7 +6,7 @@ using Milvonion.Infrastructure.Persistence.Context;
 namespace Milvonion.Infrastructure.Persistence.Repository;
 
 /// <summary>
-/// Constructor of <c>BillRepository</c> class.
+/// Base repository of the application entities.
 /// </summary>
 /// <param name="dbContext"></param>
 public class MilvonionRepositoryBase<TEntity>(MilvonionDbContext dbContext) : BulkBaseRepository<TEntity, MilvonionDbContext>(dbContext), IMilvonionRepositoryBase<TEntity>

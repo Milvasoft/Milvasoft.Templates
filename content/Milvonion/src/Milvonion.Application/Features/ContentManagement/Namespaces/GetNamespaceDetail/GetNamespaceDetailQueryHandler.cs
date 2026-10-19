@@ -1,5 +1,4 @@
 ﻿using Milvasoft.Components.CQRS.Query;
-using Milvasoft.Components.Rest.Enums;
 using Milvasoft.Components.Rest.MilvaResponse;
 using Milvasoft.Core.Abstractions;
 using Milvonion.Application.Dtos.ContentManagementDtos.NamespaceDtos;
@@ -21,7 +20,7 @@ public class GetNamespaceDetailQueryHandler(IMilvonionRepositoryBase<Namespace> 
         var contentNamespace = await _contentNamespaceRepository.GetByIdAsync(request.NamespaceId, projection: NamespaceDetailDto.Projection, cancellationToken: cancellationToken);
 
         if (contentNamespace == null)
-            return Response<NamespaceDetailDto>.Success(contentNamespace, MessageKey.NamespaceNotFound, MessageType.Warning);
+            return Response<NamespaceDetailDto>.Error(null, MessageKey.NamespaceNotFound);
 
         return Response<NamespaceDetailDto>.Success(contentNamespace);
     }

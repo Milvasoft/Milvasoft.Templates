@@ -1,9 +1,11 @@
 ﻿using FluentAssertions;
 using Microsoft.AspNetCore.Http;
+using Milvasoft.Core.Exceptions;
 using Milvasoft.Identity.Abstract;
 using Milvonion.Application.Utils.Constants;
 using Milvonion.Application.Utils.Extensions;
 using Milvonion.Domain.Enums;
+using Milvonion.Infrastructure.Services;
 using Moq;
 using System.Security.Claims;
 
@@ -76,6 +78,45 @@ public class ExtensionsTests
 
         // Assert
         result.Should().BeTrue();
+    }
+
+    [Fact]
+    public void CurrentUser_ShouldReadIdUserNameAndTypeFromTheClaims()
+    {
+        // Arrange
+        List<Claim> claims =
+        [
+            new(ClaimTypes.Name, "test-user"),
+            new(GlobalConstant.UserIdClaimName, "42"),
+            new(GlobalConstant.UserTypeClaimName, nameof(UserType.Manager))
+        ];
+        var httpContext = new DefaultHttpContext { User = new ClaimsPrincipal(new ClaimsIdentity(claims, "TestAuthType")) };
+        var currentUser = new CurrentUser(new HttpContextAccessor { HttpContext = httpContext });
+
+        // Act & Assert
+        currentUser.IsAuthenticated.Should().BeTrue();
+        currentUser.Id.Should().Be(42);
+        currentUser.GetRequiredId().Should().Be(42);
+        currentUser.UserName.Should().Be("test-user");
+        currentUser.UserType.Should().Be(UserType.Manager);
+    }
+
+    [Fact]
+    public void CurrentUser_GetRequiredId_ShouldThrowUnauthorized_WhenTheIdClaimIsMissing()
+    {
+        // Arrange
+        var httpContext = new DefaultHttpContext { User = new ClaimsPrincipal(new ClaimsIdentity()) };
+        var currentUser = new CurrentUser(new HttpContextAccessor { HttpContext = httpContext });
+
+        // Act
+        var act = () => currentUser.GetRequiredId();
+
+        // Assert
+        act.Should().Throw<MilvaUserFriendlyException>();
+        httpContext.Response.StatusCode.Should().Be(StatusCodes.Status401Unauthorized);
+        currentUser.IsAuthenticated.Should().BeFalse();
+        currentUser.Id.Should().BeNull();
+        currentUser.UserType.Should().BeNull();
     }
 
     [Fact]

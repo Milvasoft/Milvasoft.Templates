@@ -21,13 +21,9 @@
   "symbols": {
     "Framework": {
       "type": "parameter",
-      "description": "The target framework for the project.",
+      "description": "The target framework for the project. Only net10.0 is supported (the packages target .NET 10).",
       "datatype": "choice",
       "choices": [
-        {
-          "choice": "net9.0",
-          "description": "Target net9.0"
-        },
         {
           "choice": "net10.0",
           "description": "Target net10.0"
@@ -86,9 +82,12 @@
       "defaultValue": "disable"
     }
   },
+  "guids": [
+    "e8781644-077d-4975-8b31-00179265b6b6" // UserSecretsId of the Api project: every generated project gets its own user secrets store
+  ],
   "primaryOutputs": [
     {
-      "path": "Milvonion.sln"
+      "path": "Milvonion.slnx"
     }
   ],
   "sources": [
@@ -97,7 +96,7 @@
       "target": "./", // copy to root folder
       "modifiers": [
         {
-          "exclude": [ "**/.vs/**", ".template_config/**" ] // exclude unnecessary files
+          "exclude": [ "**/.vs/**", ".template.config/**" ] // exclude unnecessary files
         }
       ],
       "flatten": true // Flatten folder structure, do not copy sub folders

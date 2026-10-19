@@ -12,10 +12,11 @@ namespace Milvonion.Infrastructure.Persistence.Context;
 /// <param name="context"></param>
 public class MilvonionDbContextAccessor(MilvonionDbContext context) : IMilvonionDbContextAccessor
 {
+    private readonly MilvonionDbContext _context = context;
 
     /// <summary>
     /// Db context creation implementation.
     /// </summary>
     /// <returns></returns>
-    public IMilvaBulkDbContextBase GetDbContext() => context;
+    public IMilvaBulkDbContextBase GetDbContext() => _context;
 }

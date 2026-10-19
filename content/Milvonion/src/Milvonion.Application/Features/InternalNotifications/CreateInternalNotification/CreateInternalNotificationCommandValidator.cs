@@ -5,7 +5,7 @@ using Milvonion.Application.Behaviours;
 namespace Milvonion.Application.Features.InternalNotifications.CreateInternalNotification;
 
 /// <summary>
-/// Account detail query validations. 
+/// Validations of <see cref="CreateInternalNotificationCommand"/>.
 /// </summary>
 public sealed class CreateInternalNotificationCommandValidator : AbstractValidator<CreateInternalNotificationCommand>
 {

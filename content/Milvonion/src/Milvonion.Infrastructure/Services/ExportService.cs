@@ -3,6 +3,7 @@ using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Milvasoft.Components.Rest.MilvaResponse;
+using Milvasoft.Components.Rest.Request;
 using Milvasoft.Core.Abstractions.Localization;
 using Milvasoft.Core.Helpers;
 using Milvasoft.Core.Utils.Constants;
@@ -46,6 +47,11 @@ public partial class ExportService(IServiceProvider serviceProvider) : IExportSe
             ? Activator.CreateInstance(request.GetQueryType())
             : JsonSerializer.Deserialize(JsonSerializer.Serialize(request.ListRequest), request.GetQueryType());
 
+        // Bound the export size: an unbounded RowCount would materialize the whole table into one workbook,
+        // and a missing one would fall back to the list endpoint's default page size.
+        if (query is ListRequest listRequest && (listRequest.RowCount == null || listRequest.RowCount > GlobalConstant.MaxExportRowCount))
+            listRequest.RowCount = GlobalConstant.MaxExportRowCount;
+
         var queryResponse = await _mediator.Send(query, cancellationToken);
 
         var fileName = _localizer[$"ExportType.{request.ExportType}"];
@@ -55,7 +61,7 @@ public partial class ExportService(IServiceProvider serviceProvider) : IExportSe
         if (excelStream == null)
             return Response<ExportResult>.Error(null, MessageKey.NoDataToExport);
 
-        var fileNameWithExtension = $"{fileName}_{DateTime.Now:dd-MM-yyyy-HH-mm}.xlsx";
+        var fileNameWithExtension = $"{fileName}_{DateTime.UtcNow:dd-MM-yyyy-HH-mm}.xlsx";
 
         var exportDto = new ExportResult
         {

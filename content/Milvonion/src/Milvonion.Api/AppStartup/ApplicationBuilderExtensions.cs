@@ -1,13 +1,11 @@
-using HealthChecks.UI.Client;
-using HealthChecks.UI.Configuration;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.EntityFrameworkCore;
 using Milvasoft.Core.MultiLanguage.Manager;
 using Milvasoft.Identity.Concrete.Options;
 using Milvasoft.Identity.TokenProvider.AuthToken;
 using Milvasoft.Localization;
+using Milvonion.Application.Interfaces;
 using Milvonion.Application.Utils.Constants;
 using Milvonion.Application.Utils.Extensions;
 using Milvonion.Application.Utils.PermissionManager;
@@ -34,7 +32,8 @@ public static partial class StartupExtensions
         if (MilvonionExtensions.IsCurrentEnvProduction())
             return app;
 
-        app.MapOpenApi(GlobalConstant.RoutePrefix + "/docs/{documentName}/docs.json");
+        // Documentation is reachable without a token (deny-by-default fallback policy); it is never mapped in production.
+        app.MapOpenApi(GlobalConstant.RoutePrefix + "/docs/{documentName}/docs.json").AllowAnonymous();
 
         app.MapScalarApiReference(endpointPrefix: $"/{GlobalConstant.RoutePrefix}/documentation", options =>
         {
@@ -52,7 +51,7 @@ public static partial class StartupExtensions
                        .EnableDarkMode()
                        .AddPreferredSecuritySchemes(JwtBearerDefaults.AuthenticationScheme)
                        .WithCustomCss(".darklight-reference-promo { display: none !important; } .darklight-reference { padding-bottom: 15px !important; } .open-api-client-button { display: none !important; }");
-        });
+        }).AllowAnonymous();
 
         return app;
 
@@ -64,11 +63,33 @@ public static partial class StartupExtensions
 
             var roleClaim = new Claim(ClaimTypes.Role, PermissionCatalog.App.SuperAdmin);
             var userTypeClaim = new Claim(GlobalConstant.UserTypeClaimName, UserType.Manager.ToString());
-            var userClaim = new Claim(ClaimTypes.Name, "rootuser");
+            var userClaim = new Claim(ClaimTypes.Name, GlobalConstant.RootUsername);
+            var userIdClaim = new Claim(GlobalConstant.UserIdClaimName, "1");
 
-            var accessToken = tokenManager.GenerateToken(expired: DateTime.UtcNow.AddYears(1), issuer: null, userClaim, roleClaim, userTypeClaim);
+            // Tokens without a valid security stamp are rejected by SecurityStampValidationMiddleware, so the documentation
+            // token carries the root user's (id 1) current stamp. The token is built each time the documentation page is
+            // served, so after the root user is seeded (database/init or database/seed, which accept this token without a
+            // stamp check) a reload of the page hands out a working token.
+            var stampClaim = new Claim(GlobalConstant.SessionStampClaimName, ResolveStamp(app));
+
+            var accessToken = tokenManager.GenerateToken(expired: DateTime.UtcNow.AddYears(1), issuer: null, userClaim, userIdClaim, roleClaim, userTypeClaim, stampClaim);
 
             return accessToken;
+        }
+
+        static string ResolveStamp(WebApplication app)
+        {
+            try
+            {
+                using var scope = app.Services.CreateScope();
+
+                return scope.ServiceProvider.GetRequiredService<ISecurityStampStore>().GetOrCreateAsync(1).GetAwaiter().GetResult();
+            }
+            catch
+            {
+                // No database or schema yet: the token only reaches the endpoints that skip the stamp check.
+                return string.Empty;
+            }
         }
     }
 
@@ -100,34 +121,6 @@ public static partial class StartupExtensions
         _ = new CultureSwitcher(defaultLanguageCode);
 
         return app.UseRequestLocalization(options);
-    }
-
-    /// <summary>
-    /// Adds the required middleware to use the health check. Configures the options before adding.
-    /// </summary>
-    /// <param name="app">The <see cref="IApplicationBuilder"/> instance.</param>
-    /// <returns>The <see cref="IApplicationBuilder"/> instance.</returns>
-    public static IApplicationBuilder UseHealthCheck(this WebApplication app)
-    {
-        app.UseHealthChecks($"/{GlobalConstant.RoutePrefix}/{GlobalConstant.HealthCheckPath}", new HealthCheckOptions
-        {
-            Predicate = _ => true,
-            ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
-        });
-
-        app.UseHealthChecksUI(delegate (Options options)
-        {
-            options.UseRelativeApiPath = false;
-            options.UseRelativeResourcesPath = false;
-            options.UseRelativeWebhookPath = false;
-            options.UIPath = $"/{GlobalConstant.RoutePrefix}/{GlobalConstant.HealthCheckUIPath}";
-            options.ApiPath = $"{options.UIPath}/{GlobalConstant.RoutePrefix}";
-            options.ResourcesPath = $"/{GlobalConstant.RoutePrefix}/{GlobalConstant.HealthCheckResourcesPath}";
-            options.WebhookPath = $"{options.UIPath}/{GlobalConstant.WWWRoot}";
-            options.AddCustomStylesheet(Path.Combine(Directory.GetCurrentDirectory(), GlobalConstant.WWWRoot, GlobalConstant.HealthCheckResourcesPath, "hc.css"));
-        });
-
-        return app;
     }
 
     /// <summary>

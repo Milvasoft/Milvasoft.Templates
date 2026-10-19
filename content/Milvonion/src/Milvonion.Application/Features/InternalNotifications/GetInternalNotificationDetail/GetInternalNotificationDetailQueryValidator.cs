@@ -4,7 +4,7 @@ using Milvasoft.Core.Abstractions.Localization;
 namespace Milvonion.Application.Features.InternalNotifications.GetInternalNotificationDetail;
 
 /// <summary>
-/// Account detail query validations. 
+/// Validations of <see cref="GetInternalNotificationDetailQuery"/>.
 /// </summary>
 public sealed class GetInternalNotificationDetailQueryValidator : AbstractValidator<GetInternalNotificationDetailQuery>
 {

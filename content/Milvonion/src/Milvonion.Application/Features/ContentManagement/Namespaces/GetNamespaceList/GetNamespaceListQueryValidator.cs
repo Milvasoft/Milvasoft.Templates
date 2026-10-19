@@ -3,7 +3,7 @@
 namespace Milvonion.Application.Features.ContentManagement.Namespaces.GetNamespaceList;
 
 /// <summary>
-/// Account detail query validations. 
+/// Validations of <see cref="GetNamespaceListQuery"/>.
 /// </summary>
 public sealed class GetNamespaceListQueryValidator : AbstractValidator<GetNamespaceListQuery>
 {

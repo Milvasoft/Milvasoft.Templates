@@ -16,6 +16,9 @@ public class GetLanguageListQueryHandler(IMilvonionRepositoryBase<Language> lang
     /// <inheritdoc/>
     public async Task<ListResponse<LanguageDto>> Handle(GetLanguageListQuery request, CancellationToken cancellationToken)
     {
+        request.PageNumber ??= 1;
+        request.RowCount = request.RowCount.ClampRowCount(20);
+
         var response = await _languageRepository.GetAllAsync(request, projection: LanguageDto.Projection, cancellationToken: cancellationToken);
 
         return response;

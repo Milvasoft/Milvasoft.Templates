@@ -4,7 +4,7 @@ using Milvasoft.Core.Abstractions.Localization;
 namespace Milvonion.Application.Features.Account.Login;
 
 /// <summary>
-/// Account detail query validations. 
+/// Validations of <see cref="LoginCommand"/>.
 /// </summary>
 public sealed class LoginCommandValidator : AbstractValidator<LoginCommand>
 {

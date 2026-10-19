@@ -18,49 +18,12 @@ public class MilvonionDbLogger(ILoggerFactory loggerFactory) : IMilvaLogger
     private readonly ILogger _logger = loggerFactory.CreateLogger<MilvonionDbLogger>();
 
     /// <inheritdoc/>
-    public void Log(string logEntry)
-    {
-        if (!_logger.IsEnabled(LogLevel.Information))
-            return;
-
-        // Move expensive operation inside the IsEnabled check
-        var logObject = JsonSerializer.Deserialize<MethodLog>(logEntry);
-
-        _logger.LogInformation("{TransactionId}{Namespace}{ClassName}{MethodName}{MethodParams}{MethodResult}{ElapsedMs}{UtcLogTime}{CacheInfo}{Exception}{IsSuccess}",
-                               logObject.TransactionId,
-                               logObject.Namespace,
-                               logObject.ClassName,
-                               logObject.MethodName,
-                               logObject.MethodParams,
-                               logObject.MethodResult,
-                               logObject.ElapsedMs,
-                               logObject.UtcLogTime,
-                               logObject.CacheInfo,
-                               logObject.Exception,
-                               logObject.IsSuccess);
-    }
+    public void Log(string logEntry) => WriteMethodLog(logEntry);
 
     /// <inheritdoc/>
     public Task LogAsync(string logEntry)
     {
-        if (!_logger.IsEnabled(LogLevel.Information))
-            return Task.CompletedTask;
-
-        // Move expensive operation inside the IsEnabled check
-        var logObject = JsonSerializer.Deserialize<MethodLog>(logEntry);
-
-        _logger.LogInformation("{TransactionId}{Namespace}{ClassName}{MethodName}{MethodParams}{MethodResult}{ElapsedMs}{UtcLogTime}{CacheInfo}{Exception}{IsSuccess}",
-                               logObject.TransactionId,
-                               logObject.Namespace,
-                               logObject.ClassName,
-                               logObject.MethodName,
-                               logObject.MethodParams,
-                               logObject.MethodResult,
-                               logObject.ElapsedMs,
-                               logObject.UtcLogTime,
-                               logObject.CacheInfo,
-                               logObject.Exception,
-                               logObject.IsSuccess);
+        WriteMethodLog(logEntry);
 
         return Task.CompletedTask;
     }
@@ -279,5 +242,35 @@ public class MilvonionDbLogger(ILoggerFactory loggerFactory) : IMilvaLogger
             return;
 
         _logger.LogWarning("Exception : {Message} {Values} ", exception.Message, propertyValues);
+    }
+
+    /// <summary>
+    /// Writes a <c>[Log]</c> method log entry. With <c>LogDefaultParameters</c> off (the template default) the interceptor
+    /// sends an entry without the method name, arguments and result; such an entry carries nothing worth a log line.
+    /// </summary>
+    /// <param name="logEntry"></param>
+    private void WriteMethodLog(string logEntry)
+    {
+        if (!_logger.IsEnabled(LogLevel.Information))
+            return;
+
+        // Move expensive operation inside the IsEnabled check
+        var logObject = JsonSerializer.Deserialize<MethodLog>(logEntry);
+
+        if (string.IsNullOrEmpty(logObject?.MethodName))
+            return;
+
+        _logger.LogInformation("{TransactionId}{Namespace}{ClassName}{MethodName}{MethodParams}{MethodResult}{ElapsedMs}{UtcLogTime}{CacheInfo}{Exception}{IsSuccess}",
+                               logObject.TransactionId,
+                               logObject.Namespace,
+                               logObject.ClassName,
+                               logObject.MethodName,
+                               logObject.MethodParams,
+                               logObject.MethodResult,
+                               logObject.ElapsedMs,
+                               logObject.UtcLogTime,
+                               logObject.CacheInfo,
+                               logObject.Exception,
+                               logObject.IsSuccess);
     }
 }

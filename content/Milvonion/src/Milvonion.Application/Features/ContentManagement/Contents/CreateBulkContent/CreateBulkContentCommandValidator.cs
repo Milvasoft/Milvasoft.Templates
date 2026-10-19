@@ -7,7 +7,7 @@ using Milvonion.Application.Features.ContentManagement.Contents.CreateContent;
 namespace Milvonion.Application.Features.ContentManagement.Contents.CreateBulkContent;
 
 /// <summary>
-/// Query validations. 
+/// Validations of <see cref="CreateBulkContentCommand"/>.
 /// </summary>
 public sealed class CreateBulkContentCommandValidator : AbstractValidator<CreateBulkContentCommand>
 {
@@ -23,9 +23,9 @@ public sealed class CreateBulkContentCommandValidator : AbstractValidator<Create
 }
 
 /// <summary>
-/// Query validations. 
+/// Validations of each <see cref="CreateContentDto"/> of <see cref="CreateBulkContentCommand.Contents"/>.
 /// </summary>
-public class CreateContentDtoValidator : AbstractValidator<CreateContentDto>
+public sealed class CreateContentDtoValidator : AbstractValidator<CreateContentDto>
 {
     ///<inheritdoc cref="CreateContentDtoValidator"/>
     public CreateContentDtoValidator(IMilvaLocalizer localizer)
@@ -50,9 +50,9 @@ public class CreateContentDtoValidator : AbstractValidator<CreateContentDto>
 }
 
 /// <summary>
-/// Query validations. 
+/// Validations of each <see cref="UpsertMediaDto"/> of <see cref="CreateContentDto.Medias"/>.
 /// </summary>
-public class UpsertMediaValidator : AbstractValidator<UpsertMediaDto>
+public sealed class UpsertMediaValidator : AbstractValidator<UpsertMediaDto>
 {
     ///<inheritdoc cref="UpsertMediaValidator"/>
     public UpsertMediaValidator(IMilvaLocalizer localizer)

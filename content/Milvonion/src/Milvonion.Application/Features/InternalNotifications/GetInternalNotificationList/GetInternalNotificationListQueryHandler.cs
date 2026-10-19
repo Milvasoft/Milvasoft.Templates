@@ -16,6 +16,9 @@ public class GetInternalNotificationListQueryHandler(IMilvonionRepositoryBase<In
     /// <inheritdoc/>
     public async Task<ListResponse<AccountNotificationDto>> Handle(GetInternalNotificationListQuery request, CancellationToken cancellationToken)
     {
+        request.PageNumber ??= 1;
+        request.RowCount = request.RowCount.ClampRowCount(20);
+
         var response = await _internalnotificationRepository.GetAllAsync(request, projection: AccountNotificationDto.Projection, cancellationToken: cancellationToken);
 
         return response;

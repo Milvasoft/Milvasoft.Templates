@@ -112,32 +112,4 @@ public class JsonModelTests
         requestInfo.ContentLength.Should().Be(contentLength);
         requestInfo.Body.Should().Be(body);
     }
-
-    [Fact]
-    public void ResponseInfo_PropertyGetterSetter_ShouldWorkCorrectly()
-    {
-        // Arrange
-        var statusCode = 200;
-        var headers = new { Header1 = "Value1", Header2 = "Value2" };
-        var length = 12345L;
-        var body = new { Data = "Sample data" };
-        var contentType = "application/json";
-
-        // Act
-        var responseInfo = new ResponseInfo
-        {
-            StatusCode = statusCode,
-            Headers = headers,
-            Length = length,
-            Body = body,
-            ContentType = contentType
-        };
-
-        // Assert
-        responseInfo.StatusCode.Should().Be(statusCode);
-        responseInfo.Headers.Should().Be(headers);
-        responseInfo.Length.Should().Be(length);
-        responseInfo.Body.Should().Be(body);
-        responseInfo.ContentType.Should().Be(contentType);
-    }
 }

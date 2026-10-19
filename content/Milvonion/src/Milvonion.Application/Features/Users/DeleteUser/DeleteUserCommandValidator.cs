@@ -5,7 +5,7 @@ using Milvonion.Application.Behaviours;
 namespace Milvonion.Application.Features.Users.DeleteUser;
 
 /// <summary>
-/// Account detail query validations. 
+/// Validations of <see cref="DeleteUserCommand"/>.
 /// </summary>
 public sealed class DeleteUserCommandValidator : AbstractValidator<DeleteUserCommand>
 {

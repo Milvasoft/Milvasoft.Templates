@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Abstractions;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.AspNetCore.Routing;
-using Milvasoft.Identity.Abstract;
 using Milvonion.Application.Utils.Attributes;
 using Milvonion.Application.Utils.Constants;
 using Milvonion.Application.Utils.PermissionManager;
@@ -88,11 +87,8 @@ public class AttributesTests
             RouteData = new RouteData(),
             ActionDescriptor = new ActionDescriptor()
         }, new List<IFilterMetadata>());
+        contextMock.SetupProperty(c => c.Result);
         var serviceProviderMock = new Mock<IServiceProvider>();
-        var tokenManagerMock = new Mock<IMilvaTokenManager>();
-
-        tokenManagerMock.Setup(t => t.GetClaimsPrincipalIfValid(It.IsAny<string>())).Returns(new ClaimsPrincipal(new ClaimsIdentity(claims)));
-        serviceProviderMock.Setup(sp => sp.GetService(typeof(IMilvaTokenManager))).Returns(tokenManagerMock.Object);
         httpContext.RequestServices = serviceProviderMock.Object;
         httpContext.Request.Headers.Authorization = "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL2V4cGlyZWQiOiIyMi4xMi4yMDI0IDExOjM0OjE5IiwidW5pcXVlX25hbWUiOiJidWdyYWtvc2VuIiwicm9sZSI6IkFwcC5TdXBlckFkbWluIiwidXQiOiJNYW5hZ2VyIiwibmJmIjoxNzM0ODY1NDU5LCJleHAiOjE3MzQ4NjcyNTksImlhdCI6MTczNDg2NTQ1OX0.Qc2xXhAQYNiT6kAKTVgmQOJbpGd-YKLeKCbRvX-cP6s";
 
@@ -100,6 +96,7 @@ public class AttributesTests
         attribute.OnAuthorization(contextMock.Object);
 
         // Assert
+        contextMock.Object.Result.Should().BeNull();
         httpContext.Response.StatusCode.Should().Be((int)HttpStatusCode.OK);
     }
 
@@ -122,11 +119,8 @@ public class AttributesTests
             RouteData = new RouteData(),
             ActionDescriptor = new ActionDescriptor()
         }, new List<IFilterMetadata>());
+        contextMock.SetupProperty(c => c.Result);
         var serviceProviderMock = new Mock<IServiceProvider>();
-        var tokenManagerMock = new Mock<IMilvaTokenManager>();
-
-        tokenManagerMock.Setup(t => t.GetClaimsPrincipalIfValid(It.IsAny<string>())).Returns(new ClaimsPrincipal(new ClaimsIdentity(claims)));
-        serviceProviderMock.Setup(sp => sp.GetService(typeof(IMilvaTokenManager))).Returns(tokenManagerMock.Object);
         httpContext.RequestServices = serviceProviderMock.Object;
         httpContext.Request.Headers.Authorization = "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL2V4cGlyZWQiOiIyMi4xMi4yMDI0IDExOjM0OjE5IiwidW5pcXVlX25hbWUiOiJidWdyYWtvc2VuIiwicm9sZSI6IkFwcC5TdXBlckFkbWluIiwidXQiOiJNYW5hZ2VyIiwibmJmIjoxNzM0ODY1NDU5LCJleHAiOjE3MzQ4NjcyNTksImlhdCI6MTczNDg2NTQ1OX0.Qc2xXhAQYNiT6kAKTVgmQOJbpGd-YKLeKCbRvX-cP6s";
 
@@ -134,7 +128,8 @@ public class AttributesTests
         attribute.OnAuthorization(contextMock.Object);
 
         // Assert
-        httpContext.Response.StatusCode.Should().Be((int)HttpStatusCode.Forbidden);
+        var result = contextMock.Object.Result.Should().BeOfType<ObjectResult>().Subject;
+        result.StatusCode.Should().Be((int)HttpStatusCode.Forbidden);
     }
 
     [Fact]
@@ -156,11 +151,8 @@ public class AttributesTests
             RouteData = new RouteData(),
             ActionDescriptor = new ActionDescriptor()
         }, new List<IFilterMetadata>());
+        contextMock.SetupProperty(c => c.Result);
         var serviceProviderMock = new Mock<IServiceProvider>();
-        var tokenManagerMock = new Mock<IMilvaTokenManager>();
-
-        tokenManagerMock.Setup(t => t.GetClaimsPrincipalIfValid(It.IsAny<string>())).Returns(new ClaimsPrincipal(new ClaimsIdentity(claims)));
-        serviceProviderMock.Setup(sp => sp.GetService(typeof(IMilvaTokenManager))).Returns(tokenManagerMock.Object);
         httpContext.RequestServices = serviceProviderMock.Object;
         httpContext.Request.Headers.Authorization = "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL2V4cGlyZWQiOiIyMi4xMi4yMDI0IDExOjM0OjE5IiwidW5pcXVlX25hbWUiOiJidWdyYWtvc2VuIiwicm9sZSI6IkFwcC5TdXBlckFkbWluIiwidXQiOiJNYW5hZ2VyIiwibmJmIjoxNzM0ODY1NDU5LCJleHAiOjE3MzQ4NjcyNTksImlhdCI6MTczNDg2NTQ1OX0.Qc2xXhAQYNiT6kAKTVgmQOJbpGd-YKLeKCbRvX-cP6s";
 
@@ -168,6 +160,7 @@ public class AttributesTests
         attribute.OnAuthorization(contextMock.Object);
 
         // Assert
-        httpContext.Response.StatusCode.Should().Be((int)HttpStatusCode.Forbidden);
+        var result = contextMock.Object.Result.Should().BeOfType<ObjectResult>().Subject;
+        result.StatusCode.Should().Be((int)HttpStatusCode.Forbidden);
     }
 }

@@ -3,7 +3,7 @@
 namespace Milvonion.Application.Features.Users.GetUserList;
 
 /// <summary>
-/// Account detail query validations. 
+/// Validations of <see cref="GetUserListQuery"/>.
 /// </summary>
 public sealed class GetUserListQueryValidator : AbstractValidator<GetUserListQuery>
 {

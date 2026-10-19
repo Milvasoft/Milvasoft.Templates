@@ -3,7 +3,7 @@
 namespace Milvonion.Application.Features.Roles.GetRoleList;
 
 /// <summary>
-/// Account detail query validations. 
+/// Validations of <see cref="GetRoleListQuery"/>.
 /// </summary>
 public sealed class GetRoleListQueryValidator : AbstractValidator<GetRoleListQuery>
 {

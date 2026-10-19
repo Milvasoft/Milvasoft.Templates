@@ -36,8 +36,9 @@ public class PermissionsController(IMediator mediator, IPermissionManager permis
     /// <summary>
     /// Migrates permissions to database.
     /// </summary>
+    /// <param name="cancellation"></param>
     /// <returns></returns>
     [Auth(PermissionCatalog.App.SuperAdmin)]
     [HttpPut("migrate")]
-    public Task<Response<string>> MigratePermissionsAsync() => _permissionManager.MigratePermissionsAsync(default);
+    public Task<Response<string>> MigratePermissionsAsync(CancellationToken cancellation) => _permissionManager.MigratePermissionsAsync(cancellation);
 }

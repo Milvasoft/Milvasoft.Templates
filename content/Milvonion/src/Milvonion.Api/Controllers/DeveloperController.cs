@@ -1,21 +1,22 @@
 ﻿using Asp.Versioning;
 using Microsoft.AspNetCore.Mvc;
 using Milvasoft.Components.Rest.MilvaResponse;
-using Milvasoft.Components.Rest.Request;
+using Milvonion.Api.Utils;
 using Milvonion.Application.Interfaces;
 using Milvonion.Application.Utils.Attributes;
 using Milvonion.Application.Utils.Constants;
-using Milvonion.Domain;
+using Milvonion.Application.Utils.PermissionManager;
 
 namespace Milvonion.Api.Controllers;
 
 /// <summary>
-/// Developer endpoints.
+/// Developer endpoints. Every endpoint requires a super admin and is disabled in production.
 /// </summary>
 [ApiController]
 [Route(GlobalConstant.FullRoute)]
 [ApiVersion(GlobalConstant.CurrentApiVersion)]
 [ApiExplorerSettings(GroupName = "v1.0")]
+[Auth(PermissionCatalog.App.SuperAdmin)]
 public class DeveloperController(IDeveloperService developerService) : ControllerBase
 {
     private readonly IDeveloperService _developerService = developerService;
@@ -28,10 +29,12 @@ public class DeveloperController(IDeveloperService developerService) : Controlle
     public Task<Response> MigrateAsync() => _developerService.ResetDatabaseAsync();
 
     /// <summary>
-    /// Seeds data for development purposes.
+    /// Seeds data for development purposes. Accepts the documentation token before the root user exists (no stamp check);
+    /// it seeds only an empty database ("Already seeded!" otherwise).
     /// </summary>
     /// <returns></returns>
     [HttpPost("database/seed")]
+    [SkipSessionStampValidation]
     public Task<Response> SeedDataAsync() => _developerService.SeedDevelopmentDataAsync();
 
     /// <summary>
@@ -42,33 +45,20 @@ public class DeveloperController(IDeveloperService developerService) : Controlle
     public Task<Response> SeedFakeDataAsync(bool sameData = true, string locale = "tr") => _developerService.SeedFakeDataAsync(sameData, locale);
 
     /// <summary>
-    /// Initial migration operation.
+    /// Initial migration operation. Accepts the documentation token before the root user exists (no stamp check);
+    /// it initializes only an uninitialized database ("Already initialized!" otherwise).
     /// </summary>
     /// <returns></returns>
     [HttpPost("database/init")]
+    [SkipSessionStampValidation]
     public async Task<Response> InitDatabaseAsync() => await _developerService.InitDatabaseAsync();
 
     /// <summary>
     /// Resets ui related data.
     /// </summary>
     /// <returns></returns>
-    [Auth]
     [HttpPost("database/reset/ui")]
     public async Task<Response> ResetUIRelatedDataAsync() => await _developerService.ResetUIRelatedDataAsync();
-
-    /// <summary>
-    /// Gets api logs.
-    /// </summary>
-    /// <returns></returns>
-    [HttpPatch("apilogs")]
-    public Task<ListResponse<ApiLog>> GetApiLogsAsync(ListRequest listRequest) => _developerService.GetApiLogsAsync(listRequest);
-
-    /// <summary>
-    /// Gets method logs.
-    /// </summary>
-    /// <returns></returns>
-    [HttpPatch("methodlogs")]
-    public Task<ListResponse<MethodLog>> GetMethodLogsAsync(ListRequest listRequest) => _developerService.GetMethodLogsAsync(listRequest);
 
     /// <summary>
     /// Exports product related data.

@@ -44,36 +44,87 @@
         </member>
         <member name="T:Milvonion.Infrastructure.Jobs.ActivityLogCleanerJob">
             <summary>
-            Truncate the activity logs table that are older than the specified date.
+            Deletes the activity logs older than 60 days (<c>activityLog_cleanup.sql</c>).
             </summary>
             <param name="scheduleConfig"></param>
             <param name="scopeFactory"></param>
         </member>
         <member name="M:Milvonion.Infrastructure.Jobs.ActivityLogCleanerJob.#ctor(Milvasoft.JobScheduling.IScheduleConfig,Microsoft.Extensions.DependencyInjection.IServiceScopeFactory)">
             <summary>
-            Truncate the activity logs table that are older than the specified date.
+            Deletes the activity logs older than 60 days (<c>activityLog_cleanup.sql</c>).
             </summary>
             <param name="scheduleConfig"></param>
             <param name="scopeFactory"></param>
         </member>
-        <member name="M:Milvonion.Infrastructure.Jobs.ActivityLogCleanerJob.ExecuteAsync(System.Threading.CancellationToken)">
+        <member name="P:Milvonion.Infrastructure.Jobs.ActivityLogCleanerJob.SqlFileName">
+            <inheritdoc/>
+        </member>
+        <member name="T:Milvonion.Infrastructure.Jobs.IdempotencyKeyCleanerJob">
+            <summary>
+            Deletes the idempotency keys whose retry window has passed (<c>idempotencyKey_cleanup.sql</c>). A key only exists to
+            turn a retried create request into a replay of the first answer; a client never retries a day later, so older rows are
+            disposable and the table stays small. Runs hourly, so one run only ever deletes about an hour of keys.
+            </summary>
+            <param name="scheduleConfig"></param>
+            <param name="scopeFactory"></param>
+        </member>
+        <member name="M:Milvonion.Infrastructure.Jobs.IdempotencyKeyCleanerJob.#ctor(Milvasoft.JobScheduling.IScheduleConfig,Microsoft.Extensions.DependencyInjection.IServiceScopeFactory)">
+            <summary>
+            Deletes the idempotency keys whose retry window has passed (<c>idempotencyKey_cleanup.sql</c>). A key only exists to
+            turn a retried create request into a replay of the first answer; a client never retries a day later, so older rows are
+            disposable and the table stays small. Runs hourly, so one run only ever deletes about an hour of keys.
+            </summary>
+            <param name="scheduleConfig"></param>
+            <param name="scopeFactory"></param>
+        </member>
+        <member name="P:Milvonion.Infrastructure.Jobs.IdempotencyKeyCleanerJob.SqlFileName">
             <inheritdoc/>
         </member>
         <member name="T:Milvonion.Infrastructure.Jobs.NotificationCleanerJob">
             <summary>
-            Truncate the expired notifications that are older than the specified date.
+            Deletes the internal notifications seen more than 30 days ago and the unseen ones created more than 60 days ago
+            (<c>notification_cleanup.sql</c>).
             </summary>
             <param name="scheduleConfig"></param>
             <param name="scopeFactory"></param>
         </member>
         <member name="M:Milvonion.Infrastructure.Jobs.NotificationCleanerJob.#ctor(Milvasoft.JobScheduling.IScheduleConfig,Microsoft.Extensions.DependencyInjection.IServiceScopeFactory)">
             <summary>
-            Truncate the expired notifications that are older than the specified date.
+            Deletes the internal notifications seen more than 30 days ago and the unseen ones created more than 60 days ago
+            (<c>notification_cleanup.sql</c>).
             </summary>
             <param name="scheduleConfig"></param>
             <param name="scopeFactory"></param>
         </member>
-        <member name="M:Milvonion.Infrastructure.Jobs.NotificationCleanerJob.ExecuteAsync(System.Threading.CancellationToken)">
+        <member name="P:Milvonion.Infrastructure.Jobs.NotificationCleanerJob.SqlFileName">
+            <inheritdoc/>
+        </member>
+        <member name="T:Milvonion.Infrastructure.Jobs.SqlCleanupJob">
+            <summary>
+            Base of the cleanup jobs: on every run executes one SQL file of <see cref="P:Milvonion.Application.Utils.Constants.GlobalConstant.SqlFilesPath"/> against the
+            application database and logs the affected row count. A failure is logged and swallowed, so a cleanup problem never
+            stops the host; the next run retries. Because the job hides its own errors, every derived job has an integration test
+            that runs it against a real database and asserts that the expected rows are gone.
+            </summary>
+            <param name="scheduleConfig"></param>
+            <param name="scopeFactory"></param>
+        </member>
+        <member name="M:Milvonion.Infrastructure.Jobs.SqlCleanupJob.#ctor(Milvasoft.JobScheduling.IScheduleConfig,Microsoft.Extensions.DependencyInjection.IServiceScopeFactory)">
+            <summary>
+            Base of the cleanup jobs: on every run executes one SQL file of <see cref="P:Milvonion.Application.Utils.Constants.GlobalConstant.SqlFilesPath"/> against the
+            application database and logs the affected row count. A failure is logged and swallowed, so a cleanup problem never
+            stops the host; the next run retries. Because the job hides its own errors, every derived job has an integration test
+            that runs it against a real database and asserts that the expected rows are gone.
+            </summary>
+            <param name="scheduleConfig"></param>
+            <param name="scopeFactory"></param>
+        </member>
+        <member name="P:Milvonion.Infrastructure.Jobs.SqlCleanupJob.SqlFileName">
+            <summary>
+            Name of the SQL file (under <see cref="P:Milvonion.Application.Utils.Constants.GlobalConstant.SqlFilesPath"/>) the job executes.
+            </summary>
+        </member>
+        <member name="M:Milvonion.Infrastructure.Jobs.SqlCleanupJob.ExecuteAsync(System.Threading.CancellationToken)">
             <inheritdoc/>
         </member>
         <member name="T:Milvonion.Infrastructure.LazyImpl.MilvonionLazy`1">
@@ -95,6 +146,25 @@
             Constructor of <see cref="T:Milvonion.Infrastructure.LazyImpl.MilvonionLazy`1"/>.
             </remarks>
             <param name="serviceProvider"></param>
+        </member>
+        <member name="T:Milvonion.Infrastructure.Logging.RemoveTypeTagEnricher">
+            <summary>
+            Removes _typeTag from Serilog's output.
+            </summary>
+        </member>
+        <member name="M:Milvonion.Infrastructure.Logging.RemoveTypeTagEnricher.Enrich(Serilog.Events.LogEvent,Serilog.Core.ILogEventPropertyFactory)">
+            <summary>
+            Removes _typeTag from Serilog's output.
+            </summary>
+            <param name="logEvent"></param>
+            <param name="propertyFactory"></param>
+        </member>
+        <member name="M:Milvonion.Infrastructure.Logging.RemoveTypeTagEnricher.RemoveTypeTags(Serilog.Events.LogEventPropertyValue)">
+            <summary>
+            Removes _typeTag from Serilog's output.
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
         </member>
         <member name="T:Milvonion.Infrastructure.Logging.MilvonionDbLogger">
             <summary>
@@ -186,24 +256,12 @@
         <member name="M:Milvonion.Infrastructure.Logging.MilvonionDbLogger.Warning(System.Exception,System.String,System.Object[])">
             <inheritdoc/>
         </member>
-        <member name="T:Milvonion.Infrastructure.Logging.RemoveTypeTagEnricher">
+        <member name="M:Milvonion.Infrastructure.Logging.MilvonionDbLogger.WriteMethodLog(System.String)">
             <summary>
-            Removes _typeTag from Serilog's output.
+            Writes a <c>[Log]</c> method log entry. With <c>LogDefaultParameters</c> off (the template default) the interceptor
+            sends an entry without the method name, arguments and result; such an entry carries nothing worth a log line.
             </summary>
-        </member>
-        <member name="M:Milvonion.Infrastructure.Logging.RemoveTypeTagEnricher.Enrich(Serilog.Events.LogEvent,Serilog.Core.ILogEventPropertyFactory)">
-            <summary>
-            Removes _typeTag from Serilog's output.
-            </summary>
-            <param name="logEvent"></param>
-            <param name="propertyFactory"></param>
-        </member>
-        <member name="M:Milvonion.Infrastructure.Logging.RemoveTypeTagEnricher.RemoveTypeTags(Serilog.Events.LogEventPropertyValue)">
-            <summary>
-            Removes _typeTag from Serilog's output.
-            </summary>
-            <param name="value"></param>
-            <returns></returns>
+            <param name="logEntry"></param>
         </member>
         <member name="T:Milvonion.Infrastructure.Persistence.Context.MilvonionDbContext">
             <summary>
@@ -228,6 +286,11 @@
                    and HttpMethod is POST,PUT or DELETE it will gets performer user in constructor from database.
                    This can affect performance little bit. But you want audit every record easily you must use this :( </para>
             </remarks>
+        </member>
+        <member name="M:Milvonion.Infrastructure.Persistence.Context.MilvonionDbContext.OnModelCreating(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <summary>
+            Configures what attributes cannot express, in addition to the base Milvasoft model configuration.
+            </summary>
         </member>
         <member name="T:Milvonion.Infrastructure.Persistence.Context.MilvonionDbContextAccessor">
             <summary>
@@ -363,15 +426,55 @@
             <param name="sameData"></param>
             <param name="locale"></param>
         </member>
+        <member name="T:Milvonion.Infrastructure.Persistence.FeatureFlagSeeder">
+            <summary>
+            Creates the <see cref="T:Milvonion.Domain.FeatureFlag"/> row of every key in <see cref="F:Milvonion.Domain.FeatureFlagKeys.All"/>, so each switch shows up
+            on the management endpoints (enabled) as soon as its key exists in code.
+            </summary>
+        </member>
+        <member name="M:Milvonion.Infrastructure.Persistence.FeatureFlagSeeder.SeedAsync(Milvonion.Infrastructure.Persistence.Context.MilvonionDbContext,System.Threading.CancellationToken)">
+            <summary>
+            Inserts the keys that have no row yet (enabled). Idempotent and never touches an existing row, so it is safe on
+            every startup.
+            </summary>
+            <param name="context"></param>
+            <param name="cancellationToken"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Milvonion.Infrastructure.Persistence.LanguageSeeder">
+            <summary>
+            The single place that writes the <see cref="T:Milvasoft.Core.MultiLanguage.Manager.LanguagesSeed"/> languages and loads the language list the
+            multi-language layer (<see cref="T:Milvasoft.Core.MultiLanguage.Manager.MultiLanguageManager"/>) reads translations with. Every seeder and the startup
+            migration go through here instead of repeating the insert and the list refresh.
+            </summary>
+        </member>
+        <member name="M:Milvonion.Infrastructure.Persistence.LanguageSeeder.SeedAsync(Milvonion.Infrastructure.Persistence.Context.MilvonionDbContext,System.Threading.CancellationToken)">
+            <summary>
+            Inserts the seed languages that are not in the database yet (matched by code), then refreshes the language
+            list. Idempotent, so it is safe on an initialized database. On a fresh database it must run after
+            <c>create_triggers.sql</c>, which starts the language ids at 21.
+            </summary>
+            <param name="context"></param>
+            <param name="cancellationToken"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Milvonion.Infrastructure.Persistence.LanguageSeeder.LoadAsync(Milvonion.Infrastructure.Persistence.Context.MilvonionDbContext,System.Threading.CancellationToken)">
+            <summary>
+            Loads the languages from the database into <see cref="T:Milvasoft.Core.MultiLanguage.Manager.MultiLanguageManager"/>.
+            </summary>
+            <param name="context"></param>
+            <param name="cancellationToken"></param>
+            <returns></returns>
+        </member>
         <member name="T:Milvonion.Infrastructure.Persistence.Repository.MilvonionRepositoryBase`1">
             <summary>
-            Constructor of <c>BillRepository</c> class.
+            Base repository of the application entities.
             </summary>
             <param name="dbContext"></param>
         </member>
         <member name="M:Milvonion.Infrastructure.Persistence.Repository.MilvonionRepositoryBase`1.#ctor(Milvonion.Infrastructure.Persistence.Context.MilvonionDbContext)">
             <summary>
-            Constructor of <c>BillRepository</c> class.
+            Base repository of the application entities.
             </summary>
             <param name="dbContext"></param>
         </member>
@@ -381,14 +484,26 @@
             It updates sessions in database.
             Generates access and refresh tokens.
             </summary>
+            <param name="userSessionRepository"></param>
+            <param name="userSessionHistoriesRepository"></param>
+            <param name="milvaTokenManager"></param>
+            <param name="identityOptions"></param>
+            <param name="securityStampStore"></param>
+            <param name="httpContextAccessor"></param>
             <returns></returns>
         </member>
-        <member name="M:Milvonion.Infrastructure.Services.AccountManager.#ctor(Milvonion.Application.Interfaces.IMilvonionRepositoryBase{Milvonion.Domain.UserSession},Milvonion.Application.Interfaces.IMilvonionRepositoryBase{Milvonion.Domain.UserSessionHistory},Milvasoft.Identity.Abstract.IMilvaTokenManager,Milvasoft.Identity.Concrete.Options.MilvaIdentityOptions,Microsoft.AspNetCore.Http.IHttpContextAccessor)">
+        <member name="M:Milvonion.Infrastructure.Services.AccountManager.#ctor(Milvonion.Application.Interfaces.IMilvonionRepositoryBase{Milvonion.Domain.UserSession},Milvonion.Application.Interfaces.IMilvonionRepositoryBase{Milvonion.Domain.UserSessionHistory},Milvasoft.Identity.Abstract.IMilvaTokenManager,Milvasoft.Identity.Concrete.Options.MilvaIdentityOptions,Milvonion.Application.Interfaces.ISecurityStampStore,Microsoft.AspNetCore.Http.IHttpContextAccessor)">
             <summary>
             User login operation.
             It updates sessions in database.
             Generates access and refresh tokens.
             </summary>
+            <param name="userSessionRepository"></param>
+            <param name="userSessionHistoriesRepository"></param>
+            <param name="milvaTokenManager"></param>
+            <param name="identityOptions"></param>
+            <param name="securityStampStore"></param>
+            <param name="httpContextAccessor"></param>
             <returns></returns>
         </member>
         <member name="M:Milvonion.Infrastructure.Services.AccountManager.LoginAsync(Milvonion.Domain.User,System.String,System.Threading.CancellationToken)">
@@ -399,10 +514,10 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Milvonion.Infrastructure.Services.AccountManager.GenerateToken(Milvonion.Domain.User,System.Nullable{System.DateTime})">
+        <member name="M:Milvonion.Infrastructure.Services.AccountManager.GenerateTokenAsync(Milvonion.Domain.User,System.Nullable{System.DateTime},System.Threading.CancellationToken)">
             <summary>
             Generates token for ci user.
-            Generates access token.
+            Generates access token carrying the user's current revocation stamp.
             </summary>
             <returns></returns>
         </member>
@@ -413,6 +528,46 @@
             <param name="userSessions"></param>
             <param name="deviceId"></param>
             <returns></returns>
+        </member>
+        <member name="M:Milvonion.Infrastructure.Services.AccountManager.BuildClaimsAsync(Milvonion.Domain.User,System.Threading.CancellationToken)">
+            <summary>
+            Builds the claims of an access token: user name, user id, permissions (as role claims), user type and the
+            revocation stamp. The stamp is assigned on first use and checked on every request (SecurityStampValidationMiddleware).
+            </summary>
+            <param name="user"></param>
+            <param name="cancellationToken"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Milvonion.Infrastructure.Services.CurrentUser">
+            <summary>
+            Reads the authenticated caller from the request's already-validated claims principal. No database
+            access and no token re-parsing: the JWT middleware has already validated the token and populated
+            <see cref="P:Microsoft.AspNetCore.Http.HttpContext.User"/>, so the id, user name and type are read straight from its claims.
+            </summary>
+            <param name="httpContextAccessor"></param>
+        </member>
+        <member name="M:Milvonion.Infrastructure.Services.CurrentUser.#ctor(Microsoft.AspNetCore.Http.IHttpContextAccessor)">
+            <summary>
+            Reads the authenticated caller from the request's already-validated claims principal. No database
+            access and no token re-parsing: the JWT middleware has already validated the token and populated
+            <see cref="P:Microsoft.AspNetCore.Http.HttpContext.User"/>, so the id, user name and type are read straight from its claims.
+            </summary>
+            <param name="httpContextAccessor"></param>
+        </member>
+        <member name="P:Milvonion.Infrastructure.Services.CurrentUser.IsAuthenticated">
+            <inheritdoc/>
+        </member>
+        <member name="P:Milvonion.Infrastructure.Services.CurrentUser.Id">
+            <inheritdoc/>
+        </member>
+        <member name="P:Milvonion.Infrastructure.Services.CurrentUser.UserName">
+            <inheritdoc/>
+        </member>
+        <member name="P:Milvonion.Infrastructure.Services.CurrentUser.UserType">
+            <inheritdoc/>
+        </member>
+        <member name="M:Milvonion.Infrastructure.Services.CurrentUser.GetRequiredId">
+            <inheritdoc/>
         </member>
         <member name="T:Milvonion.Infrastructure.Services.DeveloperService">
             <summary>
@@ -425,6 +580,13 @@
             Developer service.
             </summary>
             <param name="serviceProvider"></param>
+        </member>
+        <member name="F:Milvonion.Infrastructure.Services.DeveloperService.DevelopmentPassword">
+            <summary>
+            Password of every user <see cref="M:Milvonion.Infrastructure.Services.DeveloperService.SeedDevelopmentDataAsync"/> creates (the root user included). It satisfies the
+            default password policy (<c>Milvasoft:Identity:Password</c>); with a stricter policy the seed fails with the
+            validation message instead of reporting success over users that were never created.
+            </summary>
         </member>
         <member name="M:Milvonion.Infrastructure.Services.DeveloperService.ResetDatabaseAsync">
             <summary>
@@ -456,20 +618,6 @@
             <summary>
             Resets ui related data.
             </summary>
-            <returns></returns>
-        </member>
-        <member name="M:Milvonion.Infrastructure.Services.DeveloperService.GetMethodLogsAsync(Milvasoft.Components.Rest.Request.ListRequest)">
-            <summary>
-            Gets method logs.
-            </summary>
-            <param name="listRequest"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Milvonion.Infrastructure.Services.DeveloperService.GetApiLogsAsync(Milvasoft.Components.Rest.Request.ListRequest)">
-            <summary>
-            Gets api logs.
-            </summary>
-            <param name="listRequest"></param>
             <returns></returns>
         </member>
         <member name="M:Milvonion.Infrastructure.Services.DeveloperService.ExportExistingDataAsync">
@@ -533,6 +681,93 @@
             ○ Match '}'.<br/>
             </code>
             </remarks>
+        </member>
+        <member name="T:Milvonion.Infrastructure.Services.FeatureFlagService">
+            <summary>
+            Default <see cref="T:Milvonion.Application.Interfaces.IFeatureFlagService"/>. The keys an admin switched off are read from the <c>FeatureFlags</c> table
+            and cached in Redis for <see cref="F:Milvonion.Infrastructure.Services.FeatureFlagService.CacheExpiry"/>, so a guarded request costs one cache read; a toggle drops the
+            entry (<see cref="M:Milvonion.Infrastructure.Services.FeatureFlagService.InvalidateAsync"/>) and applies on the next request.
+            </summary>
+            <remarks>
+            While Redis is disconnected the cache is skipped and every read goes to the database; any read failure counts as
+            enabled (fail-open), so a flag problem never takes a feature down on its own.
+            </remarks>
+            <param name="cache"></param>
+            <param name="featureFlagRepository"></param>
+            <param name="logger"></param>
+            <param name="cacheKeys"></param>
+        </member>
+        <member name="M:Milvonion.Infrastructure.Services.FeatureFlagService.#ctor(Milvasoft.Caching.Redis.Accessor.IRedisAccessor,Milvonion.Application.Interfaces.IMilvonionRepositoryBase{Milvonion.Domain.FeatureFlag},Milvasoft.Core.Abstractions.IMilvaLogger,Milvonion.Application.Utils.Helpers.CacheKeys)">
+            <summary>
+            Default <see cref="T:Milvonion.Application.Interfaces.IFeatureFlagService"/>. The keys an admin switched off are read from the <c>FeatureFlags</c> table
+            and cached in Redis for <see cref="F:Milvonion.Infrastructure.Services.FeatureFlagService.CacheExpiry"/>, so a guarded request costs one cache read; a toggle drops the
+            entry (<see cref="M:Milvonion.Infrastructure.Services.FeatureFlagService.InvalidateAsync"/>) and applies on the next request.
+            </summary>
+            <remarks>
+            While Redis is disconnected the cache is skipped and every read goes to the database; any read failure counts as
+            enabled (fail-open), so a flag problem never takes a feature down on its own.
+            </remarks>
+            <param name="cache"></param>
+            <param name="featureFlagRepository"></param>
+            <param name="logger"></param>
+            <param name="cacheKeys"></param>
+        </member>
+        <member name="F:Milvonion.Infrastructure.Services.FeatureFlagService.CacheExpiry">
+            <summary>How long the switched off keys are served from the cache.</summary>
+        </member>
+        <member name="M:Milvonion.Infrastructure.Services.FeatureFlagService.IsEnabledAsync(System.String,System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Milvonion.Infrastructure.Services.FeatureFlagService.InvalidateAsync">
+            <inheritdoc/>
+        </member>
+        <member name="M:Milvonion.Infrastructure.Services.FeatureFlagService.GetDisabledKeysAsync(System.Threading.CancellationToken)">
+            <summary>
+            Returns the switched off keys from the cache, falling back to the database (and repopulating the cache) on a miss.
+            </summary>
+        </member>
+        <member name="T:Milvonion.Infrastructure.Services.IdempotencyStore">
+            <summary>
+            Table-backed idempotency keys (see <see cref="T:Milvonion.Application.Interfaces.IIdempotencyStore"/>). The claim is a single
+            <c>INSERT ... ON CONFLICT DO NOTHING</c>, so the happy path of a create endpoint costs one extra
+            statement; only a retry pays for the read that follows.
+            </summary>
+            <remarks>
+            A claim whose request never finished (the process died between the claim and the response) is taken over
+            after <see cref="F:Milvonion.Infrastructure.Services.IdempotencyStore.PendingTimeout"/>, otherwise that key would stay blocked until the cleanup job runs. The
+            window is far longer than any of the guarded endpoints takes, so a still-running request is never taken over.
+            </remarks>
+            <param name="dbContextAccessor"></param>
+            <param name="logger"></param>
+        </member>
+        <member name="M:Milvonion.Infrastructure.Services.IdempotencyStore.#ctor(Milvonion.Application.Interfaces.IMilvonionDbContextAccessor,Microsoft.Extensions.Logging.ILogger{Milvonion.Infrastructure.Services.IdempotencyStore})">
+            <summary>
+            Table-backed idempotency keys (see <see cref="T:Milvonion.Application.Interfaces.IIdempotencyStore"/>). The claim is a single
+            <c>INSERT ... ON CONFLICT DO NOTHING</c>, so the happy path of a create endpoint costs one extra
+            statement; only a retry pays for the read that follows.
+            </summary>
+            <remarks>
+            A claim whose request never finished (the process died between the claim and the response) is taken over
+            after <see cref="F:Milvonion.Infrastructure.Services.IdempotencyStore.PendingTimeout"/>, otherwise that key would stay blocked until the cleanup job runs. The
+            window is far longer than any of the guarded endpoints takes, so a still-running request is never taken over.
+            </remarks>
+            <param name="dbContextAccessor"></param>
+            <param name="logger"></param>
+        </member>
+        <member name="F:Milvonion.Infrastructure.Services.IdempotencyStore.PendingTimeout">
+            <summary>A claim older than this with no response is considered abandoned and can be taken over.</summary>
+        </member>
+        <member name="F:Milvonion.Infrastructure.Services.IdempotencyStore.MaxResponseBytes">
+            <summary>Responses larger than this are not stored; a retry of such a request is answered with "in progress".</summary>
+        </member>
+        <member name="M:Milvonion.Infrastructure.Services.IdempotencyStore.ClaimAsync(System.Int32,System.String,System.String,System.Byte[],System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Milvonion.Infrastructure.Services.IdempotencyStore.CompleteAsync(System.Int32,System.String,System.String,System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Milvonion.Infrastructure.Services.IdempotencyStore.ReleaseAsync(System.Int32,System.String,System.Threading.CancellationToken)">
+            <inheritdoc/>
         </member>
         <member name="T:Milvonion.Infrastructure.Services.LookupService">
             <summary>
@@ -636,6 +871,82 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="T:Milvonion.Infrastructure.Services.SecurityStampStore">
+            <summary>
+            Redis-backed revocation stamp store with the database (<c>User.SessionStamp</c>) as the durable
+            source of truth. Reads are served from Redis for a cheap per-request check; on a cache miss (or
+            any Redis failure) it falls back to the database and repopulates the cache, so a Redis outage
+            degrades to one extra database round trip rather than breaking authentication.
+            <para>
+            A rotation writes the new stamp through to Redis and must run after the caller's transaction has
+            committed. The read-through repopulation only adds a missing entry (SET NX), so a reader that loaded
+            the old stamp from the database just before a rotation can never put it back over the new one.
+            </para>
+            <para>
+            While Redis is disconnected the cache is skipped altogether: a command sent to a reconnecting multiplexer waits
+            in its backlog until the timeout, which would hold every authenticated request for seconds.
+            </para>
+            </summary>
+            <param name="cache"></param>
+            <param name="userRepository"></param>
+            <param name="cacheKeys"></param>
+        </member>
+        <member name="M:Milvonion.Infrastructure.Services.SecurityStampStore.#ctor(Milvasoft.Caching.Redis.Accessor.IRedisAccessor,Milvonion.Application.Interfaces.IMilvonionRepositoryBase{Milvonion.Domain.User},Milvonion.Application.Utils.Helpers.CacheKeys)">
+            <summary>
+            Redis-backed revocation stamp store with the database (<c>User.SessionStamp</c>) as the durable
+            source of truth. Reads are served from Redis for a cheap per-request check; on a cache miss (or
+            any Redis failure) it falls back to the database and repopulates the cache, so a Redis outage
+            degrades to one extra database round trip rather than breaking authentication.
+            <para>
+            A rotation writes the new stamp through to Redis and must run after the caller's transaction has
+            committed. The read-through repopulation only adds a missing entry (SET NX), so a reader that loaded
+            the old stamp from the database just before a rotation can never put it back over the new one.
+            </para>
+            <para>
+            While Redis is disconnected the cache is skipped altogether: a command sent to a reconnecting multiplexer waits
+            in its backlog until the timeout, which would hold every authenticated request for seconds.
+            </para>
+            </summary>
+            <param name="cache"></param>
+            <param name="userRepository"></param>
+            <param name="cacheKeys"></param>
+        </member>
+        <member name="M:Milvonion.Infrastructure.Services.SecurityStampStore.GetOrCreateAsync(System.Int32,System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Milvonion.Infrastructure.Services.SecurityStampStore.RotateAsync(System.Int32,System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Milvonion.Infrastructure.Services.SecurityStampStore.IsValidAsync(System.Int32,System.String,System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Milvonion.Infrastructure.Services.SecurityStampStore.GetCurrentAsync(System.Int32,System.Threading.CancellationToken)">
+            <summary>
+            Returns the user's current stamp from Redis, falling back to the database (and repopulating the
+            cache) on a miss or any Redis error. Never creates a stamp.
+            </summary>
+        </member>
+        <member name="M:Milvonion.Infrastructure.Services.SecurityStampStore.PersistAsync(System.Int32,System.Threading.CancellationToken)">
+            <summary>
+            Generates a new stamp and persists it to the user row.
+            </summary>
+        </member>
+        <member name="T:Milvonion.Infrastructure.Services.TransactionRunner">
+            <summary>
+            Default <see cref="T:Milvonion.Application.Interfaces.ITransactionRunner"/>. The <see cref="T:Milvasoft.Interception.Ef.Transaction.TransactionAttribute"/> on <see cref="M:Milvonion.Infrastructure.Services.TransactionRunner.RunAsync(System.Func{System.Threading.Tasks.Task})"/>
+            makes the transaction interceptor open a transaction on the scoped <c>MilvonionDbContext</c> before the delegate
+            runs and commit it afterwards (rolling back on exception). It is the same scoped context the repositories
+            resolve, so the writes inside the delegate enlist in that transaction.
+            <para>
+            Being resolved and called through the <see cref="T:Milvonion.Application.Interfaces.ITransactionRunner"/> interface is what lets the proxy
+            intercept the call. A handler cannot get the same effect from a local <c>[Transaction]</c> method: a
+            same-instance call bypasses the proxy (self-invocation), so the interceptor would never run.
+            </para>
+            </summary>
+        </member>
+        <member name="M:Milvonion.Infrastructure.Services.TransactionRunner.RunAsync(System.Func{System.Threading.Tasks.Task})">
+            <inheritdoc/>
+        </member>
         <member name="T:Milvonion.Infrastructure.Services.UIService">
             <summary>
             Service for UI operations.
@@ -723,6 +1034,17 @@
             </summary>
         </member>
         <member name="M:Milvonion.Infrastructure.Utils.OpenApi.ExampleSchemaTransformer.TransformAsync(Microsoft.OpenApi.OpenApiSchema,Microsoft.AspNetCore.OpenApi.OpenApiSchemaTransformerContext,System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Milvonion.Infrastructure.Utils.OpenApi.NullableEnumSchemaTransformer">
+            <summary>
+            Gives an enum schema its "Value -> Name" list when the Milvasoft enum transformer left it out. That transformer only
+            recognizes a plain enum type; when the enum's shared component schema is first built from a nullable property
+            (<c>UserType?</c>, <c>NotificationType?</c>...), it stays a bare integer and the clients' generated types lose the
+            values. The list is written in the same format, so every enum reads alike.
+            </summary>
+        </member>
+        <member name="M:Milvonion.Infrastructure.Utils.OpenApi.NullableEnumSchemaTransformer.TransformAsync(Microsoft.OpenApi.OpenApiSchema,Microsoft.AspNetCore.OpenApi.OpenApiSchemaTransformerContext,System.Threading.CancellationToken)">
             <inheritdoc/>
         </member>
         <member name="T:System.Text.RegularExpressions.Generated.DisplayFormatRegex_0">

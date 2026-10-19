@@ -6,8 +6,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Milvasoft.Attributes.Annotations;
 using Milvasoft.Components.Rest.MilvaResponse;
 using Milvasoft.Core.Helpers;
-using Milvasoft.Core.MultiLanguage.EntityBases.Abstract;
-using Milvasoft.Core.MultiLanguage.Manager;
 using Milvasoft.Identity.Abstract;
 using Milvasoft.Identity.Concrete;
 using Milvasoft.Identity.Concrete.Options;
@@ -31,6 +29,7 @@ namespace Milvonion.Infrastructure.Persistence;
 /// <param name="serviceProvider"></param>
 public class DatabaseMigrator(IServiceProvider serviceProvider)
 {
+    private readonly IServiceProvider _serviceProvider = serviceProvider;
     private readonly MilvonionDbContext _dbContext = serviceProvider.GetService<MilvonionDbContext>();
 
     /// <summary>
@@ -39,7 +38,7 @@ public class DatabaseMigrator(IServiceProvider serviceProvider)
     /// <returns></returns>
     public async Task<Response> ResetDatabaseAsync(CancellationToken cancellationToken = default)
     {
-        var configuration = serviceProvider.GetService<IConfiguration>();
+        var configuration = _serviceProvider.GetService<IConfiguration>();
 
         await _dbContext.Database.EnsureDeletedAsync(cancellationToken);
 
@@ -109,7 +108,7 @@ public class DatabaseMigrator(IServiceProvider serviceProvider)
         {
             Id = 1,
             Name = nameof(PermissionCatalog.App.SuperAdmin),
-            CreationDate = DateTime.Now,
+            CreationDate = DateTime.UtcNow,
             CreatorUserName = GlobalConstant.SystemUsername,
             RolePermissionRelations =
             [
@@ -134,13 +133,17 @@ public class DatabaseMigrator(IServiceProvider serviceProvider)
             Name = "Administrator",
             Surname = "User",
             UserType = Domain.Enums.UserType.Manager,
-            CreationDate = DateTime.Now,
+            CreationDate = DateTime.UtcNow,
             CreatorUserName = GlobalConstant.SystemUsername,
             EmailConfirmed = true,
             PhoneNumberConfirmed = true,
             TwoFactorEnabled = false,
             LockoutEnabled = false,
             AccessFailedCount = 0,
+
+            // Seeded with its revocation stamp: create_triggers.sql protects this row from updates, so the stamp
+            // cannot be assigned on the first login the way it is for every other user.
+            SessionStamp = Guid.NewGuid().ToString("N"),
             RoleRelations =
             [
                 new()
@@ -372,21 +375,7 @@ public class DatabaseMigrator(IServiceProvider serviceProvider)
 
             await SeedUIRelatedDataAsync(cancellationToken);
 
-            var languages = LanguagesSeed.Seed.Select(l => new Language
-            {
-                Code = l.Code,
-                Name = l.Name,
-                IsDefault = l.IsDefault,
-                Supported = l.Supported,
-            }).ToList();
-
-            await _dbContext.Languages.AddRangeAsync(languages, cancellationToken);
-
-            await _dbContext.SaveChangesAsync(cancellationToken);
-
-            var languageSeed = languages.Cast<ILanguage>().ToList();
-
-            MultiLanguageManager.UpdateLanguagesList(languageSeed);
+            await LanguageSeeder.SeedAsync(_dbContext, cancellationToken);
 
             await MigratePermissionsAsync(permissionManager, cancellationToken);
 

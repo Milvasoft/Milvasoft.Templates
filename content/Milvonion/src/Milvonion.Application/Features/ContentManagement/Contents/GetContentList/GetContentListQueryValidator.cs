@@ -3,7 +3,7 @@
 namespace Milvonion.Application.Features.ContentManagement.Contents.GetContentList;
 
 /// <summary>
-/// Query validations. 
+/// Validations of <see cref="GetContentListQuery"/>.
 /// </summary>
 public sealed class GetContentListQueryValidator : AbstractValidator<GetContentListQuery>
 {

@@ -5,7 +5,7 @@ using Milvonion.Application.Features.ContentManagement.Contents.CreateBulkConten
 namespace Milvonion.Application.Features.ContentManagement.Contents.CreateContent;
 
 /// <summary>
-/// Query validations. 
+/// Validations of <see cref="CreateContentCommand"/>.
 /// </summary>
 public sealed class CreateContentCommandValidator : AbstractValidator<CreateContentCommand>
 {

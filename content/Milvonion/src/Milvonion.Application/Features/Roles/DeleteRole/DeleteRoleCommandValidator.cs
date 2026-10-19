@@ -5,7 +5,7 @@ using Milvonion.Application.Behaviours;
 namespace Milvonion.Application.Features.Roles.DeleteRole;
 
 /// <summary>
-/// Account detail query validations. 
+/// Validations of <see cref="DeleteRoleCommand"/>.
 /// </summary>
 public sealed class DeleteRoleCommandValidator : AbstractValidator<DeleteRoleCommand>
 {

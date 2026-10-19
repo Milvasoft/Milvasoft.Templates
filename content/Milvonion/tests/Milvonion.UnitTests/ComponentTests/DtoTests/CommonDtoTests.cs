@@ -11,9 +11,9 @@ public class CommonDtoTests
     public void AuditDto_PropertyGetterSetter_ShouldWorkCorrectly()
     {
         // Arrange
-        var creationDate = DateTime.Now;
+        var creationDate = DateTime.UtcNow;
         var creatorUserName = "CreatorUser";
-        var lastModificationDate = DateTime.Now.AddHours(1);
+        var lastModificationDate = DateTime.UtcNow.AddHours(1);
         var lastModifierUserName = "LastModifierUser";
 
         // Act

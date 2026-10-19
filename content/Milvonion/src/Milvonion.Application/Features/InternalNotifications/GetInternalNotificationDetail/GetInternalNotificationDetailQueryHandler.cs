@@ -1,5 +1,4 @@
 ﻿using Milvasoft.Components.CQRS.Query;
-using Milvasoft.Components.Rest.Enums;
 using Milvasoft.Components.Rest.MilvaResponse;
 using Milvasoft.Core.Abstractions;
 using Milvonion.Application.Dtos.NotificationDtos;
@@ -20,7 +19,7 @@ public class GetInternalNotificationDetailQueryHandler(IMilvonionRepositoryBase<
         var internalNotification = await _internalnotificationRepository.GetByIdAsync(request.InternalNotificationId, projection: InternalNotificationDetailDto.Projection, cancellationToken: cancellationToken);
 
         if (internalNotification == null)
-            return Response<InternalNotificationDetailDto>.Success(internalNotification, MessageKey.InternalNotificationNotFound, MessageType.Warning);
+            return Response<InternalNotificationDetailDto>.Error(null, MessageKey.InternalNotificationNotFound);
 
         return Response<InternalNotificationDetailDto>.Success(internalNotification);
     }

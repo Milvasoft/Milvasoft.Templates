@@ -1,5 +1,4 @@
 ﻿using Milvasoft.Components.CQRS.Query;
-using Milvasoft.Components.Rest.Enums;
 using Milvasoft.Components.Rest.MilvaResponse;
 using Milvasoft.Core.Abstractions;
 using Milvonion.Application.Dtos.RoleDtos;
@@ -20,7 +19,7 @@ public class GetRoleDetailQueryHandler(IMilvonionRepositoryBase<Role> roleReposi
         var role = await _roleRepository.GetByIdAsync(request.RoleId, projection: RoleDetailDto.Projection, cancellationToken: cancellationToken);
 
         if (role == null)
-            return Response<RoleDetailDto>.Success(role, MessageKey.RoleNotFound, MessageType.Warning);
+            return Response<RoleDetailDto>.Error(null, MessageKey.RoleNotFound);
 
         return Response<RoleDetailDto>.Success(role);
     }

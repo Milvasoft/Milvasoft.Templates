@@ -17,6 +17,9 @@ public class GetResourceGroupListQueryHandler(IMilvonionRepositoryBase<ResourceG
     /// <inheritdoc/>
     public async Task<ListResponse<ResourceGroupListDto>> Handle(GetResourceGroupListQuery request, CancellationToken cancellationToken)
     {
+        request.PageNumber ??= 1;
+        request.RowCount = request.RowCount.ClampRowCount(20);
+
         var response = await _resourceGroupRepository.GetAllAsync(request, projection: ResourceGroupListDto.Projection, cancellationToken: cancellationToken);
 
         return response;

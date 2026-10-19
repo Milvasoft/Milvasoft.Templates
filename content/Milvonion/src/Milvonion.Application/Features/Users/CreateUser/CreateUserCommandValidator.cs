@@ -1,30 +1,32 @@
 ﻿using FluentValidation;
 using Milvasoft.Core.Abstractions.Localization;
+using Milvasoft.Identity.Abstract;
 using Milvonion.Application.Behaviours;
 
 namespace Milvonion.Application.Features.Users.CreateUser;
 
 /// <summary>
-/// Account detail query validations. 
+/// Validations of <see cref="CreateUserCommand"/>.
 /// </summary>
 public sealed class CreateUserCommandValidator : AbstractValidator<CreateUserCommand>
 {
     ///<inheritdoc cref="CreateUserCommandValidator"/>
-    public CreateUserCommandValidator(IMilvaLocalizer localizer)
+    public CreateUserCommandValidator(IMilvaLocalizer localizer, IMilvaUserManager<User, int> userManager)
     {
         RuleFor(query => query.UserName)
             .NotNullOrEmpty(localizer, MessageKey.GlobalUsername);
 
         RuleFor(query => query.Password)
-            .NotNullOrEmpty(localizer, MessageKey.GlobalPassword);
+            .NotNullOrEmpty(localizer, MessageKey.GlobalPassword)
+            .IdentityPassword(userManager, localizer);
 
         RuleFor(query => query.Name)
-            .MaximumLength(70)
-            .WithMessage(localizer[MessageKey.MaxLengthReached, localizer[MessageKey.GlobalName], 70]);
+            .MaximumLength(User.NameMaxLength)
+            .WithMessage(localizer[MessageKey.MaxLengthReached, localizer[MessageKey.GlobalName], User.NameMaxLength]);
 
         RuleFor(query => query.Surname)
-            .MaximumLength(70)
-            .WithMessage(localizer[MessageKey.MaxLengthReached, localizer[MessageKey.GlobalName], 70]);
+            .MaximumLength(User.NameMaxLength)
+            .WithMessage(localizer[MessageKey.MaxLengthReached, localizer[MessageKey.GlobalSurname], User.NameMaxLength]);
 
         RuleFor(query => query.UserType)
             .IsInEnum()

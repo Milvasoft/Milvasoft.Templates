@@ -1,34 +1,30 @@
-dotnet restore ../src/Milvonion.Api/Milvonion.Api.csproj > last_run_log.txt
-
 @echo off
+rem Builds the test projects in Debug (the tests run against the Debug build) and runs the unit and
+rem integration test assemblies with the xUnit v3 in-process runner
+rem (dotnet exec), writing an HTML report per assembly to artifacts/test-results. `dotnet test` (Microsoft.Testing.Platform,
+rem selected in global.json) works too; this script runs the assemblies directly instead.
+rem Requires Docker for the integration tests (Testcontainers). Output goes to build\last_run_log.txt.
+setlocal
 
-cd ..
+cd /d "%~dp0.."
 
-@echo on
+set LOG=%CD%\build\last_run_log.txt
+set RESULTS=%CD%\artifacts\test-results
+for /f %%i in ('powershell -NoProfile -Command "Get-Date -Format yyyy_MM_dd_HH_mm"') do set STAMP=%%i
 
-dotnet publish ./src/Milvonion.Api/Milvonion.Api.csproj -c Release -o ./artifacts/out >> ./build/last_run_log.txt
+if not exist "%RESULTS%" mkdir "%RESULTS%"
+type nul > "%LOG%"
 
-@echo off
+dotnet build tests\Milvonion.UnitTests\Milvonion.UnitTests.csproj -nologo >> "%LOG%" || exit /b 1
+dotnet build tests\Milvonion.IntegrationTests\Milvonion.IntegrationTests.csproj -nologo >> "%LOG%" || exit /b 1
 
-cd ./tests
+set STATUS=0
 
-@echo off
+for %%p in (Milvonion.UnitTests Milvonion.IntegrationTests) do (
+    pushd tests\%%p\bin\Debug\net10.0
+    dotnet exec %%p.dll -noColor -result-html "%RESULTS%\%%p_%STAMP%.html" >> "%LOG%" 2>&1 || set STATUS=1
+    popd
+)
 
-set CUR_YYYY=%date:~10,4%
-set CUR_MM=%date:~4,2%
-set CUR_DD=%date:~7,2%
-set CUR_HH=%time:~0,2%
-if %CUR_HH% lss 10 (set CUR_HH=0%time:~1,1%)
-
-set CUR_NN=%time:~3,2%
-set CUR_SS=%time:~6,2%
-set CUR_MS=%time:~9,2%
-
-set SUBFILENAME=%CUR_YYYY%%CUR_MM%%CUR_DD%-%CUR_HH%%CUR_NN%%CUR_SS%
-
-@echo on
-
-dotnet test ../artifacts/out/Milvonion.UnitTests.dll --logger "html;logfilename=unitTestResults_%SUBFILENAME%.html" >> ../build/last_run_log.txt
-dotnet test ../artifacts/out/Milvonion.IntegrationTests.dll --logger "html;logfilename=integrationTestResults_%SUBFILENAME%.html" >> ../build/last_run_log.txt
-
-cmd/k
+findstr /c:"Total:" "%LOG%"
+exit /b %STATUS%

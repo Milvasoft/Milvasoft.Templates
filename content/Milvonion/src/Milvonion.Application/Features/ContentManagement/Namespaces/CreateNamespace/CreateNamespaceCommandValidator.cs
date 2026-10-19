@@ -5,7 +5,7 @@ using Milvonion.Application.Behaviours;
 namespace Milvonion.Application.Features.ContentManagement.Namespaces.CreateNamespace;
 
 /// <summary>
-/// Account detail query validations. 
+/// Validations of <see cref="CreateNamespaceCommand"/>.
 /// </summary>
 public sealed class CreateNamespaceCommandValidator : AbstractValidator<CreateNamespaceCommand>
 {

@@ -16,6 +16,9 @@ public class MilvonionDbContextScopedFactory(IDbContextFactory<MilvonionDbContex
                                            IDataAccessConfiguration dataAccessConfiguration,
                                            IServiceProvider serviceProvider) : IDbContextFactory<MilvonionDbContext>
 {
+    private readonly IDbContextFactory<MilvonionDbContext> _pooledFactory = pooledFactory;
+    private readonly IDataAccessConfiguration _dataAccessConfiguration = dataAccessConfiguration;
+    private readonly IServiceProvider _serviceProvider = serviceProvider;
 
     /// <summary>
     /// Db context creation implementation.
@@ -23,10 +26,10 @@ public class MilvonionDbContextScopedFactory(IDbContextFactory<MilvonionDbContex
     /// <returns></returns>
     public MilvonionDbContext CreateDbContext()
     {
-        var context = pooledFactory.CreateDbContext();
+        var context = _pooledFactory.CreateDbContext();
 
-        context.ServiceProvider = serviceProvider;
-        context.SetDataAccessConfiguration(dataAccessConfiguration);
+        context.ServiceProvider = _serviceProvider;
+        context.SetDataAccessConfiguration(_dataAccessConfiguration);
 
         return context;
     }

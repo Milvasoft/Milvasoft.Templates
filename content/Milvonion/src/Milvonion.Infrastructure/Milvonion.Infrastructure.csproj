@@ -24,18 +24,15 @@
 		  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
 		<PackageReference Include="Bogus" Version="35.6.5" />
-		<PackageReference Include="ClosedXML" Version="0.105.0" />
-		<PackageReference Include="Milvasoft.Caching.InMemory" Version="10.0.1" />
-		<PackageReference Include="Milvasoft.JobScheduling" Version="10.0.1" />
+		<PackageReference Include="ClosedXML" Version="0.105.1" />
+		<PackageReference Include="Milvasoft.Caching.Redis" Version="10.2.5" />
+		<PackageReference Include="Milvasoft.JobScheduling" Version="10.2.5" />
 		<PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
-		<PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="10.0.0" />
+		<PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="10.0.3" />
 		<PackageReference Include="Serilog.AspNetCore" Version="10.0.0" />
 		<PackageReference Include="Serilog.Expressions" Version="5.1.0-dev-02309" />
-		<PackageReference Include="Serilog.Sinks.Postgresql.Alternative" Version="4.2.0" />
-		<PackageReference Include="Swashbuckle.AspNetCore" Version="10.1.4" />
-		<PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="8.16.0" />
-		<PackageReference Include="Microsoft.IO.RecyclableMemoryStream" Version="3.0.1" />
-		<PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="10.0.3" />
+		<PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="8.22.0" />
+		<PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="10.0.12" />
 	</ItemGroup>
 
 

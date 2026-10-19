@@ -4,6 +4,7 @@ using Milvasoft.Core.Abstractions.Localization;
 using Milvasoft.Core.Exceptions;
 using Milvasoft.Core.Helpers;
 using Milvasoft.Interception.Interceptors.ActivityScope;
+using Milvonion.Api.Utils;
 using Milvonion.Application.Utils.Constants;
 using Milvonion.Domain;
 using Milvonion.Domain.JsonModels;
@@ -42,7 +43,7 @@ public class ExceptionMiddleware(RequestDelegate next, ILoggerFactory loggerFact
         {
             context.Items.Add(nameof(Exception), ex);
 
-            await HandlePostgresException(context, ex);
+            await HandlePostgresExceptionAsync(context, ex);
         }
         catch (MilvaUserFriendlyException ex)
         {
@@ -63,41 +64,54 @@ public class ExceptionMiddleware(RequestDelegate next, ILoggerFactory loggerFact
                 return;
             }
 
-            await RewriteResponseAsync(context, ex.Message, StatusCodes.Status200OK, MessageType.Warning, ex.ExceptionObject);
+            // A user-friendly exception is a business failure: same envelope as a handler error, real status code.
+            await RewriteResponseAsync(context, ex.Message, ResponseStatusCodes.FromKey(ex.Message), MessageType.Warning, ex.ExceptionObject);
         }
         catch (Exception ex)
         {
             context.Items.Add(nameof(Exception), ex);
 
             if (ex.InnerException is PostgresException postgresEx)
-                await HandlePostgresException(context, postgresEx);
+                await HandlePostgresExceptionAsync(context, postgresEx);
             else
             {
                 LogExceptionWithRequest(context, ex);
 
-                await RewriteResponseAsync(context, MessageKey.UnhandledException, (int)HttpStatusCode.BadRequest);
+                await RewriteResponseAsync(context, MessageKey.UnhandledException, (int)HttpStatusCode.InternalServerError);
             }
         }
     }
 
-    private Task HandlePostgresException(HttpContext context, PostgresException ex)
+    private Task HandlePostgresExceptionAsync(HttpContext context, PostgresException ex)
     {
         string messageKey;
+        int statusCode;
 
+        // Constraint violations are caused by the request (409); anything else is a server-side failure (500).
         if (ex.SqlState.Equals(MessageConstant.DefaultDataCannotModifyPgCode) && ex.Message.Contains(MessageConstant.DefaultDataCannotModifyPgMessage))
+        {
             messageKey = MessageKey.DefaultValueCannotModify;
+            statusCode = StatusCodes.Status409Conflict;
+        }
         else if (ex.SqlState.Equals(MessageConstant.DuplicateDataViolationPgCode))
+        {
             messageKey = MessageKey.PostgreDuplicateDataException;
+            statusCode = StatusCodes.Status409Conflict;
+        }
         else if (ex.SqlState.Equals(MessageConstant.ForeignKeyViolationPgCode))
+        {
             messageKey = MessageKey.PostgreBasedException;
+            statusCode = StatusCodes.Status409Conflict;
+        }
         else
         {
             LogExceptionWithRequest(context, ex);
 
             messageKey = MessageKey.PostgreBasedException;
+            statusCode = StatusCodes.Status500InternalServerError;
         }
 
-        return RewriteResponseAsync(context, messageKey, StatusCodes.Status200OK, MessageType.Warning);
+        return RewriteResponseAsync(context, messageKey, statusCode, MessageType.Warning);
     }
 
     /// <summary>
@@ -134,7 +148,7 @@ public class ExceptionMiddleware(RequestDelegate next, ILoggerFactory loggerFact
         var requestInfo = new RequestInfo
         {
             Method = context.Request.Method,
-            Headers = context.Request.Headers,
+            Headers = RedactHeaders(context.Request.Headers),
             ContentLength = context.Request.ContentLength ?? 0,
             AbsoluteUri = string.Concat(context.Request.Scheme,
                                     GlobalConstant.UrlStartSegment,
@@ -154,6 +168,33 @@ public class ExceptionMiddleware(RequestDelegate next, ILoggerFactory loggerFact
                          context.Request.Path,
                          requestInfo,
                          User.GetCurrentUser(context.RequestServices.GetService<IServiceProvider>()),
-                         ex.ToJson());
+                         // ToString, not ToJson: System.Text.Json refuses to serialize Exception (TargetSite), and a
+                         // throwing logger would swallow the 500 envelope for the very request that failed.
+                         ex.ToString());
+    }
+
+    // Headers that must never reach the logs (bearer tokens, session cookies, credentials).
+    private static readonly HashSet<string> _sensitiveHeaders = new(StringComparer.OrdinalIgnoreCase)
+    {
+        "Authorization",
+        "Proxy-Authorization",
+        "Cookie",
+        "Set-Cookie"
+    };
+
+    /// <summary>
+    /// Copies the request headers into a plain dictionary, replacing the value of any sensitive header
+    /// (<see cref="_sensitiveHeaders"/>) with a placeholder so credentials are never written to the log.
+    /// </summary>
+    /// <param name="headers">The incoming request headers.</param>
+    /// <returns>A redacted copy safe to serialize into the log.</returns>
+    private static Dictionary<string, string> RedactHeaders(IHeaderDictionary headers)
+    {
+        var redacted = new Dictionary<string, string>(headers.Count, StringComparer.OrdinalIgnoreCase);
+
+        foreach (var header in headers)
+            redacted[header.Key] = _sensitiveHeaders.Contains(header.Key) ? "***" : header.Value.ToString();
+
+        return redacted;
     }
 }

@@ -24,6 +24,9 @@ public class GetActivityLogListQueryHandler(IMilvonionRepositoryBase<ActivityLog
     /// <inheritdoc/>
     public async Task<ListResponse<ActivityLogListDto>> Handle(GetActivityLogListQuery request, CancellationToken cancellationToken)
     {
+        request.PageNumber ??= 1;
+        request.RowCount = request.RowCount.ClampRowCount(20);
+
         var sortRequest = request?.Sorting;
 
         if (sortRequest == null && request != null)

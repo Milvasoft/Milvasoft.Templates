@@ -4,7 +4,7 @@ using Milvasoft.Core.Abstractions.Localization;
 namespace Milvonion.Application.Features.InternalNotifications.UpdateInternalNotification;
 
 /// <summary>
-/// Account detail query validations. 
+/// Validations of <see cref="UpdateInternalNotificationCommand"/>.
 /// </summary>
 public sealed class UpdateInternalNotificationCommandValidator : AbstractValidator<UpdateInternalNotificationCommand>
 {

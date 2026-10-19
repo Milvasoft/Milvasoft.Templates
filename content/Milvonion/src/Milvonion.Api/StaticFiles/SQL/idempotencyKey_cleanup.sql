@@ -1,0 +1,1 @@
+﻿DELETE FROM "IdempotencyKeys" WHERE "CreationDate" < now() - interval '24 hours'

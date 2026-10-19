@@ -15,7 +15,7 @@ namespace Milvonion.Application.Features.Languages.UpdateLanguage;
 /// <param name="LanguageRepository"></param>
 [Log]
 [Transaction]
-[UserActivityTrack(UserActivity.UpdateRole)]
+[UserActivityTrack(UserActivity.UpdateLanguages)]
 public record UpdateLanguageCommandHandler(IMilvonionRepositoryBase<Language> LanguageRepository) : IInterceptable, ICommandHandler<UpdateLanguageCommand, int>
 {
     private readonly IMilvonionRepositoryBase<Language> _languageRepository = LanguageRepository;
@@ -42,7 +42,9 @@ public record UpdateLanguageCommandHandler(IMilvonionRepositoryBase<Language> La
 
         var setPropertyBuilder = _languageRepository.GetUpdatablePropertiesBuilder(request);
 
-        await _languageRepository.ExecuteUpdateAsync(request.Id, setPropertyBuilder, cancellationToken: cancellationToken);
+        // A request that only carried IsDefault=false leaves nothing to set (an empty ExecuteUpdate is invalid SQL).
+        if (setPropertyBuilder.SetPropertyCallsLog.Count > 0)
+            await _languageRepository.ExecuteUpdateAsync(request.Id, setPropertyBuilder, cancellationToken: cancellationToken);
 
         var latestLanguages = await _languageRepository.GetAllAsync(cancellationToken: cancellationToken);
 

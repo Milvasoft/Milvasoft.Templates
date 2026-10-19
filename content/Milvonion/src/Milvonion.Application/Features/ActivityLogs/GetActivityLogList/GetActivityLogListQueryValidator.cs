@@ -3,7 +3,7 @@
 namespace Milvonion.Application.Features.ActivityLogs.GetActivityLogList;
 
 /// <summary>
-/// Account detail query validations. 
+/// Validations of <see cref="GetActivityLogListQuery"/>.
 /// </summary>
 public sealed class GetActivityLogListQueryValidator : AbstractValidator<GetActivityLogListQuery>
 {

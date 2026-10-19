@@ -14,7 +14,7 @@ public static class MessageConstant
     public const string DefaultDataCannotModifyPgCode = "P0001";
     public const string DefaultDataCannotModifyPgMessage = "Seed records cannot be";
     public const string DuplicateDataViolationPgCode = "23505";
-    public const string ForeignKeyViolationPgCode = "20503";
+    public const string ForeignKeyViolationPgCode = "23503";
     public const string ExceptionLogTemplate = "Exception raised : {message}";
     public const string S3ConfigurationMissing = "Current provider type is S3 but S3 configuration missing!";
     public const string ABSConfigurationMissing = "Current provider type is ABS but ABS configuration missing!";

@@ -1,16 +1,11 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Milvasoft.Core.EntityBases.Concrete;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using Milvasoft.Core.EntityBases.Concrete;
 
 namespace Milvonion.Domain;
 
 /// <summary>
-/// Entity of the MethodLogs table.
+/// Shape of a method log entry produced by the <c>[Log]</c> interceptor. It is not a table: <c>MilvonionDbLogger</c>
+/// deserializes the entry into it and writes it to the log pipeline (Serilog), never to the application database.
 /// </summary>
-[Table(TableNames.MethodLogs)]
-[Index(nameof(UtcLogTime), IsDescending = [true])]
-[Index(nameof(IsSuccess))]
-[Index(nameof(TransactionId))]
 public class MethodLog : LogEntityBase<int>
 {
 

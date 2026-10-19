@@ -5,7 +5,7 @@
 
 
 ### Create ready made project with [Milvasoft libraries](https://github.com/Milvasoft/Milvasoft) and Onion Architecture
-### This templates contains integration with PostgreSQL, MongoDb but you can change what you want
+### This templates contains integration with PostgreSQL and Redis but you can change what you want
 
 ***
 
@@ -15,6 +15,8 @@
 - Install the latest [.NET Core SDK](https://dot.net) and [Visual Studio 2022](https://visualstudio.microsoft.com/tr/thank-you-downloading-visual-studio/?sku=Community&rel=16)
 - Run `dotnet new install Milvasoft.Templates` to install the project template.
 - Run `dotnet new milvonion --help` to see how to select the feature of the project.
+- Run `dotnet new milvonion -n MyApp` to create the solution, then follow the generated `README.md` (requirements, first migration, tests).
+- Run `dotnet new mediatr-crud -n Product --projectName MyApp --pluralName Products` in the solution root to add a CRUD feature.
 
 
 # How can I create project with VS?

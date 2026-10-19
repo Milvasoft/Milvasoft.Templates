@@ -1,4 +1,6 @@
-﻿namespace Milvonion.Application.Utils.Constants;
+﻿using System.Diagnostics;
+
+namespace Milvonion.Application.Utils.Constants;
 
 /// <summary>
 /// Represents a class that contains global constants for the application.
@@ -26,26 +28,6 @@ public static class GlobalConstant
     /// Root directory path. 
     /// </summary>
     public const string WWWRoot = "wwwroot";
-
-    /// <summary>
-    /// Health check path. 
-    /// </summary>
-    public const string HealthCheckPath = "hc";
-
-    /// <summary>
-    /// Health check ui path. 
-    /// </summary>
-    public const string HealthCheckUIPath = "hc-ui";
-
-    /// <summary>
-    /// Health check ui path. 
-    /// </summary>
-    public const string HealthCheckWebHookPath = "hc-ui";
-
-    /// <summary>
-    /// Health check resources path. 
-    /// </summary>
-    public const string HealthCheckResourcesPath = "health-check";
 
     /// <summary>
     /// http string.
@@ -100,6 +82,11 @@ public static class GlobalConstant
     public const string CustomForbidSchema = "CustomForbidSchema";
 
     /// <summary>
+    /// Activity source of the application traces. Its name is also the default OpenTelemetry service name.
+    /// </summary>
+    public static ActivitySource ActivitySource { get; } = new("milvonion-api");
+
+    /// <summary>
     /// Logging activity name for activity starter interception.
     /// </summary>
     public const string LoggingActivityName = "LoggingActivity";
@@ -115,9 +102,17 @@ public static class GlobalConstant
     public const string UserTypeClaimName = "ut";
 
     /// <summary>
-    /// Response logging ignore httpcontext items key.
+    /// User id claim name. Carried in the access token so the current user's id is read straight from
+    /// the (already validated) claims, without a per-request "resolve id from user name" database round trip.
     /// </summary>
-    public const string IgnoreResponseLoggingItemsKey = "IgnoreResponseLogging";
+    public const string UserIdClaimName = "uid";
+
+    /// <summary>
+    /// Session (revocation) stamp claim name. Baked into the access token at login; every request
+    /// compares it against the user's current stamp (Redis, DB fallback). A mismatch means the token
+    /// was revoked (password change, role change, lock, ...) and the request is rejected.
+    /// </summary>
+    public const string SessionStampClaimName = "sstamp";
 
     /// <summary>
     /// Root user name.
@@ -140,11 +135,6 @@ public static class GlobalConstant
     public const string ContentDispositionHeaderKey = "Content-Disposition";
 
     /// <summary>
-    /// X-Real-IP header key.
-    /// </summary>
-    public const string RealIpHeaderKey = "X-Real-IP";
-
-    /// <summary>
     /// Generate metadata header key.
     /// </summary>
     public const string DownloadEnpointPathEnd = "/download";
@@ -160,14 +150,24 @@ public static class GlobalConstant
     public const string UrlStartSegment = "://";
 
     /// <summary>
-    /// Current user permissions http context items key.
-    /// </summary>
-    public const string CurrentUserPermissionsKey = "CU-Permissions";
-
-    /// <summary>
     /// Auto increment start value for database entities.
     /// </summary>
     public const int AutoIncrementStart = 21;
+
+    /// <summary>
+    /// Smallest page a list endpoint serves.
+    /// </summary>
+    public const int MinRowCount = 1;
+
+    /// <summary>
+    /// Largest page a list endpoint serves; a larger client RowCount is clamped to it.
+    /// </summary>
+    public const int MaxRowCount = 100;
+
+    /// <summary>
+    /// Upper bound of rows a single export may pull; also the page cap of the list queries an export runs.
+    /// </summary>
+    public const int MaxExportRowCount = 5000;
 
     /// <summary>
     /// Ignored content disposition parts.
@@ -184,10 +184,7 @@ public static class GlobalConstant
     public static HashSet<string> UIPaths { get; } =
     [
         $"/{RoutePrefix}/documentation",
-        $"/{RoutePrefix}/docs",
-        $"/{RoutePrefix}/hc",
-        $"/{RoutePrefix}/health-check",
-        $"/{RoutePrefix}/hc-ui"
+        $"/{RoutePrefix}/docs"
     ];
 }
 

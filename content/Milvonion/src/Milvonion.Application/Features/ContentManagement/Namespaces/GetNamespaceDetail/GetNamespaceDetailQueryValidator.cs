@@ -4,7 +4,7 @@ using Milvasoft.Core.Abstractions.Localization;
 namespace Milvonion.Application.Features.ContentManagement.Namespaces.GetNamespaceDetail;
 
 /// <summary>
-/// Account detail query validations. 
+/// Validations of <see cref="GetNamespaceDetailQuery"/>.
 /// </summary>
 public sealed class GetNamespaceDetailQueryValidator : AbstractValidator<GetNamespaceDetailQuery>
 {

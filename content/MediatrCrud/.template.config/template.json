@@ -18,6 +18,7 @@
       "datatype": "text",
       "description": "Root namespace or project name",
       "replaces": "projectName",
+      "fileRename": "projectName",
       "defaultValue": "MyApp"
     },
     "pluralName": {
@@ -25,6 +26,7 @@
       "datatype": "text",
       "description": "Plural form of the entity",
       "replaces": "pluralName",
+      "fileRename": "pluralName",
       "defaultValue": "Entities"
     },
     "entityKeyType": {
@@ -37,14 +39,13 @@
   },
   "sources": [
     {
-      "source": "./", // get from root fodler
-      "target": "./", // copy to root folder
+      "source": "./", // get from root folder
+      "target": "./", // copy to the solution root: the files land in src/{projectName}.Application and src/{projectName}.Api
       "modifiers": [
         {
           "exclude": [ "**/.vs/**", ".template.config/**", "README.md" ] // exclude unnecessary files
         }
-      ],
-      "flatten": true // Flatten folder structure, do not copy sub folders  
+      ]
     }
   ]
 }

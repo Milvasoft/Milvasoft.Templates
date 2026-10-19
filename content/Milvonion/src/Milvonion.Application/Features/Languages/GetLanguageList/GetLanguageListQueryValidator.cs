@@ -3,7 +3,7 @@
 namespace Milvonion.Application.Features.Languages.GetLanguageList;
 
 /// <summary>
-/// Account detail query validations. 
+/// Validations of <see cref="GetLanguageListQuery"/>.
 /// </summary>
 public sealed class GetLanguageListQueryValidator : AbstractValidator<GetLanguageListQuery>
 {

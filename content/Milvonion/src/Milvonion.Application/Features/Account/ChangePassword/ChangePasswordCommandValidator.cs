@@ -1,15 +1,17 @@
 ﻿using FluentValidation;
 using Milvasoft.Core.Abstractions.Localization;
+using Milvasoft.Identity.Abstract;
+using Milvonion.Application.Behaviours;
 
 namespace Milvonion.Application.Features.Account.ChangePassword;
 
 /// <summary>
-/// Account detail query validations. 
+/// Validations of <see cref="ChangePasswordCommand"/>.
 /// </summary>
 public sealed class ChangePasswordCommandValidator : AbstractValidator<ChangePasswordCommand>
 {
     ///<inheritdoc cref="ChangePasswordCommandValidator"/>
-    public ChangePasswordCommandValidator(IMilvaLocalizer localizer)
+    public ChangePasswordCommandValidator(IMilvaLocalizer localizer, IMilvaUserManager<User, int> userManager)
     {
         RuleFor(query => query.UserName)
             .NotEmpty()
@@ -24,6 +26,7 @@ public sealed class ChangePasswordCommandValidator : AbstractValidator<ChangePas
         RuleFor(query => query.NewPassword)
             .NotEmpty()
             .NotNull()
-            .WithMessage(localizer[MessageKey.CannotBeEmpty, localizer[nameof(ChangePasswordCommand.NewPassword)]]);
+            .WithMessage(localizer[MessageKey.CannotBeEmpty, localizer[nameof(ChangePasswordCommand.NewPassword)]])
+            .IdentityPassword(userManager, localizer);
     }
 }

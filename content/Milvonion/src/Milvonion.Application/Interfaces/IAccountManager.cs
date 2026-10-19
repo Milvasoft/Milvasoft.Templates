@@ -18,8 +18,8 @@ public interface IAccountManager : IInterceptable
 
     /// <summary>
     /// Generates token for ci user.
-    /// Generates access token.
+    /// Generates access token carrying the user's current revocation stamp.
     /// </summary>
     /// <returns></returns>
-    string GenerateToken(User user, DateTime? expiryDate = null);
+    Task<string> GenerateTokenAsync(User user, DateTime? expiryDate = null, CancellationToken cancellationToken = default);
 }

@@ -5,7 +5,7 @@ using Milvonion.Application.Behaviours;
 namespace Milvonion.Application.Features.Roles.CreateRole;
 
 /// <summary>
-/// Account detail query validations. 
+/// Validations of <see cref="CreateRoleCommand"/>.
 /// </summary>
 public sealed class CreateRoleCommandValidator : AbstractValidator<CreateRoleCommand>
 {

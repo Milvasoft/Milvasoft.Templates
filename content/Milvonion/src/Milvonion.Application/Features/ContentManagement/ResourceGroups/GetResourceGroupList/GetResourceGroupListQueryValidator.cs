@@ -3,7 +3,7 @@
 namespace Milvonion.Application.Features.ContentManagement.ResourceGroups.GetResourceGroupList;
 
 /// <summary>
-/// Query validations. 
+/// Validations of <see cref="GetResourceGroupListQuery"/>.
 /// </summary>
 public sealed class GetResourceGroupListQueryValidator : AbstractValidator<GetResourceGroupListQuery>
 {

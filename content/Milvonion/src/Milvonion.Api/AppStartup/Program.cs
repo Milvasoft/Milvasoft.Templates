@@ -1,27 +1,22 @@
+using Microsoft.AspNetCore.HttpOverrides;
 using Milvasoft.Components.Rest;
 using Milvasoft.Core.Utils.Converters;
 using Milvonion.Api;
 using Milvonion.Api.AppStartup;
 using Milvonion.Api.Middlewares;
 using Milvonion.Api.Migrations;
+using Milvonion.Api.Utils;
 using Milvonion.Application;
 using Milvonion.Application.Utils.Constants;
 using Milvonion.Application.Utils.LinkedWithFormatters;
 using Milvonion.Domain;
 using Milvonion.Infrastructure;
 using Serilog;
-using Serilog.Debugging;
 using System.Reflection;
-#if !DEBUG
-using Milvonion.Infrastructure.Logging;
-#endif
+using System.Text.Json.Serialization;
 
 try
 {
-#if DEBUG
-    MissingResxKeyFinder.FindAndPrintToConsole();
-#endif
-
     var builder = WebApplication.CreateBuilder(new WebApplicationOptions
     {
         WebRootPath = GlobalConstant.WWWRoot
@@ -29,21 +24,24 @@ try
 
     var assemblies = new Assembly[] { ApplicationAssembly.Assembly, InfrastructureAssembly.Assembly, DomainAssembly.Assembly, PresentationAssembly.Assembly };
 
-    // Serilog logs to console.
-    SelfLog.Enable(Console.Error);
-
-#if DEBUG
-    builder.Host.UseSerilog((_, lc) => lc.ReadFrom.Configuration(builder.Configuration));
-#else
-    builder.Host.UseSerilog((_, lc) => lc.ReadFrom.Configuration(builder.Configuration).Enrich.With(new RemoveTypeTagEnricher()));
-#endif
+    builder.AddObservabilityAndLogging();
 
     #region ConfigureServices
 
     // Add services to the container.
     var services = builder.Services;
 
-    services.AddControllers();
+    // Failed envelopes leave with a real HTTP status (see ResponseStatusCodeFilter) instead of 200.
+    services.AddControllers(options => options.Filters.Add<ResponseStatusCodeFilter>())
+            .AddJsonOptions(options =>
+            {
+                // A null property carries no information, only bytes. Clients read a missing property and an explicit
+                // null the same way, and requests are unaffected: this is a write-side setting only.
+                options.JsonSerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull;
+
+                // Dates (e.g. a date of birth) are read by the date they were written with, never through a time zone.
+                options.JsonSerializerOptions.Converters.Add(new LenientDateOnlyJsonConverter());
+            });
 
     services.AddEndpointsApiExplorer();
 
@@ -51,9 +49,8 @@ try
 
     services.AddOpenApi(assemblies);
 
-#if !DEBUG
-    services.AddHealthCheck(builder.Configuration);
-#endif
+    // The signing key is a secret and not in the appsettings files: fail fast outside Development, generate one in Development.
+    builder.EnsureTokenSigningKey();
 
     services.AddAuthorization(builder.Configuration);
 
@@ -67,7 +64,14 @@ try
 
     services.AddApplicationServices(assemblies);
 
+    // Hosted services start in registration order: migrations must complete before the
+    // infrastructure background services (scheduled cleanup jobs) touch the database.
+    builder.Services.AddHostedService<MigrationHostedService>();
+
     services.AddInfrastructureServices(builder.Configuration);
+
+    // Liveness (GET healthcheck) touches nothing; readiness (GET healthcheck/ready) checks the database and Redis.
+    services.AddReadinessChecks();
 
     services.AddLinkedWithFormatters(assemblies);
 
@@ -79,17 +83,22 @@ try
         options.LowercaseQueryStrings = true;
     });
 
-    builder.Services.AddHostedService<MigrationHostedService>();
-
     #endregion
 
     services.AddCors(o => o.AddPolicy("AllowAll", builder =>
     {
-        builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
+        // Content-Disposition is exposed so a client can save a downloaded file (e.g. an export) under its real name.
+        builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader().WithExposedHeaders(GlobalConstant.ContentDispositionHeaderKey);
     }));
 
     // Configure the HTTP request pipeline.
     var app = builder.Build();
+
+    // Development only: reports localization keys missing from the resx files. Skipped with a warning when the source tree is not available (e.g. inside a container).
+    if (app.Environment.IsDevelopment())
+    {
+        MissingResxKeyFinder.FindAndPrintToConsole();
+    }
 
     app.UseStaticFiles();
 
@@ -102,21 +111,43 @@ try
 
     app.UseRequestLocalization();
 
-    app.UseMiddleware<RequestResponseLoggingMiddleware>();
+    // Behind the reverse proxy: rewrite RemoteIpAddress/Scheme from X-Forwarded-For / X-Forwarded-Proto so
+    // logs and IP based checks see the client, not the proxy. Runs before authentication.
+    // The proxy is not on loopback (container/ingress), so the default KnownProxies/KnownIPNetworks would ignore
+    // the header entirely. ForwardLimit = 1 keeps only the RIGHTMOST X-Forwarded-For entry (the one the proxy
+    // itself appended), so a client cannot spoof its address by prepending values. Deploy behind a proxy only.
+    var forwardedHeadersOptions = new ForwardedHeadersOptions
+    {
+        ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto,
+        ForwardLimit = 1
+    };
+
+    forwardedHeadersOptions.KnownIPNetworks.Clear();
+    forwardedHeadersOptions.KnownProxies.Clear();
+
+    app.UseForwardedHeaders(forwardedHeadersOptions);
 
     app.UseMiddleware<ExceptionMiddleware>();
 
+    // Endpoint routing must run before authentication/authorization so the matched endpoint's metadata
+    // ([AllowAnonymous], [Auth]) is visible to them; with the deny-by-default fallback policy an unresolved
+    // endpoint would otherwise be treated as "requires authentication".
+    app.UseRouting();
+
+    // A request that matched no endpoint is a 404, not a 401: without this the deny-by-default fallback policy
+    // below would challenge every unknown URL (the authorization middleware applies it when there is no endpoint).
+    app.Use((context, next) => context.GetEndpoint() is null ? ExceptionMiddleware.RewriteResponseAsync(context, MessageKey.PageNotFound, StatusCodes.Status404NotFound) : next(context));
+
     app.UseAuthentication();
+
+    // Token revocation: an authenticated request whose session stamp no longer matches the user's current one is a 401.
+    app.UseMiddleware<SecurityStampValidationMiddleware>();
 
     app.UseAuthorization();
 
     app.MapControllers();
 
     app.UseScalarWithOpenApi();
-
-#if !DEBUG
-    app.UseHealthCheck();
-#endif
 
     #endregion
 

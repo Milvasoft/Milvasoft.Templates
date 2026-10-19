@@ -2,6 +2,7 @@ using Asp.Versioning;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Milvasoft.Components.Rest.MilvaResponse;
+using Milvonion.Api.Utils;
 using Milvonion.Application.Dtos.RoleDtos;
 using Milvonion.Application.Features.Roles.CreateRole;
 using Milvonion.Application.Features.Roles.DeleteRole;
@@ -48,13 +49,15 @@ public class RolesController(IMediator mediator) : ControllerBase
     public Task<Response<RoleDetailDto>> GetRoleAsync([FromQuery] GetRoleDetailQuery request, CancellationToken cancellation) => _mediator.Send(request, cancellation);
 
     /// <summary>
-    /// Adds role.
+    /// Adds role. Retry safe with an <c>Idempotency-Key</c> header (roles have no unique name, so a retried request would
+    /// otherwise create a second role).
     /// </summary>
     /// <param name="request"></param>
     /// <param name="cancellation"></param>
     /// <returns></returns>
     [Auth(PermissionCatalog.RoleManagement.Create)]
     [HttpPost("role")]
+    [Idempotent]
     public Task<Response<int>> AddRoleAsync(CreateRoleCommand request, CancellationToken cancellation) => _mediator.Send(request, cancellation);
 
     /// <summary>

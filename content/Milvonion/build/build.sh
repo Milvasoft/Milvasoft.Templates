@@ -1,14 +1,30 @@
 #!/bin/bash
+# Builds the test projects in Debug (the tests run against the Debug build) and runs the unit and
+# integration test assemblies with the xUnit v3 in-process runner
+# (dotnet exec), writing an HTML report per assembly to artifacts/test-results. `dotnet test` (Microsoft.Testing.Platform,
+# selected in global.json) works too; this script runs the assemblies directly instead.
+# Requires Docker for the integration tests (Testcontainers). Output goes to build/last_run_log.txt.
+set -euo pipefail
 
-dotnet restore ../src/Milvonion.Api/Milvonion.Api.csproj > last_run_log.txt
+cd "$(dirname "$0")/.."
 
-cd ..
+LOG=$(realpath -m ./build/last_run_log.txt)
+RESULTS=$(realpath -m ./artifacts/test-results)
+STAMP=$(date +"%Y_%m_%d_%H_%M")
 
-dotnet publish -c Release -o ./artifacts/out >> ./build/last_run_log.txt
+mkdir -p "$RESULTS"
+: > "$LOG"
 
-cd ./tests
+dotnet build tests/Milvonion.UnitTests/Milvonion.UnitTests.csproj -nologo >> "$LOG"
+dotnet build tests/Milvonion.IntegrationTests/Milvonion.IntegrationTests.csproj -nologo >> "$LOG"
 
-dotnet test ../artifacts/out/Milvonion.UnitTests.dll --logger "html;logfilename=unitTestResults_$(date +"%Y_%m_%d_%I_%M_%p").html" >> ../build/last_run_log.txt
-dotnet test ../artifacts/out/Milvonion.IntegrationTests.dll --logger "html;logfilename=integrationTestResults_$(date +"%Y_%m_%d_%I_%M_%p").html" >> ../build/last_run_log.txt
+status=0
 
-$SHELL
+for project in Milvonion.UnitTests Milvonion.IntegrationTests; do
+    pushd "tests/$project/bin/Debug/net10.0" > /dev/null
+    dotnet exec "$project.dll" -noColor -result-html "$RESULTS/${project}_$STAMP.html" >> "$LOG" 2>&1 || status=1
+    popd > /dev/null
+done
+
+grep -E "Total:" "$LOG" || true
+exit $status

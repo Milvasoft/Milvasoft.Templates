@@ -9,10 +9,7 @@ public class ConstantsTests
     private static readonly string[] _expectedUIPaths =
     [
         "/xrouteprefixx/documentation",
-        "/xrouteprefixx/docs",
-        "/xrouteprefixx/hc",
-        "/xrouteprefixx/health-check",
-        "/xrouteprefixx/hc-ui"
+        "/xrouteprefixx/docs"
     ];
 
     private static readonly string[] _expectedContentDispositionIgnores = ["attachment", "inline"];
@@ -33,10 +30,6 @@ public class ConstantsTests
         GlobalConstant.RouteBase.Should().Be("xrouteprefixx/v{version:apiVersion}");
         GlobalConstant.FullRoute.Should().Be("xrouteprefixx/v{version:apiVersion}/[controller]");
         GlobalConstant.WWWRoot.Should().Be("wwwroot");
-        GlobalConstant.HealthCheckPath.Should().Be("hc");
-        GlobalConstant.HealthCheckUIPath.Should().Be("hc-ui");
-        GlobalConstant.HealthCheckWebHookPath.Should().Be("hc-ui");
-        GlobalConstant.HealthCheckResourcesPath.Should().Be("health-check");
         GlobalConstant.Http.Should().Be("http");
         GlobalConstant.Https.Should().Be("https");
         GlobalConstant.LocalizationResourcesFolderName.Should().Be("LocalizationResources");
@@ -48,33 +41,16 @@ public class ConstantsTests
         GlobalConstant.LoggingActivityName.Should().Be("LoggingActivity");
         GlobalConstant.CurrentEnvironment.Should().Be(currentEnvironment);
         GlobalConstant.UserTypeClaimName.Should().Be("ut");
-        GlobalConstant.IgnoreResponseLoggingItemsKey.Should().Be("IgnoreResponseLogging");
+        GlobalConstant.UserIdClaimName.Should().Be("uid");
+        GlobalConstant.SessionStampClaimName.Should().Be("sstamp");
         GlobalConstant.RootUsername.Should().Be("rootuser");
         GlobalConstant.GenerateMetadataHeaderKey.Should().Be("M-Metadata");
         GlobalConstant.ContentDispositionHeaderKey.Should().Be("Content-Disposition");
-        GlobalConstant.RealIpHeaderKey.Should().Be("X-Real-IP");
         GlobalConstant.DownloadEnpointPathEnd.Should().Be("/download");
         GlobalConstant.DefaultIp.Should().Be("0.0.0.1");
         GlobalConstant.UrlStartSegment.Should().Be("://");
         GlobalConstant.ContentDispositionIgnores.Should().Contain(_expectedContentDispositionIgnores);
         GlobalConstant.UIPaths.Should().Contain(_expectedUIPaths);
-    }
-
-    #endregion
-
-    #region LogTemplate
-
-    [Fact]
-    public void RequestResponse_Constant_ShouldHaveCorrectValue()
-    {
-        // Arrange
-        var expectedValue = "{TransactionId}{Severity}{Timestamp}{Path}{@RequestInfoJson}{@ResponseInfoJson}{ElapsedMs}{IpAddress}{UserName}{@Exception}";
-
-        // Act
-        var actualValue = LogTemplate.RequestResponse;
-
-        // Assert
-        actualValue.Should().Be(expectedValue);
     }
 
     #endregion
@@ -93,7 +69,7 @@ public class ConstantsTests
         MessageConstant.DefaultDataCannotModifyPgCode.Should().Be("P0001");
         MessageConstant.DefaultDataCannotModifyPgMessage.Should().Be("Seed records cannot be");
         MessageConstant.DuplicateDataViolationPgCode.Should().Be("23505");
-        MessageConstant.ForeignKeyViolationPgCode.Should().Be("20503");
+        MessageConstant.ForeignKeyViolationPgCode.Should().Be("23503");
         MessageConstant.ExceptionLogTemplate.Should().Be("Exception raised : {message}");
         MessageConstant.S3ConfigurationMissing.Should().Be("Current provider type is S3 but S3 configuration missing!");
         MessageConstant.ABSConfigurationMissing.Should().Be("Current provider type is ABS but ABS configuration missing!");

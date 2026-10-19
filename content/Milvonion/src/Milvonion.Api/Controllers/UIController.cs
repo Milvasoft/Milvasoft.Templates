@@ -23,27 +23,29 @@ namespace Milvonion.Api.Controllers;
 [ApiExplorerSettings(GroupName = "v1.0")]
 public class UIController(IMediator mediator, IUIService uiService) : ControllerBase
 {
+    private readonly IMediator _mediator = mediator;
+    private readonly IUIService _uiService = uiService;
 
     /// <summary>
     /// Gets accessible menu items.
     /// </summary>
     /// <returns></returns>
     [HttpGet("menuItems")]
-    public Task<Response<List<MenuItemDto>>> GetAccessibleMenuItemsAsync(CancellationToken cancellation) => uiService.GetAccessibleMenuItemsForCurrentUserAsync(cancellation);
+    public Task<Response<List<MenuItemDto>>> GetAccessibleMenuItemsAsync(CancellationToken cancellation) => _uiService.GetAccessibleMenuItemsForCurrentUserAsync(cancellation);
 
     /// <summary>
     /// Gets page information of current user.
     /// </summary>
     /// <returns></returns>
     [HttpGet("pages/page")]
-    public Task<Response<PageDto>> GetPageAccessibilityForCurrentUserAsync([FromQuery] GetPageAccessibilityForCurrentUserQuery reqeust, CancellationToken cancellation) => mediator.Send(reqeust, cancellation);
+    public Task<Response<PageDto>> GetPageAccessibilityForCurrentUserAsync([FromQuery] GetPageAccessibilityForCurrentUserQuery reqeust, CancellationToken cancellation) => _mediator.Send(reqeust, cancellation);
 
     /// <summary>
     /// Gets page information of current user.
     /// </summary>
     /// <returns></returns>
     [HttpGet("pages")]
-    public Task<Response<List<PageDto>>> GetPageAccessibilityForCurrentUserAsync(CancellationToken cancellation) => uiService.GetCurrentUserPagesAccessibilityAsync(cancellation);
+    public Task<Response<List<PageDto>>> GetPageAccessibilityForCurrentUserAsync(CancellationToken cancellation) => _uiService.GetCurrentUserPagesAccessibilityAsync(cancellation);
 
     /// <summary>
     /// Gets localized contents related with UI.
@@ -51,5 +53,5 @@ public class UIController(IMediator mediator, IUIService uiService) : Controller
     /// <returns></returns>
     [HttpGet("localizedContents")]
     [AllowAnonymous]
-    public Response<List<LocalizedContentDto>> GetLocalizedContents() => uiService.GetLocalizedContents();
+    public Response<List<LocalizedContentDto>> GetLocalizedContents() => _uiService.GetLocalizedContents();
 }

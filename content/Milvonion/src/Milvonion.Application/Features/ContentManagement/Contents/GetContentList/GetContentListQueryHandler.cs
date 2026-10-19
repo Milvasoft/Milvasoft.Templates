@@ -17,6 +17,9 @@ public class GetContentListQueryHandler(IMilvonionRepositoryBase<Content> resour
     /// <inheritdoc/>
     public async Task<ListResponse<ContentListDto>> Handle(GetContentListQuery request, CancellationToken cancellationToken)
     {
+        request.PageNumber ??= 1;
+        request.RowCount = request.RowCount.ClampRowCount(20);
+
         var response = await _resourceGroupRepository.GetAllAsync(request, projection: ContentListDto.Projection, cancellationToken: cancellationToken);
 
         return response;

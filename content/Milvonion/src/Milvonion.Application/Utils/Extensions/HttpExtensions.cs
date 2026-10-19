@@ -1,9 +1,6 @@
 ﻿using FluentValidation;
 using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Primitives;
 using Milvasoft.Core.Exceptions;
-using Milvasoft.Identity.Abstract;
 using System.Security.Claims;
 using System.Text.RegularExpressions;
 
@@ -81,16 +78,12 @@ public static partial class MilvonionExtensions
     /// <returns></returns>
     public static IEnumerable<Claim> GetCurrentUserClaims(this HttpContext httpContext)
     {
-        if (!httpContext.User.Identity.IsAuthenticated)
+        // The JWT bearer middleware already validated the token (signature, lifetime, issuer);
+        // re-parsing the header would only repeat that work.
+        if (httpContext.User?.Identity?.IsAuthenticated != true)
             return [];
 
-        var token = httpContext.GetTokenFromHeader();
-
-        var tokenManager = httpContext.RequestServices.GetService<IMilvaTokenManager>();
-
-        var claimsPrincipal = tokenManager.GetClaimsPrincipalIfValid(token);
-
-        return claimsPrincipal?.Claims ?? [];
+        return httpContext.User.Claims;
     }
 
     /// <summary>
@@ -101,16 +94,17 @@ public static partial class MilvonionExtensions
     /// <returns></returns>
     public static void ThrowIfCurrentUserNotAuthorized(this HttpContext httpContext, params List<string> permissions)
     {
-        var currentUserPermissonExists = httpContext.Items.TryGetValue(GlobalConstant.CurrentUserPermissionsKey, out var contextItem);
+        // Permissions travel as role claims in the validated token (the same source [Auth(permission)] uses);
+        // nothing ever populated a per-request Items entry, so reading one there denied everybody.
+        var currentUserPermissons = httpContext.GetCurrentUserPermissions().ToList();
 
-        if (!currentUserPermissonExists)
+        if (currentUserPermissons.Count == 0)
             httpContext.Response.ThrowWithForbidden();
 
-        var currentUserPermissons = (IEnumerable<string>)contextItem;
+        // Never mutate the caller's list (ExportRequest hands out its static permission lists).
+        var required = permissions.Append(PermissionCatalog.App.SuperAdmin).ToList();
 
-        permissions.Add(PermissionCatalog.App.SuperAdmin);
-
-        var hasPermission = currentUserPermissons.Any(permissions.Contains);
+        var hasPermission = currentUserPermissons.Any(required.Contains);
 
         if (!hasPermission)
             httpContext.Response.ThrowWithForbidden();
@@ -123,19 +117,12 @@ public static partial class MilvonionExtensions
     /// <returns></returns>
     public static string GetIpAddress(this HttpContext httpContext)
     {
-        var realIpExists = httpContext.Request.Headers.TryGetValue(GlobalConstant.RealIpHeaderKey, out StringValues realIpAddress);
+        // RemoteIpAddress is already the client address behind the proxy (UseForwardedHeaders, single hop);
+        // a caller-supplied X-Real-IP header is not trusted, so an attacker cannot forge the logged address.
+        var requestIp = httpContext.Connection.RemoteIpAddress?.MapToIPv4().ToString();
 
-        string requestIp;
-
-        if (realIpExists)
-            requestIp = realIpAddress.ToString();
-        else
-        {
-            requestIp = httpContext.Connection.RemoteIpAddress?.MapToIPv4().ToString();
-
-            if (requestIp == GlobalConstant.DefaultIp)
-                requestIp = httpContext.Connection.LocalIpAddress?.MapToIPv4().ToString();
-        }
+        if (requestIp == GlobalConstant.DefaultIp)
+            requestIp = httpContext.Connection.LocalIpAddress?.MapToIPv4().ToString();
 
         return requestIp;
     }

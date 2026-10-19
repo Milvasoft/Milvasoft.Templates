@@ -25,6 +25,7 @@ public class EnumTests
     [InlineData(UserActivity.UpdateContent, "Content updated")]
     [InlineData(UserActivity.DeleteContent, "Content deleted")]
     [InlineData(UserActivity.UpdateLanguages, "Languages updated")]
+    [InlineData(UserActivity.UpdateFeatureFlag, "Feature flag updated")]
     public void UserActivity_DescriptionAttribute_ShouldMatch(UserActivity activity, string expectedDescription)
     {
         // Arrange
@@ -41,22 +42,23 @@ public class EnumTests
     }
 
     [Theory]
-    [InlineData(UserActivity.CreateUser, 1)]
-    [InlineData(UserActivity.UpdateUser, 2)]
-    [InlineData(UserActivity.DeleteUser, 3)]
-    [InlineData(UserActivity.CreateRole, 4)]
-    [InlineData(UserActivity.UpdateRole, 5)]
-    [InlineData(UserActivity.DeleteRole, 6)]
-    [InlineData(UserActivity.CreateNamespace, 7)]
-    [InlineData(UserActivity.UpdateNamespace, 8)]
-    [InlineData(UserActivity.DeleteNamespace, 9)]
-    [InlineData(UserActivity.CreateResourceGroup, 10)]
-    [InlineData(UserActivity.UpdateResourceGroup, 11)]
-    [InlineData(UserActivity.DeleteResourceGroup, 12)]
-    [InlineData(UserActivity.CreateContent, 13)]
-    [InlineData(UserActivity.UpdateContent, 14)]
-    [InlineData(UserActivity.DeleteContent, 15)]
-    [InlineData(UserActivity.UpdateLanguages, 16)]
+    [InlineData(UserActivity.CreateUser, 0)]
+    [InlineData(UserActivity.UpdateUser, 1)]
+    [InlineData(UserActivity.DeleteUser, 2)]
+    [InlineData(UserActivity.CreateRole, 3)]
+    [InlineData(UserActivity.UpdateRole, 4)]
+    [InlineData(UserActivity.DeleteRole, 5)]
+    [InlineData(UserActivity.CreateNamespace, 6)]
+    [InlineData(UserActivity.UpdateNamespace, 7)]
+    [InlineData(UserActivity.DeleteNamespace, 8)]
+    [InlineData(UserActivity.CreateResourceGroup, 9)]
+    [InlineData(UserActivity.UpdateResourceGroup, 10)]
+    [InlineData(UserActivity.DeleteResourceGroup, 11)]
+    [InlineData(UserActivity.CreateContent, 12)]
+    [InlineData(UserActivity.UpdateContent, 13)]
+    [InlineData(UserActivity.DeleteContent, 14)]
+    [InlineData(UserActivity.UpdateLanguages, 15)]
+    [InlineData(UserActivity.UpdateFeatureFlag, 16)]
     public void UserActivity_Value_ShouldMatch(UserActivity activity, byte expectedValue)
     {
         // Act

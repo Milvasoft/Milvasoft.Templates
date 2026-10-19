@@ -37,7 +37,7 @@ public class AccountNotificationDto : MilvonionBaseDto<long>
     public DateTime? SeenDate { get; set; }
 
     /// <summary>
-    /// Text content of the notification. Can be null. 
+    /// Text content of the notification. Can be null.
     /// If it is null, Data property should be used in frontend(text generated with translations in frontend) for dynamic content.
     /// </summary>
     public string Text { get; set; }
@@ -77,6 +77,12 @@ public class AccountNotificationDto : MilvonionBaseDto<long>
     public string IsSeenDescription { get; set; }
 
     /// <summary>
+    /// Date when the user marked this notification as seen. Null if unseen.
+    /// </summary>
+    [ClientDefaultValue(MessageConstant.Hypen)]
+    public DateTime? CreationDate { get; set; }
+
+    /// <summary>
     /// Projection expression for mapping InternalNotification internalNotification to InternalNotificationListDto.
     /// </summary>
     [JsonIgnore]
@@ -91,6 +97,7 @@ public class AccountNotificationDto : MilvonionBaseDto<long>
         Data = r.Data,
         RelatedEntityType = r.RelatedEntityType,
         ActionLink = r.ActionLink,
-        Text = r.Text
+        Text = r.Text,
+        CreationDate = r.CreationDate,
     };
 }

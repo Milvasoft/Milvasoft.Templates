@@ -4,7 +4,7 @@ using Milvasoft.Core.Abstractions.Localization;
 namespace Milvonion.Application.Features.Account.Logout;
 
 /// <summary>
-/// Account detail query validations. 
+/// Validations of <see cref="LogoutCommand"/>.
 /// </summary>
 public sealed class LogoutCommandValidator : AbstractValidator<LogoutCommand>
 {
