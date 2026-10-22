@@ -161,7 +161,7 @@ The Visual Studio container profile builds `Dockerfile-dev`.
 - Update handlers answer 404 when the record does not exist (no affected row).
 - A periodic database cleanup is a `SqlCleanupJob` (`Infrastructure/Jobs`): the derived job only names its SQL file under `StaticFiles/SQL` (copied to the output by the Api project) and is registered in `AddInternalJobs`. The job logs and swallows its errors, so every cleanup job has an integration test that runs it against the real database and asserts which rows are deleted and which are kept (`CleanupJobsTests`).
 - All times are UTC.
-- The API trusts the last `X-Forwarded-For` / `X-Forwarded-Proto` hop (`UseForwardedHeaders`, `ForwardLimit = 1`). Deploy it behind a reverse proxy only; exposed directly, a client could set its own address.
+- The API trusts the last two `X-Forwarded-For` / `X-Forwarded-Proto` hops (`UseForwardedHeaders`, `ForwardLimit = 2`): Cloudflare in front of a reverse proxy (Traefik) that trusts only the Cloudflare ranges. With a single proxy in front, set `ForwardLimit = 1`. Deploy it behind a reverse proxy only; exposed directly, a client could set its own address.
 - New CRUD features can be generated with the `mediatr-crud` template (see its README); they follow the conventions above and pass the architecture tests.
 
 ### Architecture tests

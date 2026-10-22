@@ -114,12 +114,14 @@ try
     // Behind the reverse proxy: rewrite RemoteIpAddress/Scheme from X-Forwarded-For / X-Forwarded-Proto so
     // logs and IP based checks see the client, not the proxy. Runs before authentication.
     // The proxy is not on loopback (container/ingress), so the default KnownProxies/KnownIPNetworks would ignore
-    // the header entirely. ForwardLimit = 1 keeps only the RIGHTMOST X-Forwarded-For entry (the one the proxy
-    // itself appended), so a client cannot spoof its address by prepending values. Deploy behind a proxy only.
+    // the header entirely. Requests pass two proxies: Cloudflare (proxied DNS) and Traefik, which trusts only the
+    // Cloudflare ranges and appends Cloudflare's address. ForwardLimit = 2 keeps the two RIGHTMOST
+    // X-Forwarded-For entries, so the client address is the one Cloudflare wrote; values a client prepends are
+    // ignored. With a single proxy in front, set it back to 1. Deploy behind a proxy only.
     var forwardedHeadersOptions = new ForwardedHeadersOptions
     {
         ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto,
-        ForwardLimit = 1
+        ForwardLimit = 2
     };
 
     forwardedHeadersOptions.KnownIPNetworks.Clear();
