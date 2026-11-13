@@ -1,4 +1,6 @@
 ﻿using FluentAssertions;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Milvasoft.Components.Rest.MilvaResponse;
 using Milvasoft.Identity.Abstract;
@@ -279,6 +281,38 @@ public class AccountControllerTests(MilvonionApiFactory factory) : IntegrationTe
         loginResult.IsCachedData.Should().BeFalse();
         loginResult.Metadatas.Should().BeEmpty();
         loginResult.StatusCode.Should().Be((int)HttpStatusCode.OK);
+    }
+
+    [Fact]
+    public async Task LoginAsync_WithHashOfOlderHasherSettings_ShouldUpgradeStoredHash()
+    {
+        // Arrange: _stringPasswordHash is a v3 hash with 10000 iterations, below the current hasher default.
+        var userName = await AddUserAsync(_stringPasswordHash);
+
+        var request = new LoginCommand
+        {
+            UserName = userName,
+            Password = "string",
+            DeviceId = "device-id"
+        };
+
+        // Act
+        var (httpResponse, loginResult) = await _factory.CreateClientWithAddress().PostAsync<LoginResponseDto>("account/login", request);
+
+        // Assert
+        httpResponse.StatusCode.Should().Be(HttpStatusCode.OK);
+        loginResult.IsSuccess.Should().BeTrue();
+
+        var storedHash = await _factory.DbAsync(dbContext => dbContext.Users.Where(u => u.UserName == userName)
+                                                                           .Select(u => u.PasswordHash)
+                                                                           .FirstAsync(TestContext.Current.CancellationToken));
+
+        storedHash.Should().NotBe(_stringPasswordHash);
+
+        using var scope = _factory.CreateScope();
+        var hasher = scope.ServiceProvider.GetRequiredService<IMilvaPasswordHasher>();
+
+        hasher.VerifyHashedPasswordWithRehashCheck(storedHash, "string").Should().Be(PasswordVerificationResult.Success);
     }
 
     #endregion

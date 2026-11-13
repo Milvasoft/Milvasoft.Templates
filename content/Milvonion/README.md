@@ -71,11 +71,19 @@ The integration tests give the key (and the connection strings) through environm
 The template ships without migrations. Create the initial one in the generated project before the first run (the migrations assembly is the Api project):
 
 ```
-dotnet tool install --global dotnet-ef
+dotnet tool install --global dotnet-ef --version 11.0.0-rc.3.*
 dotnet ef migrations add InitialCreate --project src/Milvonion.Api
 ```
 
+The dotnet-ef version follows the Entity Framework Core packages of the template (11.0.0-rc.3, pinned by Npgsql.EntityFrameworkCore.PostgreSQL). `InitialCreate` includes the `Users.SecurityStamp` column of the Milvasoft 11 `MilvaUser` (user tokens and 6 digit codes are bound to it; `IMilvaUserManager` rotates it when the password, email or phone number changes).
+
 `MigrationHostedService` applies pending migrations on every startup (before the background jobs start), creates the missing feature flag rows, then loads the language and permission lists. Add a migration for every model change (`dotnet ef migrations add <Name> --project src/Milvonion.Api`).
+
+A project generated from an earlier template version (Milvasoft 10) needs, after the package update:
+
+- `dotnet ef migrations add AddUserSecurityStamp --project src/Milvonion.Api` (adds the nullable column; do not backfill it, a null stamp keeps the tokens issued before the update valid);
+- if `Users.NormalizedUserName` / `NormalizedEmail` (or other `MilvaNormalize` columns) contain `ı` or `İ`: a migration that folds them to `I` the way `MilvaNormalize` does now, skipping rows whose new value would collide with an existing row (unique indexes);
+- no `Milvasoft:Identity:Password:Hasher:IterationCount` in the appsettings: the library default (PBKDF2-SHA512, 210000 iterations) applies, and the login upgrades older hashes (`CheckPassword(user, password, out rehashNeeded)` + `RehashPassword`).
 
 ### 4. Run
 

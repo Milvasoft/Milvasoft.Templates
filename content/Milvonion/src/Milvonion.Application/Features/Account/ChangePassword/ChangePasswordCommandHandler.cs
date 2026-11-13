@@ -47,11 +47,12 @@ public record ChangePasswordCommandHandler(IMilvonionRepositoryBase<User> UserRe
             return Response<MilvaToken>.Error(null, MessageKey.WrongPassword);
 
         // The password policy is checked by ChangePasswordCommandValidator (IdentityPassword).
+        // SetPasswordHash also rotates the persisted SecurityStamp, which revokes the user tokens and 6 digit codes issued before.
         _milvaUserManager.SetPasswordHash(user, request.NewPassword);
 
         await _tx.RunAsync(async () =>
         {
-            await _userRepository.UpdateAsync(user, cancellationToken, u => u.PasswordHash);
+            await _userRepository.UpdateAsync(user, cancellationToken, u => u.PasswordHash, u => u.SecurityStamp);
 
             await _userSessionRepository.RevokeAllSessionsAsync(_userSessionHistoriesRepository, user, cancellationToken);
         });

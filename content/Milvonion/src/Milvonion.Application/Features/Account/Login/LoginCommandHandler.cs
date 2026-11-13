@@ -87,7 +87,7 @@ public record LoginCommandHandler(IMilvonionRepositoryBase<User> UserRepository,
 
     private async Task<Response<LoginResponseDto>> CheckPasswordAsync(User user, string password, CancellationToken cancellationToken = default)
     {
-        var isPasswordTrue = _milvaUserManager.CheckPassword(user, password);
+        var isPasswordTrue = _milvaUserManager.CheckPassword(user, password, out var rehashNeeded);
 
         Response<LoginResponseDto> response = null;
 
@@ -115,10 +115,14 @@ public record LoginCommandHandler(IMilvonionRepositoryBase<User> UserRepository,
         {
             user.AccessFailedCount = 0;
             user.LockoutEnd = null;
+
+            // The hash was made with older hasher settings (e.g. fewer iterations); the plain password is known now, so upgrade it.
+            if (rehashNeeded)
+                _milvaUserManager.RehashPassword(user, password);
         }
 
         if (user.UserName != GlobalConstant.RootUsername)
-            await _userRepository.UpdateAsync(user, cancellationToken, i => i.AccessFailedCount, i => i.LockoutEnd);
+            await _userRepository.UpdateAsync(user, cancellationToken, i => i.AccessFailedCount, i => i.LockoutEnd, i => i.PasswordHash);
 
         return response;
     }

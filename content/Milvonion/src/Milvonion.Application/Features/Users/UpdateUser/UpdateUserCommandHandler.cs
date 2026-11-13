@@ -3,6 +3,7 @@ using Milvasoft.Components.Rest.MilvaResponse;
 using Milvasoft.Core.Abstractions;
 using Milvasoft.Identity.Abstract;
 using Milvasoft.Identity.Concrete.Options;
+using Milvasoft.Identity.TokenProvider;
 
 namespace Milvonion.Application.Features.Users.UpdateUser;
 
@@ -56,7 +57,10 @@ public record UpdateUserCommandHandler(IMilvonionRepositoryBase<User> UserReposi
         {
             var hashedPassword = _milvaPasswordHasher.Value.HashPassword(request.NewPassword.Value);
 
-            setPropertyBuilder.SetPropertyValue(u => u.PasswordHash, hashedPassword);
+            // A new persisted SecurityStamp revokes the user tokens and 6 digit codes issued for the old password
+            // (what IMilvaUserManager.SetPasswordHash does for a tracked user).
+            setPropertyBuilder.SetPropertyValue(u => u.PasswordHash, hashedPassword)
+                              .SetPropertyValue(u => u.SecurityStamp, UserSecurityStamp.NewStamp());
         }
 
         // Security-relevant admin changes (lock, password reset, role change) revoke the user's sessions and rotate the
