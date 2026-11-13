@@ -147,25 +147,6 @@
             </remarks>
             <param name="serviceProvider"></param>
         </member>
-        <member name="T:Milvonion.Infrastructure.Logging.RemoveTypeTagEnricher">
-            <summary>
-            Removes _typeTag from Serilog's output.
-            </summary>
-        </member>
-        <member name="M:Milvonion.Infrastructure.Logging.RemoveTypeTagEnricher.Enrich(Serilog.Events.LogEvent,Serilog.Core.ILogEventPropertyFactory)">
-            <summary>
-            Removes _typeTag from Serilog's output.
-            </summary>
-            <param name="logEvent"></param>
-            <param name="propertyFactory"></param>
-        </member>
-        <member name="M:Milvonion.Infrastructure.Logging.RemoveTypeTagEnricher.RemoveTypeTags(Serilog.Events.LogEventPropertyValue)">
-            <summary>
-            Removes _typeTag from Serilog's output.
-            </summary>
-            <param name="value"></param>
-            <returns></returns>
-        </member>
         <member name="T:Milvonion.Infrastructure.Logging.MilvonionDbLogger">
             <summary>
             Example <see cref="T:Milvasoft.Core.Abstractions.IMilvaLogger"/> implementation.
@@ -262,6 +243,25 @@
             sends an entry without the method name, arguments and result; such an entry carries nothing worth a log line.
             </summary>
             <param name="logEntry"></param>
+        </member>
+        <member name="T:Milvonion.Infrastructure.Logging.RemoveTypeTagEnricher">
+            <summary>
+            Removes _typeTag from Serilog's output.
+            </summary>
+        </member>
+        <member name="M:Milvonion.Infrastructure.Logging.RemoveTypeTagEnricher.Enrich(Serilog.Events.LogEvent,Serilog.Core.ILogEventPropertyFactory)">
+            <summary>
+            Removes _typeTag from Serilog's output.
+            </summary>
+            <param name="logEvent"></param>
+            <param name="propertyFactory"></param>
+        </member>
+        <member name="M:Milvonion.Infrastructure.Logging.RemoveTypeTagEnricher.RemoveTypeTags(Serilog.Events.LogEventPropertyValue)">
+            <summary>
+            Removes _typeTag from Serilog's output.
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
         </member>
         <member name="T:Milvonion.Infrastructure.Persistence.Context.MilvonionDbContext">
             <summary>
@@ -672,7 +672,7 @@
         <member name="M:Milvonion.Infrastructure.Services.ExportService.DisplayFormatRegex">
             <remarks>
             Pattern:<br/>
-            <code>\\{(.*?)\\}</code><br/>
+            <code>\{(.*?)\}</code><br/>
             Explanation:<br/>
             <code>
             ○ Match '{'.<br/>
@@ -1098,12 +1098,6 @@
             <summary>
             Generates a documentation comment ID for a property.
             Example: P:Namespace.ContainingType.PropertyName or for an indexer P:Namespace.ContainingType.Item(System.Int32)
-            </summary>
-        </member>
-        <member name="M:Microsoft.AspNetCore.OpenApi.Generated.DocumentationCommentIdHelper.CreateDocumentationId(System.Type,System.String)">
-            <summary>
-            Generates a documentation comment ID for a property given its container type and property name.
-            Example: P:Namespace.ContainingType.PropertyName
             </summary>
         </member>
         <member name="M:Microsoft.AspNetCore.OpenApi.Generated.DocumentationCommentIdHelper.CreateDocumentationId(System.Reflection.MethodInfo)">

@@ -1045,6 +1045,14 @@
             Projection expression for mapping FeatureFlag entity to FeatureFlagListDto.
             </summary>
         </member>
+        <member name="T:Milvonion.Application.Dtos.MilvonionBaseDto`1">
+            <summary>
+            App pool base dto for attribute usage.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Dtos.MilvonionBaseDto`1.Id">
+            <inheritdoc/>
+        </member>
         <member name="T:Milvonion.Application.Dtos.NameIntNavigationDto">
             <summary>
             It can be used to obtain Id-Name pair information for any domain.
@@ -1541,14 +1549,6 @@
             <summary>
             Projection expression for mapping Role entity to RoleListDto.
             </summary>
-        </member>
-        <member name="T:Milvonion.Application.Dtos.MilvonionBaseDto`1">
-            <summary>
-            App pool base dto for attribute usage.
-            </summary>
-        </member>
-        <member name="P:Milvonion.Application.Dtos.MilvonionBaseDto`1.Id">
-            <inheritdoc/>
         </member>
         <member name="T:Milvonion.Application.Dtos.TranslationDtos.NameDescriptionTranslationDto">
             <summary>
@@ -2363,6 +2363,67 @@
         <member name="M:Milvonion.Application.Features.ContentManagement.Contents.DeleteContents.DeleteContentsCommandValidator.#ctor(Milvasoft.Core.Abstractions.Localization.IMilvaLocalizer)">
             <inheritdoc cref="T:Milvonion.Application.Features.ContentManagement.Contents.DeleteContents.DeleteContentsCommandValidator"/>
         </member>
+        <member name="T:Milvonion.Application.Features.ContentManagement.Contents.GetContentDetail.GetContentDetailQuery">
+            <summary>
+            Data transfer object for content details.
+            </summary>
+        </member>
+        <member name="P:Milvonion.Application.Features.ContentManagement.Contents.GetContentDetail.GetContentDetailQuery.ContentId">
+            <summary>
+            Resource group id to access details.
+            </summary>
+        </member>
+        <member name="T:Milvonion.Application.Features.ContentManagement.Contents.GetContentDetail.GetContentDetailQueryHandler">
+            <summary>
+            Handles the content detail operation.
+            </summary>
+            <param name="resourceGroupRepository"></param>
+        </member>
+        <member name="M:Milvonion.Application.Features.ContentManagement.Contents.GetContentDetail.GetContentDetailQueryHandler.#ctor(Milvonion.Application.Interfaces.IMilvonionRepositoryBase{Milvonion.Domain.ContentManagement.Content})">
+            <summary>
+            Handles the content detail operation.
+            </summary>
+            <param name="resourceGroupRepository"></param>
+        </member>
+        <member name="M:Milvonion.Application.Features.ContentManagement.Contents.GetContentDetail.GetContentDetailQueryHandler.Handle(Milvonion.Application.Features.ContentManagement.Contents.GetContentDetail.GetContentDetailQuery,System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Milvonion.Application.Features.ContentManagement.Contents.GetContentDetail.GetContentDetailQueryValidator">
+            <summary>
+            Validations of <see cref="T:Milvonion.Application.Features.ContentManagement.Contents.GetContentDetail.GetContentDetailQuery"/>.
+            </summary>
+        </member>
+        <member name="M:Milvonion.Application.Features.ContentManagement.Contents.GetContentDetail.GetContentDetailQueryValidator.#ctor(Milvasoft.Core.Abstractions.Localization.IMilvaLocalizer)">
+            <inheritdoc cref="T:Milvonion.Application.Features.ContentManagement.Contents.GetContentDetail.GetContentDetailQueryValidator"/>
+        </member>
+        <member name="T:Milvonion.Application.Features.ContentManagement.Contents.GetContentList.GetContentListQuery">
+            <summary>
+            Data transfer object for content list.
+            </summary>
+        </member>
+        <member name="T:Milvonion.Application.Features.ContentManagement.Contents.GetContentList.GetContentListQueryHandler">
+            <summary>
+            Handles the content list operation.
+            </summary>
+            <param name="resourceGroupRepository"></param>
+        </member>
+        <member name="M:Milvonion.Application.Features.ContentManagement.Contents.GetContentList.GetContentListQueryHandler.#ctor(Milvonion.Application.Interfaces.IMilvonionRepositoryBase{Milvonion.Domain.ContentManagement.Content})">
+            <summary>
+            Handles the content list operation.
+            </summary>
+            <param name="resourceGroupRepository"></param>
+        </member>
+        <member name="M:Milvonion.Application.Features.ContentManagement.Contents.GetContentList.GetContentListQueryHandler.Handle(Milvonion.Application.Features.ContentManagement.Contents.GetContentList.GetContentListQuery,System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Milvonion.Application.Features.ContentManagement.Contents.GetContentList.GetContentListQueryValidator">
+            <summary>
+            Validations of <see cref="T:Milvonion.Application.Features.ContentManagement.Contents.GetContentList.GetContentListQuery"/>.
+            </summary>
+        </member>
+        <member name="M:Milvonion.Application.Features.ContentManagement.Contents.GetContentList.GetContentListQueryValidator.#ctor">
+            <inheritdoc cref="T:Milvonion.Application.Features.ContentManagement.Contents.GetContentList.GetContentListQueryValidator"/>
+        </member>
         <member name="T:Milvonion.Application.Features.ContentManagement.Contents.GetContent.GetContentQuery">
             <summary>
             Data transfer object for content.
@@ -2427,67 +2488,6 @@
         </member>
         <member name="M:Milvonion.Application.Features.ContentManagement.Contents.GetContent.GetContentQueryValidator.#ctor(Milvasoft.Core.Abstractions.Localization.IMilvaLocalizer)">
             <inheritdoc cref="T:Milvonion.Application.Features.ContentManagement.Contents.GetContent.GetContentQueryValidator"/>
-        </member>
-        <member name="T:Milvonion.Application.Features.ContentManagement.Contents.GetContentDetail.GetContentDetailQuery">
-            <summary>
-            Data transfer object for content details.
-            </summary>
-        </member>
-        <member name="P:Milvonion.Application.Features.ContentManagement.Contents.GetContentDetail.GetContentDetailQuery.ContentId">
-            <summary>
-            Resource group id to access details.
-            </summary>
-        </member>
-        <member name="T:Milvonion.Application.Features.ContentManagement.Contents.GetContentDetail.GetContentDetailQueryHandler">
-            <summary>
-            Handles the content detail operation.
-            </summary>
-            <param name="resourceGroupRepository"></param>
-        </member>
-        <member name="M:Milvonion.Application.Features.ContentManagement.Contents.GetContentDetail.GetContentDetailQueryHandler.#ctor(Milvonion.Application.Interfaces.IMilvonionRepositoryBase{Milvonion.Domain.ContentManagement.Content})">
-            <summary>
-            Handles the content detail operation.
-            </summary>
-            <param name="resourceGroupRepository"></param>
-        </member>
-        <member name="M:Milvonion.Application.Features.ContentManagement.Contents.GetContentDetail.GetContentDetailQueryHandler.Handle(Milvonion.Application.Features.ContentManagement.Contents.GetContentDetail.GetContentDetailQuery,System.Threading.CancellationToken)">
-            <inheritdoc/>
-        </member>
-        <member name="T:Milvonion.Application.Features.ContentManagement.Contents.GetContentDetail.GetContentDetailQueryValidator">
-            <summary>
-            Validations of <see cref="T:Milvonion.Application.Features.ContentManagement.Contents.GetContentDetail.GetContentDetailQuery"/>.
-            </summary>
-        </member>
-        <member name="M:Milvonion.Application.Features.ContentManagement.Contents.GetContentDetail.GetContentDetailQueryValidator.#ctor(Milvasoft.Core.Abstractions.Localization.IMilvaLocalizer)">
-            <inheritdoc cref="T:Milvonion.Application.Features.ContentManagement.Contents.GetContentDetail.GetContentDetailQueryValidator"/>
-        </member>
-        <member name="T:Milvonion.Application.Features.ContentManagement.Contents.GetContentList.GetContentListQuery">
-            <summary>
-            Data transfer object for content list.
-            </summary>
-        </member>
-        <member name="T:Milvonion.Application.Features.ContentManagement.Contents.GetContentList.GetContentListQueryHandler">
-            <summary>
-            Handles the content list operation.
-            </summary>
-            <param name="resourceGroupRepository"></param>
-        </member>
-        <member name="M:Milvonion.Application.Features.ContentManagement.Contents.GetContentList.GetContentListQueryHandler.#ctor(Milvonion.Application.Interfaces.IMilvonionRepositoryBase{Milvonion.Domain.ContentManagement.Content})">
-            <summary>
-            Handles the content list operation.
-            </summary>
-            <param name="resourceGroupRepository"></param>
-        </member>
-        <member name="M:Milvonion.Application.Features.ContentManagement.Contents.GetContentList.GetContentListQueryHandler.Handle(Milvonion.Application.Features.ContentManagement.Contents.GetContentList.GetContentListQuery,System.Threading.CancellationToken)">
-            <inheritdoc/>
-        </member>
-        <member name="T:Milvonion.Application.Features.ContentManagement.Contents.GetContentList.GetContentListQueryValidator">
-            <summary>
-            Validations of <see cref="T:Milvonion.Application.Features.ContentManagement.Contents.GetContentList.GetContentListQuery"/>.
-            </summary>
-        </member>
-        <member name="M:Milvonion.Application.Features.ContentManagement.Contents.GetContentList.GetContentListQueryValidator.#ctor">
-            <inheritdoc cref="T:Milvonion.Application.Features.ContentManagement.Contents.GetContentList.GetContentListQueryValidator"/>
         </member>
         <member name="T:Milvonion.Application.Features.ContentManagement.Contents.GetGroupedContentList.GetGroupedContentListQuery">
             <summary>
@@ -4015,6 +4015,23 @@
             <param name="enumName"></param>
             <returns></returns>
         </member>
+        <member name="T:Milvonion.Application.Interfaces.IMilvonionDbContextAccessor">
+            <summary>
+            Interface for MilvonionDbContextAccessor.
+            </summary>
+        </member>
+        <member name="M:Milvonion.Application.Interfaces.IMilvonionDbContextAccessor.GetDbContext">
+            <summary>
+            Get db context.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Milvonion.Application.Interfaces.IMilvonionRepositoryBase`1">
+            <summary>
+            Base repository for Milvonion.
+            </summary>
+            <typeparam name="TEntity"></typeparam>
+        </member>
         <member name="T:Milvonion.Application.Interfaces.INotificationService">
             <summary>
             Manages in-app notifications.
@@ -4073,23 +4090,6 @@
             Migrate permissions to the database.
             </summary>
             <returns></returns>
-        </member>
-        <member name="T:Milvonion.Application.Interfaces.IMilvonionDbContextAccessor">
-            <summary>
-            Interface for MilvonionDbContextAccessor.
-            </summary>
-        </member>
-        <member name="M:Milvonion.Application.Interfaces.IMilvonionDbContextAccessor.GetDbContext">
-            <summary>
-            Get db context.
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="T:Milvonion.Application.Interfaces.IMilvonionRepositoryBase`1">
-            <summary>
-            Base repository for Milvonion.
-            </summary>
-            <typeparam name="TEntity"></typeparam>
         </member>
         <member name="T:Milvonion.Application.Interfaces.ISecurityStampStore">
             <summary>
@@ -4711,7 +4711,7 @@
         <member name="M:Milvonion.Application.Utils.Extensions.MilvonionExtensions.DataUriRegex">
             <remarks>
             Pattern:<br/>
-            <code>^data:(?&lt;mediatype&gt;[\\w/+.-]+);base64,(?&lt;data&gt;[a-zA-Z0-9+/]+={0,2})$</code><br/>
+            <code>^data:(?&lt;mediatype&gt;[\w/+.-]+);base64,(?&lt;data&gt;[a-zA-Z0-9+/]+={0,2})$</code><br/>
             Explanation:<br/>
             <code>
             ○ Match if at the beginning of the string.<br/>
@@ -4729,7 +4729,7 @@
         <member name="M:Milvonion.Application.Utils.Extensions.MilvonionExtensions.ReplaceAndToLowerRegex">
             <remarks>
             Pattern:<br/>
-            <code>\\s+</code><br/>
+            <code>\s+</code><br/>
             Explanation:<br/>
             <code>
             ○ Match a whitespace character atomically at least once.<br/>
@@ -4739,7 +4739,7 @@
         <member name="M:Milvonion.Application.Utils.Extensions.MilvonionExtensions.UrlRegex">
             <remarks>
             Pattern:<br/>
-            <code>^(ht|f)tp(s?)\\:\\/\\/[0-9a-zA-Z]([-.\\w]*[0-9a-zA-Z])*(:(0-9)*)*(\\/?)([a-zA-Z0-9\\-\\.\\?\\,\\'\\/\\\\\\+&amp;%\\$#_]*)?$</code><br/>
+            <code>^(ht|f)tp(s?)\:\/\/[0-9a-zA-Z]([-.\w]*[0-9a-zA-Z])*(:(0-9)*)*(\/?)([a-zA-Z0-9\-\.\?\,\'\/\\\+&amp;%\$#_]*)?$</code><br/>
             Explanation:<br/>
             <code>
             ○ Match if at the beginning of the string.<br/>

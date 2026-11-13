@@ -21,7 +21,7 @@ dotnet build tests\Milvonion.IntegrationTests\Milvonion.IntegrationTests.csproj 
 set STATUS=0
 
 for %%p in (Milvonion.UnitTests Milvonion.IntegrationTests) do (
-    pushd tests\%%p\bin\Debug\net10.0
+    pushd tests\%%p\bin\Debug\net11.0
     dotnet exec %%p.dll -noColor -result-html "%RESULTS%\%%p_%STAMP%.html" >> "%LOG%" 2>&1 || set STATUS=1
     popd
 )

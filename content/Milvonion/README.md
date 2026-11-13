@@ -15,7 +15,7 @@ This document is a guide to what you need to know about the project.
 
 | Requirement | Needed for | Notes |
 |---|---|---|
-| .NET 10 SDK | build, run, tests | `global.json` selects Microsoft.Testing.Platform for `dotnet test`. |
+| .NET 11 SDK | build, run, tests | `global.json` selects Microsoft.Testing.Platform for `dotnet test`. |
 | Visual Studio 2022 17.13+ / Rider | IDE | The solution is a `.slnx` file. |
 | PostgreSql (17 recommended) | the application database | Any reachable server; `docker-compose.yml` runs one locally. |
 | Redis (7) | required at runtime | Shared state of every instance; `docker-compose.yml` runs one locally. |

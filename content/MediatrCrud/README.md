@@ -6,7 +6,7 @@ This is a `dotnet new` template that generates MediatR-based CRUD commands and q
 
 ## 🚀 Tech Stack
 
-- .NET 10
+- .NET 11
 - MediatR
 - FluentValidation
 - Milvonion (Clean Architecture) solution layout

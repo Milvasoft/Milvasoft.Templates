@@ -21,7 +21,7 @@ dotnet build tests/Milvonion.IntegrationTests/Milvonion.IntegrationTests.csproj 
 status=0
 
 for project in Milvonion.UnitTests Milvonion.IntegrationTests; do
-    pushd "tests/$project/bin/Debug/net10.0" > /dev/null
+    pushd "tests/$project/bin/Debug/net11.0" > /dev/null
     dotnet exec "$project.dll" -noColor -result-html "$RESULTS/${project}_$STAMP.html" >> "$LOG" 2>&1 || status=1
     popd > /dev/null
 done

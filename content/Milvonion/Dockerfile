@@ -3,7 +3,7 @@
 # Milvasoft__Caching__Redis__ConnectionString, Milvasoft__Identity__Token__SymmetricPublicKey, SeqUri,
 # OpenTelemetry__CollectorUrl (see README). The signing key and the connection string are not in the appsettings files:
 # without Milvasoft__Identity__Token__SymmetricPublicKey the application stops at startup (README "Secrets").
-FROM mcr.microsoft.com/dotnet/sdk:10.0-noble AS build
+FROM mcr.microsoft.com/dotnet/sdk:11.0-resolute AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
 COPY . .
@@ -11,7 +11,7 @@ RUN dotnet restore "src/Milvonion.Api/Milvonion.Api.csproj"
 RUN dotnet publish "src/Milvonion.Api/Milvonion.Api.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false --no-restore
 
 # chiseled-extra: no shell (small attack surface), with ICU and tzdata (localization and time zones).
-FROM mcr.microsoft.com/dotnet/aspnet:10.0-noble-chiseled-extra AS final
+FROM mcr.microsoft.com/dotnet/aspnet:11.0-resolute-chiseled-extra AS final
 USER app
 WORKDIR /app
 EXPOSE 8080
