@@ -6,19 +6,30 @@ on:
   pull_request:
     branches: [ master ]
 
+permissions:
+  contents: read
+  id-token: write  # GitHub OIDC token for NuGet trusted publishing
+
 jobs:
   build:
 
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
       - name: Setup .NET
-        uses: actions/setup-dotnet@v1
+        uses: actions/setup-dotnet@v4
         with:
           dotnet-version: 11.0.x
       - name: Restore Milvasoft.Templates project dependencies
         run: dotnet restore Milvasoft.Templates.csproj
       - name: Build Milvasoft.Templates project
         run: dotnet build Milvasoft.Templates.csproj --no-restore --configuration Release
+      - name: NuGet login (OIDC to temporary API key)
+        if: github.event_name != 'pull_request'
+        uses: NuGet/login@v1
+        id: nuget-login
+        with:
+          user: bugrakosen
       - name: Publish package to NuGet
-        run: dotnet nuget push *.nupkg --api-key ${{secrets.NUGET_API_KEY}} --source "https://api.nuget.org/v3/index.json" --skip-duplicate
+        if: github.event_name != 'pull_request'
+        run: dotnet nuget push *.nupkg --api-key ${{ steps.nuget-login.outputs.NUGET_API_KEY }} --source "https://api.nuget.org/v3/index.json" --skip-duplicate
