@@ -26,13 +26,13 @@
 		<PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="12.1.1" />
 		<PackageReference Include="Mapster" Version="10.0.12" />
 		<PackageReference Include="MediatR" Version="[12.5.0]" />
-		<PackageReference Include="Milvasoft.Caching.Redis" Version="11.0.1" />
-		<PackageReference Include="Milvasoft.Components.CQRS" Version="11.0.1" />
-		<PackageReference Include="Milvasoft.Interception.Ef" Version="11.0.1" />
-		<PackageReference Include="Milvasoft.Localization.Resx" Version="11.0.1" />
-		<PackageReference Include="Milvasoft.Components.Rest" Version="11.0.1" />
-		<PackageReference Include="Milvasoft.Interception" Version="11.0.1" />
-		<PackageReference Include="Npgsql" Version="10.0.3" />
+		<PackageReference Include="Milvasoft.Caching.Redis" Version="11.0.2" />
+		<PackageReference Include="Milvasoft.Components.CQRS" Version="11.0.2" />
+		<PackageReference Include="Milvasoft.Interception.Ef" Version="11.0.2" />
+		<PackageReference Include="Milvasoft.Localization.Resx" Version="11.0.2" />
+		<PackageReference Include="Milvasoft.Components.Rest" Version="11.0.2" />
+		<PackageReference Include="Milvasoft.Interception" Version="11.0.2" />
+		<PackageReference Include="Npgsql" Version="11.0.0" />
 	</ItemGroup>
 
 
